@@ -111,6 +111,8 @@ public class Pool_Manager : MonoBehaviour
         Unit_Go.SetActive(true);
 
         Unit_Go.GetComponent<Unit_Enemy>().Elite_Outline_Set(p_UT);
+        
+        Unit_Go.layer = 6;
 
         All_Manager.instance.GameMode_M.Enemy_List.Add(Unit_Go.GetComponent<Unit_Enemy>());
     }
@@ -135,6 +137,8 @@ public class Pool_Manager : MonoBehaviour
         MISC_Go.transform.position = p_UE.transform.position;
 
         MISC_Go.SetActive(true);
+
+        MISC_Go.layer = 6;
 
         All_Manager.instance.GameMode_M.MISC_List.Add(MISC_Go.GetComponent<MISC>());
     }
