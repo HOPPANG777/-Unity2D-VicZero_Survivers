@@ -33,7 +33,7 @@ public class Treasure_Gem_Jackpot : MonoBehaviour
 
     public void Update()
     {
-        if (All_Manager.instance.UI_M.Treasure_Open_Chset == true)
+        if (All_Manager.instance.UI_M.Treasure_Box.Treasure_Open_Chset == true)
         {
             Treasure_Gem_Activate();
         }

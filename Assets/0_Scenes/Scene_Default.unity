@@ -13450,7 +13450,7 @@ PrefabInstance:
     - target: {fileID: 5513522904881252184, guid: a0cbd2013a96de142a005d31bd723d2d,
         type: 3}
       propertyPath: TEST_WP
-      value: 9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5587517637572435018, guid: a0cbd2013a96de142a005d31bd723d2d,
         type: 3}

@@ -153,7 +153,7 @@ public abstract class Weapon : MonoBehaviour
     {
         Vector3 BC_Center = BC.transform.TransformPoint(BC.offset);
         Vector3 BC_Half_Extents = Vector3.Scale(BC.size, BC.transform.lossyScale) * 0.5f;
-        Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(BC_Center, BC.size * 0.5f, 0);
+        Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(BC_Center, BC.size * 0.9f, 0);
         //Debug.Log(collider2Ds);
 
         float Dis = 10000;

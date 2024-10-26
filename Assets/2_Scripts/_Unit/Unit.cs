@@ -81,6 +81,12 @@ public abstract class Unit : MonoBehaviour
 
     public float Dead_Effect = 0.0f;
 
+    private Vector3 knockbackDirection;     // 넉백의 방향과 크기
+    private float knockbackTime;            // 넉백 지속 시간
+    private float knockbackElapsed = 0f;    // 넉백 경과 시간
+    private bool isKnockback = false;       // 넉백 상태 여부
+
+
     public virtual void Start()
     {
         SR = this.AddComponent<SpriteRenderer>();
@@ -138,6 +144,21 @@ public abstract class Unit : MonoBehaviour
             Hit_Time += Time.deltaTime;
         }
 
+        //// 넉백 중일 때 처리
+        //if (isKnockback)
+        //{
+        //    if (knockbackElapsed < knockbackTime)
+        //    {
+        //        // 넉백 방향으로 이동
+        //        transform.position += knockbackDirection * Time.deltaTime;
+        //        knockbackElapsed += Time.deltaTime;
+        //    }
+        //    else
+        //    {
+        //        // 넉백 종료
+        //        isKnockback = false;
+        //    }
+        //}
 
     }
 
@@ -193,7 +214,7 @@ public abstract class Unit : MonoBehaviour
 
     protected virtual IEnumerator C_Death_Animation_End()
     {
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(1.5f);
 
         Return_Pool();
     }
@@ -218,6 +239,18 @@ public abstract class Unit : MonoBehaviour
             Knock_Timer = Knock_Duration;
         }
     }
+
+
+    //// 넉백 시작 메서드
+    //public void Knock_Back(Vector3 direction, float force, float duration)
+    //{
+    //    knockbackDirection = direction.normalized * force; // 방향 정규화 후 힘 적용
+    //    knockbackTime = duration;  // 넉백 지속 시간 설정
+    //    knockbackElapsed = 0f;     // 경과 시간 초기화
+    //    isKnockback = true;        // 넉백 상태로 설정
+    //}
+
+
 
     public abstract void Unit_Stat_Setting(Unit p_Unit, STO_Unit Un_STO);
 
