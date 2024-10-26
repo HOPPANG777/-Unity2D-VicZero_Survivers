@@ -1,0 +1,382 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Example_Script" Collapsed="true">
+    <Position X="27.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\2_Scripts\Example_Script.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Help_Script" Collapsed="true">
+    <Position X="31.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IARAIAgAACAAAAAAAAAQAAABAQCAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>Assets\2_Scripts\Help_Script.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Weapon" Collapsed="true">
+    <Position X="11.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAIAAKBEACAKAFAkAgEcoRAAQgEAAAAgBFAAHQI=</HashCode>
+      <FileName>Assets\2_Scripts\Item\Weapon\Weapon.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Weapon_Axe" Collapsed="true">
+    <Position X="8.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgQAAAAAACBAAAAhAAAAAAEAAAAIQAQAAAAgAAAAAAE=</HashCode>
+      <FileName>Assets\2_Scripts\Item\Weapon\Weapon_Axe.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Weapon_Cross" Collapsed="true">
+    <Position X="12.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACBAQgAEABAAAAAAAAQIAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\2_Scripts\Item\Weapon\Weapon_Cross.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Weapon_FireWand" Collapsed="true">
+    <Position X="17.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACBAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\2_Scripts\Item\Weapon\Weapon_FireWand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Weapon_Garlic" Collapsed="true">
+    <Position X="19.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACBAIAAQAAAAAAAAAAAAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>Assets\2_Scripts\Item\Weapon\Weapon_Garlic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Weapon_KingBible" Collapsed="true">
+    <Position X="21.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAIACBAAAAAAAAAAAAgAAAAAAABKAAAAAAAAAA=</HashCode>
+      <FileName>Assets\2_Scripts\Item\Weapon\Weapon_KingBible.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Weapon_LightningRing" Collapsed="true">
+    <Position X="1.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAgAChAAAAAAAAAAAEAAAAAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>Assets\2_Scripts\Item\Weapon\Weapon_LightningRing.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Weapon_Peachone" Collapsed="true">
+    <Position X="3.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAQAABCBAEAAAAgAAAAAAAAAACAAAAAAAAQAAEAA=</HashCode>
+      <FileName>Assets\2_Scripts\Item\Weapon\Weapon_Peachone.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Weapon_RuneTracer" Collapsed="true">
+    <Position X="6" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACBAAAAgAAAAAAEIAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\2_Scripts\Item\Weapon\Weapon_RuneTracer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Weapon_ShadowPinion" Collapsed="true">
+    <Position X="10.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAQAAAAAAChAAAAgAAAAAAFAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Assets\2_Scripts\Item\Weapon\Weapon_ShadowPinion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Weapon_Whip" Collapsed="true">
+    <Position X="15" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQgAACAACBAAAAAAAAQAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\2_Scripts\Item\Weapon\Weapon_Whip.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="All_Manager" Collapsed="true">
+    <Position X="24.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIADAIAAACAAAQAAQAAAQAAAAABAAAAAIAAAAAAEAEA=</HashCode>
+      <FileName>Assets\2_Scripts\Manager\All_Manager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Audio_Manager" Collapsed="true">
+    <Position X="26" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAIAQACAAAAAAAAAMAAAAAAAAAAFABACIAEIAQCA=</HashCode>
+      <FileName>Assets\2_Scripts\Manager\Audio_Manager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameMode_Manager" Collapsed="true">
+    <Position X="29.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAYAJACCgEAAAASAAgAABhAQEAAEgQgBAICAwgAFgEg=</HashCode>
+      <FileName>Assets\2_Scripts\Manager\GameMode_Manager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Pool_Manager" Collapsed="true">
+    <Position X="26" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAERAACEAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\2_Scripts\Manager\Pool_Manager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Resource_Manager" Collapsed="true">
+    <Position X="27.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAgAAAAAAAAAQAAAjAABAAAAQAAAAAgEBAAAAAAA=</HashCode>
+      <FileName>Assets\2_Scripts\Manager\Resource_Manager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UI_Manager" Collapsed="true">
+    <Position X="29.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>GtQqlYlWGQNvGiJgqUBXJRD3AKVwyNAJhrm3jgEIhQE=</HashCode>
+      <FileName>Assets\2_Scripts\Manager\UI_Manager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Unit_Manager" Collapsed="true">
+    <Position X="31.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAEAAAARAAAAAAAEAiAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Assets\2_Scripts\Manager\Unit_Manager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MISC" Collapsed="true">
+    <Position X="24.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CBQAAAABACAIAAAIAAAAAAAAgAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Assets\2_Scripts\MISC\MISC.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="STO_Equipment" Collapsed="true">
+    <Position X="29.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAgAAAAAAAAAAAAAAAAAAAAAEAAIAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Assets\2_Scripts\STO\STO_Equipment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="STO_MISC" Collapsed="true">
+    <Position X="31.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAgAAQAAAAAAEAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Assets\2_Scripts\STO\STO_MISC.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="STO_Unit" Collapsed="true">
+    <Position X="24.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEBAAABAAAQCAACAAQAAAEAAAQIAAAAAAQABAAAg=</HashCode>
+      <FileName>Assets\2_Scripts\STO\STO_Unit.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="STO_VFX" Collapsed="true">
+    <Position X="26" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAECAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Assets\2_Scripts\STO\STO_VFX.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="STO_Wave" Collapsed="true">
+    <Position X="27.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAACAQAAAAAAAAIAAAAAAAAAAEAAAAAAAAAQEAA=</HashCode>
+      <FileName>Assets\2_Scripts\STO\STO_Wave.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="STO_Weapon" Collapsed="true">
+    <Position X="29.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAEBAAARAAAACAIBAAAAEAEAAAQAAAgAAAAAAAAAI=</HashCode>
+      <FileName>Assets\2_Scripts\STO\STO_Weapon.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Treasure_Gem_Jackpot" Collapsed="true">
+    <Position X="24.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IARAIAgAACAAAAAAAAAQAAABAQCAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>Assets\2_Scripts\System\Treasure_Gem_Jackpot.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Treasure_Number" Collapsed="true">
+    <Position X="26" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\2_Scripts\System\Treasure_Number.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Treasure_Roulette" Collapsed="true">
+    <Position X="27.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\2_Scripts\System\Treasure_Roulette.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Test_Script" Collapsed="true">
+    <Position X="31.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAAAAAAAgAAAAAAAACAAAAAI=</HashCode>
+      <FileName>Assets\2_Scripts\Test_Script.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Unit" Collapsed="true">
+    <Position X="1.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgQAIAAAASBAgAFoBDIAIAAggRAAAIIgAAAAREEAAAg=</HashCode>
+      <FileName>Assets\2_Scripts\Unit\Unit.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Unit_Boss" Collapsed="true">
+    <Position X="0.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAUAAABAgGDAgABwDgAAAAAAACAIAQAAAAAABEAUAAA=</HashCode>
+      <FileName>Assets\2_Scripts\Unit\Unit_Boss.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Unit_Enemy" Collapsed="true">
+    <Position X="0.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAkAAASBAgABgAAAQAAQAAAQAAAAAACAABAAAAAA=</HashCode>
+      <FileName>Assets\2_Scripts\Unit\Unit_Enemy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Weapon_Level_And_Timer" Collapsed="true">
+    <Position X="31.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAEAAA=</HashCode>
+      <FileName>Assets\2_Scripts\Unit\Unit_Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Unit_Player" Collapsed="true">
+    <Position X="2.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gIQhAFpKNCBggABhBAIAg4QAgRARQBiAIkRABQAAgEQ=</HashCode>
+      <FileName>Assets\2_Scripts\Unit\Unit_Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VFX" Collapsed="true">
+    <Position X="5.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\2_Scripts\VFX\VFX.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VFX_Peachone" Collapsed="true">
+    <Position X="26" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\2_Scripts\VFX\VFX_Bird.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VFX_Garlic_Area" Collapsed="true">
+    <Position X="5.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\2_Scripts\VFX\VFX_Force_Area.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VFX_LightningRing" Collapsed="true">
+    <Position X="24.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\2_Scripts\VFX\VFX_Lightning.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VFX_RuneTracer" Collapsed="true">
+    <Position X="27.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\2_Scripts\VFX\VFX_RuneTracer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VFX_Whip" Collapsed="true">
+    <Position X="29.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\2_Scripts\VFX\VFX_Whip.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Unit_Information" Collapsed="true">
+    <Position X="24.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQIEAAAAAEAAAAAAQQACAAAAAIAAQAAABAAA=</HashCode>
+      <FileName>Assets\2_Scripts\STO\STO_Unit.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Weapon_Information" Collapsed="true">
+    <Position X="27.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAACACAAAEAAAIIQAAAAAAAAAABAAABAA=</HashCode>
+      <FileName>Assets\2_Scripts\STO\STO_Weapon.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Unit_Stat_Sheet" Collapsed="true">
+    <Position X="26" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAQIAAAAAAEAAAAAAQAACAAAAAIAAQAAQBAAA=</HashCode>
+      <FileName>Assets\2_Scripts\Unit\Unit.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="GameMode_State" Collapsed="true">
+    <Position X="27.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgABAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Assets\2_Scripts\Manager\GameMode_Manager.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Panel_Style" Collapsed="true">
+    <Position X="31.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAggAAgAAACAAAAAAAAAAAAAAAAAAABAAAAAAEAAAA=</HashCode>
+      <FileName>Assets\2_Scripts\Manager\UI_Manager.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="MISC_Type" Collapsed="true">
+    <Position X="29.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQABAAAAAAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Assets\2_Scripts\MISC\MISC.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Wave_Spawn_Type" Collapsed="true">
+    <Position X="27.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgQAAAAAAAAAAAAACAAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\2_Scripts\STO\STO_Wave.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Unit_Type" Collapsed="true">
+    <Position X="24.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABhAQAAAQAAAAAAAAAEQAQBwAAAEAQAEyQA=</HashCode>
+      <FileName>Assets\2_Scripts\Unit\Unit.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="BossState" Collapsed="true">
+    <Position X="24.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAABEAoAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\2_Scripts\Unit\Unit_Boss.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Weapon_Type" Collapsed="true">
+    <Position X="29.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgABgAACAAAQAAAAAAAAAIAAAAAAACAACAgAAAAgA=</HashCode>
+      <FileName>Assets\2_Scripts\Unit\Unit_Player.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Equipment_Type" Collapsed="true">
+    <Position X="26" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAACABgAAAQAAAAAAAgAAAABACCAAIA=</HashCode>
+      <FileName>Assets\2_Scripts\Unit\Unit_Player.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="VFX_Type" Collapsed="true">
+    <Position X="26" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABgAAAAAAQAAAAAAAAAAAAAAAAACAAAAAAAIAAA=</HashCode>
+      <FileName>Assets\2_Scripts\VFX\VFX.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="맑은 고딕" Size="9" />
+</ClassDiagram>

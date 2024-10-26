@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4b1ddd95b7bf64399da60e1975f624, type: 3}
+  m_Name: Chest_STO_MISC
+  m_EditorClassIdentifier: 
+  MT: 1
+  MISC_Name: "\uC0C1\uC790"
+  MISC_Text: "\n\uAE08\uC740\uBCF4\uD654\uAC00 \n\uB4E4\uC5B4\uC788\uC744\uC9C0\uB3C4?"
+  Sprite_Image: {fileID: -962249426, guid: fa1ffc854ddd3214eae3ea6a9ea37a67, type: 3}
+  Get_MISC_Audio_Clip: {fileID: 8300000, guid: 805bd61521d3e3b4596b6cc0c59e1202, type: 3}

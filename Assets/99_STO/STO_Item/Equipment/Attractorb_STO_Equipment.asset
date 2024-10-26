@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3ccecc3bdc1d3c418e48bfa269d5103, type: 3}
+  m_Name: Attractorb_STO_Equipment
+  m_EditorClassIdentifier: 
+  ET: 8
+  Equipment_Name: "\uB9E4\uD639\uAD6C"
+  Equipment_Text: "\n\uB9E4\uD639\uAD6C.\n\uC82C \uD68D\uB4DD \uBC94\uC704\uB97C
+    \uC99D\uAC00\uC2DC\uD0A8\uB2E4."
+  Sprite_Image: {fileID: 21300000, guid: d20ba36d446735a4ab3e44ad219d5631, type: 3}
+  Equipment_Stat_Sheet:
+    Unit_HP: 0
+    Unit_Speed: 0
+    Unit_Defense: 0
+    Unit_Weapon_Damage: 0
+    Unit_Weapon_Proj_Speed: 0
+    Unit_Weapon_Duration: 0
+    Unit_Weapon_Range: 0
+    Unit_Weapon_CoolDown: 0
+    Unit_Weapon_Proj_Count: 0
+    Unit_Get_Gem_Range: 30

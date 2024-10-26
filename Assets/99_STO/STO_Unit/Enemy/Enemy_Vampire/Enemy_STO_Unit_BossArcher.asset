@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 926065fd38a5ed04a9cccdf9878daf80, type: 3}
+  m_Name: Enemy_STO_Unit_BossArcher
+  m_EditorClassIdentifier: 
+  UT: 4
+  Size_X: 0.5
+  Size_Y: 0.5
+  Offset_X: 0
+  Offset_Y: 0
+  SR_Size_X: 0.8
+  SR_Size_Y: 0.8
+  Player_info_s:
+    HP: 0
+    Unit_Speed: 0
+    Unit_Defense: 0
+    Unit_Weapon_Damage: 0
+    Unit_Weapon_Proj_Speed: 0
+    Unit_Weapon_Duration: 0
+    Unit_Weapon_Range: 0
+    Unit_Weapon_CoolDown: 0
+    Unit_Weapon_Proj_Num: 0
+    Unit_Get_Gem_Range: 0
+  Unit_Enemy_HP: 200
+  Unit_Enemy_Speed: 1
+  Unit_Enemy_Damage: 15
+  Sprite_Image: {fileID: 600082369, guid: 462537d74df31d24db42b545bd02fdd4, type: 3}
+  Elite_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  Death_Audio_Clip: {fileID: 8300000, guid: 6edbbc805d4f42643bad863f3ca1152f, type: 3}
+  Hitted_Audio_Clip: {fileID: 8300000, guid: 82b2e9eb180044145a102a7c0465a369, type: 3}
+  Unit_Animator_Controller: {fileID: 9100000, guid: 8149881c5e477344da6aee2d69c582c8,
+    type: 2}

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3ccecc3bdc1d3c418e48bfa269d5103, type: 3}
+  m_Name: Duplicator_STO_Equipment
+  m_EditorClassIdentifier: 
+  ET: 2
+  Equipment_Name: "\uACF1\uD558\uAE30"
+  Equipment_Text: "\n\uACF1\uD558\uAE30\n\uD22C\uC0AC\uCCB4\uC758 \uAC2F\uC218\uB97C
+    \uCD94\uAC00\uD55C\uB2E4."
+  Sprite_Image: {fileID: 21300000, guid: 012ef37ea19f40a43a9843d1e202bfdf, type: 3}
+  Equipment_Stat_Sheet:
+    Unit_HP: 0
+    Unit_Speed: 0
+    Unit_Defense: 0
+    Unit_Weapon_Damage: 0
+    Unit_Weapon_Proj_Speed: 0
+    Unit_Weapon_Duration: 0
+    Unit_Weapon_Range: 0
+    Unit_Weapon_CoolDown: 0
+    Unit_Weapon_Proj_Count: 1
+    Unit_Get_Gem_Range: 0
