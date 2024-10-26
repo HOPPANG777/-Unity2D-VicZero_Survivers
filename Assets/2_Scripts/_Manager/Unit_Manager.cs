@@ -5,7 +5,7 @@ using UnityEngine;
 
 
 
-public class Unit_Manager : Singleton_Base<Unit_Manager>
+public class Unit_Manager : MonoBehaviour
 {
 
     public void Create_Player(STO_Unit P_Unit)

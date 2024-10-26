@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Resource_Manager : Singleton_Base<Resource_Manager>
+public class Resource_Manager : MonoBehaviour
 {
     // РЏДж
     public STO_Unit[] STO_Units;

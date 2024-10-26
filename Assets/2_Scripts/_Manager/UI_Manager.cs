@@ -22,7 +22,7 @@ public enum Panel_Style
     GameClear
 }
 
-public class UI_Manager : Singleton_Base<UI_Manager>
+public class UI_Manager : MonoBehaviour
 {
     [Header("±âº» UI")]
     public Text Kill_Count_Text;

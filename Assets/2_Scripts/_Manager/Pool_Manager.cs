@@ -4,7 +4,7 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Pool_Manager : Singleton_Base<Pool_Manager>
+public class Pool_Manager : MonoBehaviour
 {
     public bool Ready = false;
 

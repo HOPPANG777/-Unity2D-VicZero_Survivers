@@ -17,7 +17,7 @@ public enum GameMode_State
     GameClear
 }
 
-public class GameMode_Manager : Singleton_Base<GameMode_Manager>
+public class GameMode_Manager : MonoBehaviour
 {
     public GameMode_State GM_State = GameMode_State.Idle;
 
