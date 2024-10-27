@@ -111,9 +111,6 @@ public class Pool_Manager : MonoBehaviour
 
         p_UE.Temp_Time = 1.0f;
 
-        p_UE.GetComponent<Unit_Enemy>().SR.drawMode = SpriteDrawMode.Sliced;
-        p_UE.GetComponent<Unit_Enemy>().SR.size = new Vector2((p_UE.GetComponent<Unit_Enemy>().SR.size.x * 4), (p_UE.GetComponent<Unit_Enemy>().SR.size.y * 4));
-
         p_UE.Unit_Stat_Setting(p_UE, All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr(p_UE.UT));
     }
 
@@ -132,6 +129,9 @@ public class Pool_Manager : MonoBehaviour
 
         Unit_Go.SetActive(true);
 
+        Unit_Go.GetComponent<Unit_Enemy>().SR.drawMode = SpriteDrawMode.Sliced;
+        Unit_Go.GetComponent<Unit_Enemy>().SR.size = new Vector2((Unit_Go.GetComponent<Unit_Enemy>().SR.size.x * 4), (Unit_Go.GetComponent<Unit_Enemy>().SR.size.y * 4));
+
         Unit_Go.GetComponent<Unit_Enemy>().Elite_Outline_Set(p_UT);
         
         Unit_Go.layer = 6;
@@ -145,9 +145,6 @@ public class Pool_Manager : MonoBehaviour
 
         p_MISC.transform.localScale = Vector3.one;
 
-        p_MISC.GetComponent<MISC>().SR.drawMode = SpriteDrawMode.Sliced;
-        p_MISC.GetComponent<MISC>().SR.size = new Vector2((p_MISC.GetComponent<MISC>().SR.size.x * 2), (p_MISC.GetComponent<MISC>().SR.size.y * 2));
-
         p_MISC.transform.parent = Target_Pool;
     }
 
@@ -156,6 +153,9 @@ public class Pool_Manager : MonoBehaviour
         var Target_Pool = this.transform.Find(p_MT.ToString() + "-Pool");
 
         var MISC_Go = Target_Pool.GetChild(0).gameObject;
+
+        MISC_Go.GetComponent<MISC>().SR.drawMode = SpriteDrawMode.Sliced;
+        MISC_Go.GetComponent<MISC>().SR.size = new Vector2((MISC_Go.GetComponent<MISC>().SR.size.x * 2), (MISC_Go.GetComponent<MISC>().SR.size.y * 2));
 
         MISC_Go.transform.parent = null;
 

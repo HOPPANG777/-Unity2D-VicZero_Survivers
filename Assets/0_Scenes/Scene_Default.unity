@@ -13338,6 +13338,11 @@ PrefabInstance:
       propertyPath: STO_Units.Array.size
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 4804284175419072536, guid: a0cbd2013a96de142a005d31bd723d2d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4804284175799493644, guid: a0cbd2013a96de142a005d31bd723d2d,
         type: 3}
       propertyPath: m_IsActive

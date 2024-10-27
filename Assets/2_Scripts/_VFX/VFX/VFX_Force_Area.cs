@@ -33,7 +33,7 @@ public class VFX_Force_Area : VFX
         main.startLifetime = 2.0f;
         main.startSpeed = 0.0f;
         main.startSize = 1.6f;
-        main.startColor = new Color(1, 1, 1, 0.5f);
+        main.startColor = new Color(1, 1, 1, 1.0f);
 
         // Emission 모듈 설정
         var emission = PS.emission;

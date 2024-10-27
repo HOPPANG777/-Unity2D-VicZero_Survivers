@@ -103,7 +103,7 @@ MonoBehaviour:
   Offset_X: 0
   Offset_Y: 0
   Forever: 1
-  Sprite_Image: {fileID: 21300000, guid: 9f1c57ad6bbb6da428eb3c01ad49462d, type: 3}
+  Sprite_Image: {fileID: 0}
   Item_Image: {fileID: 21300000, guid: 170cf3df536f8064d926aecb1b97520a, type: 3}
   Sprite_Material: {fileID: 2100000, guid: f54b529e2d3191344bf3208deaa453dc, type: 2}
   Attacking_Audio_Clip: {fileID: 8300000, guid: 7f51ae0c2d393fe4b8f6b456c48f1927,

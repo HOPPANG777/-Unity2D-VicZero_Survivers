@@ -21,14 +21,14 @@ public class UI_Peachone : MonoBehaviour
             {
                 All_Manager.instance.UI_M.Peachone_Range_Image.gameObject.SetActive(true);
 
-                All_Manager.instance.UI_M.Peachone_Range_Image.rectTransform.sizeDelta = new Vector2(W_UI_Peachone_Range_S.Weapon_Range, W_UI_Peachone_Range_S.Weapon_Range);
+                All_Manager.instance.UI_M.Peachone_Range_Image.rectTransform.sizeDelta = new Vector2(Temp_Player.Current_Weapon_Range(Weapon_Type.Peachone, Temp_Player.Peachone_LAT), Temp_Player.Current_Weapon_Range(Weapon_Type.Peachone, Temp_Player.Peachone_LAT)) * 0.5f;
 
                 All_Manager.instance.UI_M.W_Peachone_Range_Deg += Time.deltaTime * W_UI_Peachone_Range_S.Weapon_Speed * 20.0f;
                 if (All_Manager.instance.UI_M.W_Peachone_Range_Deg < 360)
                 {
                     var rad = Mathf.Deg2Rad * (All_Manager.instance.UI_M.W_Peachone_Range_Deg);
-                    var x = W_UI_Peachone_Range_S.Weapon_Range * Mathf.Sin(rad);
-                    var y = W_UI_Peachone_Range_S.Weapon_Range * Mathf.Cos(rad);
+                    var x = Temp_Player.Current_Weapon_Range(Weapon_Type.Peachone, Temp_Player.Peachone_LAT) * Mathf.Sin(rad);
+                    var y = Temp_Player.Current_Weapon_Range(Weapon_Type.Peachone, Temp_Player.Peachone_LAT) * Mathf.Cos(rad);
                     All_Manager.instance.UI_M.Peachone_Range_Image.rectTransform.position = Temp_Player.transform.position + new Vector3(x, y);
                 }
                 else
@@ -68,6 +68,7 @@ public class UI_Peachone : MonoBehaviour
                     var x = 0.7f * Mathf.Sin(rad);
                     var y = 0.7f * Mathf.Cos(rad);
                     All_Manager.instance.UI_M.Peachone_Image.rectTransform.position = Temp_Player.transform.position + new Vector3(x, y);
+
                 }
                 else
                 {

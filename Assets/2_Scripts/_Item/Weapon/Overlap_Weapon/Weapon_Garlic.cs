@@ -15,6 +15,7 @@ public class Weapon_Garlic : Weapon
         CC.isTrigger = true;
         base.Start();
         SR.sortingOrder = -1;
+        SR.color = new Color(0, 0, 0, 0);
     }
 
     public override void Update()
@@ -23,7 +24,7 @@ public class Weapon_Garlic : Weapon
         {
             base.Update();
 
-            this.SR.size = new Vector2(Weapon_Range + 2.0f, Weapon_Range + 2.0f);
+            this.SR.size = new Vector2(Weapon_Range + 2.0f, Weapon_Range + 2.0f); 
 
             Garlic_Attack();
 
@@ -41,9 +42,9 @@ public class Weapon_Garlic : Weapon
     public void Garlic_Attack()
     {
         BC.isTrigger = false;
-        CC.radius = Weapon_Range;
+        CC.radius = Weapon_Range * 0.5f;
 
-        Collider2D[] collider2Ds = Physics2D.OverlapCircleAll(this.transform.position, (Weapon_Range - 0.5f));
+        Collider2D[] collider2Ds = Physics2D.OverlapCircleAll(this.transform.position, (Weapon_Range * 0.5f));
 
         float Dis = 10000;
 
