@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Audio_Manager : MonoBehaviour
+public class Audio_Manager : Singleton<Audio_Manager>
 {
     public AudioSource Background_AS;
     public AudioSource UI_Click_AS;

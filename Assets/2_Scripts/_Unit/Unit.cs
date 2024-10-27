@@ -81,10 +81,10 @@ public abstract class Unit : MonoBehaviour
 
     public float Dead_Effect = 0.0f;
 
-    private Vector3 knockbackDirection;     // 넉백의 방향과 크기
-    private float knockbackTime;            // 넉백 지속 시간
-    private float knockbackElapsed = 0f;    // 넉백 경과 시간
-    private bool isKnockback = false;       // 넉백 상태 여부
+    //private Vector3 knockbackDirection;     // 넉백의 방향과 크기
+    //private float knockbackTime;            // 넉백 지속 시간
+    //private float knockbackElapsed = 0f;    // 넉백 경과 시간
+    //private bool isKnockback = false;       // 넉백 상태 여부
 
 
     public virtual void Start()
