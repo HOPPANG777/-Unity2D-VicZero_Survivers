@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Force_Area_STO_VFX
   m_EditorClassIdentifier: 
   VT: 1
-  Sprite_Image: {fileID: 21300000, guid: 25d702beb2e697d4a8d9024eef8b797c, type: 3}
+  Sprite_Image: {fileID: 21300000, guid: 9f1c57ad6bbb6da428eb3c01ad49462d, type: 3}
   VFX_Material: {fileID: 2100000, guid: f54b529e2d3191344bf3208deaa453dc, type: 2}

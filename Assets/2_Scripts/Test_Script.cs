@@ -50,6 +50,8 @@ public class Test_Script : MonoBehaviour
     //성능에 영향을 주어 게임을 망칠수 있으니 
     //적절한 사용이 필요하다.
 
+    public VFX_Force_Area Temp;
+
     public IEnumerator C_Test()
     {
         while (true)
@@ -58,6 +60,25 @@ public class Test_Script : MonoBehaviour
             yield return new WaitForSeconds(1);
             Debug.Log("안해위");
         }
+    }
+
+    private void Start()
+    {
+        Temp = this.AddComponent<VFX_Force_Area>();
+
+        StartCoroutine(C_Temp_C());
+    }
+
+    private void Update()
+    {
+        
+    }
+
+    IEnumerator C_Temp_C()
+    {
+        yield return new WaitUntil(() => Temp.GetComponent<VFX_Force_Area>());
+
+        Temp.VFX_Force_Particle();
     }
 
 }

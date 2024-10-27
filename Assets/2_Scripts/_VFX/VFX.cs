@@ -15,17 +15,12 @@ public enum VFX_Type
 public class VFX : MonoBehaviour
 {
     public ParticleSystem PS;
-    public ParticleSystemRenderer PSR;
+    //public ParticleSystemRenderer PSR;
 
     public virtual void Start()
     {
         PS = this.AddComponent<ParticleSystem>();
-        PSR = PS.GetComponent<ParticleSystemRenderer>();
+        //PSR = PS.GetComponent<ParticleSystemRenderer>();
     }
-
-    //public virtual void Update()
-    //{
-
-    //}
 
 }

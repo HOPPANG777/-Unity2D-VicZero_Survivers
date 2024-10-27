@@ -70,7 +70,7 @@ TextureImporter:
     maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -144,12 +144,12 @@ TextureImporter:
       name: Skeleton-Death_0
       rect:
         serializedVersion: 2
-        x: 43
-        y: 43
-        width: 26
-        height: 15
+        x: 0
+        y: 0
+        width: 100
+        height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -165,12 +165,12 @@ TextureImporter:
       name: Skeleton-Death_1
       rect:
         serializedVersion: 2
-        x: 141
-        y: 43
-        width: 33
-        height: 13
+        x: 100
+        y: 0
+        width: 100
+        height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -186,12 +186,12 @@ TextureImporter:
       name: Skeleton-Death_3
       rect:
         serializedVersion: 2
-        x: 241
-        y: 43
-        width: 34
-        height: 9
+        x: 300
+        y: 0
+        width: 100
+        height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -204,22 +204,22 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Skeleton-Death_5
+      name: Skeleton-Death_2
       rect:
         serializedVersion: 2
-        x: 341
-        y: 43
-        width: 24
-        height: 9
+        x: 200
+        y: 0
+        width: 100
+        height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b6ad56d1f82f3bf4894348f33ebc4c65
-      internalID: -501633797
+      spriteID: 5e45686c0da77344386c8798a39f98ab
+      internalID: 1592758072
       vertices: []
       indices: 
       edges: []
@@ -239,8 +239,6 @@ TextureImporter:
       Skeleton-Death_1: 166203085
       Skeleton-Death_2: 1592758072
       Skeleton-Death_3: -1508447582
-      Skeleton-Death_4: 1753278418
-      Skeleton-Death_5: -501633797
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

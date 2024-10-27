@@ -67,10 +67,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -145,9 +145,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 4
-        width: 15
-        height: 9
+        y: 0
+        width: 17
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -155,7 +155,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 653e0829dc2a4554ab8527cfc8960dec
+      spriteID: e4126a31d7c45a44aba2f8c7fe5bfd20
       internalID: -993227291
       vertices: []
       indices: 
@@ -166,9 +166,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 17
-        y: 5
-        width: 14
-        height: 8
+        y: 0
+        width: 15
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -176,7 +176,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ce2f3a9b8ce2b584e8ee41b2159d3f3c
+      spriteID: bd58989d52cb0844dbe9fe22f4f67eba
       internalID: 1118034291
       vertices: []
       indices: 
@@ -186,10 +186,10 @@ TextureImporter:
       name: BirdFly_2
       rect:
         serializedVersion: 2
-        x: 33
-        y: 5
-        width: 14
-        height: 6
+        x: 32
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -197,7 +197,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6ce1e341f88764247883573e84e923e2
+      spriteID: b5e6a1b267d19ed4a8b1d8263643b160
       internalID: -1055522486
       vertices: []
       indices: 
@@ -207,10 +207,10 @@ TextureImporter:
       name: BirdFly_3
       rect:
         serializedVersion: 2
-        x: 49
-        y: 3
-        width: 14
-        height: 8
+        x: 48
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -218,7 +218,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ef7276b79a812b44a84a6e81f15ad5b6
+      spriteID: 3d746a15da5704a4088a2b70d8c2d069
       internalID: 1393541866
       vertices: []
       indices: 
@@ -229,9 +229,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
-        y: 2
-        width: 15
-        height: 9
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -239,7 +239,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cfdfc3cd94ffbe44f91ec614b374876f
+      spriteID: c0cdcf02eda861a498d01d8473ac7c53
       internalID: 1698389117
       vertices: []
       indices: 
@@ -250,9 +250,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 80
-        y: 2
-        width: 15
-        height: 9
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -260,7 +260,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bc858231dbd57034b81a492f62f8d004
+      spriteID: 2bb6e7055ec53de42a4cfbcf269af4bb
       internalID: -508222997
       vertices: []
       indices: 
@@ -270,10 +270,10 @@ TextureImporter:
       name: BirdFly_6
       rect:
         serializedVersion: 2
-        x: 97
-        y: 5
-        width: 14
-        height: 6
+        x: 96
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -281,7 +281,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 865b7cfd647aa3f4c8329038d4ede322
+      spriteID: f09774bef51e5494e8c2dc9989f88f69
       internalID: -1022991169
       vertices: []
       indices: 
@@ -291,10 +291,10 @@ TextureImporter:
       name: BirdFly_7
       rect:
         serializedVersion: 2
-        x: 113
-        y: 5
-        width: 14
-        height: 8
+        x: 112
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -302,7 +302,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d39907517e1566547b35cbb36a808b7b
+      spriteID: c7110ce79c5d3a44eb741ebd207a3bfd
       internalID: -1894120773
       vertices: []
       indices: 

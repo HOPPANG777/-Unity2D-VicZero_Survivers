@@ -214,7 +214,7 @@ public abstract class Unit : MonoBehaviour
 
     protected virtual IEnumerator C_Death_Animation_End()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.6f);
 
         Return_Pool();
     }
