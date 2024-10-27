@@ -58,24 +58,24 @@ public class Pool_Manager : MonoBehaviour
             yield return new WaitWhile(() => MISC_Pool.transform.childCount != MISC_Number);
         }
 
-        for (int h = 0; h < System.Enum.GetValues(typeof(Weapon_Type)).Length; h++)
-        {
-            var Temp_WT = (Weapon_Type)h;
+        //for (int h = 0; h < System.Enum.GetValues(typeof(Weapon_Type)).Length; h++)
+        //{
+        //    var Temp_WT = (Weapon_Type)h;
 
-            GameObject Weapon_Pool = new GameObject(Temp_WT.ToString() + "-Pool");
-            Weapon_Pool.transform.parent = this.transform;
+        //    GameObject Weapon_Pool = new GameObject(Temp_WT.ToString() + "-Pool");
+        //    Weapon_Pool.transform.parent = this.transform;
 
-            yield return new WaitWhile(() => Weapon_Pool == null);
+        //    yield return new WaitWhile(() => Weapon_Pool == null);
 
-            int Weapon_Number = 800;
+        //    int Weapon_Number = 800;
 
-            for (int k = 0; k < Weapon_Number; k++)
-            {
-                All_Manager.instance.Unit_M.Projectile_F.Create_Projectile(All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(Temp_WT), this.transform, (k + 1), Weapon_Pool.transform);
-            }
+        //    for (int k = 0; k < Weapon_Number; k++)
+        //    {
+        //        All_Manager.instance.Unit_M.Projectile_F.Create_Projectile(All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(Temp_WT), this.transform, (k + 1), Weapon_Pool.transform);
+        //    }
 
-            yield return new WaitWhile(() => Weapon_Pool.transform.childCount != Weapon_Number);
-        }
+        //    yield return new WaitWhile(() => Weapon_Pool.transform.childCount != Weapon_Number);
+        //}
 
         Ready = true;
     }
