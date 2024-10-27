@@ -34,6 +34,7 @@ public class UI_Manager : MonoBehaviour
     [Header("¿Œ∞‘¿” ΩÃ≈© UI")]
     public Image Peachone_Range_Image;
     public Image Peachone_Image;
+    public Image Force_Image;
     public Text Wave_Text;
     public Text Game_State_Text;
     public Text Panel_Style_Text;
@@ -157,6 +158,7 @@ public class UI_Manager : MonoBehaviour
     public Treasure_Box Treasure_Box;
     public UI_OnGUI UI_OnGUI;
     public UI_Peachone UI_Peachone;
+    public UI_Weapon_Force UI_Force;
 
     private void Update()
     {
