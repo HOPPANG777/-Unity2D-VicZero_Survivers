@@ -178,7 +178,7 @@ public class GameMode_Manager : MonoBehaviour
     //게임 시작 함수
     public void Game_Start()
     {
-        All_Manager.instance.Unit_M.Create_Player(All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr(Unit_Type.Player));
+        All_Manager.instance.Unit_M.Unit_F.Create_Player(All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr(Unit_Type.Player));
 
         GM_State = GameMode_State.Ingame;
 
@@ -196,7 +196,7 @@ public class GameMode_Manager : MonoBehaviour
         Game_Time = 0.0f;
         Kill_Count = 0;
 
-        All_Manager.instance.Unit_M.Create_Player(All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr(Unit_Type.Player));
+        All_Manager.instance.Unit_M.Unit_F.Create_Player(All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr(Unit_Type.Player));
         
         GM_State = GameMode_State.Ingame;
 
@@ -518,7 +518,7 @@ public class GameMode_Manager : MonoBehaviour
                         {
                             if (p_STO_Wave.Elite == false)
                             {
-                                All_Manager.instance.Unit_M.Create_Boss(All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr(Unit_Type.Boss), Player_Pos);
+                                All_Manager.instance.Unit_M.Unit_F.Create_Boss(All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr(Unit_Type.Boss), Player_Pos);
                             }
                         }
 
@@ -658,7 +658,7 @@ public class GameMode_Manager : MonoBehaviour
                         {
                             if (p_STO_Wave.Elite == false)
                             {
-                                All_Manager.instance.Unit_M.Create_Boss(All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr(Unit_Type.Boss), Player_Pos);
+                                All_Manager.instance.Unit_M.Unit_F.Create_Boss(All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr(Unit_Type.Boss), Player_Pos);
                             }
                         }
 
