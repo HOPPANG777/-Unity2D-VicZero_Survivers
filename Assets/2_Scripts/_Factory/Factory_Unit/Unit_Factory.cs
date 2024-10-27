@@ -55,9 +55,6 @@ public class Unit_Factory : MonoBehaviour
             Enemy_Go.GetComponent<Unit_Enemy>().Unit_Stat_Setting(Enemy_Go.GetComponent<Unit_Enemy>(), E_Unit);
             Enemy_Go.GetComponent<Unit_Enemy>().UT = E_Unit.UT;
 
-            Enemy_Go.GetComponent<Unit_Enemy>().SR.drawMode = SpriteDrawMode.Sliced;
-            Enemy_Go.GetComponent<Unit_Enemy>().SR.size = new Vector2((Enemy_Go.GetComponent<Unit_Enemy>().SR.size.x * 4), (Enemy_Go.GetComponent<Unit_Enemy>().SR.size.y * 4));
-
             //All_Manager.instance.GameMode_M.Enemy_List.Add(Enemy_Go.GetComponent<Unit_Enemy>());
         }
 
@@ -87,6 +84,10 @@ public class Unit_Factory : MonoBehaviour
         {
             yield return new WaitUntil(() => Boss_Go.GetComponent<Unit_Boss>().SR && Boss_Go.GetComponent<Unit_Boss>().AM);
             Boss_Go.GetComponent<Unit_Boss>().Unit_Stat_Setting(Boss_Go.GetComponent<Unit_Boss>(), Boss_Unit);
+
+            Boss_Go.GetComponent<Unit_Enemy>().SR.drawMode = SpriteDrawMode.Sliced;
+            Boss_Go.GetComponent<Unit_Enemy>().SR.size = new Vector2((Boss_Go.GetComponent<Unit_Enemy>().SR.size.x * 4), (Boss_Go.GetComponent<Unit_Enemy>().SR.size.y * 4));
+
             Boss_Go.GetComponent<Unit_Boss>().UT = Boss_Unit.UT;
 
             All_Manager.instance.GameMode_M.Enemy_List.Add(Boss_Go.GetComponent<Unit_Boss>());

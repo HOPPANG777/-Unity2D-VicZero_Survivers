@@ -24,9 +24,6 @@ public class Misc_Factory : MonoBehaviour
             yield return new WaitUntil(() => MISC_Go.GetComponent<MISC>().SR);
             MISC_Go.GetComponent<MISC>().MISC_Setting(MISC_Go.GetComponent<MISC>(), p_MTO);
 
-            MISC_Go.GetComponent<MISC>().SR.drawMode = SpriteDrawMode.Sliced;
-            MISC_Go.GetComponent<MISC>().SR.size = new Vector2((MISC_Go.GetComponent<MISC>().SR.size.x * 2), (MISC_Go.GetComponent<MISC>().SR.size.y * 2));
-
             MISC_Go.GetComponent<MISC>().MT = p_MTO.MT;
         }
 
