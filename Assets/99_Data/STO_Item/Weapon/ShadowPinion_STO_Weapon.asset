@@ -31,7 +31,7 @@ MonoBehaviour:
     Weapon_Speed: 4
     Weapon_Range: 4
     Weapon_Time: 0
-    Weapon_Pen: 0
+    Weapon_Pen: 2
     Weapon_CoolDown: 3
     Weapon_Duration: 3
     Weapon_Knock: 0.5
@@ -41,7 +41,7 @@ MonoBehaviour:
     Weapon_Speed: 4
     Weapon_Range: 4
     Weapon_Time: 0
-    Weapon_Pen: 0
+    Weapon_Pen: 2
     Weapon_CoolDown: 3
     Weapon_Duration: 3
     Weapon_Knock: 0.5
@@ -51,7 +51,7 @@ MonoBehaviour:
     Weapon_Speed: 5
     Weapon_Range: 5
     Weapon_Time: 0
-    Weapon_Pen: 0
+    Weapon_Pen: 2
     Weapon_CoolDown: 3
     Weapon_Duration: 3
     Weapon_Knock: 0.5
@@ -61,7 +61,7 @@ MonoBehaviour:
     Weapon_Speed: 5
     Weapon_Range: 5
     Weapon_Time: 0
-    Weapon_Pen: 0
+    Weapon_Pen: 2
     Weapon_CoolDown: 3
     Weapon_Duration: 3
     Weapon_Knock: 0.5
@@ -71,7 +71,7 @@ MonoBehaviour:
     Weapon_Speed: 5
     Weapon_Range: 6
     Weapon_Time: 0
-    Weapon_Pen: 0
+    Weapon_Pen: 2
     Weapon_CoolDown: 3
     Weapon_Duration: 3
     Weapon_Knock: 0.5
@@ -81,7 +81,7 @@ MonoBehaviour:
     Weapon_Speed: 5
     Weapon_Range: 6
     Weapon_Time: 0
-    Weapon_Pen: 0
+    Weapon_Pen: 2
     Weapon_CoolDown: 3
     Weapon_Duration: 3
     Weapon_Knock: 0.5
@@ -91,7 +91,7 @@ MonoBehaviour:
     Weapon_Speed: 5
     Weapon_Range: 6
     Weapon_Time: 0
-    Weapon_Pen: 0
+    Weapon_Pen: 2
     Weapon_CoolDown: 3
     Weapon_Duration: 3
     Weapon_Knock: 0.5
@@ -101,7 +101,7 @@ MonoBehaviour:
     Weapon_Speed: 6
     Weapon_Range: 7
     Weapon_Time: 0
-    Weapon_Pen: 0
+    Weapon_Pen: 2
     Weapon_CoolDown: 3
     Weapon_Duration: 3
     Weapon_Knock: 0.5
