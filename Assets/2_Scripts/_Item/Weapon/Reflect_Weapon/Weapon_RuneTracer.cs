@@ -45,21 +45,37 @@ public class Weapon_RuneTracer : Weapon
         Dir = Dir.normalized;
 
         // Move the object
-        this.transform.position += Dir.normalized * Weapon_Speed * Time.deltaTime;
+        this.transform.position += Dir * Weapon_Speed * Time.deltaTime;
 
         // Check for collisions with screen edges and reflect
         Vector3 viewPos = mainCamera.WorldToViewportPoint(transform.position);
 
-        if (viewPos.x <= 0.0f || viewPos.x >= 1.0f)
+        // Reflect on x-axis
+        if (viewPos.x <= 0.0f)
         {
-            Dir = Vector3.Reflect(Dir, Vector3.right); // Reflect on x-axis
+            viewPos.x = 0.0f; // Prevent going beyond the left boundary
+            Dir = Vector3.Reflect(Dir, Vector3.right);
+        }
+        else if (viewPos.x >= 1.0f)
+        {
+            viewPos.x = 1.0f; // Prevent going beyond the right boundary
+            Dir = Vector3.Reflect(Dir, Vector3.right);
         }
 
-        if (viewPos.y <= 0.0f || viewPos.y >= 1.0f)
+        // Reflect on y-axis
+        if (viewPos.y <= 0.0f)
         {
-            Dir = Vector3.Reflect(Dir, Vector3.up); // Reflect on y-axis
+            viewPos.y = 0.0f; // Prevent going beyond the bottom boundary
+            Dir = Vector3.Reflect(Dir, Vector3.up);
+        }
+        else if (viewPos.y >= 1.0f)
+        {
+            viewPos.y = 1.0f; // Prevent going beyond the top boundary
+            Dir = Vector3.Reflect(Dir, Vector3.up);
         }
 
+        // Update position after reflection
+        transform.position = mainCamera.ViewportToWorldPoint(viewPos);
     }
 
     public override void OnTriggerStay2D(Collider2D collision)
