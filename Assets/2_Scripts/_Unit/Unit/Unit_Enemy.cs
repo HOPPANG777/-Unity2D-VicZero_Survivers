@@ -19,6 +19,8 @@ public class Unit_Enemy : Unit
 
     public bool Elite = false;
 
+    private float Push_Strength = 0.5f;
+
     public override void Start()
     {
         base.Start();
@@ -37,6 +39,10 @@ public class Unit_Enemy : Unit
                 Update_Enemy_Move();
 
                 Player_To_Far_Enemy();
+
+                Enemy_Knockback();
+
+                Enemy_To_Player_Collision();
 
                 Temp_Time -= Time.deltaTime;
 
@@ -114,45 +120,96 @@ public class Unit_Enemy : Unit
 
     }
 
-    public virtual void OnTriggerStay2D(Collider2D collision)
-    {
-        //충돌체가 이 컴포넌트를 가지고 있는가?
-        if (collision.transform.GetComponent<Unit_Player>())
-        {
-            if (Attack_Time > Wating_Attack)
-            {
-                //collision.transform.GetComponent<Unit_Player>().Hitted(Unit_Enemy_Damage);
+    //public virtual void OnTriggerStay2D(Collider2D collision)
+    //{
+    //    //충돌체가 이 컴포넌트를 가지고 있는가?
+    //    if (collision.transform.GetComponent<Unit_Player>())
+    //    {
+    //        if (Attack_Time > Wating_Attack)
+    //        {
+    //            //collision.transform.GetComponent<Unit_Player>().Hitted(Unit_Enemy_Damage);
 
-                Unit_Player Temp = collision.transform.GetComponent<Unit_Player>();
+    //            Unit_Player Temp = collision.transform.GetComponent<Unit_Player>();
 
-                if (this.UT == Unit_Type.Barrel)
-                {
+    //            if (this.UT == Unit_Type.Barrel)
+    //            {
  
-                }
+    //            }
 
-                else
+    //            else
+    //            {
+    //                Temp.Hitted(Unit_Enemy_Damage);
+    //            }
+
+    //            Attack_Time = 0.0f;
+    //        }
+    //    }
+    //}
+
+    public virtual void Enemy_To_Player_Collision()
+    {
+        var Player = All_Manager.instance.GameMode_M.Current_Player;
+        var Enemy_List = All_Manager.instance.GameMode_M.Enemy_List;
+
+        for (int i = 0; i < Enemy_List.Count; i++)
+        {
+            Vector2 Dir = Player.transform.position - Enemy_List[i].transform.position;
+            float Dis = Dir.magnitude;
+
+            float Min_Distance = 0.5f;
+
+            if (Dis < Min_Distance)
+            {
+                if (Attack_Time > Wating_Attack)
                 {
-                    Temp.Hitted(Unit_Enemy_Damage);
-                }
+                    //collision.transform.GetComponent<Unit_Player>().Hitted(Unit_Enemy_Damage);
 
-                Attack_Time = 0.0f;
+                    Unit_Player Temp = Player.transform.GetComponent<Unit_Player>();
+
+                    if (this.UT == Unit_Type.Barrel)
+                    {
+
+                    }
+
+                    else
+                    {
+                        Temp.Hitted(Unit_Enemy_Damage);
+                    }
+
+                    Attack_Time = 0.0f;
+                }
+            }
+        
+        }
+
+    }
+
+    public virtual void Enemy_Knockback()
+    {
+        var Enemy_List = All_Manager.instance.GameMode_M.Enemy_List;
+
+        for (int i = 0; i < Enemy_List.Count; i++)
+        {
+            for (int j = i + 1; j < Enemy_List.Count; j++)
+            {
+                Vector2 Dir = Enemy_List[j].transform.position - Enemy_List[i].transform.position;
+                float Dis = Dir.magnitude;
+
+                // 충돌 반경 설정 (적의 크기와 비례하여 설정)
+                float Min_Distance = 1.0f;
+
+                if (Dis < Min_Distance)
+                {
+                    // 충돌이 발생한 경우 밀쳐내기
+                    Vector2 Push_Direction = Dir.normalized * (Min_Distance - Dis) * Push_Strength;
+
+                    Enemy_List[i].transform.position -= (Vector3)Push_Direction * 0.5f;
+                    Enemy_List[j].transform.position += (Vector3)Push_Direction * 0.5f;
+                }
             }
         }
     }
 
-    public void On_Collider(GameObject Temp, GameObject Collider)
-    {
-        var Collision = Vector2.Distance(Temp.transform.position, Collider.transform.position);
-
-        float radius1 = 0.5f;
-        float radius2 = 0.5f;
-
-        if (Collision < (radius1 + radius2))
-        {
-
-        }
-
-    }
 
     public void Elite_Outline_Set(Unit_Type p_UT)
     {
@@ -216,6 +273,10 @@ public class Unit_Enemy : Unit
         var Temp_Player = All_Manager.instance.GameMode_M.Current_Player;
         var Dis = 100.0f;
 
+        var Temp_Speed = Unit_Enemy_Speed;
+
+        var Dir = this.transform.position - Temp_Player.transform.position;
+
         if (Temp_Player == null)
         {
             return;
@@ -225,20 +286,26 @@ public class Unit_Enemy : Unit
         {
             if (All_Manager.instance.GameMode_M.Enemy_List.Contains(this))
             {
-                if (Vector3.Distance(this.transform.position, Temp_Player.transform.position) < Dis)
-                {
-
-                }
-
-                else
+                if (Dir.magnitude > Dis)
                 {
                     if (this.UT != Unit_Type.Boss)
                     {
-                        this.gameObject.SetActive(false);
+                        //this.gameObject.SetActive(false);
 
-                        All_Manager.instance.Pool_M.Enemy_Pool_In(this);
+                        //All_Manager.instance.Pool_M.Enemy_Pool_In(this);
+
+                        var Temp = (this.Unit_Enemy_Speed * 10);
+
+                        Unit_Enemy_Speed = Temp;
                     }
+                }
 
+                else if (Dir.magnitude <= Dis)
+                {
+                    if (this.UT != Unit_Type.Boss)
+                    {
+                         Unit_Enemy_Speed = (All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr(this.UT).Unit_Enemy_Speed * 1.5f);
+                    }
                 }
             }
 

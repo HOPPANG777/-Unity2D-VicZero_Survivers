@@ -78,9 +78,14 @@ public class Weapon_RuneTracer : Weapon
         transform.position = mainCamera.ViewportToWorldPoint(viewPos);
     }
 
-    public override void OnTriggerStay2D(Collider2D collision)
+    //public override void OnTriggerStay2D(Collider2D collision)
+    //{
+    //    base.OnTriggerStay2D(collision);
+    //}
+
+    public override void Weapon_To_Enemy_Collision()
     {
-        base.OnTriggerStay2D(collision);
+        base.Weapon_To_Enemy_Collision();
     }
 }
 

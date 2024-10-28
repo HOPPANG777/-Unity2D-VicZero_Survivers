@@ -90,9 +90,14 @@ public class Weapon_ShadowPinion : Weapon
         this.transform.position = this.transform.position + (Dir * Weapon_Speed * Time.deltaTime);
     }
 
-    public override void OnTriggerStay2D(Collider2D collision)
+    //public override void OnTriggerStay2D(Collider2D collision)
+    //{
+    //    base.OnTriggerStay2D(collision);
+    //}
+
+    public override void Weapon_To_Enemy_Collision()
     {
-        base.OnTriggerStay2D(collision);
+        base.Weapon_To_Enemy_Collision();
     }
 }
 

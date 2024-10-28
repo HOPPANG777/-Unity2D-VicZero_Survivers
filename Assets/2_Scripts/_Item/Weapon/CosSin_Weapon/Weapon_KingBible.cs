@@ -49,9 +49,14 @@ public class Weapon_KingBible : Weapon
         this.transform.position = Mine.transform.position + new Vector3(x, y, 0);
     }
 
-    public override void OnTriggerStay2D(Collider2D collision)
+    //public override void OnTriggerStay2D(Collider2D collision)
+    //{
+    //    base.OnTriggerStay2D(collision);
+    //}
+
+    public override void Weapon_To_Enemy_Collision()
     {
-        base.OnTriggerStay2D(collision);
+        base.Weapon_To_Enemy_Collision();
     }
 }
 

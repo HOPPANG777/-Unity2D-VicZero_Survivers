@@ -249,14 +249,23 @@ public class Unit_Boss : Unit_Enemy
         }
     }
 
-    public override void OnTriggerStay2D(Collider2D collision)
-    {
-        base.OnTriggerStay2D(collision);
-    }
+    //public override void OnTriggerStay2D(Collider2D collision)
+    //{
+    //    base.OnTriggerStay2D(collision);
+    //}
 
     public override void Unit_Animation(Unit_Anim_State State)
     {
         base.Unit_Animation(State);
     }
 
+    public override void Enemy_To_Player_Collision()
+    {
+        base.Enemy_To_Player_Collision();
+    }
+
+    public override void Enemy_Knockback()
+    {
+        base.Enemy_Knockback();
+    }
 }

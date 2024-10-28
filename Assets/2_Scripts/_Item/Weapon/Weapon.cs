@@ -11,7 +11,7 @@ public abstract class Weapon : MonoBehaviour
 
     public SpriteRenderer SR;
     public BoxCollider2D BC;
-    public Rigidbody2D RB;
+    //public Rigidbody2D RB;
     public TrailRenderer TR;
     public Animator AM;
 
@@ -46,8 +46,8 @@ public abstract class Weapon : MonoBehaviour
     {
         SR = this.AddComponent<SpriteRenderer>();
 
-        RB = this.AddComponent<Rigidbody2D>();
-        RB.bodyType = RigidbodyType2D.Kinematic;
+        //RB = this.AddComponent<Rigidbody2D>();
+        //RB.bodyType = RigidbodyType2D.Kinematic;
 
         BC = this.AddComponent<BoxCollider2D>();
         BC.isTrigger = true;
@@ -79,6 +79,7 @@ public abstract class Weapon : MonoBehaviour
         else
         {
             Weapon_Stat_Appliaction();
+            Weapon_To_Enemy_Collision();
         }
 
     }
@@ -116,36 +117,83 @@ public abstract class Weapon : MonoBehaviour
     }
 
     // 무기가 적과 충돌했을때 // 피격처리
-    public virtual void OnTriggerStay2D(Collider2D collision)
+    //public virtual void OnTriggerStay2D(Collider2D collision)
+    //{
+    //    //충돌체가 이 컴포넌트를 가지고 있는가?
+    //    if (collision.transform.GetComponent<Unit_Enemy>())
+    //    {
+    //        //collision.transform.GetComponent<Unit_Enemy>().Hitted(Weapon_Damage);
+
+    //        Unit_Enemy Temp_Enemy = collision.transform.GetComponent<Unit_Enemy>();
+
+    //        //Temp.Hitted(Weapon_Damage_Value);
+
+    //        Temp_Enemy.Hitted(Weapon_Damage);
+
+    //        if (Forever == false)
+    //        {
+    //            if (Collision_Count > Weapon_Pen)
+    //            {
+    //                Destroy_Weapon();
+    //            }
+    //        }
+    //        else
+    //        {
+
+    //        }
+
+    //        //Debug.Log("Enemey Hitted");
+
+    //        Collision_Count++;
+
+    //    }
+
+    //}
+
+
+    public virtual void Weapon_To_Enemy_Collision()
     {
-        //충돌체가 이 컴포넌트를 가지고 있는가?
-        if (collision.transform.GetComponent<Unit_Enemy>())
+        var Enemy_List = All_Manager.instance.GameMode_M.Enemy_List;
+        var Weapon = this;
+
+        for (int i = 0; i < Enemy_List.Count; i++)
         {
-            //collision.transform.GetComponent<Unit_Enemy>().Hitted(Weapon_Damage);
+            Vector2 Dir = Weapon.transform.position - Enemy_List[i].transform.position;
+            float Dis = Dir.magnitude;
 
-            Unit_Enemy Temp_Enemy = collision.transform.GetComponent<Unit_Enemy>();
+            var Temp_WTO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(WT);
+            var Temp_WALT = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_WTO);
 
-            //Temp.Hitted(Weapon_Damage_Value);
+            float Min_Distance = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Range(WT, Temp_WALT);
 
-            Temp_Enemy.Hitted(Weapon_Damage);
-
-            if (Forever == false)
+            if (Dis < Min_Distance)
             {
-                if (Collision_Count > Weapon_Pen)
+                //collision.transform.GetComponent<Unit_Enemy>().Hitted(Weapon_Damage);
+
+                Unit_Enemy Temp_Enemy = Enemy_List[i].transform.GetComponent<Unit_Enemy>();
+
+                //Temp.Hitted(Weapon_Damage_Value);
+
+                Temp_Enemy.Hitted(Weapon_Damage);
+
+                if (Forever == false)
                 {
-                    Destroy_Weapon();
+                    if (Collision_Count > Weapon_Pen)
+                    {
+                        Destroy_Weapon();
+                    }
                 }
+                else
+                {
+
+                }
+
+                //Debug.Log("Enemey Hitted");
+
+                Collision_Count++;
             }
-            else
-            {
-
-            }
-
-            //Debug.Log("Enemey Hitted");
-
-            Collision_Count++;
-
         }
+
 
     }
 

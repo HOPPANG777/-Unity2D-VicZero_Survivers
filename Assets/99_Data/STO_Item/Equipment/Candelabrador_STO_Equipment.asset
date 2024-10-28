@@ -28,4 +28,4 @@ MonoBehaviour:
     Unit_Weapon_CoolDown: 0
     Unit_Weapon_Proj_Count: 0
     Unit_Get_Gem_Range: 0
-    Unit_Weapon_Size: 5
+    Unit_Weapon_Size: 10

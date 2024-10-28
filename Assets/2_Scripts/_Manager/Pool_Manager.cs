@@ -173,7 +173,7 @@ public class Pool_Manager : MonoBehaviour
 
         MISC_Go.SetActive(true);
 
-        MISC_Go.layer = 6;
+        MISC_Go.layer = 8;
 
         All_Manager.instance.GameMode_M.MISC_List.Add(MISC_Go.GetComponent<MISC>());
     }
@@ -185,6 +185,14 @@ public class Pool_Manager : MonoBehaviour
         p_Weapon.transform.parent = Target_Pool;
 
         p_Weapon.transform.localScale = Vector3.one;
+
+        p_Weapon.Collision_Count = 0;
+
+        p_Weapon.Closet_Distance = 0;
+
+        p_Weapon.W_Accumulate = 0;
+
+        p_Weapon.Weapon_Time = 0;
 
         p_Weapon.GetComponent<Weapon>().SR.drawMode = SpriteDrawMode.Sliced;
 
@@ -204,6 +212,8 @@ public class Pool_Manager : MonoBehaviour
         Weapon_Go.transform.parent = null;
 
         Weapon_Go.SetActive(true);
+
+        //Weapon_Go.layer = 7;
 
         return Weapon_Go;
         //All_Manager.instance.GameMode_M.All_L.Add(Weapon_Go.GetComponent<Weapon>());

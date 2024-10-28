@@ -49,7 +49,7 @@ public abstract class Unit : MonoBehaviour
 {
     public SpriteRenderer SR;
     public BoxCollider2D BC;
-    public Rigidbody2D RB;
+    //public Rigidbody2D RB;
     public Animator AM;
 
     public bool isDead = false;
@@ -92,8 +92,8 @@ public abstract class Unit : MonoBehaviour
     {
         SR = this.AddComponent<SpriteRenderer>();
 
-        RB = this.AddComponent<Rigidbody2D>();
-        RB.bodyType = RigidbodyType2D.Kinematic;
+        //RB = this.AddComponent<Rigidbody2D>();
+        //RB.bodyType = RigidbodyType2D.Kinematic;
 
         BC = this.AddComponent<BoxCollider2D>();
         BC.isTrigger = true;
