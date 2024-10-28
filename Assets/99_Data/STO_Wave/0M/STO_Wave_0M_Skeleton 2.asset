@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: STO_Wave_0M_Skeleton 2
   m_EditorClassIdentifier: 
   WST: 0
-  Wave_Time: 10
+  Wave_Time: 20
   Kill_Count: 0
   Spawn_Time: 10
-  Spawn_Count: 100
+  Spawn_Count: 5
   STO_Enemy: {fileID: 11400000, guid: 409c17b017b081f47842ddd11212fa67, type: 2}
   Elite: 0
