@@ -29,9 +29,9 @@ public class Unit_Factory : MonoBehaviour
             Player_Go.GetComponent<Unit_Player>().SR.drawMode = SpriteDrawMode.Sliced;
             Player_Go.GetComponent<Unit_Player>().SR.size = new Vector2((Player_Go.GetComponent<Unit_Player>().SR.size.x * 0.2f), (Player_Go.GetComponent<Unit_Player>().SR.size.y * 0.2f));
 
-            //Player_Go.layer = 7;
-
             All_Manager.instance.GameMode_M.Current_Player = Player_Go.GetComponent<Unit_Player>();
+
+            Player_Go.layer = 6;
         }
 
     }

@@ -139,7 +139,7 @@ public class Pool_Manager : MonoBehaviour
 
         Unit_Go.GetComponent<Unit_Enemy>().Elite_Outline_Set(p_UT);
         
-        Unit_Go.layer = 6;
+        Unit_Go.layer = 7;
 
         All_Manager.instance.GameMode_M.Enemy_List.Add(Unit_Go.GetComponent<Unit_Enemy>());
     }
@@ -213,7 +213,7 @@ public class Pool_Manager : MonoBehaviour
 
         Weapon_Go.SetActive(true);
 
-        //Weapon_Go.layer = 7;
+        Weapon_Go.layer = 6;
 
         return Weapon_Go;
         //All_Manager.instance.GameMode_M.All_L.Add(Weapon_Go.GetComponent<Weapon>());

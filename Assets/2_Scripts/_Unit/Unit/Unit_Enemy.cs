@@ -98,8 +98,8 @@ public class Unit_Enemy : Unit
 
         this.transform.position = this.transform.position + (dir.normalized * (Random.Range(Unit_Enemy_Speed, Unit_Enemy_Speed) * Time.deltaTime));
 
-        if (All_Manager.instance.GameMode_M.Enemy_List.Contains(this))
-        {
+        if (All_Manager.instance.GameMode_M.Enemy_List.Contains(this) || gameObject.GetComponent<Animator>())
+        {   
             AM.SetBool("Move", true);
         }
         else

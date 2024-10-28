@@ -34,6 +34,10 @@ public class All_Manager : Singleton<All_Manager>
     {
         Screen.SetResolution(1920, 1080, true);
         Application.targetFrameRate = 60;
+        for (int i = 0; i < GameMode_M.Tilemap_List.Count; i++)
+        {
+            GameMode_M.Tilemap_List[i].layer = 9;
+        }
 
         if (UI_M == null) Debug.Log("UI_Manager 없음");
         if (Unit_M == null) Debug.Log("Unit_Manager 없음");
