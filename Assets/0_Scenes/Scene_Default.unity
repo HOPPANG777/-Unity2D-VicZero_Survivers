@@ -13098,6 +13098,17 @@ PrefabInstance:
       propertyPath: Tilemap_List.Array.data[3]
       value: 
       objectReference: {fileID: 2003114184}
+    - target: {fileID: 2503191326534019746, guid: a0cbd2013a96de142a005d31bd723d2d,
+        type: 3}
+      propertyPath: Use_STO_Wave_List.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2503191326534019746, guid: a0cbd2013a96de142a005d31bd723d2d,
+        type: 3}
+      propertyPath: Use_STO_Wave_List.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9838110db6b411a4caa161e193b5e9fd,
+        type: 2}
     - target: {fileID: 2641971001135273825, guid: a0cbd2013a96de142a005d31bd723d2d,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -13338,6 +13349,167 @@ PrefabInstance:
       propertyPath: STO_Units.Array.size
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 4804284174803483581, guid: a0cbd2013a96de142a005d31bd723d2d,
+        type: 3}
+      propertyPath: STO_Waves.Array.size
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 4804284174803483581, guid: a0cbd2013a96de142a005d31bd723d2d,
+        type: 3}
+      propertyPath: STO_Waves.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: ca70f3280770abe45883a9850aea785e,
+        type: 2}
+    - target: {fileID: 4804284174803483581, guid: a0cbd2013a96de142a005d31bd723d2d,
+        type: 3}
+      propertyPath: STO_Waves.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 6b0782f0964bd984397768dc14a65cfe,
+        type: 2}
+    - target: {fileID: 4804284174803483581, guid: a0cbd2013a96de142a005d31bd723d2d,
+        type: 3}
+      propertyPath: STO_Waves.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 115ae719899186341b9344eacd964b22,
+        type: 2}
+    - target: {fileID: 4804284174803483581, guid: a0cbd2013a96de142a005d31bd723d2d,
+        type: 3}
+      propertyPath: STO_Waves.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 53696e1f2f5d8a04fb2ac7f10d2bc682,
+        type: 2}
+    - target: {fileID: 4804284174803483581, guid: a0cbd2013a96de142a005d31bd723d2d,
+        type: 3}
+      propertyPath: STO_Waves.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: 809e0d041bc110c429238849945314e0,
+        type: 2}
+    - target: {fileID: 4804284174803483581, guid: a0cbd2013a96de142a005d31bd723d2d,
+        type: 3}
+      propertyPath: STO_Waves.Array.data[5]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9838110db6b411a4caa161e193b5e9fd,
+        type: 2}
+    - target: {fileID: 4804284174803483581, guid: a0cbd2013a96de142a005d31bd723d2d,
+        type: 3}
+      propertyPath: STO_Waves.Array.data[6]
+      value: 
+      objectReference: {fileID: 11400000, guid: 8d14fffbd753600439cbda9d6c87ee9e,
+        type: 2}
+    - target: {fileID: 4804284174803483581, guid: a0cbd2013a96de142a005d31bd723d2d,
+        type: 3}
+      propertyPath: STO_Waves.Array.data[7]
+      value: 
+      objectReference: {fileID: 11400000, guid: aed395a446c441a45a6f8378d9b5df51,
+        type: 2}
+    - target: {fileID: 4804284174803483581, guid: a0cbd2013a96de142a005d31bd723d2d,
+        type: 3}
+      propertyPath: STO_Waves.Array.data[8]
+      value: 
+      objectReference: {fileID: 11400000, guid: 28462076694989c48ab04ae650a8a6e2,
+        type: 2}
+    - target: {fileID: 4804284174803483581, guid: a0cbd2013a96de142a005d31bd723d2d,
+        type: 3}
+      propertyPath: STO_Waves.Array.data[9]
+      value: 
+      objectReference: {fileID: 11400000, guid: 4c949142a488fe44ea563b205b3f7043,
+        type: 2}
+    - target: {fileID: 4804284174803483581, guid: a0cbd2013a96de142a005d31bd723d2d,
+        type: 3}
+      propertyPath: STO_Waves.Array.data[10]
+      value: 
+      objectReference: {fileID: 11400000, guid: c146938c06357a04788c1485062d58db,
+        type: 2}
+    - target: {fileID: 4804284174803483581, guid: a0cbd2013a96de142a005d31bd723d2d,
+        type: 3}
+      propertyPath: STO_Waves.Array.data[11]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7747fff0280cce747a1b553878bcbb7c,
+        type: 2}
+    - target: {fileID: 4804284174803483581, guid: a0cbd2013a96de142a005d31bd723d2d,
+        type: 3}
+      propertyPath: STO_Waves.Array.data[12]
+      value: 
+      objectReference: {fileID: 11400000, guid: dcdf2664bb378f8489742691ea9238a9,
+        type: 2}
+    - target: {fileID: 4804284174803483581, guid: a0cbd2013a96de142a005d31bd723d2d,
+        type: 3}
+      propertyPath: STO_Waves.Array.data[13]
+      value: 
+      objectReference: {fileID: 11400000, guid: 05ae0b7592e8e5243b15fe968eb0e96b,
+        type: 2}
+    - target: {fileID: 4804284174803483581, guid: a0cbd2013a96de142a005d31bd723d2d,
+        type: 3}
+      propertyPath: STO_Waves.Array.data[14]
+      value: 
+      objectReference: {fileID: 11400000, guid: 4f50ff620fe476342ac2b9a960818d78,
+        type: 2}
+    - target: {fileID: 4804284174803483581, guid: a0cbd2013a96de142a005d31bd723d2d,
+        type: 3}
+      propertyPath: STO_Waves.Array.data[15]
+      value: 
+      objectReference: {fileID: 11400000, guid: 885beb52d5625c444ac693fb3b95fa8e,
+        type: 2}
+    - target: {fileID: 4804284174803483581, guid: a0cbd2013a96de142a005d31bd723d2d,
+        type: 3}
+      propertyPath: STO_Waves.Array.data[16]
+      value: 
+      objectReference: {fileID: 11400000, guid: 41730043d6fcfad458099b0c2715998d,
+        type: 2}
+    - target: {fileID: 4804284174803483581, guid: a0cbd2013a96de142a005d31bd723d2d,
+        type: 3}
+      propertyPath: STO_Waves.Array.data[17]
+      value: 
+      objectReference: {fileID: 11400000, guid: 09cc4421fb82949498cd58dfcb9131f5,
+        type: 2}
+    - target: {fileID: 4804284174803483581, guid: a0cbd2013a96de142a005d31bd723d2d,
+        type: 3}
+      propertyPath: STO_Waves.Array.data[18]
+      value: 
+      objectReference: {fileID: 11400000, guid: 1d7a5fd7468a2a246af764fa51ccc022,
+        type: 2}
+    - target: {fileID: 4804284174803483581, guid: a0cbd2013a96de142a005d31bd723d2d,
+        type: 3}
+      propertyPath: STO_Waves.Array.data[19]
+      value: 
+      objectReference: {fileID: 11400000, guid: 63a2b5f089f822f4c94ae65f02e00296,
+        type: 2}
+    - target: {fileID: 4804284174803483581, guid: a0cbd2013a96de142a005d31bd723d2d,
+        type: 3}
+      propertyPath: STO_Waves.Array.data[20]
+      value: 
+      objectReference: {fileID: 11400000, guid: 2fd4aa50b23033a4fbe4478a7687bfca,
+        type: 2}
+    - target: {fileID: 4804284174803483581, guid: a0cbd2013a96de142a005d31bd723d2d,
+        type: 3}
+      propertyPath: STO_Waves.Array.data[21]
+      value: 
+      objectReference: {fileID: 11400000, guid: f8604906487ad824bb7175f933627d87,
+        type: 2}
+    - target: {fileID: 4804284174803483581, guid: a0cbd2013a96de142a005d31bd723d2d,
+        type: 3}
+      propertyPath: STO_Waves.Array.data[22]
+      value: 
+      objectReference: {fileID: 11400000, guid: fe407ba63ec85484596587ee36b3603d,
+        type: 2}
+    - target: {fileID: 4804284174803483581, guid: a0cbd2013a96de142a005d31bd723d2d,
+        type: 3}
+      propertyPath: STO_Waves.Array.data[23]
+      value: 
+      objectReference: {fileID: 11400000, guid: 364cae748fe8d0e4097b32a3bbb7b483,
+        type: 2}
+    - target: {fileID: 4804284174803483581, guid: a0cbd2013a96de142a005d31bd723d2d,
+        type: 3}
+      propertyPath: STO_Waves.Array.data[24]
+      value: 
+      objectReference: {fileID: 11400000, guid: 63a2b5f089f822f4c94ae65f02e00296,
+        type: 2}
+    - target: {fileID: 4804284174803483581, guid: a0cbd2013a96de142a005d31bd723d2d,
+        type: 3}
+      propertyPath: STO_Waves.Array.data[25]
+      value: 
+      objectReference: {fileID: 11400000, guid: 63a2b5f089f822f4c94ae65f02e00296,
+        type: 2}
     - target: {fileID: 4804284175419072536, guid: a0cbd2013a96de142a005d31bd723d2d,
         type: 3}
       propertyPath: m_IsActive

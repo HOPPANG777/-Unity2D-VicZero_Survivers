@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: STO_Wave_2M_Surround_Were 1
   m_EditorClassIdentifier: 
   WST: 1
-  Wave_Time: 120
+  Wave_Time: 240
   Kill_Count: 0
   Spawn_Time: 3
   Spawn_Count: 30
