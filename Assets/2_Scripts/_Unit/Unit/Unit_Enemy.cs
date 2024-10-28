@@ -90,7 +90,7 @@ public class Unit_Enemy : Unit
 
         Vector3 dir = All_Manager.instance.GameMode_M.Current_Player.transform.position - this.transform.position;
 
-        this.transform.position = this.transform.position + (dir.normalized * (Unit_Enemy_Speed * Time.deltaTime));
+        this.transform.position = this.transform.position + (dir.normalized * (Random.Range(Unit_Enemy_Speed, Unit_Enemy_Speed) * Time.deltaTime));
 
         if (All_Manager.instance.GameMode_M.Enemy_List.Contains(this))
         {
@@ -140,6 +140,19 @@ public class Unit_Enemy : Unit
         }
     }
 
+    public void On_Collider(GameObject Temp, GameObject Collider)
+    {
+        var Collision = Vector2.Distance(Temp.transform.position, Collider.transform.position);
+
+        float radius1 = 0.5f;
+        float radius2 = 0.5f;
+
+        if (Collision < (radius1 + radius2))
+        {
+
+        }
+
+    }
 
     public void Elite_Outline_Set(Unit_Type p_UT)
     {

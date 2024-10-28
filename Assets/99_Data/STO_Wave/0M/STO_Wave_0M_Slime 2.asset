@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: STO_Wave_0M_Slime 2
   m_EditorClassIdentifier: 
   WST: 0
-  Wave_Time: 0
+  Wave_Time: 2
   Kill_Count: 0
   Spawn_Time: 10
   Spawn_Count: 100
