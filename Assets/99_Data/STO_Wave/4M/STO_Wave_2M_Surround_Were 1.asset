@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9c7d21f04d6c6b41b4879bdba6b1c40, type: 3}
+  m_Name: STO_Wave_2M_Surround_Were 1
+  m_EditorClassIdentifier: 
+  WST: 1
+  Wave_Time: 240
+  Kill_Count: 0
+  Spawn_Time: 3
+  Spawn_Count: 30
+  STO_Enemy: {fileID: 11400000, guid: 985794303fa17d54b86745d628b7d5d7, type: 2}
+  Elite: 0
