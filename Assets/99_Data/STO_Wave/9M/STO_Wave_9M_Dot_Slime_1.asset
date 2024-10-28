@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9c7d21f04d6c6b41b4879bdba6b1c40, type: 3}
-  m_Name: STO_Wave_7M_Ghost_00
+  m_Name: STO_Wave_9M_Dot_Slime_1
   m_EditorClassIdentifier: 
-  WST: 0
-  Wave_Time: 420
+  WST: 2
+  Wave_Time: 550
   Kill_Count: 0
-  Spawn_Time: 60
-  Spawn_Count: 6
-  STO_Enemy: {fileID: 11400000, guid: 9c3c456a198cc4b4ca77dc83165cb0c1, type: 2}
+  Spawn_Time: 1
+  Spawn_Count: 30
+  STO_Enemy: {fileID: 11400000, guid: 9e4369f8bf5a10f49897e4f1f3d6e456, type: 2}
   Elite: 0

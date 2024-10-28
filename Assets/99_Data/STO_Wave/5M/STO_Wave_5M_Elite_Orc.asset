@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9c7d21f04d6c6b41b4879bdba6b1c40, type: 3}
-  m_Name: STO_Wave_10M_Boss_Undead
+  m_Name: STO_Wave_5M_Elite_Orc
   m_EditorClassIdentifier: 
-  WST: 3
-  Wave_Time: 600
+  WST: 0
+  Wave_Time: 300
   Kill_Count: 0
-  Spawn_Time: 1
-  Spawn_Count: 1
-  STO_Enemy: {fileID: 11400000, guid: e8e35d902247f794eb6ccfdc3c67f631, type: 2}
+  Spawn_Time: 60
+  Spawn_Count: 6
+  STO_Enemy: {fileID: 11400000, guid: d77808833d3ba814394fd5cbb6e9866a, type: 2}
   Elite: 0

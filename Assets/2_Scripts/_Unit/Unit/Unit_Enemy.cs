@@ -196,7 +196,7 @@ public class Unit_Enemy : Unit
                 float Dis = Dir.magnitude;
 
                 // 충돌 반경 설정 (적의 크기와 비례하여 설정)
-                float Min_Distance = 1.0f;
+                float Min_Distance = 0.75f;
 
                 if (Dis < Min_Distance)
                 {

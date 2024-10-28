@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9c7d21f04d6c6b41b4879bdba6b1c40, type: 3}
-  m_Name: STO_Wave_6M_Ghost
+  m_Name: STO_Wave_7M_Boss_Archer
   m_EditorClassIdentifier: 
   WST: 0
-  Wave_Time: 360
+  Wave_Time: 425
   Kill_Count: 0
-  Spawn_Time: 60
-  Spawn_Count: 6
-  STO_Enemy: {fileID: 11400000, guid: 9c3c456a198cc4b4ca77dc83165cb0c1, type: 2}
-  Elite: 0
+  Spawn_Time: 1
+  Spawn_Count: 1
+  STO_Enemy: {fileID: 11400000, guid: 3994c23db972a2843bd0ce87c363bfcb, type: 2}
+  Elite: 1

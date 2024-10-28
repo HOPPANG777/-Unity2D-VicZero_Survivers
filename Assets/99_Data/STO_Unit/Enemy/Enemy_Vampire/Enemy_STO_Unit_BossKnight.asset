@@ -34,7 +34,7 @@ MonoBehaviour:
   Unit_Enemy_Speed: 1
   Unit_Enemy_Damage: 15
   Sprite_Image: {fileID: 999131820, guid: 3dd37cd1daf6fd74ab823b8fe544f3eb, type: 3}
-  Elite_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  Elite_Material: {fileID: 2100000, guid: 02af41c1b08e1e54eb4ae346c8dac455, type: 2}
   Death_Audio_Clip: {fileID: 8300000, guid: 3bfc4cf8af8e3c241aa1e86e8d927539, type: 3}
   Hitted_Audio_Clip: {fileID: 8300000, guid: 82047cb198b83ef479e775c103c6fc4b, type: 3}
   Unit_Animator_Controller: {fileID: 9100000, guid: a92dbd2e15d6fbc449b272a8c0df8621,
