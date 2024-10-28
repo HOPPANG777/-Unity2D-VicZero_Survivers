@@ -67,7 +67,7 @@ public class Pool_Manager : MonoBehaviour
 
             yield return new WaitWhile(() => Weapon_Pool == null);
 
-            int Weapon_Number = 800;
+            int Weapon_Number = 100;
 
             for (int k = 0; k < Weapon_Number; k++)
             {
@@ -189,6 +189,10 @@ public class Pool_Manager : MonoBehaviour
         p_Weapon.GetComponent<Weapon>().SR.drawMode = SpriteDrawMode.Sliced;
 
         p_Weapon.GetComponent<Weapon>().SR.size = new Vector2(1, 1);
+
+        //Debug.Log("Weapon Pool");
+
+        p_Weapon.gameObject.SetActive(false);
     }
 
     public GameObject Weapon_Pool_Out(Weapon_Type p_WT)
@@ -196,10 +200,6 @@ public class Pool_Manager : MonoBehaviour
         var Target_Pool = this.transform.Find(p_WT.ToString() + "-Pool");
 
         var Weapon_Go = Target_Pool.GetChild(0).gameObject;
-
-        Weapon_Go.GetComponent<Weapon>().SR.drawMode = SpriteDrawMode.Sliced;
-
-        Weapon_Go.GetComponent<Weapon>().SR.size = new Vector2((Weapon_Go.GetComponent<Weapon>().SR.size.x * 2), (Weapon_Go.GetComponent<Weapon>().SR.size.y * 2));
 
         Weapon_Go.transform.parent = null;
 

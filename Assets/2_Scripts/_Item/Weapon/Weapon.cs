@@ -213,8 +213,16 @@ public abstract class Weapon : MonoBehaviour
         weapon.Weapon_Knock = weapon_STO.Info_s[p_Level].Weapon_Knock;
         weapon.Forever = weapon_STO.Forever;
 
-        weapon.BC.size = new Vector2(weapon_STO.Size_X, weapon_STO.Size_Y);
-        weapon.BC.offset = new Vector2(weapon_STO.Offset_X, weapon_STO.Offset_Y);
+
+        var Temp_WLAT = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(weapon_STO);
+
+        var Temp_Weapon_Range = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Range(WT, Temp_WLAT);
+        
+        weapon.BC.size = new Vector2((Temp_Weapon_Range * 0.5f), (Temp_Weapon_Range * 0.5f));
+
+        weapon.GetComponent<Weapon>().SR.drawMode = SpriteDrawMode.Sliced;
+
+        weapon.GetComponent<Weapon>().SR.size = new Vector2(Temp_Weapon_Range, Temp_Weapon_Range);
     }
 
     public void Weapon_Stat_Appliaction()
@@ -277,6 +285,8 @@ public abstract class Weapon : MonoBehaviour
         //{
         //    Destroy(this.gameObject);
         //}
+
+        //Debug.Log("Weapon Destroy");
 
         // 만약 Mine이 null 이라면
         if (All_Manager.instance.GameMode_M.Current_Player == null)
