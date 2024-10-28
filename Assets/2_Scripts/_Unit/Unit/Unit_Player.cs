@@ -186,16 +186,17 @@ public class Unit_Player : Unit
 
         Creating_Weapon = true;
 
-        GameObject Weapon_Go = null;
+        //GameObject Weapon_Go = null;
+        GameObject Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
 
         switch (p_WT)
         {
             // 도끼
             case Weapon_Type.Axe:
                 {
-                    Weapon_Go = new GameObject("Axe");
+                    //Weapon_Go = new GameObject("Axe");
 
-                    Weapon_Go.AddComponent<Weapon_Axe>();
+                    //Weapon_Go.AddComponent<Weapon_Axe>();
                     
                     // Weapon_Go가 해당 무기의 컴포넌트를 포함하고 있다면.
                     if (Weapon_Go.GetComponent<Weapon_Axe>())
@@ -238,9 +239,9 @@ public class Unit_Player : Unit
                 break;
             case Weapon_Type.KingBible:
                 {
-                    Weapon_Go = new GameObject("KingBible");
+                    //Weapon_Go = new GameObject("KingBible");
 
-                    Weapon_Go.AddComponent<Weapon_KingBible>();
+                    //Weapon_Go.AddComponent<Weapon_KingBible>();
 
                     if (Weapon_Go.GetComponent<Weapon_KingBible>())
                     {
@@ -292,9 +293,9 @@ public class Unit_Player : Unit
                 break;
             case Weapon_Type.Peachone:
                 {
-                    Weapon_Go = new GameObject("Peachone");
+                    //Weapon_Go = new GameObject("Peachone");
 
-                    Weapon_Go.AddComponent<Weapon_Peachone>();
+                    //Weapon_Go.AddComponent<Weapon_Peachone>();
 
                     if (Weapon_Go.GetComponent<Weapon_Peachone>())
                     {
@@ -325,9 +326,9 @@ public class Unit_Player : Unit
 
                     for (int i = 0; i < FireWand_Stat.Weapon_Count; i++)
                     {
-                        Weapon_Go = new GameObject("FireWand");
+                        //Weapon_Go = new GameObject("FireWand");
 
-                        Weapon_Go.AddComponent<Weapon_FireWand>();
+                        //Weapon_Go.AddComponent<Weapon_FireWand>();
 
                         if (Weapon_Go.GetComponent<Weapon_FireWand>())
                         {
@@ -357,9 +358,9 @@ public class Unit_Player : Unit
                 {
                     var W_Cross_S = Weapon_STO.Info_s[Cross_LAT.Level];
 
-                    Weapon_Go = new GameObject("Cross");
+                    //Weapon_Go = new GameObject("Cross");
 
-                    Weapon_Go.AddComponent<Weapon_Cross>();
+                    //Weapon_Go.AddComponent<Weapon_Cross>();
 
                     if (Weapon_Go.GetComponent<Weapon_Cross>())
                     {
@@ -385,8 +386,8 @@ public class Unit_Player : Unit
                 break;
             case Weapon_Type.Garlic:
                 {
-                    Weapon_Go = new GameObject("Garlic");
-                    Weapon_Go.AddComponent<Weapon_Garlic>();
+                    //Weapon_Go = new GameObject("Garlic");
+                    //Weapon_Go.AddComponent<Weapon_Garlic>();
 
                     if (Weapon_Go.GetComponent<Weapon_Garlic>())
                     {
@@ -434,8 +435,8 @@ public class Unit_Player : Unit
                                 continue;
                             }
 
-                            Weapon_Go = new GameObject("LightningRing");
-                            Weapon_Go.AddComponent<Weapon_LightningRing>();
+                            //Weapon_Go = new GameObject("LightningRing");
+                            //Weapon_Go.AddComponent<Weapon_LightningRing>();
 
 
                             // LightningRing이 데미지를 주는지 확인 후 처리
@@ -466,8 +467,8 @@ public class Unit_Player : Unit
                 break;
             case Weapon_Type.ShadowPinion:
                 {
-                    Weapon_Go = new GameObject("ShadowPinion");
-                    Weapon_Go.AddComponent<Weapon_ShadowPinion>();
+                    //Weapon_Go = new GameObject("ShadowPinion");
+                    //Weapon_Go.AddComponent<Weapon_ShadowPinion>();
 
                     if (Weapon_Go.GetComponent<Weapon_ShadowPinion>())
                     {
@@ -485,8 +486,8 @@ public class Unit_Player : Unit
                 break;
             case Weapon_Type.RuneTracer:
                 {
-                    Weapon_Go = new GameObject("RuneTracer");
-                    Weapon_Go.AddComponent<Weapon_RuneTracer>();
+                    //Weapon_Go = new GameObject("RuneTracer");
+                    //Weapon_Go.AddComponent<Weapon_RuneTracer>();
 
                     if (Weapon_Go.GetComponent<Weapon_RuneTracer>())
                     {
@@ -504,8 +505,8 @@ public class Unit_Player : Unit
                 break;
             case Weapon_Type.Whip:
                 {
-                    Weapon_Go = new GameObject("Whip");
-                    Weapon_Go.AddComponent<Weapon_Whip>();
+                    //Weapon_Go = new GameObject("Whip");
+                    //Weapon_Go.AddComponent<Weapon_Whip>();
 
                     //Weapon_Go.transform.parent = this.transform;
 

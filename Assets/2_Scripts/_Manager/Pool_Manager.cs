@@ -58,24 +58,24 @@ public class Pool_Manager : MonoBehaviour
             yield return new WaitWhile(() => MISC_Pool.transform.childCount != MISC_Number);
         }
 
-        //for (int h = 0; h < System.Enum.GetValues(typeof(Weapon_Type)).Length; h++)
-        //{
-        //    var Temp_WT = (Weapon_Type)h;
+        for (int h = 0; h < System.Enum.GetValues(typeof(Weapon_Type)).Length; h++)
+        {
+            var Temp_WT = (Weapon_Type)h;
 
-        //    GameObject Weapon_Pool = new GameObject(Temp_WT.ToString() + "-Pool");
-        //    Weapon_Pool.transform.parent = this.transform;
+            GameObject Weapon_Pool = new GameObject(Temp_WT.ToString() + "-Pool");
+            Weapon_Pool.transform.parent = this.transform;
 
-        //    yield return new WaitWhile(() => Weapon_Pool == null);
+            yield return new WaitWhile(() => Weapon_Pool == null);
 
-        //    int Weapon_Number = 800;
+            int Weapon_Number = 800;
 
-        //    for (int k = 0; k < Weapon_Number; k++)
-        //    {
-        //        All_Manager.instance.Unit_M.Projectile_F.Create_Projectile(All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(Temp_WT), this.transform, (k + 1), Weapon_Pool.transform);
-        //    }
+            for (int k = 0; k < Weapon_Number; k++)
+            {
+                All_Manager.instance.Unit_M.Projectile_F.Create_Projectile(All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(Temp_WT), this.transform, (k + 1), Weapon_Pool.transform);
+            }
 
-        //    yield return new WaitWhile(() => Weapon_Pool.transform.childCount != Weapon_Number);
-        //}
+            yield return new WaitWhile(() => Weapon_Pool.transform.childCount != Weapon_Number);
+        }
 
         Ready = true;
     }
@@ -102,6 +102,10 @@ public class Pool_Manager : MonoBehaviour
         p_UE.SR.material.SetFloat("_Red_Value", 1.0f);
 
         p_UE.SR.material.SetFloat("_Alpha", 1.0f);
+
+        p_UE.GetComponent<Unit_Enemy>().SR.drawMode = SpriteDrawMode.Sliced;
+
+        p_UE.GetComponent<Unit_Enemy>().SR.size = new Vector2(1, 1);
 
         p_UE.SR_GB = 0.0f;
 
@@ -130,6 +134,7 @@ public class Pool_Manager : MonoBehaviour
         Unit_Go.SetActive(true);
 
         Unit_Go.GetComponent<Unit_Enemy>().SR.drawMode = SpriteDrawMode.Sliced;
+
         Unit_Go.GetComponent<Unit_Enemy>().SR.size = new Vector2((Unit_Go.GetComponent<Unit_Enemy>().SR.size.x * 4), (Unit_Go.GetComponent<Unit_Enemy>().SR.size.y * 4));
 
         Unit_Go.GetComponent<Unit_Enemy>().Elite_Outline_Set(p_UT);
@@ -145,6 +150,10 @@ public class Pool_Manager : MonoBehaviour
 
         p_MISC.transform.localScale = Vector3.one;
 
+        p_MISC.GetComponent<MISC>().SR.drawMode = SpriteDrawMode.Sliced;
+
+        p_MISC.GetComponent<MISC>().SR.size = new Vector2(1, 1);
+
         p_MISC.transform.parent = Target_Pool;
     }
 
@@ -155,6 +164,7 @@ public class Pool_Manager : MonoBehaviour
         var MISC_Go = Target_Pool.GetChild(0).gameObject;
 
         MISC_Go.GetComponent<MISC>().SR.drawMode = SpriteDrawMode.Sliced;
+
         MISC_Go.GetComponent<MISC>().SR.size = new Vector2((MISC_Go.GetComponent<MISC>().SR.size.x * 2), (MISC_Go.GetComponent<MISC>().SR.size.y * 2));
 
         MISC_Go.transform.parent = null;
@@ -166,6 +176,37 @@ public class Pool_Manager : MonoBehaviour
         MISC_Go.layer = 6;
 
         All_Manager.instance.GameMode_M.MISC_List.Add(MISC_Go.GetComponent<MISC>());
+    }
+
+    public void Weapon_Pool_In(Weapon p_Weapon)
+    {
+        var Target_Pool = this.transform.Find(p_Weapon.WT.ToString() + "-Pool");
+
+        p_Weapon.transform.parent = Target_Pool;
+
+        p_Weapon.transform.localScale = Vector3.one;
+
+        p_Weapon.GetComponent<Weapon>().SR.drawMode = SpriteDrawMode.Sliced;
+
+        p_Weapon.GetComponent<Weapon>().SR.size = new Vector2(1, 1);
+    }
+
+    public GameObject Weapon_Pool_Out(Weapon_Type p_WT)
+    {
+        var Target_Pool = this.transform.Find(p_WT.ToString() + "-Pool");
+
+        var Weapon_Go = Target_Pool.GetChild(0).gameObject;
+
+        Weapon_Go.GetComponent<Weapon>().SR.drawMode = SpriteDrawMode.Sliced;
+
+        Weapon_Go.GetComponent<Weapon>().SR.size = new Vector2((Weapon_Go.GetComponent<Weapon>().SR.size.x * 2), (Weapon_Go.GetComponent<Weapon>().SR.size.y * 2));
+
+        Weapon_Go.transform.parent = null;
+
+        Weapon_Go.SetActive(true);
+
+        return Weapon_Go;
+        //All_Manager.instance.GameMode_M.All_L.Add(Weapon_Go.GetComponent<Weapon>());
     }
 }
 

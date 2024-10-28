@@ -215,9 +215,6 @@ public abstract class Weapon : MonoBehaviour
 
         weapon.BC.size = new Vector2(weapon_STO.Size_X, weapon_STO.Size_Y);
         weapon.BC.offset = new Vector2(weapon_STO.Offset_X, weapon_STO.Offset_Y);
-
-        weapon.SR.drawMode = SpriteDrawMode.Sliced;
-        weapon.SR.size = new Vector2((SR.size.x * 2f), (SR.size.y * 2f));
     }
 
     public void Weapon_Stat_Appliaction()
@@ -284,7 +281,9 @@ public abstract class Weapon : MonoBehaviour
         // 만약 Mine이 null 이라면
         if (All_Manager.instance.GameMode_M.Current_Player == null)
         {
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
+
+            All_Manager.instance.Pool_M.Weapon_Pool_In(this.gameObject.GetComponent<Weapon>());        
         }
 
         // Mine이 null이 아니라면
@@ -297,7 +296,9 @@ public abstract class Weapon : MonoBehaviour
             }
         }
 
-        Destroy(this.gameObject);
+        //Destroy(this.gameObject);
+
+        All_Manager.instance.Pool_M.Weapon_Pool_In(this.gameObject.GetComponent<Weapon>());
     }
 }
 
