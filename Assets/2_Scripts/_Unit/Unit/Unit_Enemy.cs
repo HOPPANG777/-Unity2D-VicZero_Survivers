@@ -185,7 +185,7 @@ public class Unit_Enemy : Unit
         p_Unit.Max_HP = p_Unit.Current_HP = p_Un_STO.Unit_Enemy_HP;
         p_Unit.Unit_Enemy_HP = p_Un_STO.Unit_Enemy_HP;
         p_Unit.Unit_Enemy_Damage = p_Un_STO.Unit_Enemy_Damage;
-        p_Unit.Unit_Enemy_Speed = p_Un_STO.Unit_Enemy_Speed;
+        p_Unit.Unit_Enemy_Speed = (p_Un_STO.Unit_Enemy_Speed * 1.5f);
 
         p_Unit.BC.size = new Vector2(p_Un_STO.Size_X, p_Un_STO.Size_Y);
         p_Unit.BC.offset = new Vector2(p_Un_STO.Offset_X, p_Un_STO.Offset_Y);

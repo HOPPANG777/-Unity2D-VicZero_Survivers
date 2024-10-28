@@ -27,8 +27,8 @@ public class UI_Peachone : MonoBehaviour
                 if (All_Manager.instance.UI_M.W_Peachone_Range_Deg < 360)
                 {
                     var rad = Mathf.Deg2Rad * (All_Manager.instance.UI_M.W_Peachone_Range_Deg);
-                    var x = (Temp_Player.Current_Weapon_Range(Weapon_Type.Peachone, Temp_Player.Peachone_LAT) * 0.8f) * Mathf.Sin(rad);
-                    var y = (Temp_Player.Current_Weapon_Range(Weapon_Type.Peachone, Temp_Player.Peachone_LAT) * 0.8f) * Mathf.Cos(rad);
+                    var x = (Temp_Player.Current_Weapon_Range(Weapon_Type.Peachone, Temp_Player.Peachone_LAT) * 0.4f) * Mathf.Sin(rad);
+                    var y = (Temp_Player.Current_Weapon_Range(Weapon_Type.Peachone, Temp_Player.Peachone_LAT) * 0.4f) * Mathf.Cos(rad);
                     All_Manager.instance.UI_M.Peachone_Range_Image.rectTransform.position = Temp_Player.transform.position + new Vector3(x, y);
                 }
                 else

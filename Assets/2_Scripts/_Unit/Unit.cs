@@ -17,6 +17,7 @@ public struct Unit_Stat_Sheet
     public float Unit_Weapon_CoolDown;
     public int Unit_Weapon_Proj_Count;
     public float Unit_Get_Gem_Range;
+    public float Unit_Weapon_Size;
 }
 
 [System.Serializable]

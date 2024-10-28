@@ -26,78 +26,87 @@ MonoBehaviour:
     Weapon_Duration: 0
     Weapon_Knock: 0
     Weapon_Count: 0
+    Weapon_Size: 0
   - Weapon_Damage: 35
     Weapon_Speed: 3
-    Weapon_Range: 1
+    Weapon_Range: 2
     Weapon_Time: 0
     Weapon_Pen: 0
     Weapon_CoolDown: 4
     Weapon_Duration: 4
     Weapon_Knock: 0.5
     Weapon_Count: 6
+    Weapon_Size: 2.5
   - Weapon_Damage: 35
     Weapon_Speed: 3
-    Weapon_Range: 1
+    Weapon_Range: 2
     Weapon_Time: 0
     Weapon_Pen: 0
     Weapon_CoolDown: 4
     Weapon_Duration: 4
     Weapon_Knock: 0.5
     Weapon_Count: 8
+    Weapon_Size: 2.5
   - Weapon_Damage: 45
     Weapon_Speed: 3
-    Weapon_Range: 1
+    Weapon_Range: 2
     Weapon_Time: 0
     Weapon_Pen: 0
     Weapon_CoolDown: 4
     Weapon_Duration: 4
     Weapon_Knock: 0.5
     Weapon_Count: 12
+    Weapon_Size: 2.5
   - Weapon_Damage: 45
     Weapon_Speed: 3
-    Weapon_Range: 1
+    Weapon_Range: 2
     Weapon_Time: 0
     Weapon_Pen: 0
     Weapon_CoolDown: 4
     Weapon_Duration: 4
     Weapon_Knock: 0.5
     Weapon_Count: 12
+    Weapon_Size: 2.5
   - Weapon_Damage: 45
     Weapon_Speed: 3
-    Weapon_Range: 1
+    Weapon_Range: 2
     Weapon_Time: 0
     Weapon_Pen: 0
     Weapon_CoolDown: 4
     Weapon_Duration: 4
     Weapon_Knock: 0.5
     Weapon_Count: 12
+    Weapon_Size: 2.5
   - Weapon_Damage: 55
     Weapon_Speed: 3
-    Weapon_Range: 1
+    Weapon_Range: 2
     Weapon_Time: 0
     Weapon_Pen: 0
     Weapon_CoolDown: 4
     Weapon_Duration: 4
     Weapon_Knock: 0.5
     Weapon_Count: 12
+    Weapon_Size: 2.5
   - Weapon_Damage: 55
     Weapon_Speed: 3
-    Weapon_Range: 1
+    Weapon_Range: 2
     Weapon_Time: 0
     Weapon_Pen: 0
     Weapon_CoolDown: 4
     Weapon_Duration: 4
     Weapon_Knock: 0.5
     Weapon_Count: 12
+    Weapon_Size: 2.5
   - Weapon_Damage: 55
     Weapon_Speed: 3
-    Weapon_Range: 1
+    Weapon_Range: 2
     Weapon_Time: 0
     Weapon_Pen: 0
     Weapon_CoolDown: 4
     Weapon_Duration: 4
     Weapon_Knock: 0.5
     Weapon_Count: 16
+    Weapon_Size: 2.5
   Size_X: 0.35
   Size_Y: 0.4
   Offset_X: 0

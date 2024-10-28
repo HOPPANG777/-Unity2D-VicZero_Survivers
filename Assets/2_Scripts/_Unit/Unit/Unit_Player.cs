@@ -187,14 +187,14 @@ public class Unit_Player : Unit
         Creating_Weapon = true;
 
         //GameObject Weapon_Go = null;
-        GameObject Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
+        GameObject Weapon_Go = null;
 
         switch (p_WT)
         {
             // 도끼
             case Weapon_Type.Axe:
                 {
-                    //Weapon_Go = new GameObject("Axe");
+                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
 
                     //Weapon_Go.AddComponent<Weapon_Axe>();
                     
@@ -239,7 +239,7 @@ public class Unit_Player : Unit
                 break;
             case Weapon_Type.KingBible:
                 {
-                    //Weapon_Go = new GameObject("KingBible");
+                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
 
                     //Weapon_Go.AddComponent<Weapon_KingBible>();
 
@@ -293,7 +293,7 @@ public class Unit_Player : Unit
                 break;
             case Weapon_Type.Peachone:
                 {
-                    //Weapon_Go = new GameObject("Peachone");
+                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
 
                     //Weapon_Go.AddComponent<Weapon_Peachone>();
 
@@ -324,9 +324,9 @@ public class Unit_Player : Unit
                 {
                     var FireWand_Stat = Weapon_STO.Info_s[FireWand_LAT.Level];
 
-                    for (int i = 0; i < FireWand_Stat.Weapon_Count; i++)
+                    for (int i = 0; i < Current_Weapon_Count(Weapon_Type.FireWand, FireWand_LAT); i++)
                     {
-                        //Weapon_Go = new GameObject("FireWand");
+                        Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
 
                         //Weapon_Go.AddComponent<Weapon_FireWand>();
 
@@ -340,7 +340,7 @@ public class Unit_Player : Unit
 
                             Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, FireWand_LAT.Level);
 
-                            Vector3 Dir_Vec = new Vector3(Mathf.Cos((Mathf.PI * 2 * i / FireWand_Stat.Weapon_Count)), Mathf.Sin((Mathf.PI * i * 2 / FireWand_Stat.Weapon_Count))); //원을 기준으로 각각의 투사체마다 벡터를 정리
+                            Vector3 Dir_Vec = new Vector3(Mathf.Cos((Mathf.PI * 2 * i / Current_Weapon_Count(Weapon_Type.FireWand, FireWand_LAT))), Mathf.Sin((Mathf.PI * i * 2 / Current_Weapon_Count(Weapon_Type.FireWand, FireWand_LAT)))); //원을 기준으로 각각의 투사체마다 벡터를 정리
 
                             if (All_Manager.instance.GameMode_M.Game_Stop == false)
                             {
@@ -348,7 +348,7 @@ public class Unit_Player : Unit
                             }
                             else { }
 
-                            Weapon_Go.transform.rotation = Quaternion.Euler(0, 0, (360 * i / (FireWand_Stat.Weapon_Count)) + 180); //투사체의 각도가 자연스럽게 회전값을 넣었다.
+                            Weapon_Go.transform.rotation = Quaternion.Euler(0, 0, (360 * i / (Current_Weapon_Count(Weapon_Type.FireWand, FireWand_LAT))) + 180); //투사체의 각도가 자연스럽게 회전값을 넣었다.
                             All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.FireWand);
                         }
                     }
@@ -358,7 +358,7 @@ public class Unit_Player : Unit
                 {
                     var W_Cross_S = Weapon_STO.Info_s[Cross_LAT.Level];
 
-                    //Weapon_Go = new GameObject("Cross");
+                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
 
                     //Weapon_Go.AddComponent<Weapon_Cross>();
 
@@ -375,7 +375,7 @@ public class Unit_Player : Unit
 
                         Vector3 Two = One + (Target - One) / 3 + new Vector3(Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2, Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2, 0);
                         Vector3 Three = Target + (One - Target) / 3 + new Vector3(Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2, Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2, 0);
-                        Vector3 Four = One + ((One - Target) * 5);
+                        Vector3 Four = One + ((One - Target) * W_Cross_S.Weapon_Range);
 
                         Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, Cross_LAT.Level);
                         Weapon_Go.GetComponent<Weapon_Cross>().Cross_Init(One, Two, Three, Four);
@@ -386,7 +386,7 @@ public class Unit_Player : Unit
                 break;
             case Weapon_Type.Garlic:
                 {
-                    //Weapon_Go = new GameObject("Garlic");
+                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
                     //Weapon_Go.AddComponent<Weapon_Garlic>();
 
                     if (Weapon_Go.GetComponent<Weapon_Garlic>())
@@ -435,7 +435,7 @@ public class Unit_Player : Unit
                                 continue;
                             }
 
-                            //Weapon_Go = new GameObject("LightningRing");
+                            Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
                             //Weapon_Go.AddComponent<Weapon_LightningRing>();
 
 
@@ -467,7 +467,7 @@ public class Unit_Player : Unit
                 break;
             case Weapon_Type.ShadowPinion:
                 {
-                    //Weapon_Go = new GameObject("ShadowPinion");
+                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
                     //Weapon_Go.AddComponent<Weapon_ShadowPinion>();
 
                     if (Weapon_Go.GetComponent<Weapon_ShadowPinion>())
@@ -486,7 +486,7 @@ public class Unit_Player : Unit
                 break;
             case Weapon_Type.RuneTracer:
                 {
-                    //Weapon_Go = new GameObject("RuneTracer");
+                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
                     //Weapon_Go.AddComponent<Weapon_RuneTracer>();
 
                     if (Weapon_Go.GetComponent<Weapon_RuneTracer>())
@@ -505,7 +505,7 @@ public class Unit_Player : Unit
                 break;
             case Weapon_Type.Whip:
                 {
-                    //Weapon_Go = new GameObject("Whip");
+                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
                     //Weapon_Go.AddComponent<Weapon_Whip>();
 
                     //Weapon_Go.transform.parent = this.transform;
@@ -1129,9 +1129,12 @@ public class Unit_Player : Unit
             if (Candelabrador_Level > 0)
             {
                 float Unit_Player_Range = 0;
+                float Unit_Player_Size = 0;
                 Unit_Player_Range = this.Percent_Stat.Unit_Weapon_Range;
+                Unit_Player_Size = this.Percent_Stat.Unit_Weapon_Size;
 
                 this.Origin_Stat.Unit_Weapon_Range += Unit_Player_Range;
+                this.Origin_Stat.Unit_Weapon_Size += Unit_Player_Size;
             }
         }
 
@@ -1232,6 +1235,7 @@ public class Unit_Player : Unit
         else if (Eq_STO.ET == Temp_Equipment_STO[5].ET)
         {
             Player_Unit.Percent_Stat.Unit_Weapon_Range += Eq_STO.Equipment_Stat_Sheet.Unit_Weapon_Range;
+            Player_Unit.Percent_Stat.Unit_Weapon_Size += Eq_STO.Equipment_Stat_Sheet.Unit_Weapon_Size;
         }
 
         else if (Eq_STO.ET == Temp_Equipment_STO[6].ET)
@@ -1417,6 +1421,19 @@ public class Unit_Player : Unit
         return p_Weapon_Range;
     }
 
+    // 장신구로 증가하는 현재 무기의 크기
+    public float Current_Weapon_Size(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
+    {
+        var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
+
+        float Weapon_Size_Value = 0;
+        Weapon_Size_Value = (STO_Weapon_STO.Info_s[p_WLAT.Level].Weapon_Size * this.Origin_Stat.Unit_Weapon_Size * 0.01f);
+
+        float p_Weapon_Size = STO_Weapon_STO.Info_s[p_WLAT.Level].Weapon_Size + Weapon_Size_Value;
+
+        return p_Weapon_Size;
+    }
+
     //지금 현재 무기의 공격속도.
     public float Current_Weapon_Speed(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
@@ -1520,7 +1537,7 @@ public class Unit_Player : Unit
 
         p_Unit.Origin_Stat.Unit_HP = p_Un_STO.Player_info_s.HP;
         p_Unit.Max_HP = p_Unit.Current_HP = p_Un_STO.Player_info_s.HP;
-        p_Unit.Origin_Stat.Unit_Speed = p_Un_STO.Player_info_s.Unit_Speed;
+        p_Unit.Origin_Stat.Unit_Speed = (p_Un_STO.Player_info_s.Unit_Speed * 1.5f);
         p_Unit.Origin_Stat.Unit_Defense = p_Un_STO.Player_info_s.Unit_Defense;
         p_Unit.Origin_Stat.Unit_Get_Gem_Range = p_Un_STO.Player_info_s.Unit_Get_Gem_Range;
 

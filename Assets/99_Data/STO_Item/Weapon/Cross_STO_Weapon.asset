@@ -26,6 +26,7 @@ MonoBehaviour:
     Weapon_Duration: 0
     Weapon_Knock: 0
     Weapon_Count: 0
+    Weapon_Size: 0
   - Weapon_Damage: 35
     Weapon_Speed: 1
     Weapon_Range: 5
@@ -35,6 +36,7 @@ MonoBehaviour:
     Weapon_Duration: 2
     Weapon_Knock: 0.5
     Weapon_Count: 1
+    Weapon_Size: 0.7
   - Weapon_Damage: 35
     Weapon_Speed: 1
     Weapon_Range: 5
@@ -44,6 +46,7 @@ MonoBehaviour:
     Weapon_Duration: 2
     Weapon_Knock: 0.5
     Weapon_Count: 2
+    Weapon_Size: 0.7
   - Weapon_Damage: 45
     Weapon_Speed: 1
     Weapon_Range: 5
@@ -53,6 +56,7 @@ MonoBehaviour:
     Weapon_Duration: 2
     Weapon_Knock: 0.5
     Weapon_Count: 2
+    Weapon_Size: 0.7
   - Weapon_Damage: 45
     Weapon_Speed: 1
     Weapon_Range: 5
@@ -62,6 +66,7 @@ MonoBehaviour:
     Weapon_Duration: 2
     Weapon_Knock: 0.5
     Weapon_Count: 3
+    Weapon_Size: 0.7
   - Weapon_Damage: 45
     Weapon_Speed: 1
     Weapon_Range: 5
@@ -71,6 +76,7 @@ MonoBehaviour:
     Weapon_Duration: 2
     Weapon_Knock: 0.5
     Weapon_Count: 3
+    Weapon_Size: 0.7
   - Weapon_Damage: 45
     Weapon_Speed: 1
     Weapon_Range: 5
@@ -80,6 +86,7 @@ MonoBehaviour:
     Weapon_Duration: 2
     Weapon_Knock: 0.5
     Weapon_Count: 4
+    Weapon_Size: 0.7
   - Weapon_Damage: 55
     Weapon_Speed: 1
     Weapon_Range: 5
@@ -89,6 +96,7 @@ MonoBehaviour:
     Weapon_Duration: 2
     Weapon_Knock: 0.5
     Weapon_Count: 4
+    Weapon_Size: 0.7
   - Weapon_Damage: 55
     Weapon_Speed: 1
     Weapon_Range: 5
@@ -98,12 +106,13 @@ MonoBehaviour:
     Weapon_Duration: 2
     Weapon_Knock: 0.5
     Weapon_Count: 5
+    Weapon_Size: 0.7
   Size_X: 0.6
   Size_Y: 0.6
   Offset_X: 0
   Offset_Y: 0
   Forever: 1
-  Sprite_Image: {fileID: 1339989116, guid: 033e302fbb1fda94f89ab91686fae774, type: 3}
+  Sprite_Image: {fileID: 21300000, guid: df0f43417aadf4e05b4ed01fd7bc8eed, type: 3}
   Item_Image: {fileID: 1339989116, guid: 033e302fbb1fda94f89ab91686fae774, type: 3}
   Sprite_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   Attacking_Audio_Clip: {fileID: 8300000, guid: 6946521935d52814f81d3ddcea499d75,

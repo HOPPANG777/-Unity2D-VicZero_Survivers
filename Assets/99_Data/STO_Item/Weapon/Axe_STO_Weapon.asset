@@ -25,69 +25,77 @@ MonoBehaviour:
     Weapon_Duration: 0
     Weapon_Knock: 0
     Weapon_Count: 0
+    Weapon_Size: 0
   - Weapon_Damage: 30
     Weapon_Speed: 1
-    Weapon_Range: 2
+    Weapon_Range: 1
     Weapon_Time: 0
     Weapon_Pen: 0
     Weapon_CoolDown: 4
     Weapon_Duration: 1
     Weapon_Knock: 0.5
     Weapon_Count: 2
+    Weapon_Size: 1
   - Weapon_Damage: 25
     Weapon_Speed: 1
-    Weapon_Range: 2
+    Weapon_Range: 1
     Weapon_Time: 0
     Weapon_Pen: 0
     Weapon_CoolDown: 4
     Weapon_Duration: 1
     Weapon_Knock: 0.5
     Weapon_Count: 3
+    Weapon_Size: 1
   - Weapon_Damage: 30
     Weapon_Speed: 1
-    Weapon_Range: 2
+    Weapon_Range: 1
     Weapon_Time: 0
     Weapon_Pen: 0
     Weapon_CoolDown: 4
     Weapon_Duration: 1
     Weapon_Knock: 0.5
     Weapon_Count: 3
+    Weapon_Size: 1
   - Weapon_Damage: 35
     Weapon_Speed: 1
-    Weapon_Range: 2
+    Weapon_Range: 1
     Weapon_Time: 0
     Weapon_Pen: 0
     Weapon_CoolDown: 4
     Weapon_Duration: 1
     Weapon_Knock: 0.5
     Weapon_Count: 4
+    Weapon_Size: 1
   - Weapon_Damage: 40
     Weapon_Speed: 1
-    Weapon_Range: 2
+    Weapon_Range: 1
     Weapon_Time: 0
     Weapon_Pen: 0
     Weapon_CoolDown: 4
     Weapon_Duration: 1
     Weapon_Knock: 0.5
     Weapon_Count: 4
+    Weapon_Size: 1
   - Weapon_Damage: 45
     Weapon_Speed: 1
-    Weapon_Range: 2
+    Weapon_Range: 1
     Weapon_Time: 0
     Weapon_Pen: 0
     Weapon_CoolDown: 4
     Weapon_Duration: 1
     Weapon_Knock: 0.5
     Weapon_Count: 5
+    Weapon_Size: 1
   - Weapon_Damage: 50
     Weapon_Speed: 1
-    Weapon_Range: 2
+    Weapon_Range: 1
     Weapon_Time: 0
     Weapon_Pen: 0
     Weapon_CoolDown: 4
     Weapon_Duration: 1
     Weapon_Knock: 0.5
     Weapon_Count: 5
+    Weapon_Size: 1
   - Weapon_Damage: 55
     Weapon_Speed: 1
     Weapon_Range: 2
@@ -97,12 +105,13 @@ MonoBehaviour:
     Weapon_Duration: 1
     Weapon_Knock: 0.5
     Weapon_Count: 5
+    Weapon_Size: 1
   Size_X: 1
   Size_Y: 1
   Offset_X: 0
   Offset_Y: 0
   Forever: 1
-  Sprite_Image: {fileID: 1487762037, guid: 033e302fbb1fda94f89ab91686fae774, type: 3}
+  Sprite_Image: {fileID: 21300000, guid: f3b53bfe105a146a397068be481e6036, type: 3}
   Item_Image: {fileID: 1487762037, guid: 033e302fbb1fda94f89ab91686fae774, type: 3}
   Sprite_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   Attacking_Audio_Clip: {fileID: 8300000, guid: 1ad526832a7fb5447a4a4c6aafdd19de,

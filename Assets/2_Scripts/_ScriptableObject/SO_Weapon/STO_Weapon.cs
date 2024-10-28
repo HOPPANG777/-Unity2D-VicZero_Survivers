@@ -14,6 +14,7 @@ public struct Weapon_Information
     public float Weapon_Duration;
     public float Weapon_Knock;
     public int Weapon_Count;
+    public float Weapon_Size;
 }
     
 [CreateAssetMenu(menuName = "STO/Weapon")]

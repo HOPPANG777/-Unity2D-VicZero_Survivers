@@ -30,6 +30,7 @@ public abstract class Weapon : MonoBehaviour
     public float Weapon_Knock = 0;
     public int Weapon_Level = 0;
     public int Weapon_Count = 0;
+    public float Weapon_Size = 0;
 
     public float Weapon_Basic_Damage = 0;
     public float Weapon_Basic_Speed = 0;
@@ -203,7 +204,7 @@ public abstract class Weapon : MonoBehaviour
         }
 
         weapon.Weapon_Damage = weapon_STO.Info_s[p_Level].Weapon_Damage;
-        weapon.Weapon_Speed = weapon_STO.Info_s[p_Level].Weapon_Speed;
+        weapon.Weapon_Speed = (weapon_STO.Info_s[p_Level].Weapon_Speed * 1.5f);
         weapon.Weapon_Range = weapon_STO.Info_s[p_Level].Weapon_Range;
         weapon.Weapon_Time = weapon_STO.Info_s[p_Level].Weapon_Time;
         weapon.Weapon_Count = weapon_STO.Info_s[p_Level].Weapon_Count;
@@ -211,20 +212,21 @@ public abstract class Weapon : MonoBehaviour
         weapon.Weapon_CoolDown = weapon_STO.Info_s[p_Level].Weapon_CoolDown;
         weapon.Weapon_Duration = weapon_STO.Info_s[p_Level].Weapon_Duration;
         weapon.Weapon_Knock = weapon_STO.Info_s[p_Level].Weapon_Knock;
+        weapon.Weapon_Size = weapon_STO.Info_s[p_Level].Weapon_Size;
         weapon.Forever = weapon_STO.Forever;
 
 
         var Temp_WLAT = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(weapon_STO);
 
-        var Temp_Weapon_Range = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Range(WT, Temp_WLAT);
-        
-        weapon.BC.size = new Vector2((Temp_Weapon_Range * 0.5f), (Temp_Weapon_Range * 0.5f));
+        var Temp_Weapon_Size = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Size(WT, Temp_WLAT);
 
         weapon.GetComponent<Weapon>().SR.drawMode = SpriteDrawMode.Sliced;
 
-        weapon.GetComponent<Weapon>().SR.size = new Vector2(Temp_Weapon_Range, Temp_Weapon_Range);
+        weapon.GetComponent<Weapon>().SR.size = new Vector2((Temp_Weapon_Size), (Temp_Weapon_Size));
+        weapon.BC.size = new Vector2((Temp_Weapon_Size * 0.5f), (Temp_Weapon_Size * 0.5f));
+        
     }
-
+    
     public void Weapon_Stat_Appliaction()
     {
         var Temp_WTO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(WT);
@@ -234,12 +236,14 @@ public abstract class Weapon : MonoBehaviour
         var Temp_Weapon_Damage = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Damage(WT, Temp_WLAT);
         var Temp_Weapon_Speed = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Speed(WT, Temp_WLAT);
         var Temp_Weapon_Range = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Range(WT, Temp_WLAT);
+        var Temp_Weapon_Size = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Size(WT, Temp_WLAT);
         var Temp_Weapon_Duration = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Duration(WT, Temp_WLAT);
 
         Weapon_Damage = Temp_Weapon_Damage;
         Weapon_Speed = Temp_Weapon_Speed;
         Weapon_Range = Temp_Weapon_Range;
         Weapon_Duration = Temp_Weapon_Duration;
+        Weapon_Size = Temp_Weapon_Size;
     }
 
 
