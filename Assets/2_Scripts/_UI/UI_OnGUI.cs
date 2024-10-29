@@ -6,12 +6,14 @@ public class UI_OnGUI : MonoBehaviour
 {
     public void OnGUI()
     {
+        // 무기, 장비, 패널 스타일에 대한 옵션을 Enum에서 가져옵니다.
         All_Manager.instance.UI_M.WP_Options = System.Enum.GetNames(typeof(Weapon_Type));
         All_Manager.instance.UI_M.EQ_Options = System.Enum.GetNames(typeof(Equipment_Type));
         All_Manager.instance.UI_M.PS_Options = System.Enum.GetNames(typeof(Panel_Style));
 
         GUILayout.BeginHorizontal();
 
+        // 패널 스타일 섹션
         GUILayout.BeginVertical("Box");
         if (GUILayout.Button(All_Manager.instance.UI_M.PanelStyle_On ? "접기" : "펼치기"))
         {
@@ -19,23 +21,23 @@ public class UI_OnGUI : MonoBehaviour
         }
         if (All_Manager.instance.UI_M.PanelStyle_On)
         {
-            // 패널 스타일 선택
-            GUILayout.Label("Select Panel Style:");
-            int Sel_Panel = GUILayout.SelectionGrid((int)All_Manager.instance.TEST_PS, All_Manager.instance.UI_M.PS_Options, 1);
-            All_Manager.instance.TEST_PS = (Panel_Style)Sel_Panel;
+            GUILayout.Label("패널 스타일 선택:");
+            int selectedPanelIndex = GUILayout.SelectionGrid((int)All_Manager.instance.TEST_PS, All_Manager.instance.UI_M.PS_Options, 1);
+            All_Manager.instance.TEST_PS = (Panel_Style)selectedPanelIndex;
 
-            if (GUILayout.Button("Activate Panel"))
+            if (GUILayout.Button("패널 활성화"))
             {
                 Panel_Check();
             }
 
-            if (GUILayout.Button("Deactivate Panel"))
+            if (GUILayout.Button("패널 비활성화"))
             {
                 Panel_Test_Off();
             }
         }
         GUILayout.EndVertical();
 
+        // 무기 섹션
         GUILayout.BeginVertical("Box");
         if (GUILayout.Button(All_Manager.instance.UI_M.Weapon_On ? "접기" : "펼치기"))
         {
@@ -43,23 +45,23 @@ public class UI_OnGUI : MonoBehaviour
         }
         if (All_Manager.instance.UI_M.Weapon_On)
         {
-            // 무기 선택
-            GUILayout.Label("Select Weapon:");
+            GUILayout.Label("무기 선택:");
             int selectedWeaponIndex = GUILayout.SelectionGrid((int)All_Manager.instance.TEST_WP, All_Manager.instance.UI_M.WP_Options, 1);
             All_Manager.instance.TEST_WP = (Weapon_Type)selectedWeaponIndex;
 
-            if (GUILayout.Button("Test Weapon"))
+            if (GUILayout.Button("무기 테스트"))
             {
                 Weapon_Test();
             }
 
-            if (GUILayout.Button("Max Level Weapon Test"))
+            if (GUILayout.Button("최대 레벨 무기 테스트"))
             {
                 Max_Weapon_Test();
             }
         }
         GUILayout.EndVertical();
 
+        // 장비 섹션
         GUILayout.BeginVertical("Box");
         if (GUILayout.Button(All_Manager.instance.UI_M.Equipment_On ? "접기" : "펼치기"))
         {
@@ -67,17 +69,16 @@ public class UI_OnGUI : MonoBehaviour
         }
         if (All_Manager.instance.UI_M.Equipment_On)
         {
-            // 장신구 선택
-            GUILayout.Label("Select Equipment:");
+            GUILayout.Label("장비 선택:");
             int selectedEquipmentIndex = GUILayout.SelectionGrid((int)All_Manager.instance.TEST_EQ, All_Manager.instance.UI_M.EQ_Options, 1);
             All_Manager.instance.TEST_EQ = (Equipment_Type)selectedEquipmentIndex;
 
-            if (GUILayout.Button("Test Equipment"))
+            if (GUILayout.Button("장비 테스트"))
             {
                 Equipment_Test();
             }
 
-            if (GUILayout.Button("Max Level Equipment Test"))
+            if (GUILayout.Button("최대 레벨 장비 테스트"))
             {
                 Max_Equipment_Test();
             }
@@ -86,6 +87,8 @@ public class UI_OnGUI : MonoBehaviour
 
         GUILayout.EndHorizontal();
     }
+
+
 
     // 패널 테스트
     [ContextMenu("Panel Check")]

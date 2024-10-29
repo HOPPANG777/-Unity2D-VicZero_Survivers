@@ -10,6 +10,7 @@ using System.Xml.Serialization;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 //using UnityEngine.UIElements;
 
 public enum Panel_Style
@@ -28,13 +29,13 @@ public class UI_Manager : MonoBehaviour
     public Text Kill_Count_Text;
     public Text Time_Count_Text;
     public Text Player_Level_Count_Text;
-    public Image Gem_Count_Image;
-    public Image Player_HPbar_Image;
+    public UnityEngine.UI.Image Gem_Count_Image;
+    public UnityEngine.UI.Image Player_HPbar_Image;
 
     [Header("인게임 싱크 UI")]
-    public Image Peachone_Range_Image;
-    public Image Peachone_Image;
-    public Image Force_Image;
+    public UnityEngine.UI.Image Peachone_Range_Image;
+    public UnityEngine.UI.Image Peachone_Image;
+    public UnityEngine.UI.Image Force_Image;
     public Text Wave_Text;
     public Text Game_State_Text;
     public Text Panel_Style_Text;
@@ -55,9 +56,9 @@ public class UI_Manager : MonoBehaviour
     public GameObject Ingame_Debug_Log;
 
     [Header("타이틀 화면")]
-    public Button[] Start_Weapon_Button;        // 시작 버튼 누르고 나오는 무기 선택 버튼
-    
-    public Image[] Start_Weapon_Icon_Image;     // 시작 무기 아이콘
+    public UnityEngine.UI.Button[] Start_Weapon_Button;        // 시작 버튼 누르고 나오는 무기 선택 버튼
+
+    public UnityEngine.UI.Image[] Start_Weapon_Icon_Image;     // 시작 무기 아이콘
     public Text[] Start_Weapon_Name_Text;       // 이름
     public Text[] Start_Weapon_Example_Text;    // 설명
 
@@ -78,24 +79,24 @@ public class UI_Manager : MonoBehaviour
 
 
     [Header("아이템 선택창")]
-    public Button[] Select_Item_Button;     // 아이템 선택 버튼
+    public UnityEngine.UI.Button[] Select_Item_Button;     // 아이템 선택 버튼
 
-    public Image[] Select_Item_Icon_Image;  // 선택할 아이템의 이미지
+    public UnityEngine.UI.Image[] Select_Item_Icon_Image;  // 선택할 아이템의 이미지
     public Text[] Select_Item_Name_Text;    // 선택할 아이템의 이름
     public Text[] Select_Item_Example_Text; // 선택할 아이템의 설명
 
     [Header("플레이어 정보창")]
     // 인게임 플레이 화면의 현재 무기와 장신구 아이콘
-    public Image[] Basic_Current_Weapon_Icon_Image;
-    public Image[] Basic_Current_Equipment_Icon_Image;
+    public UnityEngine.UI.Image[] Basic_Current_Weapon_Icon_Image;
+    public UnityEngine.UI.Image[] Basic_Current_Equipment_Icon_Image;
 
     // 인게임 UI로 띄워주는 무기 레벨
     public Text[] Weapon_Level_Text;
     public Text[] Equipment_Level_Text;
 
     // 플레이어 정보창 현재 무기와 장신구 아이콘
-    public Image[] Player_Info_s_Current_Weapon_Icon_Image;
-    public Image[] Player_Info_s_Current_Equipment_Icon_Image;
+    public UnityEngine.UI.Image[] Player_Info_s_Current_Weapon_Icon_Image;
+    public UnityEngine.UI.Image[] Player_Info_s_Current_Equipment_Icon_Image;
 
     // 플레이어 정보창 스탯
     public Text[] Player_Info_s_Pase_One_Text;
@@ -115,28 +116,24 @@ public class UI_Manager : MonoBehaviour
     public GameObject Treasure_Item_Image_01;
     public GameObject Treasure_Item_Image_02;
     public GameObject Treasure_Gem_Image_List;
-    public Image Treasure_Reel_Image;
-    public Image Treasure_Item_Mask;
-    public Image Treasure_Select_Item_Image;
+    public UnityEngine.UI.Image Treasure_Reel_Image;
+    public UnityEngine.UI.Image Treasure_Item_Mask;
+    public UnityEngine.UI.Image Treasure_Select_Item_Image;
     public Text Treasure_Found_Text;
     public Text Treasure_Got_Gem;
 
     public GameObject Treasure_Gem_Parent;
 
-    public Image Treasure_Chest_Image;
+    public UnityEngine.UI.Image Treasure_Chest_Image;
 
     public Sprite Close_Chest;
     public Sprite Open_Chest;
 
-    public Button Treasure_Open_Button;
-    public Button Treasure_Close_Button;
-
-
+    public UnityEngine.UI.Button Treasure_Open_Button;
+    public UnityEngine.UI.Button Treasure_Close_Button;
 
     //public float Treasure_Start_Pos_Y = 0;
     //public float Treasure_Reset_Pos_Y = 2300;
-
-
 
     //public float Mask_Roulette_Speed = 1500.0f;
     //public float Mask_Roulette_Move_Spd = 400.0f;
@@ -152,6 +149,21 @@ public class UI_Manager : MonoBehaviour
     public bool Weapon_On = false;
     public bool Equipment_On = false;
     public bool PanelStyle_On = false;
+
+    // 패널 상태 변수들
+    public bool Help_On = false;
+    public bool Configuration_On = false;
+    public bool WindowOptions_On = false;
+    public bool Widgets_On = false;
+    public bool LayoutScrolling_On = false;
+    public bool PopupsModal_On = false;
+    public bool TablesColumns_On = false;
+    public bool InputsFocus_On = false;
+
+    // 디버그 정보 변수들
+    public bool WantCaptureMouse = true;
+    public bool WantCaptureKeyboard = false;
+    public bool NavActive = false;
 
     [Header("UI_System")]
     public Player_Level_Up Player_Level_Up;
@@ -351,7 +363,7 @@ public class UI_Manager : MonoBehaviour
 
         else if (p_PS == Panel_Style.GameStart)
         {
-           Game_Title_Panel.SetActive(true);
+            Game_Title_Panel.SetActive(true);
         }
 
         else if (p_PS == Panel_Style.TreasureFound)
