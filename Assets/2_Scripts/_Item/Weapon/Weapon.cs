@@ -11,7 +11,7 @@ public abstract class Weapon : MonoBehaviour
 
     public SpriteRenderer SR;
     public BoxCollider2D BC;
-    //public Rigidbody2D RB;
+    public Rigidbody2D RB;
     public TrailRenderer TR;
     public Animator AM;
 
@@ -39,6 +39,9 @@ public abstract class Weapon : MonoBehaviour
 
     public int Collision_Count = 0;
     public float Closet_Distance = 0;
+
+    private float Check_Interval = 0.5f;
+    private float Next_Check_Time = 0.0f;
 
     public bool Forever = false;
 
@@ -79,7 +82,14 @@ public abstract class Weapon : MonoBehaviour
         else
         {
             Weapon_Stat_Appliaction();
-            Weapon_To_Enemy_Collision();
+
+            if (Time.time >= Next_Check_Time)
+            {
+                Weapon_To_Enemy_Collision();
+
+                Next_Check_Time = Time.time + Check_Interval;
+            }
+
         }
 
     }
@@ -89,7 +99,7 @@ public abstract class Weapon : MonoBehaviour
     {
         //Weapon_Application_Equipment();
     }
-    
+
     // 무기 파괴 타이머
     public void Weapon_Timer()
     {
@@ -115,40 +125,6 @@ public abstract class Weapon : MonoBehaviour
             Destroy_Weapon();
         }
     }
-
-    // 무기가 적과 충돌했을때 // 피격처리
-    //public virtual void OnTriggerStay2D(Collider2D collision)
-    //{
-    //    //충돌체가 이 컴포넌트를 가지고 있는가?
-    //    if (collision.transform.GetComponent<Unit_Enemy>())
-    //    {
-    //        //collision.transform.GetComponent<Unit_Enemy>().Hitted(Weapon_Damage);
-
-    //        Unit_Enemy Temp_Enemy = collision.transform.GetComponent<Unit_Enemy>();
-
-    //        //Temp.Hitted(Weapon_Damage_Value);
-
-    //        Temp_Enemy.Hitted(Weapon_Damage);
-
-    //        if (Forever == false)
-    //        {
-    //            if (Collision_Count > Weapon_Pen)
-    //            {
-    //                Destroy_Weapon();
-    //            }
-    //        }
-    //        else
-    //        {
-
-    //        }
-
-    //        //Debug.Log("Enemey Hitted");
-
-    //        Collision_Count++;
-
-    //    }
-
-    //}
 
 
     public virtual void Weapon_To_Enemy_Collision()
@@ -199,43 +175,45 @@ public abstract class Weapon : MonoBehaviour
     // 무기 넉백
     public void Weapon_KnockBack_Weapon()
     {
-        Vector3 BC_Center = BC.transform.TransformPoint(BC.offset);
-        Vector3 BC_Half_Extents = Vector3.Scale(BC.size, BC.transform.lossyScale) * 0.5f;
-        Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(BC_Center, BC.size * 0.9f, 0);
-        //Debug.Log(collider2Ds);
+        // 모든 적 유닛을 가져와 충돌 검사
+        var Enemy_List = All_Manager.instance.GameMode_M.Enemy_List;
 
-        float Dis = 10000;
+        Unit_Enemy Closest_Enemy = Get_Closest_Enemy(Enemy_List);
 
-        foreach (UnityEngine.Collider2D collider in collider2Ds)
+        if (Closest_Enemy != null)
         {
-            if (collider.gameObject.GetComponent<Unit_Enemy>())
+            Vector3 direction = (Closest_Enemy.transform.position - this.transform.position).normalized;
+
+            if (Closest_Enemy.UT != Unit_Type.Barrel)
             {
-                Unit_Enemy Enemy_Temp = collider.gameObject.GetComponent<Unit_Enemy>();
+                // 가장 가까운 적에게 넉백 적용
+                Closest_Enemy.Knock_Back(direction, Weapon_Knock, Weapon_Duration);
+            }
+        }
+    }
 
-                if (Dis > Vector3.Distance(this.transform.position, Enemy_Temp.transform.position))
-                {
-                    Dis = Vector3.Distance(this.transform.position, Enemy_Temp.transform.position);
-                    Weapon_Target_Weapon = Enemy_Temp;
-                }
+    // 가장 가까운 적을 찾는 메서드
+    private Unit_Enemy Get_Closest_Enemy(List<Unit_Enemy> Enemy_List)
+    {
+        float Closest_Distance = float.MaxValue;
+        Unit_Enemy Closest_Enemy = null;
 
-                //Weapon_Target_Weapon = Enemy_Temp;
+        for (int i = 0; i < Enemy_List.Count; i++)
+        {
+            Unit_Enemy Enemy = Enemy_List[i];
+            if (Enemy == this) continue; // 자기 자신은 건너뜀
+
+            // 적과 무기 간의 거리 계산
+            var Dir = this.transform.position - Enemy.transform.position;
+            float Dis = Dir.sqrMagnitude;
+            if (Dis < Closest_Distance)
+            {
+                Closest_Distance = Dis;
+                Closest_Enemy = Enemy;
             }
         }
 
-        if (Weapon_Target_Weapon != null)
-        {
-            Vector3 Dir = (Weapon_Target_Weapon.transform.position - this.transform.position).normalized;
-
-            if (Weapon_Target_Weapon.UT == Unit_Type.Barrel)
-            {
-                
-            }
-
-            else
-            {
-                Weapon_Target_Weapon.Knock_Back(Dir, Weapon_Knock, Weapon_Duration);
-            }
-        }
+        return Closest_Enemy;
     }
 
     // 무기 기본 스탯 조정
@@ -263,7 +241,7 @@ public abstract class Weapon : MonoBehaviour
         weapon.Weapon_Knock = weapon_STO.Info_s[p_Level].Weapon_Knock;
         weapon.Weapon_Size = weapon_STO.Info_s[p_Level].Weapon_Size;
         weapon.Forever = weapon_STO.Forever;
-        
+
         var Temp_WLAT = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(weapon_STO);
 
         var Temp_Weapon_Size = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Size(WT, Temp_WLAT);
@@ -273,7 +251,7 @@ public abstract class Weapon : MonoBehaviour
         weapon.GetComponent<Weapon>().SR.size = new Vector2((Temp_Weapon_Size), (Temp_Weapon_Size));
         weapon.BC.size = new Vector2((Temp_Weapon_Size * 0.5f), (Temp_Weapon_Size * 0.5f));
     }
-   
+
 
     public void Weapon_Stat_Appliaction()
     {
@@ -345,7 +323,7 @@ public abstract class Weapon : MonoBehaviour
         {
             //Destroy(this.gameObject);
 
-            All_Manager.instance.Pool_M.Weapon_Pool_In(this.gameObject.GetComponent<Weapon>());        
+            All_Manager.instance.Pool_M.Weapon_Pool_In(this.gameObject.GetComponent<Weapon>());
         }
 
         // Mine이 null이 아니라면
@@ -366,6 +344,79 @@ public abstract class Weapon : MonoBehaviour
 
 
 #region
+// 무기가 적과 충돌했을때 // 피격처리
+//public virtual void OnTriggerStay2D(Collider2D collision)
+//{
+//    //충돌체가 이 컴포넌트를 가지고 있는가?
+//    if (collision.transform.GetComponent<Unit_Enemy>())
+//    {
+//        //collision.transform.GetComponent<Unit_Enemy>().Hitted(Weapon_Damage);
+
+//        Unit_Enemy Temp_Enemy = collision.transform.GetComponent<Unit_Enemy>();
+
+//        //Temp.Hitted(Weapon_Damage_Value);
+
+//        Temp_Enemy.Hitted(Weapon_Damage);
+
+//        if (Forever == false)
+//        {
+//            if (Collision_Count > Weapon_Pen)
+//            {
+//                Destroy_Weapon();
+//            }
+//        }
+//        else
+//        {
+
+//        }
+
+//        //Debug.Log("Enemey Hitted");
+
+//        Collision_Count++;
+
+//    }
+
+//}
+//    public void Weapon_KnockBack_Weapon()
+//{
+//    Vector3 BC_Center = BC.transform.TransformPoint(BC.offset);
+//    Vector3 BC_Half_Extents = Vector3.Scale(BC.size, BC.transform.lossyScale) * 0.5f;
+//    Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(BC_Center, BC.size * 0.9f, 0);
+//    //Debug.Log(collider2Ds);
+
+//    float Dis = 10000;
+
+//    foreach (UnityEngine.Collider2D collider in collider2Ds)
+//    {
+//        if (collider.gameObject.GetComponent<Unit_Enemy>())
+//        {
+//            Unit_Enemy Enemy_Temp = collider.gameObject.GetComponent<Unit_Enemy>();
+
+//            if (Dis > Vector3.Distance(this.transform.position, Enemy_Temp.transform.position))
+//            {
+//                Dis = Vector3.Distance(this.transform.position, Enemy_Temp.transform.position);
+//                Weapon_Target_Weapon = Enemy_Temp;
+//            }
+
+//            //Weapon_Target_Weapon = Enemy_Temp;
+//        }
+//    }
+
+//    if (Weapon_Target_Weapon != null)
+//    {
+//        Vector3 Dir = (Weapon_Target_Weapon.transform.position - this.transform.position).normalized;
+
+//        if (Weapon_Target_Weapon.UT == Unit_Type.Barrel)
+//        {
+
+//        }
+
+//        else
+//        {
+//            Weapon_Target_Weapon.Knock_Back(Dir, Weapon_Knock, Weapon_Duration);
+//        }
+//    }
+//}
 /*
 도끼같은건 보통 관통력을 지니고 있다 룬트레이서도 마찬가지
 따라서 Weapon_Pen을 추가했는데 

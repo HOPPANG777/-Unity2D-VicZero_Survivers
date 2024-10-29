@@ -79,38 +79,6 @@ public class Weapon_Garlic : Weapon
                 Weapon_Target_Weapon.Knock_Back(Dir, Weapon_Knock, Weapon_Duration);
             }
         }
-
-        //BC.isTrigger = false;
-        //CC.radius = Weapon_Range;
-
-        //Collider2D[] collider2Ds = Physics2D.OverlapCircleAll(this.transform.position, (Weapon_Range - 5.0f));
-
-        //float Dis = 10000;
-
-        //foreach (UnityEngine.Collider2D collider in collider2Ds)
-        //{
-        //    if (collider.gameObject.GetComponent<Unit_Enemy>())
-        //    {
-        //        Unit_Enemy Enemy_Temp = collider.gameObject.GetComponent<Unit_Enemy>();
-
-        //        if (Dis > Vector3.Distance(this.transform.position, Enemy_Temp.transform.position))
-        //        {
-        //            Dis = Vector3.Distance(this.transform.position, Enemy_Temp.transform.position);
-        //            Weapon_Target_Weapon = Enemy_Temp;
-        //        }
-        //    }
-        //}
-
-        //if (Weapon_Target_Weapon != null)
-        //{
-        //    Vector3 Dir = (Weapon_Target_Weapon.transform.position - this.transform.position).normalized;
-
-        //    if (Weapon_Target_Weapon.UT != Unit_Type.Barrel)
-        //    {
-        //        // 넉백 메서드 호출
-        //        Weapon_Target_Weapon.Knock_Back(Dir, Weapon_Knock, Weapon_Duration);
-        //    }
-        //}
     }
 
     //public override void OnTriggerStay2D(Collider2D collision)
@@ -126,6 +94,7 @@ public class Weapon_Garlic : Weapon
 }
 
 #region
+
 //foreach (var collider in collider2Ds)
 //{
 //    if (collider.gameObject.GetComponent<Unit_Enemy>())

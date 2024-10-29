@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 [System.Serializable]
 public struct Unit_Stat_Sheet
@@ -38,7 +39,7 @@ public enum Unit_Type
 
 [System.Serializable]
 public enum Unit_Anim_State
-{ 
+{
     Idle,
     Walk,
     Death
@@ -55,7 +56,6 @@ public abstract class Unit : MonoBehaviour
     public bool isDead = false;
     public bool isAlive = false;
     protected bool isHit_C = false;
-    protected bool isKnock = false;
     public bool isEffect = false;
     public bool isHit = false;
     public bool isDeathAnim = false;
@@ -82,11 +82,10 @@ public abstract class Unit : MonoBehaviour
 
     public float Dead_Effect = 0.0f;
 
-    //private Vector3 knockbackDirection;     // 넉백의 방향과 크기
-    //private float knockbackTime;            // 넉백 지속 시간
-    //private float knockbackElapsed = 0f;    // 넉백 경과 시간
-    //private bool isKnockback = false;       // 넉백 상태 여부
-
+    protected bool isKnock = false;
+    private Vector3 knockDirection; // 넉백 방향
+    private float knockStrength; // 넉백 강도
+    private float knockTimer; // 넉백 지속 시간 타이머
 
     public virtual void Start()
     {
@@ -103,13 +102,41 @@ public abstract class Unit : MonoBehaviour
 
     public virtual void Update()
     {
-        if (All_Manager.instance.GameMode_M.Game_Stop == true) return;
+        // 게임이 정지된 상태라면 함수 종료
+        if (All_Manager.instance.GameMode_M.Game_Stop) return;
 
+        // SpriteRenderer 색상 업데이트
+        Update_Sprite_Renderer();
+
+        // 넉백 처리
+        if (isKnock == true)
+        {
+            Perform_Knockback();
+        }
+
+        // 피격 효과 처리
+        if (isHit_C)
+        {
+            Update_Hit_Effect();
+        }
+
+        // Hit 상태 시간 경과 처리
+        if (!isHit)
+        {
+            Update_Hit_Timer();
+        }
+    }
+
+    private void Update_Sprite_Renderer()
+    {
+        // SR_GB와 Dead_Effect를 기반으로 색상 및 재질 값 설정
         SR.color = new Color(1, 1 - SR_GB, 1 - SR_GB, 1 - Dead_Effect);
-
         SR.material.SetFloat("_Red_Value", 1 - SR_GB);
-
         SR.material.SetFloat("_Alpha", 1 - Dead_Effect);
+    }
+
+    private void Perform_Knockback()
+    {
 
         if (isKnock == true)
         {
@@ -123,44 +150,29 @@ public abstract class Unit : MonoBehaviour
             }
         }
 
-        if (isHit_C == true)
+    }
+
+    private void Update_Hit_Effect()
+    {
+        // 피격 효과 시간 경과
+        SR_GB -= Time.deltaTime;
+
+        if (SR_GB < 0)
         {
-            SR_GB -= Time.deltaTime;
-
-            if (SR_GB < 0)
-            {
-                isHit_C = false;
-            }
+            isHit_C = false;
         }
+    }
 
-        if (isHit == false)
+    private void Update_Hit_Timer()
+    {
+        // 피격 이후 회복 시간을 계산
+        Hit_Time += Time.deltaTime;
+
+        if (Hit_Time > 1.0f)
         {
-            if (Hit_Time > 1.0f)
-            {
-                Hit_Time = 0;
-
-                isHit = true;
-            }
-
-            Hit_Time += Time.deltaTime;
+            Hit_Time = 0;
+            isHit = true;
         }
-
-        //// 넉백 중일 때 처리
-        //if (isKnockback)
-        //{
-        //    if (knockbackElapsed < knockbackTime)
-        //    {
-        //        // 넉백 방향으로 이동
-        //        transform.position += knockbackDirection * Time.deltaTime;
-        //        knockbackElapsed += Time.deltaTime;
-        //    }
-        //    else
-        //    {
-        //        // 넉백 종료
-        //        isKnockback = false;
-        //    }
-        //}
-
     }
 
     public virtual void Hitted(float p_Damage_Value)
@@ -241,18 +253,6 @@ public abstract class Unit : MonoBehaviour
         }
     }
 
-
-    //// 넉백 시작 메서드
-    //public void Knock_Back(Vector3 direction, float force, float duration)
-    //{
-    //    knockbackDirection = direction.normalized * force; // 방향 정규화 후 힘 적용
-    //    knockbackTime = duration;  // 넉백 지속 시간 설정
-    //    knockbackElapsed = 0f;     // 경과 시간 초기화
-    //    isKnockback = true;        // 넉백 상태로 설정
-    //}
-
-
-
     public abstract void Unit_Stat_Setting(Unit p_Unit, STO_Unit Un_STO);
 
     public virtual void Unit_Animation(Unit_Anim_State State)
@@ -286,6 +286,47 @@ public abstract class Unit : MonoBehaviour
     }
 }
 
+
+#region
+// 넉백 중일 때, 타이머를 감소시키면서 넉백 처리
+//if (knockTimer > 0)
+//{
+//    float currentKnockStrength = Mathf.Lerp(knockStrength, 0, 1 - (knockTimer / knockStrength));
+//    transform.position += knockDirection * currentKnockStrength * Time.deltaTime;
+
+//    knockTimer -= Time.deltaTime;
+//}
+//else
+//{
+//    // 넉백 종료
+//    isKnock = false;
+//}
+
+//public void Knock_Back(Vector3 knockDir, float knockStrength, float knockDuration)
+//{
+//    if (isKnock == false)
+//    {
+//        this.knockDirection = knockDir.normalized;
+//        this.knockStrength = knockStrength;
+//        this.knockTimer = knockDuration;
+//        this.isKnock = true;
+//    }
+//}
+//public void Knock_Back(Vector3 Knock_Dir, float Knock_Garlic, float Knock_Duration)
+//{
+//    if (!isKnock)
+//    {
+//        for (int i = 0; i < 100; i++)
+//        {
+//            this.transform.position = this.transform.position + ((Knock_Dir.normalized * Knock_Garlic) * (100 - i) * 0.01f * Time.deltaTime);
+//        }
+
+//        isKnock = true;
+//        Knock_Timer = Knock_Duration;
+
+//    }
+//}
+
 //if (!isKnock)
 //{
 //    for (int i = 0; i < Knock_Count; i++)
@@ -302,3 +343,85 @@ public abstract class Unit : MonoBehaviour
 //{
 //    this.transform.position = this.transform.position + (Knock_Dir.normalized * Knock_Garlic * (Knock_Count - i) * Knock_Duration);
 //}
+
+//    public virtual void Update()
+//{
+//    if (All_Manager.instance.GameMode_M.Game_Stop == true) return;
+
+//    SR.color = new Color(1, 1 - SR_GB, 1 - SR_GB, 1 - Dead_Effect);
+
+//    SR.material.SetFloat("_Red_Value", 1 - SR_GB);
+
+//    SR.material.SetFloat("_Alpha", 1 - Dead_Effect);
+
+//    //if (isKnock == true)
+//    //{
+//    //    Knock_Timer -= Time.deltaTime;
+
+//    //    if (Knock_Timer < 0)
+//    //    {
+//    //        Knock_Timer = 0;
+
+//    //        isKnock = false;
+//    //    }
+//    //}
+
+//    // 넉백 중일 때, 매 프레임마다 넉백 처리
+//    if (isKnock)
+//    {
+//        if (knockTimer > 0)
+//        {
+//            // 넉백 처리: 점점 줄어드는 강도로 밀려남
+//            float currentKnockStrength = Mathf.Lerp(knockStrength, 0, 1 - (knockTimer / knockStrength));
+//            transform.position += knockDirection * currentKnockStrength * Time.deltaTime;
+
+//            // 타이머 감소
+//            knockTimer -= Time.deltaTime;
+//        }
+//        else
+//        {
+//            // 넉백 종료
+//            isKnock = false;
+//        }
+//    }
+
+//    if (isHit_C == true)
+//    {
+//        SR_GB -= Time.deltaTime;
+
+//        if (SR_GB < 0)
+//        {
+//            isHit_C = false;
+//        }
+//    }
+
+//    if (isHit == false)
+//    {
+//        if (Hit_Time > 1.0f)
+//        {
+//            Hit_Time = 0;
+
+//            isHit = true;
+//        }
+
+//        Hit_Time += Time.deltaTime;
+//    }
+
+//    //// 넉백 중일 때 처리
+//    //if (isKnockback)
+//    //{
+//    //    if (knockbackElapsed < knockbackTime)
+//    //    {
+//    //        // 넉백 방향으로 이동
+//    //        transform.position += knockbackDirection * Time.deltaTime;
+//    //        knockbackElapsed += Time.deltaTime;
+//    //    }
+//    //    else
+//    //    {
+//    //        // 넉백 종료
+//    //        isKnockback = false;
+//    //    }
+//    //}
+
+//}
+#endregion

@@ -31,7 +31,7 @@ MonoBehaviour:
     Weapon_Speed: 4
     Weapon_Range: 4
     Weapon_Time: 0
-    Weapon_Pen: 2
+    Weapon_Pen: 10
     Weapon_CoolDown: 3
     Weapon_Duration: 3
     Weapon_Knock: 0.5
@@ -41,7 +41,7 @@ MonoBehaviour:
     Weapon_Speed: 4
     Weapon_Range: 4
     Weapon_Time: 0
-    Weapon_Pen: 2
+    Weapon_Pen: 10
     Weapon_CoolDown: 3
     Weapon_Duration: 3
     Weapon_Knock: 0.5
@@ -51,7 +51,7 @@ MonoBehaviour:
     Weapon_Speed: 5
     Weapon_Range: 5
     Weapon_Time: 0
-    Weapon_Pen: 2
+    Weapon_Pen: 10
     Weapon_CoolDown: 3
     Weapon_Duration: 3
     Weapon_Knock: 0.5
@@ -61,7 +61,7 @@ MonoBehaviour:
     Weapon_Speed: 5
     Weapon_Range: 5
     Weapon_Time: 0
-    Weapon_Pen: 2
+    Weapon_Pen: 10
     Weapon_CoolDown: 3
     Weapon_Duration: 3
     Weapon_Knock: 0.5
@@ -71,7 +71,7 @@ MonoBehaviour:
     Weapon_Speed: 5
     Weapon_Range: 6
     Weapon_Time: 0
-    Weapon_Pen: 2
+    Weapon_Pen: 10
     Weapon_CoolDown: 3
     Weapon_Duration: 3
     Weapon_Knock: 0.5
@@ -81,7 +81,7 @@ MonoBehaviour:
     Weapon_Speed: 5
     Weapon_Range: 6
     Weapon_Time: 0
-    Weapon_Pen: 2
+    Weapon_Pen: 10
     Weapon_CoolDown: 3
     Weapon_Duration: 3
     Weapon_Knock: 0.5
@@ -91,7 +91,7 @@ MonoBehaviour:
     Weapon_Speed: 5
     Weapon_Range: 6
     Weapon_Time: 0
-    Weapon_Pen: 2
+    Weapon_Pen: 10
     Weapon_CoolDown: 3
     Weapon_Duration: 3
     Weapon_Knock: 0.5
@@ -101,7 +101,7 @@ MonoBehaviour:
     Weapon_Speed: 6
     Weapon_Range: 7
     Weapon_Time: 0
-    Weapon_Pen: 2
+    Weapon_Pen: 10
     Weapon_CoolDown: 3
     Weapon_Duration: 3
     Weapon_Knock: 0.5
@@ -111,7 +111,7 @@ MonoBehaviour:
   Size_Y: 0.6
   Offset_X: 0
   Offset_Y: 0
-  Forever: 0
+  Forever: 1
   Sprite_Image: {fileID: 21300000, guid: cb8474496b2579a4ba52d2111128ddcd, type: 3}
   Item_Image: {fileID: 21300000, guid: cb8474496b2579a4ba52d2111128ddcd, type: 3}
   Sprite_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}

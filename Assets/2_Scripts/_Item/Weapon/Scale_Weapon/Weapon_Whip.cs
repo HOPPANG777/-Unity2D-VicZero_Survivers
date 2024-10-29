@@ -20,7 +20,7 @@ public class Weapon_Whip : Weapon
         {
             base.Update();
 
-            this.Weapon_KnockBack_Weapon();
+            Weapon_KnockBack_Weapon();
 
             this.Weapon_Timer();
         }

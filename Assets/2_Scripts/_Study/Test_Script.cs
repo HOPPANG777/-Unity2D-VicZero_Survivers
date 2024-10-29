@@ -85,6 +85,47 @@ public class Test_Script : MonoBehaviour
 
 #region
 
+//var Temp_Player = All_Manager.instance.GameMode_M.Current_Player;
+//var Dis = 100.0f;
+
+//var Temp_Speed = Unit_Enemy_Speed;
+
+//var Dir = this.transform.position - Temp_Player.transform.position;
+
+//if (Temp_Player == null)
+//{
+//    return;
+//}
+
+//else
+//{
+//    if (All_Manager.instance.GameMode_M.Enemy_List.Contains(this))
+//    {
+//        if (Dir.magnitude > Dis)
+//        {
+//            if (this.UT != Unit_Type.Boss)
+//            {
+//                //this.gameObject.SetActive(false);
+
+//                //All_Manager.instance.Pool_M.Enemy_Pool_In(this);
+
+//                var Temp = (this.Unit_Enemy_Speed * 10);
+
+//                Unit_Enemy_Speed = Temp;
+//            }
+//        }
+
+//        else if (Dir.magnitude <= Dis)
+//        {
+//            if (this.UT != Unit_Type.Boss)
+//            {
+//                Unit_Enemy_Speed = (All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr(this.UT).Unit_Enemy_Speed * 1.5f);
+//            }
+//        }
+//    }
+
+//}
+
 //public virtual void Weapon_To_Enemy_Collision()
 //{
 //    var Enemy_List = All_Manager.instance.GameMode_M.Enemy_List;

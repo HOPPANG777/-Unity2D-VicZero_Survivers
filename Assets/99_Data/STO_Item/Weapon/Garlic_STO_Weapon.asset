@@ -34,7 +34,7 @@ MonoBehaviour:
     Weapon_Pen: 0
     Weapon_CoolDown: 1
     Weapon_Duration: 1
-    Weapon_Knock: 2
+    Weapon_Knock: 5
     Weapon_Count: 1
     Weapon_Size: 1.5
   - Weapon_Damage: 25
@@ -44,7 +44,7 @@ MonoBehaviour:
     Weapon_Pen: 0
     Weapon_CoolDown: 1
     Weapon_Duration: 1
-    Weapon_Knock: 2
+    Weapon_Knock: 7
     Weapon_Count: 1
     Weapon_Size: 2
   - Weapon_Damage: 35
@@ -54,7 +54,7 @@ MonoBehaviour:
     Weapon_Pen: 0
     Weapon_CoolDown: 1
     Weapon_Duration: 1
-    Weapon_Knock: 2
+    Weapon_Knock: 7
     Weapon_Count: 1
     Weapon_Size: 2
   - Weapon_Damage: 35
@@ -64,7 +64,7 @@ MonoBehaviour:
     Weapon_Pen: 0
     Weapon_CoolDown: 1
     Weapon_Duration: 1
-    Weapon_Knock: 2
+    Weapon_Knock: 7
     Weapon_Count: 1
     Weapon_Size: 2
   - Weapon_Damage: 35
@@ -74,7 +74,7 @@ MonoBehaviour:
     Weapon_Pen: 0
     Weapon_CoolDown: 1
     Weapon_Duration: 1
-    Weapon_Knock: 2.5
+    Weapon_Knock: 9
     Weapon_Count: 1
     Weapon_Size: 2
   - Weapon_Damage: 35
@@ -84,7 +84,7 @@ MonoBehaviour:
     Weapon_Pen: 0
     Weapon_CoolDown: 1
     Weapon_Duration: 1
-    Weapon_Knock: 3
+    Weapon_Knock: 9
     Weapon_Count: 1
     Weapon_Size: 2
   - Weapon_Damage: 45
@@ -94,7 +94,7 @@ MonoBehaviour:
     Weapon_Pen: 0
     Weapon_CoolDown: 1
     Weapon_Duration: 1
-    Weapon_Knock: 3
+    Weapon_Knock: 9
     Weapon_Count: 1
     Weapon_Size: 2
   - Weapon_Damage: 55
@@ -104,7 +104,7 @@ MonoBehaviour:
     Weapon_Pen: 0
     Weapon_CoolDown: 1
     Weapon_Duration: 1
-    Weapon_Knock: 4
+    Weapon_Knock: 10
     Weapon_Count: 1
     Weapon_Size: 2.5
   Size_X: 0
