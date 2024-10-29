@@ -29,84 +29,84 @@ MonoBehaviour:
     Weapon_Size: 0
   - Weapon_Damage: 25
     Weapon_Speed: 1
-    Weapon_Range: 1
+    Weapon_Range: 1.5
     Weapon_Time: 0
     Weapon_Pen: 0
     Weapon_CoolDown: 1
     Weapon_Duration: 1
-    Weapon_Knock: 5
+    Weapon_Knock: 1.5
     Weapon_Count: 1
     Weapon_Size: 1.5
   - Weapon_Damage: 25
-    Weapon_Speed: 1
-    Weapon_Range: 1.5
-    Weapon_Time: 0
-    Weapon_Pen: 0
-    Weapon_CoolDown: 1
-    Weapon_Duration: 1
-    Weapon_Knock: 7
-    Weapon_Count: 1
-    Weapon_Size: 2
-  - Weapon_Damage: 35
-    Weapon_Speed: 1
-    Weapon_Range: 1.5
-    Weapon_Time: 0
-    Weapon_Pen: 0
-    Weapon_CoolDown: 1
-    Weapon_Duration: 1
-    Weapon_Knock: 7
-    Weapon_Count: 1
-    Weapon_Size: 2
-  - Weapon_Damage: 35
-    Weapon_Speed: 1
-    Weapon_Range: 1.5
-    Weapon_Time: 0
-    Weapon_Pen: 0
-    Weapon_CoolDown: 1
-    Weapon_Duration: 1
-    Weapon_Knock: 7
-    Weapon_Count: 1
-    Weapon_Size: 2
-  - Weapon_Damage: 35
-    Weapon_Speed: 1
-    Weapon_Range: 1.5
-    Weapon_Time: 0
-    Weapon_Pen: 0
-    Weapon_CoolDown: 1
-    Weapon_Duration: 1
-    Weapon_Knock: 9
-    Weapon_Count: 1
-    Weapon_Size: 2
-  - Weapon_Damage: 35
-    Weapon_Speed: 1
-    Weapon_Range: 1.5
-    Weapon_Time: 0
-    Weapon_Pen: 0
-    Weapon_CoolDown: 1
-    Weapon_Duration: 1
-    Weapon_Knock: 9
-    Weapon_Count: 1
-    Weapon_Size: 2
-  - Weapon_Damage: 45
-    Weapon_Speed: 1
-    Weapon_Range: 1.5
-    Weapon_Time: 0
-    Weapon_Pen: 0
-    Weapon_CoolDown: 1
-    Weapon_Duration: 1
-    Weapon_Knock: 9
-    Weapon_Count: 1
-    Weapon_Size: 2
-  - Weapon_Damage: 55
     Weapon_Speed: 1
     Weapon_Range: 2
     Weapon_Time: 0
     Weapon_Pen: 0
     Weapon_CoolDown: 1
     Weapon_Duration: 1
-    Weapon_Knock: 10
+    Weapon_Knock: 2
+    Weapon_Count: 1
+    Weapon_Size: 2
+  - Weapon_Damage: 35
+    Weapon_Speed: 1
+    Weapon_Range: 2
+    Weapon_Time: 0
+    Weapon_Pen: 0
+    Weapon_CoolDown: 1
+    Weapon_Duration: 1
+    Weapon_Knock: 2
+    Weapon_Count: 1
+    Weapon_Size: 2
+  - Weapon_Damage: 35
+    Weapon_Speed: 1
+    Weapon_Range: 2
+    Weapon_Time: 0
+    Weapon_Pen: 0
+    Weapon_CoolDown: 1
+    Weapon_Duration: 1
+    Weapon_Knock: 2
+    Weapon_Count: 1
+    Weapon_Size: 2
+  - Weapon_Damage: 35
+    Weapon_Speed: 1
+    Weapon_Range: 2.5
+    Weapon_Time: 0
+    Weapon_Pen: 0
+    Weapon_CoolDown: 1
+    Weapon_Duration: 1
+    Weapon_Knock: 2.5
     Weapon_Count: 1
     Weapon_Size: 2.5
+  - Weapon_Damage: 35
+    Weapon_Speed: 1
+    Weapon_Range: 2.5
+    Weapon_Time: 0
+    Weapon_Pen: 0
+    Weapon_CoolDown: 1
+    Weapon_Duration: 1
+    Weapon_Knock: 2.5
+    Weapon_Count: 1
+    Weapon_Size: 2.5
+  - Weapon_Damage: 45
+    Weapon_Speed: 1
+    Weapon_Range: 2.5
+    Weapon_Time: 0
+    Weapon_Pen: 0
+    Weapon_CoolDown: 1
+    Weapon_Duration: 1
+    Weapon_Knock: 2.5
+    Weapon_Count: 1
+    Weapon_Size: 2.5
+  - Weapon_Damage: 55
+    Weapon_Speed: 1
+    Weapon_Range: 3
+    Weapon_Time: 0
+    Weapon_Pen: 0
+    Weapon_CoolDown: 1
+    Weapon_Duration: 1
+    Weapon_Knock: 3
+    Weapon_Count: 1
+    Weapon_Size: 3
   Size_X: 0
   Size_Y: 0
   Offset_X: 0
