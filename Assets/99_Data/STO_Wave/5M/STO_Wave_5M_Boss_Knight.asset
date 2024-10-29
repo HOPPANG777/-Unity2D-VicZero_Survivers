@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9c7d21f04d6c6b41b4879bdba6b1c40, type: 3}
   m_Name: STO_Wave_5M_Boss_Knight
   m_EditorClassIdentifier: 
-  WST: 0
+  WST: 3
   Wave_Time: 300
   Kill_Count: 0
   Spawn_Time: 1
   Spawn_Count: 1
-  STO_Enemy: {fileID: 11400000, guid: fde445e79feeea245b3957b0a68f4988, type: 2}
+  STO_Enemy: {fileID: 11400000, guid: e8e35d902247f794eb6ccfdc3c67f631, type: 2}
   Elite: 1
