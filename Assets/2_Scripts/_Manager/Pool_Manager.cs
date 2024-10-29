@@ -150,10 +150,6 @@ public class Pool_Manager : MonoBehaviour
 
         p_MISC.transform.localScale = Vector3.one;
 
-        p_MISC.GetComponent<MISC>().SR.drawMode = SpriteDrawMode.Sliced;
-
-        p_MISC.GetComponent<MISC>().SR.size = new Vector2(1, 1);
-
         p_MISC.transform.parent = Target_Pool;
     }
 
@@ -165,7 +161,7 @@ public class Pool_Manager : MonoBehaviour
 
         MISC_Go.GetComponent<MISC>().SR.drawMode = SpriteDrawMode.Sliced;
 
-        MISC_Go.GetComponent<MISC>().SR.size = new Vector2((MISC_Go.GetComponent<MISC>().SR.size.x * 2), (MISC_Go.GetComponent<MISC>().SR.size.y * 2));
+        MISC_Go.GetComponent<MISC>().SR.size = new Vector2((0.7f), (0.7f));
 
         MISC_Go.transform.parent = null;
 
@@ -198,9 +194,9 @@ public class Pool_Manager : MonoBehaviour
 
         p_Weapon.Weapon_Time = 0;
 
-        p_Weapon.GetComponent<Weapon>().SR.drawMode = SpriteDrawMode.Sliced;
+        //p_Weapon.GetComponent<Weapon>().SR.drawMode = SpriteDrawMode.Sliced;
 
-        p_Weapon.GetComponent<Weapon>().SR.size = new Vector2(1, 1);
+        //p_Weapon.GetComponent<Weapon>().SR.size = new Vector2(1, 1);
 
         //Debug.Log("Weapon Pool");
 

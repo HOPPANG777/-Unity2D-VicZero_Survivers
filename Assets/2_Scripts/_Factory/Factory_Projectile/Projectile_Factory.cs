@@ -55,16 +55,6 @@ public class Projectile_Factory : MonoBehaviour
 
         yield return null;
 
-        //if (Weapon_Go.GetComponent<Weapon>())
-        //{
-        //    yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon>().SR);
-
-        //    //Weapon_Go.GetComponent<Weapon>().SR.drawMode = SpriteDrawMode.Sliced;
-        //    //Weapon_Go.GetComponent<Weapon>().SR.size = new Vector2((Weapon_Go.GetComponent<Weapon>().SR.size.x * 2), (Weapon_Go.GetComponent<Weapon>().SR.size.y * 2));
-
-        //    Weapon_Go.GetComponent<Weapon>().WT = p_WTO.WT;
-        //}
-
         Weapon_Go.transform.parent = p_Pool;
 
         Weapon_Go.SetActive(false);

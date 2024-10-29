@@ -1119,7 +1119,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1433630479104487151}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
@@ -3227,8 +3227,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4804284174502789122}
-        m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+      - m_Target: {fileID: 8499938822972709633}
+        m_TargetAssemblyTypeName: Treasure_Box, Assembly-CSharp
         m_MethodName: Treasure_Close
         m_Mode: 1
         m_Arguments:
@@ -28443,8 +28443,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4804284174502789122}
-        m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+      - m_Target: {fileID: 8499938822972709633}
+        m_TargetAssemblyTypeName: Treasure_Box, Assembly-CSharp
         m_MethodName: Treasure_Open
         m_Mode: 1
         m_Arguments:

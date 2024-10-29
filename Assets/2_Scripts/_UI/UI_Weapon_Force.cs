@@ -29,7 +29,7 @@ public class UI_Weapon_Force : MonoBehaviour
                 All_Manager.instance.UI_M.Force_Image.gameObject.SetActive(true);
 
                 var Temp_Module = All_Manager.instance.UI_M.Force_Image.GetComponent<ParticleSystem>().main;
-                Temp_Module.startSize = Temp_Player.Current_Weapon_Range(Weapon_Type.Garlic, Temp_Player.Garlic_LAT);
+                Temp_Module.startSize = Temp_Player.Current_Weapon_Size(Weapon_Type.Garlic, Temp_Player.Garlic_LAT);
            
                 All_Manager.instance.UI_M.Force_Image.rectTransform.position = Temp_Player.transform.position;
             }

@@ -83,13 +83,9 @@ public abstract class Weapon : MonoBehaviour
         {
             Weapon_Stat_Appliaction();
 
-            if (Time.time >= Next_Check_Time)
-            {
-                Weapon_To_Enemy_Collision();
+            Weapon_To_Enemy_Collision();
 
-                Next_Check_Time = Time.time + Check_Interval;
-            }
-
+            Next_Check_Time = Time.time + Check_Interval;
         }
 
     }
@@ -126,7 +122,6 @@ public abstract class Weapon : MonoBehaviour
         }
     }
 
-
     public virtual void Weapon_To_Enemy_Collision()
     {
         var Enemy_List = All_Manager.instance.GameMode_M.Enemy_List;
@@ -138,10 +133,13 @@ public abstract class Weapon : MonoBehaviour
         // 무기 타입에 따른 STO 및 무기 범위 관련 변수 미리 계산
         var Temp_WTO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(WT);
         var Temp_WALT = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_WTO);
-        float Min_Distance = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Range(WT, Temp_WALT);
+        float Min_Distance = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Size(WT, Temp_WALT);
 
         // Min_Distance를 제곱하여 루트 계산 방지 (성능 최적화)
-        float Min_Distance_Sqr = Min_Distance * Min_Distance;
+        float Min_Distance_Sqr = (Min_Distance * Min_Distance) * 2.0f;
+
+        // 무기에 의한 적의 타격 처리 여부를 저장할 리스트
+        List<Unit_Enemy> enemiesHit = new List<Unit_Enemy>();
 
         for (int i = 0; i < Enemy_List.Count; i++)
         {
@@ -155,17 +153,22 @@ public abstract class Weapon : MonoBehaviour
             {
                 Unit_Enemy Temp_Enemy = Enemy_List[i].transform.GetComponent<Unit_Enemy>();
 
-                // 적에게 피해 입히기
-                Temp_Enemy.Hitted(Weapon_Damage);
-
-                // 무기가 영구적인 것이 아닌 경우만 충돌 횟수 및 무기 파괴 로직 처리
-                if (!Forever)
+                if (!enemiesHit.Contains(Temp_Enemy))
                 {
-                    Collision_Count++;
+                    // 적에게 피해 입히기
+                    Temp_Enemy.Hitted(Weapon_Damage);
+                    enemiesHit.Add(Temp_Enemy); // 해당 적이 이미 타격 처리되었음을 기록
 
-                    if (Collision_Count > Weapon_Pen)
+                    // 무기가 영구적인 것이 아닌 경우만 충돌 횟수 및 무기 파괴 로직 처리
+                    if (Forever == false)
                     {
-                        Destroy_Weapon();
+                        Collision_Count++;
+
+                        if (Collision_Count >= Weapon_Pen)
+                        {
+                            Destroy_Weapon();
+                            return; // 무기를 파괴하고 함수 종료
+                        }
                     }
                 }
             }
@@ -249,7 +252,7 @@ public abstract class Weapon : MonoBehaviour
         weapon.GetComponent<Weapon>().SR.drawMode = SpriteDrawMode.Sliced;
 
         weapon.GetComponent<Weapon>().SR.size = new Vector2((Temp_Weapon_Size), (Temp_Weapon_Size));
-        weapon.BC.size = new Vector2((Temp_Weapon_Size * 0.5f), (Temp_Weapon_Size * 0.5f));
+        weapon.BC.size = new Vector2((SR.size.x * 0.5f), (SR.size.y * 0.5f));
     }
 
 

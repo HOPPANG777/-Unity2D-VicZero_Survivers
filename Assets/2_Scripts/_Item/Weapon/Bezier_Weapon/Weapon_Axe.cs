@@ -34,7 +34,7 @@ public class Weapon_Axe : Weapon
 
             this.transform.Rotate(Vector3.forward, Rotation_Speed * Time.deltaTime);
 
-            //this.Weapon_Timer();
+            this.Weapon_Timer();
         }
 
         else { }
