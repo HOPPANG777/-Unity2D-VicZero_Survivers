@@ -84,6 +84,88 @@ public class Test_Script : MonoBehaviour
 }
 
 #region
+
+//public virtual void Weapon_To_Enemy_Collision()
+//{
+//    var Enemy_List = All_Manager.instance.GameMode_M.Enemy_List;
+//    var Weapon = this;
+
+//    for (int i = 0; i < Enemy_List.Count; i++)
+//    {
+//        Vector2 Dir = Weapon.transform.position - Enemy_List[i].transform.position;
+//        float Dis = Dir.magnitude;
+
+//        var Temp_WTO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(WT);
+//        var Temp_WALT = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_WTO);
+
+//        float Min_Distance = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Range(WT, Temp_WALT);
+
+//        if (Dis < Min_Distance)
+//        {
+//            //collision.transform.GetComponent<Unit_Enemy>().Hitted(Weapon_Damage);
+
+//            Unit_Enemy Temp_Enemy = Enemy_List[i].transform.GetComponent<Unit_Enemy>();
+
+//            //Temp.Hitted(Weapon_Damage_Value);
+
+//            Temp_Enemy.Hitted(Weapon_Damage);
+
+//            if (Forever == false)
+//            {
+//                if (Collision_Count > Weapon_Pen)
+//                {
+//                    Destroy_Weapon();
+//                }
+//            }
+//            else
+//            {
+
+//            }
+
+//            //Debug.Log("Enemey Hitted");
+
+//            Collision_Count++;
+//        }
+//    }
+
+
+//}
+
+
+//var Player = All_Manager.instance.GameMode_M.Current_Player;
+//var Enemy_List = All_Manager.instance.GameMode_M.Enemy_List;
+
+//for (int i = 0; i < Enemy_List.Count; i++)
+//{
+//    Vector2 Dir = Player.transform.position - Enemy_List[i].transform.position;
+//    float Dis = Dir.magnitude;
+
+//    float Min_Distance = 0.5f;
+
+//    if (Dis < Min_Distance)
+//    {
+//        if (Attack_Time > Wating_Attack)
+//        {
+//            //collision.transform.GetComponent<Unit_Player>().Hitted(Unit_Enemy_Damage);
+
+//            Unit_Player Temp = Player.transform.GetComponent<Unit_Player>();
+
+//            if (this.UT == Unit_Type.Barrel)
+//            {
+
+//            }
+
+//            else
+//            {
+//                Temp.Hitted(Unit_Enemy_Damage);
+//            }
+
+//            Attack_Time = 0.0f;
+//        }
+//    }
+
+//}
+
 //public virtual void Enemy_Knockback()
 //{
 //    var Enemy_List = All_Manager.instance.GameMode_M.Enemy_List;

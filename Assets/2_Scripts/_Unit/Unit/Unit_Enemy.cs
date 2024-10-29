@@ -159,27 +159,26 @@ public class Unit_Enemy : Unit
         var Player = All_Manager.instance.GameMode_M.Current_Player;
         var Enemy_List = All_Manager.instance.GameMode_M.Enemy_List;
 
+        // 플레이어의 위치를 미리 계산하여 변수에 저장하여 반복 사용
+        Vector2 Player_Position = Player.transform.position;
+        float Min_Distance = 0.5f; // 충돌 반경 상수를 반복할 필요 없이 상수로 선언
+
         for (int i = 0; i < Enemy_List.Count; i++)
         {
-            Vector2 Dir = Player.transform.position - Enemy_List[i].transform.position;
-            float Dis = Dir.magnitude;
+            // 플레이어와 적의 위치 차이 벡터 계산
+            Vector2 Dir = Player_Position - (Vector2)Enemy_List[i].transform.position;
 
-            float Min_Distance = 0.5f;
+            // 거리 계산을 제곱된 형태로 유지하여 성능 최적화 (루트 계산 방지)
+            float Dis_Sqr = Dir.sqrMagnitude;
+            float Min_Distance_Sqr = Min_Distance * Min_Distance;
 
-            if (Dis < Min_Distance)
+            if (Dis_Sqr < Min_Distance_Sqr)
             {
                 if (Attack_Time > Wating_Attack)
                 {
-                    //collision.transform.GetComponent<Unit_Player>().Hitted(Unit_Enemy_Damage);
+                    Unit_Player Temp = Player.GetComponent<Unit_Player>();
 
-                    Unit_Player Temp = Player.transform.GetComponent<Unit_Player>();
-
-                    if (this.UT == Unit_Type.Barrel)
-                    {
-
-                    }
-
-                    else
+                    if (this.UT != Unit_Type.Barrel) // 불필요한 빈 조건문 제거
                     {
                         Temp.Hitted(Unit_Enemy_Damage);
                     }
@@ -187,9 +186,7 @@ public class Unit_Enemy : Unit
                     Attack_Time = 0.0f;
                 }
             }
-        
         }
-
     }
 
     public virtual void Enemy_Knockback()

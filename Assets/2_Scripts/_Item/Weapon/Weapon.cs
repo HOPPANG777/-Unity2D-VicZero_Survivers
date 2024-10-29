@@ -156,45 +156,44 @@ public abstract class Weapon : MonoBehaviour
         var Enemy_List = All_Manager.instance.GameMode_M.Enemy_List;
         var Weapon = this;
 
+        // 무기 위치를 변수로 저장하여 반복 사용
+        Vector2 Weapon_Position = Weapon.transform.position;
+
+        // 무기 타입에 따른 STO 및 무기 범위 관련 변수 미리 계산
+        var Temp_WTO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(WT);
+        var Temp_WALT = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_WTO);
+        float Min_Distance = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Range(WT, Temp_WALT);
+
+        // Min_Distance를 제곱하여 루트 계산 방지 (성능 최적화)
+        float Min_Distance_Sqr = Min_Distance * Min_Distance;
+
         for (int i = 0; i < Enemy_List.Count; i++)
         {
-            Vector2 Dir = Weapon.transform.position - Enemy_List[i].transform.position;
-            float Dis = Dir.magnitude;
+            // 무기와 적 간의 거리 계산
+            Vector2 Dir = Weapon_Position - (Vector2)Enemy_List[i].transform.position;
 
-            var Temp_WTO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(WT);
-            var Temp_WALT = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_WTO);
+            // 거리의 제곱을 계산하여 비교 (루트 계산 방지)
+            float Dis_Sqr = Dir.sqrMagnitude;
 
-            float Min_Distance = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Range(WT, Temp_WALT);
-
-            if (Dis < Min_Distance)
+            if (Dis_Sqr < Min_Distance_Sqr)
             {
-                //collision.transform.GetComponent<Unit_Enemy>().Hitted(Weapon_Damage);
-
                 Unit_Enemy Temp_Enemy = Enemy_List[i].transform.GetComponent<Unit_Enemy>();
 
-                //Temp.Hitted(Weapon_Damage_Value);
-
+                // 적에게 피해 입히기
                 Temp_Enemy.Hitted(Weapon_Damage);
 
-                if (Forever == false)
+                // 무기가 영구적인 것이 아닌 경우만 충돌 횟수 및 무기 파괴 로직 처리
+                if (!Forever)
                 {
+                    Collision_Count++;
+
                     if (Collision_Count > Weapon_Pen)
                     {
                         Destroy_Weapon();
                     }
                 }
-                else
-                {
-
-                }
-
-                //Debug.Log("Enemey Hitted");
-
-                Collision_Count++;
             }
         }
-
-
     }
 
     // 무기 넉백
