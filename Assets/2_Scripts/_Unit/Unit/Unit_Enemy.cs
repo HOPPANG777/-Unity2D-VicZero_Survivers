@@ -199,35 +199,64 @@ public class Unit_Enemy : Unit
 
         if (this.UT == Unit_Type.Barrel)
         {
-           
+            return;
         }
-        else
+
+        // 화면 내에 있는 적들만 따로 리스트로 관리
+        List<Unit_Enemy> InView_Enemy_List = new List<Unit_Enemy>();
+
+        for (int i = 0; i < Enemy_List.Count; i++)
         {
-            for (int i = 0; i < Enemy_List.Count; i++)
+            Vector3 View_Pos = Temp_Camera.WorldToViewportPoint(Enemy_List[i].transform.position);
+            if (View_Pos.x >= 0 && View_Pos.x <= 1 && View_Pos.y >= 0 && View_Pos.y <= 1 && View_Pos.z >= 0)
             {
-                for (int j = i + 1; j < Enemy_List.Count; j++)
+                InView_Enemy_List.Add(Enemy_List[i]);
+            }
+        }
+
+        // 그리드 크기 설정 (예: 5x5 유닛 영역)
+        float Grid_Size = 5f;
+        Dictionary<Vector2Int, List<Unit_Enemy>> Grid = new Dictionary<Vector2Int, List<Unit_Enemy>>();
+
+        // 각 적을 그리드에 할당
+        for (int i = 0; i < InView_Enemy_List.Count; i++)
+        {
+            Vector2Int Grid_Position = new Vector2Int(
+                Mathf.FloorToInt(InView_Enemy_List[i].transform.position.x / Grid_Size),
+                Mathf.FloorToInt(InView_Enemy_List[i].transform.position.y / Grid_Size)
+            );
+
+            if (!Grid.ContainsKey(Grid_Position))
+            {
+                Grid[Grid_Position] = new List<Unit_Enemy>();
+            }
+
+            Grid[Grid_Position].Add(InView_Enemy_List[i]);
+        }
+
+        // 각 그리드 셀 내의 적들에 대해 밀쳐내기 처리
+        foreach (var Cell in Grid)
+        {
+            List<Unit_Enemy> Cluster_Enemie_List = Cell.Value;
+
+            for (int i = 0; i < Cluster_Enemie_List.Count; i++)
+            {
+                for (int j = i + 1; j < Cluster_Enemie_List.Count; j++)
                 {
-                    Vector3 View_Pos = Temp_Camera.WorldToViewportPoint(Enemy_List[j].transform.position);
+                    Vector2 Dir = Cluster_Enemie_List[j].transform.position - Cluster_Enemie_List[i].transform.position;
+                    float Dis = Dir.magnitude;
 
-                    if (View_Pos.x >= 0 && View_Pos.x <= 1 && View_Pos.y >= 0 && View_Pos.y <= 1 && View_Pos.z >= 0)
+                    // 충돌 반경 설정 (적의 크기와 비례하여 설정)
+                    float Min_Distance = 0.75f;
+
+                    if (Dis < Min_Distance)
                     {
-                        // 화면 안에 있는 몬스터만 충돌 검사 실행
-                        Vector2 Dir = Enemy_List[j].transform.position - Enemy_List[i].transform.position;
-                        float Dis = Dir.magnitude;
+                        // 충돌이 발생한 경우 밀쳐내기
+                        Vector2 Push_Direction = Dir.normalized * (Min_Distance - Dis) * Push_Strength;
 
-                        // 충돌 반경 설정 (적의 크기와 비례하여 설정)
-                        float Min_Distance = 0.75f;
-
-                        if (Dis < Min_Distance)
-                        {
-                            // 충돌이 발생한 경우 밀쳐내기
-                            Vector2 Push_Direction = Dir.normalized * (Min_Distance - Dis) * Push_Strength;
-
-                            Enemy_List[i].transform.position -= (Vector3)Push_Direction * 0.5f;
-                            Enemy_List[j].transform.position += (Vector3)Push_Direction * 0.5f;
-                        }
+                        Cluster_Enemie_List[i].transform.position -= (Vector3)Push_Direction * 0.5f;
+                        Cluster_Enemie_List[j].transform.position += (Vector3)Push_Direction * 0.5f;
                     }
-
                 }
             }
         }
