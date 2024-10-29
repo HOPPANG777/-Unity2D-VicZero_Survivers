@@ -10,6 +10,7 @@ public class Unit_Manager : MonoBehaviour
     public Unit_Factory Unit_F;
     public Projectile_Factory Projectile_F;
     public Misc_Factory Misc_F;
+    public UI_Factory UI_F;
 }
 
 #region

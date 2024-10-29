@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 public class Pool_Manager : MonoBehaviour
 {
     public bool Ready = false;
+    public Damage_Effect_Controller Damage_Effect;
 
     private void Start()
     {
@@ -75,6 +76,10 @@ public class Pool_Manager : MonoBehaviour
             }
 
             yield return new WaitWhile(() => Weapon_Pool.transform.childCount != Weapon_Number);
+        }
+
+        {
+            Damage_Effect.Damage_Effect_Pool();
         }
 
         Ready = true;
@@ -218,6 +223,8 @@ public class Pool_Manager : MonoBehaviour
         return Weapon_Go;
         //All_Manager.instance.GameMode_M.All_L.Add(Weapon_Go.GetComponent<Weapon>());
     }
+
+
 }
 
 #region

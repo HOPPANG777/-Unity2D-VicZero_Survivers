@@ -22,6 +22,8 @@ public class Resource_Manager : MonoBehaviour
     // 장신구(패시브 스탯 증가)
     public STO_Equipment[] STO_Equipments;            // STO 넣어놓는곳
 
+    public Ghost_Effect_Controller Ghost_Effect;
+
     // 외부에서 유닛 STO불러올때 쓰는거
     public STO_Unit Convert_Unit_Type_To_STO_Unit_Arr(Unit_Type p_UT)
     {

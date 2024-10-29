@@ -93,6 +93,9 @@ public class Unit_Player : Unit
 
     public bool Equipment_Level_Up = false;
 
+    //public float Ghost_Spawn_Interval = 0.1f;
+    //private float Ghost_Spawn_Timer = 0f;
+
     public override void Start()
     {
         base.Start();
@@ -108,6 +111,7 @@ public class Unit_Player : Unit
         Upgrade_Weapon(Weapon_Type.RuneTracer);       // 완성
         Upgrade_Weapon(Weapon_Type.Whip);             // 완성
         */
+        All_Manager.instance.Resource_M.Ghost_Effect.Add_Ghost_Target(this.transform);
     }
 
     public override void Update()
@@ -126,6 +130,16 @@ public class Unit_Player : Unit
 
         }
     }
+
+    //public void Ghost_Effect_Cool_Time()
+    //{
+    //    Ghost_Spawn_Timer += Time.deltaTime;
+    //    if (Ghost_Spawn_Timer >= Ghost_Spawn_Interval)
+    //    {
+    //        Create_Ghost_Effect();
+    //        Ghost_Spawn_Timer = 0f;
+    //    }
+    //}
 
     public override void Hitted(float p_Damage_Value)
     {
@@ -167,6 +181,17 @@ public class Unit_Player : Unit
         {
             Destroy(this.gameObject);
         }
+    }
+
+    public void Create_Ghost_Effect()
+    {
+        //if (InputVec.x != 0 || InputVec.y != 0)
+        //{
+        //    // 현재 캐릭터의 스프라이트를 사용하여 잔상 생성
+        //    SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        //    All_Manager.instance.Resource_M.Ghost_Effect.Spawn_Ghost(sr.sprite, transform.position);
+        //}
+       
     }
 
     public void Create_Weapon(Weapon_Type p_WT)

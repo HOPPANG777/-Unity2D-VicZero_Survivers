@@ -64,6 +64,8 @@ public class Unit_Enemy : Unit
     public override void Hitted(float p_Damage_Value)
     {
         base.Hitted(p_Damage_Value);
+        string Damage_Text = p_Damage_Value.ToString();
+        All_Manager.instance.Pool_M.Damage_Effect.Show_Damage_Effect(transform.position, Damage_Text);
     }
 
     public override void Die()
