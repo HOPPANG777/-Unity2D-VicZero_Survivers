@@ -21,6 +21,9 @@ public class Unit_Enemy : Unit
 
     private float Push_Strength = 0.5f;
 
+    private float Check_Interval = 0.2f;
+    private float Next_Check_Time = 0.0f;
+
     public override void Start()
     {
         base.Start();
@@ -40,9 +43,14 @@ public class Unit_Enemy : Unit
 
                 Player_To_Far_Enemy();
 
-                Enemy_Knockback();
+                if (Time.time >= Next_Check_Time)
+                {
+                    Enemy_Knockback();
 
-                Enemy_To_Player_Collision();
+                    Enemy_To_Player_Collision();
+
+                    Next_Check_Time = Time.time + Check_Interval;
+                }
 
                 Temp_Time -= Time.deltaTime;
 
@@ -187,24 +195,39 @@ public class Unit_Enemy : Unit
     public virtual void Enemy_Knockback()
     {
         var Enemy_List = All_Manager.instance.GameMode_M.Enemy_List;
+        Camera Temp_Camera = All_Manager.instance.GameMode_M.Current_Camera;
 
-        for (int i = 0; i < Enemy_List.Count; i++)
+        if (this.UT == Unit_Type.Barrel)
         {
-            for (int j = i + 1; j < Enemy_List.Count; j++)
+           
+        }
+        else
+        {
+            for (int i = 0; i < Enemy_List.Count; i++)
             {
-                Vector2 Dir = Enemy_List[j].transform.position - Enemy_List[i].transform.position;
-                float Dis = Dir.magnitude;
-
-                // 충돌 반경 설정 (적의 크기와 비례하여 설정)
-                float Min_Distance = 0.75f;
-
-                if (Dis < Min_Distance)
+                for (int j = i + 1; j < Enemy_List.Count; j++)
                 {
-                    // 충돌이 발생한 경우 밀쳐내기
-                    Vector2 Push_Direction = Dir.normalized * (Min_Distance - Dis) * Push_Strength;
+                    Vector3 View_Pos = Temp_Camera.WorldToViewportPoint(Enemy_List[j].transform.position);
 
-                    Enemy_List[i].transform.position -= (Vector3)Push_Direction * 0.5f;
-                    Enemy_List[j].transform.position += (Vector3)Push_Direction * 0.5f;
+                    if (View_Pos.x >= 0 && View_Pos.x <= 1 && View_Pos.y >= 0 && View_Pos.y <= 1 && View_Pos.z >= 0)
+                    {
+                        // 화면 안에 있는 몬스터만 충돌 검사 실행
+                        Vector2 Dir = Enemy_List[j].transform.position - Enemy_List[i].transform.position;
+                        float Dis = Dir.magnitude;
+
+                        // 충돌 반경 설정 (적의 크기와 비례하여 설정)
+                        float Min_Distance = 0.75f;
+
+                        if (Dis < Min_Distance)
+                        {
+                            // 충돌이 발생한 경우 밀쳐내기
+                            Vector2 Push_Direction = Dir.normalized * (Min_Distance - Dis) * Push_Strength;
+
+                            Enemy_List[i].transform.position -= (Vector3)Push_Direction * 0.5f;
+                            Enemy_List[j].transform.position += (Vector3)Push_Direction * 0.5f;
+                        }
+                    }
+
                 }
             }
         }

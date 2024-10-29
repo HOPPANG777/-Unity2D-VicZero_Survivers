@@ -242,6 +242,8 @@ public abstract class Weapon : MonoBehaviour
     // 무기 기본 스탯 조정
     public void Weapon_Stat(int p_Level, Weapon weapon, STO_Weapon weapon_STO)
     {
+        //Debug.Log("스프라이트 삽입");
+
         weapon.SR.sprite = weapon_STO.Sprite_Image;
         weapon.WT = weapon_STO.WT;
 
@@ -262,8 +264,7 @@ public abstract class Weapon : MonoBehaviour
         weapon.Weapon_Knock = weapon_STO.Info_s[p_Level].Weapon_Knock;
         weapon.Weapon_Size = weapon_STO.Info_s[p_Level].Weapon_Size;
         weapon.Forever = weapon_STO.Forever;
-
-
+        
         var Temp_WLAT = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(weapon_STO);
 
         var Temp_Weapon_Size = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Size(WT, Temp_WLAT);
@@ -272,9 +273,9 @@ public abstract class Weapon : MonoBehaviour
 
         weapon.GetComponent<Weapon>().SR.size = new Vector2((Temp_Weapon_Size), (Temp_Weapon_Size));
         weapon.BC.size = new Vector2((Temp_Weapon_Size * 0.5f), (Temp_Weapon_Size * 0.5f));
-        
     }
-    
+   
+
     public void Weapon_Stat_Appliaction()
     {
         var Temp_WTO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(WT);

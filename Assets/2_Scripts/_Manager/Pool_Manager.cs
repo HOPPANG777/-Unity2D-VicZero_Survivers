@@ -184,6 +184,10 @@ public class Pool_Manager : MonoBehaviour
 
         p_Weapon.transform.parent = Target_Pool;
 
+        p_Weapon.transform.position = Target_Pool.position;
+
+        p_Weapon.transform.rotation = Quaternion.identity;
+
         p_Weapon.transform.localScale = Vector3.one;
 
         p_Weapon.Collision_Count = 0;
@@ -213,7 +217,7 @@ public class Pool_Manager : MonoBehaviour
 
         Weapon_Go.SetActive(true);
 
-        Weapon_Go.layer = 6;
+        Weapon_Go.layer = 10;
 
         return Weapon_Go;
         //All_Manager.instance.GameMode_M.All_L.Add(Weapon_Go.GetComponent<Weapon>());
