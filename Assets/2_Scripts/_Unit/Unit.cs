@@ -137,19 +137,14 @@ public abstract class Unit : MonoBehaviour
 
     private void Perform_Knockback()
     {
+        Knock_Timer -= Time.deltaTime;
 
-        if (isKnock == true)
+        if (Knock_Timer < 0)
         {
-            Knock_Timer -= Time.deltaTime;
+            Knock_Timer = 0;
 
-            if (Knock_Timer < 0)
-            {
-                Knock_Timer = 0;
-
-                isKnock = false;
-            }
+            isKnock = false;
         }
-
     }
 
     private void Update_Hit_Effect()

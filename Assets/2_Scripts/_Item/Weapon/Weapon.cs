@@ -11,7 +11,7 @@ public abstract class Weapon : MonoBehaviour
 
     public SpriteRenderer SR;
     public BoxCollider2D BC;
-    public Rigidbody2D RB;
+    //public Rigidbody2D RB;
     public TrailRenderer TR;
     public Animator AM;
 
@@ -133,10 +133,10 @@ public abstract class Weapon : MonoBehaviour
         // 무기 타입에 따른 STO 및 무기 범위 관련 변수 미리 계산
         var Temp_WTO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(WT);
         var Temp_WALT = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_WTO);
-        float Min_Distance = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Size(WT, Temp_WALT);
+        float Min_Distance = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Size(WT, Temp_WALT) * 0.5f;
 
         // Min_Distance를 제곱하여 루트 계산 방지 (성능 최적화)
-        float Min_Distance_Sqr = (Min_Distance * Min_Distance) * 2.0f;
+        float Min_Distance_Sqr = (Min_Distance * Min_Distance);
 
         // 무기에 의한 적의 타격 처리 여부를 저장할 리스트
         List<Unit_Enemy> enemiesHit = new List<Unit_Enemy>();
@@ -180,43 +180,34 @@ public abstract class Weapon : MonoBehaviour
     {
         // 모든 적 유닛을 가져와 충돌 검사
         var Enemy_List = All_Manager.instance.GameMode_M.Enemy_List;
+        var Temp_Player = All_Manager.instance.GameMode_M.Current_Player;
+        var Temp_WTO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(WT);
+        var Temp_WLAT = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_WTO);
 
-        Unit_Enemy Closest_Enemy = Get_Closest_Enemy(Enemy_List);
-
-        if (Closest_Enemy != null)
-        {
-            Vector3 direction = (Closest_Enemy.transform.position - this.transform.position).normalized;
-
-            if (Closest_Enemy.UT != Unit_Type.Barrel)
-            {
-                // 가장 가까운 적에게 넉백 적용
-                Closest_Enemy.Knock_Back(direction, Weapon_Knock, Weapon_Duration);
-            }
-        }
-    }
-
-    // 가장 가까운 적을 찾는 메서드
-    private Unit_Enemy Get_Closest_Enemy(List<Unit_Enemy> Enemy_List)
-    {
-        float Closest_Distance = float.MaxValue;
-        Unit_Enemy Closest_Enemy = null;
+        // 넉백 범위 설정
+        float KnockBack_Range = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Size(WT, Temp_WLAT) * 0.5f; // 넉백 범위 (필요에 따라 조정 가능)
+        float KnockBack_Range_Sqr = (KnockBack_Range * KnockBack_Range); // 거리 비교 최적화 (루트 계산 방지)
 
         for (int i = 0; i < Enemy_List.Count; i++)
         {
             Unit_Enemy Enemy = Enemy_List[i];
-            if (Enemy == this) continue; // 자기 자신은 건너뜀
+
+            if (Enemy == this || Enemy.UT == Unit_Type.Barrel)
+            {
+                continue; // 자기 자신이거나 특정 타입은 건너뜀
+            }
 
             // 적과 무기 간의 거리 계산
-            var Dir = this.transform.position - Enemy.transform.position;
-            float Dis = Dir.sqrMagnitude;
-            if (Dis < Closest_Distance)
+            Vector3 Dir = this.transform.position - Enemy.transform.position;
+            float Dis_Sqr = Dir.sqrMagnitude;
+
+            // 넉백 범위 내의 적에 대해서만 넉백 적용
+            if (Dis_Sqr <= KnockBack_Range_Sqr)
             {
-                Closest_Distance = Dis;
-                Closest_Enemy = Enemy;
+                Vector3 direction = (Enemy.transform.position - this.transform.position).normalized;
+                Enemy.Knock_Back(direction, Weapon_Knock, Weapon_Duration);
             }
         }
-
-        return Closest_Enemy;
     }
 
     // 무기 기본 스탯 조정

@@ -24,9 +24,11 @@ public class Weapon_Garlic : Weapon
         {
             base.Update();
 
-            this.SR.size = new Vector2(Weapon_Range + 2.0f, Weapon_Range + 2.0f); 
+            this.SR.size = new Vector2(Weapon_Range + 2.0f, Weapon_Range + 2.0f);
 
-            Garlic_Attack();
+            //Garlic_Attack();
+
+            Weapon_KnockBack_Weapon();
 
             this.Weapon_Timer();
             
