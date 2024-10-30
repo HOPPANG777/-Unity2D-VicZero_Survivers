@@ -28,9 +28,9 @@ public abstract class Weapon : MonoBehaviour
     public float Weapon_Duration = 0;
     public float W_Accumulate = 0;
     public float Weapon_Knock = 0;
+    public float Weapon_Size = 0;
     public int Weapon_Level = 0;
     public int Weapon_Count = 0;
-    public float Weapon_Size = 0;
 
     public float Weapon_Basic_Damage = 0;
     public float Weapon_Basic_Speed = 0;

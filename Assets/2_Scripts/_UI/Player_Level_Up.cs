@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -471,6 +472,29 @@ public class Player_Level_Up : MonoBehaviour
             }
 
         }
+    }
+
+    public bool Can_Combine_Weapon(Weapon Weapon_A, Weapon Weapon_B)
+    {
+        var Temp_Player = All_Manager.instance.GameMode_M.Current_Player;
+        var Temp_WTO_A = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(Weapon_A.WT);
+        var Temp_WLAT_A = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_WTO_A);
+        var Temp_WTO_B = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(Weapon_B.WT);
+        var Temp_WLAT_B = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_WTO_B);
+
+        return Temp_WLAT_A.Level >= 8 && Temp_WLAT_B.Level >= 8;
+    }
+
+    public Weapon Combine_Weapon(Weapon Weapon_A, Weapon Weapon_B)
+    {
+        Weapon New_Weapon = null;
+
+        if (Can_Combine_Weapon(Weapon_A, Weapon_B))
+        {
+
+        }
+
+        return New_Weapon;
     }
 
 }

@@ -10,7 +10,7 @@ public class Weapon_Attribute : MonoBehaviour
     [SerializeField] private float _modifiedValue;
     
     // 속성 값 가져오기
-    public float GetValue()
+    public float Get_Value()
     {
         return Base_Value + _modifiedValue;
     }
@@ -19,5 +19,11 @@ public class Weapon_Attribute : MonoBehaviour
     public void Modify(float amount)
     {
         _modifiedValue += amount;
+    }
+
+    // 속성 값 퍼센트로 추가
+    public void Percent(float amount)
+    {
+
     }
 }
