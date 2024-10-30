@@ -1572,6 +1572,7 @@ public class Unit_Player : Unit
         {
             p_Unit.AM.runtimeAnimatorController = p_Un_STO.Unit_Animator_Controller;
             p_Unit.AM.speed = 1.0f; // 애니메이션 재생
+            p_Unit.AM.cullingMode = AnimatorCullingMode.CullCompletely;
         }
     }
 

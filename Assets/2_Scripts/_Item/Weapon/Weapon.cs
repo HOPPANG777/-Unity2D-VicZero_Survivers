@@ -4,10 +4,13 @@ using System.Diagnostics.CodeAnalysis;
 using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
+using static UnityEngine.UI.CanvasScaler;
 
 public abstract class Weapon : MonoBehaviour
 {
     public Weapon_Type WT;
+    public IWeaponKeywards WeaponKeyward;
+    
 
     public SpriteRenderer SR;
     public BoxCollider2D BC;
@@ -213,11 +216,13 @@ public abstract class Weapon : MonoBehaviour
 
         weapon.SR.sprite = weapon_STO.Sprite_Image;
         weapon.WT = weapon_STO.WT;
+        weapon.WeaponKeyward = weapon_STO.WeaponKeyward;
 
         if (weapon_STO.Weapon_Animator_Controller != null)
         {
             weapon.AM.runtimeAnimatorController = weapon_STO.Weapon_Animator_Controller;
             weapon.AM.speed = 1.0f;
+            weapon.AM.cullingMode = AnimatorCullingMode.CullCompletely;
         }
 
         weapon.Weapon_Damage = weapon_STO.Info_s[p_Level].Weapon_Damage;

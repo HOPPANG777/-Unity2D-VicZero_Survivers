@@ -1,6 +1,9 @@
 using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -9,6 +12,8 @@ using static UnityEngine.UI.CanvasScaler;
 public class Unit_Enemy : Unit
 {
     //public Unit_Type UT;
+
+    Dictionary<Vector2Int, List<Unit_Enemy>> gridCells = new Dictionary<Vector2Int, List<Unit_Enemy>>();
 
     public float Attack_Time = 0.0f;
     public float Wating_Attack = 0.0f;
@@ -21,8 +26,8 @@ public class Unit_Enemy : Unit
 
     private float Push_Strength = 0.5f;
 
-    private float Check_Interval = 0.5f;
-    private float Next_Check_Time = 0.0f;
+    private float CheckInterval = 0.5f;
+    private float LastCheckTime = 0.0f;
 
     private bool isSpeedBoosted = false;
 
@@ -45,19 +50,25 @@ public class Unit_Enemy : Unit
 
                 Player_To_Far_Enemy();
 
-                if (Time.time >= Next_Check_Time)
-                {
-                    Enemy_Knockback();
-
-                    Enemy_To_Player_Collision();
-
-                    Next_Check_Time = Time.time + Check_Interval;
-                }
+                Enemy_To_Player_Collision();
 
                 Temp_Time -= Time.deltaTime;
 
                 Attack_Time += Time.deltaTime;
+
             }
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        // 0.5초가 경과한 경우 충돌 검사 수행
+        if (Time.time >= LastCheckTime)
+        {
+            Enemy_To_Player_Collision();
+
+            // 현재 시간을 기준으로 마지막 체크 시간을 업데이트
+            LastCheckTime = Time.time + CheckInterval;
         }
     }
 
@@ -108,10 +119,10 @@ public class Unit_Enemy : Unit
 
         Vector3 dir = All_Manager.instance.GameMode_M.Current_Player.transform.position - this.transform.position;
 
-        this.transform.position = this.transform.position + (dir.normalized * (Random.Range(Unit_Enemy_Speed, Unit_Enemy_Speed) * Time.deltaTime));
+        this.transform.position = this.transform.position + (dir.normalized * (UnityEngine.Random.Range(Unit_Enemy_Speed, Unit_Enemy_Speed) * Time.deltaTime));
 
         if (All_Manager.instance.GameMode_M.Enemy_List.Contains(this) || gameObject.GetComponent<Animator>())
-        {   
+        {
             AM.SetBool("Move", true);
         }
         else
@@ -131,7 +142,6 @@ public class Unit_Enemy : Unit
 
 
     }
-
     public virtual void Enemy_To_Player_Collision()
     {
         var Player = All_Manager.instance.GameMode_M.Current_Player;
@@ -167,7 +177,7 @@ public class Unit_Enemy : Unit
         }
     }
 
-    public virtual void Enemy_Knockback()
+    public virtual void Enemy_To_Enemy_Push()
     {
         var Enemy_List = All_Manager.instance.GameMode_M.Enemy_List;
         var Temp_Player = All_Manager.instance.GameMode_M.Current_Player;
@@ -199,7 +209,7 @@ public class Unit_Enemy : Unit
         }
 
         // 그리드 크기 설정 (예: 5x5 유닛 영역)
-        float Grid_Size = 5f;
+        float Grid_Size = 3f;
         Dictionary<Vector2Int, List<Unit>> Grid = new Dictionary<Vector2Int, List<Unit>>();
 
         // 각 유닛을 그리드에 할당
@@ -228,18 +238,22 @@ public class Unit_Enemy : Unit
                 for (int j = i + 1; j < Cluster_Unit_List.Count; j++)
                 {
                     Vector2 Dir = Cluster_Unit_List[j].transform.position - Cluster_Unit_List[i].transform.position;
-                    float Dis = Dir.magnitude;
 
-                    // 충돌 반경 설정 (유닛 크기와 비례하여 설정)
+                    // 캐싱된 거리 제곱값을 사용
+                    float sqrDis = Dir.sqrMagnitude;
+
+                    // 충돌 반경 설정
                     float Min_Distance = 0.5f;
+                    float minDistanceSquared = Min_Distance * Min_Distance;
 
-                    if (Dis < Min_Distance)
+                    if (sqrDis < minDistanceSquared)
                     {
-                        // 충돌이 발생한 경우 밀쳐내기
-                        Vector2 Push_Direction = Dir.normalized * (Min_Distance - Dis) * Push_Strength;
+                        // 밀쳐내기 계산
+                        Vector2 pushDirection = Dir.normalized * (Min_Distance - Mathf.Sqrt(sqrDis)) * Push_Strength;
 
-                        Cluster_Unit_List[i].transform.position -= (Vector3)Push_Direction * 0.5f;
-                        Cluster_Unit_List[j].transform.position += (Vector3)Push_Direction * 0.5f;
+                        // 충돌이 발생한 경우 위치 업데이트
+                        Cluster_Unit_List[i].transform.position -= (Vector3)pushDirection * 0.5f;
+                        Cluster_Unit_List[j].transform.position += (Vector3)pushDirection * 0.5f;
                     }
                 }
             }
@@ -300,6 +314,7 @@ public class Unit_Enemy : Unit
         {
             p_Unit.AM.runtimeAnimatorController = p_Un_STO.Unit_Animator_Controller;
             p_Unit.AM.speed = 1.0f; // 애니메이션 재생
+            p_Unit.AM.cullingMode = AnimatorCullingMode.CullCompletely;
         }
     }
 

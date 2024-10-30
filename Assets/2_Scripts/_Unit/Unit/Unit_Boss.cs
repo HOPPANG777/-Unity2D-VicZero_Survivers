@@ -264,8 +264,8 @@ public class Unit_Boss : Unit_Enemy
         base.Enemy_To_Player_Collision();
     }
 
-    public override void Enemy_Knockback()
+    public override void Enemy_To_Enemy_Push()
     {
-        base.Enemy_Knockback();
+        base.Enemy_To_Enemy_Push();
     }
 }
