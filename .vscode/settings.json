@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "VicZero_Unity2D_ProtPolio_VampireSurvivers.sln"
+    "dotnet.defaultSolution": "-Unity2D-VicZero_Survivers.sln"
 }

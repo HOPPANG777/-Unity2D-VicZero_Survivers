@@ -191,7 +191,6 @@ public class Unit_Player : Unit
         //    SpriteRenderer sr = GetComponent<SpriteRenderer>();
         //    All_Manager.instance.Resource_M.Ghost_Effect.Spawn_Ghost(sr.sprite, transform.position);
         //}
-       
     }
 
     public void Create_Weapon(Weapon_Type p_WT)
