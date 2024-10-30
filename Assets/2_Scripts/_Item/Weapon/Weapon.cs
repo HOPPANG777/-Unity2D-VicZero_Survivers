@@ -11,7 +11,6 @@ public abstract class Weapon : MonoBehaviour
 
     public SpriteRenderer SR;
     public BoxCollider2D BC;
-    //public Rigidbody2D RB;
     public TrailRenderer TR;
     public Animator AM;
 
@@ -48,9 +47,6 @@ public abstract class Weapon : MonoBehaviour
     public virtual void Start()
     {
         SR = this.AddComponent<SpriteRenderer>();
-
-        //RB = this.AddComponent<Rigidbody2D>();
-        //RB.bodyType = RigidbodyType2D.Kinematic;
 
         BC = this.AddComponent<BoxCollider2D>();
         BC.isTrigger = true;

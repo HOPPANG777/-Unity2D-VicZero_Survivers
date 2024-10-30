@@ -50,7 +50,6 @@ public abstract class Unit : MonoBehaviour
 {
     public SpriteRenderer SR;
     public BoxCollider2D BC;
-    //public Rigidbody2D RB;
     public Animator AM;
 
     public bool isDead = false;
