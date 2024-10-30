@@ -30,7 +30,7 @@ MonoBehaviour:
     Unit_Weapon_CoolDown: 0
     Unit_Weapon_Proj_Num: 0
     Unit_Get_Gem_Range: 0
-  Unit_Enemy_HP: 100
+  Unit_Enemy_HP: 20
   Unit_Enemy_Speed: 1
   Unit_Enemy_Damage: 15
   Sprite_Image: {fileID: -1720106451, guid: 9fd3cd90eaf4b2e40bba965a8b34f902, type: 3}

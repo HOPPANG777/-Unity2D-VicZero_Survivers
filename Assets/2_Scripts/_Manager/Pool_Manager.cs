@@ -49,7 +49,7 @@ public class Pool_Manager : MonoBehaviour
 
             yield return new WaitWhile(() => MISC_Pool == null);
 
-            int MISC_Number = 800;
+            int MISC_Number = 1200;
 
             for (int k = 0; k < MISC_Number; k++)
             {

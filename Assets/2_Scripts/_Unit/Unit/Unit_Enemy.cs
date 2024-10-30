@@ -62,13 +62,13 @@ public class Unit_Enemy : Unit
 
     private void FixedUpdate()
     {
-        // 0.5초가 경과한 경우 충돌 검사 수행
-        if (Time.time >= LastCheckTime)
+        if (Time.time >= LastCheckTime + CheckInterval)
         {
-            Enemy_To_Player_Collision();
+            // 0.5초가 경과한 경우 충돌 검사 수행
+            Enemy_To_Enemy_Push();
 
             // 현재 시간을 기준으로 마지막 체크 시간을 업데이트
-            LastCheckTime = Time.time + CheckInterval;
+            LastCheckTime = Time.time;
         }
     }
 
