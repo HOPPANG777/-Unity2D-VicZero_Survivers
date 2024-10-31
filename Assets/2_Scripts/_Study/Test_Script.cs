@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class Test_Script : MonoBehaviour
 {
+    #region
     /*
     가비지 콜렉터
     우리 쓰레기 수집가!
@@ -49,8 +50,7 @@ public class Test_Script : MonoBehaviour
     //하지만 코루틴을 지나치게 너무 많이 쓰게 되면
     //성능에 영향을 주어 게임을 망칠수 있으니 
     //적절한 사용이 필요하다.
-
-    public VFX_Force_Area Temp;
+    #endregion
 
     public IEnumerator C_Test()
     {
@@ -64,21 +64,12 @@ public class Test_Script : MonoBehaviour
 
     private void Start()
     {
-        Temp = this.AddComponent<VFX_Force_Area>();
 
-        StartCoroutine(C_Temp_C());
     }
 
     private void Update()
     {
-        
-    }
 
-    IEnumerator C_Temp_C()
-    {
-        yield return new WaitUntil(() => Temp.GetComponent<VFX_Force_Area>());
-
-        Temp.VFX_Force_Particle();
     }
 
 }

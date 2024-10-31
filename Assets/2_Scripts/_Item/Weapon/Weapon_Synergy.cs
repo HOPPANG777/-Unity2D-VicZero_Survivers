@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Weapon_Synergy : Weapon
 {
-    
+
 }
 
 

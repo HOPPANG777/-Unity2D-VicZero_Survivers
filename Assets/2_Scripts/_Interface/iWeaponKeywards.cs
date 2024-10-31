@@ -9,13 +9,12 @@ public interface IWeaponKeywards
 }
 
 [System.Serializable]
-[Flags]
 public enum WeaponKeyward
 {
-    NONE = 0,       // None
-    Bound = 1 << 0,      // Bound Axe
-    Phoenix = 1 << 1,    // Phoenix
-    Paladin = 1 << 2,
-    Sonic = 1 << 3,
-    Holy = 1 << 4
+    NONE,       // None
+    Bound,      // Axe RuneTracer       -> Bound Axe(조합무기)
+    Phoenix,    // FireWand Peachone    -> Phoenix(조합무기)
+    Paladin,    // ShadowPinion Cross   -> 사거리 1.5배
+    Sonic,      // LightningRing Whip   -> 공격속도 1.5배
+    Holy        // Garlic KingBible     -> 사이즈 1.5배
 }

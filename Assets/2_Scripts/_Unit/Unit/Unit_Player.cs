@@ -11,6 +11,7 @@ using UnityEngine;
 using UnityEngine.Rendering.UI;
 using UnityEngine.UIElements;
 using UnityEngine.XR;
+using static UnityEditor.IMGUI.Controls.PrimitiveBoundsHandle;
 using static UnityEngine.UI.CanvasScaler;
 
 [System.Serializable]
@@ -59,9 +60,9 @@ public class Unit_Player : Unit
     //찾아보면서 써보기
     public List<Weapon> All_Weapon = new List<Weapon>();
     public List<STO_Equipment> All_Equipment = new List<STO_Equipment>();
-    public Dictionary<Weapon_Type, int> PlayerWeaponLevels = new Dictionary<Weapon_Type, int>();
-    public List<Weapon_Synergy> AllSynergyEffects = new List<Weapon_Synergy>();
-    public HashSet<Weapon_Type> AppliedSynergies = new HashSet<Weapon_Type>();
+    public Dictionary<List<WeaponKeyward>, int> weaponKeys = new Dictionary<List<WeaponKeyward>, int>();
+
+
     public Vector2 InputVec;
 
     public float W_Dist = 0.0f;
@@ -1482,6 +1483,11 @@ public class Unit_Player : Unit
     }
     #endregion
 
+    public void WeaponKeywardsSynergy(Weapon p_Weapon)
+    {
+
+
+    }
 
 
     // 플레이어 이동
@@ -1570,6 +1576,98 @@ public class Unit_Player : Unit
 }
 
 #region
+/*
+         var Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_Weapon.WT);
+
+        var Weapon_WLAT = Convert_WLAT_Player(Weapon_STO);
+
+        switch (p_Weapon.WeaponKeywards)
+        {
+            case WeaponKeyward.NONE:
+                break;
+            case WeaponKeyward.Bound:
+                {
+                    switch (p_Weapon.WT)
+                    {
+                        case Weapon_Type.Axe:
+                            {
+                                if (Axe_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywards);
+                            }
+                            break;
+                        case Weapon_Type.RuneTracer:
+                            {
+                                if (RuneTracer_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywards);
+                            }
+                            break;
+                    }
+                }
+                break;
+            case WeaponKeyward.Phoenix:
+                {
+                    switch (p_Weapon.WT)
+                    {
+                        case Weapon_Type.Peachone:
+                            {
+                                if (Peachone_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywards);
+                            }
+                            break;
+                        case Weapon_Type.FireWand:
+                            {
+                                if (FireWand_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywards);
+                            }
+                            break;
+                    }
+                }
+                break;
+            case WeaponKeyward.Paladin:
+                {
+                    switch (p_Weapon.WT)
+                    {
+                        case Weapon_Type.ShadowPinion:
+                            {
+                                if (ShadowPinion_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywards);
+                            }
+                            break;
+                        case Weapon_Type.Cross:
+                            {
+                                if (Cross_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywards);
+                            }
+                            break;
+                    }
+                }
+                break;
+            case WeaponKeyward.Sonic:
+                switch (p_Weapon.WT)
+                {
+                    case Weapon_Type.LightningRing:
+                        {
+                            if (LightningRing_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywards);
+                        }
+                        break;
+                    case Weapon_Type.Whip:
+                        {
+                            if (Whip_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywards);
+                        }
+                        break;
+                }
+                break;
+            case WeaponKeyward.Holy:
+                switch (p_Weapon.WT)
+                {
+                    case Weapon_Type.Garlic:
+                        {
+                            if (Garlic_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywards);
+                        }
+                        break;
+                    case Weapon_Type.KingBible:
+                        {
+                            if (KingBible_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywards);
+                        }
+                        break;
+                }
+                break;
+        }
+ */
 //if (Dis > Vector3.Distance(this.transform.position, Gem_Temp.transform.position))
 //{
 //    Dis = Vector3.Distance(this.transform.position, Gem_Temp.transform.position);
