@@ -1486,7 +1486,40 @@ public class Unit_Player : Unit
 
     public void WeaponKeywordsSynergy(Weapon p_Weapon)
     {
-        
+        switch (p_Weapon.WeaponKeywords)
+        {
+            case WeaponKeyword.NONE:
+                break;
+            case WeaponKeyword.Bound:
+                {
+                    if (GetKeywordCount(WeaponKeyword.Bound) == 2)
+                    {
+                        //if (p_Weapon.WeaponKeywords == WeaponKeyword.Bound)
+
+                    }
+                }
+                break;
+            case WeaponKeyword.Phoenix:
+                {
+
+                }
+                break;
+            case WeaponKeyword.Paladin:
+                {
+
+                }
+                break;
+            case WeaponKeyword.Sonic:
+                {
+
+                }
+                break;
+            case WeaponKeyword.Holy:
+                {
+
+                }
+                break;
+        }
     }
 
     public void AddWeaponKeyword(WeaponKeyword p_WeaponKeyword)

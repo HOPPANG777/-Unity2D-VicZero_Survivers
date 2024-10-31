@@ -335,6 +335,63 @@ public abstract class Weapon : MonoBehaviour
         All_Manager.instance.Pool_M.Weapon_Pool_In(this.gameObject.GetComponent<Weapon>());
     }
 
+
+    public void BoostDamage(float multiply)
+    {
+        var Temp_WTO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(WT);
+
+        var Temp_WLAT = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_WTO);
+
+        var Temp_Weapon_Damage = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Damage(WT, Temp_WLAT);
+
+        Temp_Weapon_Damage *= multiply;
+    }
+
+    public void BoostSpeed(float multiply)
+    {
+        var Temp_WTO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(WT);
+
+        var Temp_WLAT = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_WTO);
+
+        var Temp_Weapon_Speed = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Speed(WT, Temp_WLAT);
+
+        Temp_Weapon_Speed *= multiply;
+    }
+
+    public void BoostRange(float multiply)
+    {
+        var Temp_WTO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(WT);
+
+        var Temp_WLAT = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_WTO);
+
+        var Temp_Weapon_Range = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Range(WT, Temp_WLAT);
+
+        Temp_Weapon_Range *= multiply;
+    }
+
+
+    public void BoostCoolDown(float multiply)
+    {
+        var Temp_WTO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(WT);
+
+        var Temp_WLAT = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_WTO);
+
+        var Temp_Weapon_CoolDown = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_CoolDown(WT, Temp_WLAT);
+
+        Temp_Weapon_CoolDown *= multiply;
+    }
+
+    public void BoostSize(float multiply)
+    {
+        var Temp_WTO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(WT);
+
+        var Temp_WLAT = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_WTO);
+
+        var Temp_Weapon_Size = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Size(WT, Temp_WLAT);
+
+        Temp_Weapon_Size *= multiply;
+    }   
+
 }
 
 
