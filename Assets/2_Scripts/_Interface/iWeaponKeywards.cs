@@ -10,7 +10,7 @@ public interface IWeaponKeywards
 
 public enum WeaponKeyward
 {
-    Bound,  // Bound Axe
-    Bullet, // FireBullet
+    Bound,      // Bound Axe
+    Phoenix,    // Phoenix
 
 }
