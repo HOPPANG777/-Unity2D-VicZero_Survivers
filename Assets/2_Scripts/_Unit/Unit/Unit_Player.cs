@@ -5,6 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Dynamic;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Threading;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -60,8 +61,7 @@ public class Unit_Player : Unit
     //찾아보면서 써보기
     public List<Weapon> All_Weapon = new List<Weapon>();
     public List<STO_Equipment> All_Equipment = new List<STO_Equipment>();
-    public Dictionary<List<WeaponKeyward>, int> weaponKeys = new Dictionary<List<WeaponKeyward>, int>();
-
+    public Dictionary<WeaponKeyword, int> weaponKeywordCounts = new Dictionary<WeaponKeyword, int>();
 
     public Vector2 InputVec;
 
@@ -554,6 +554,7 @@ public class Unit_Player : Unit
         if (Weapon_Go != null)
         {
             All_Weapon.Add(Weapon_Go.GetComponent<Weapon>());
+            
             //Weapon_Go.transform.parent = this.transform;
         }
 
@@ -1483,10 +1484,33 @@ public class Unit_Player : Unit
     }
     #endregion
 
-    public void WeaponKeywardsSynergy(Weapon p_Weapon)
+    public void WeaponKeywordsSynergy(Weapon p_Weapon)
     {
+        
+    }
 
+    public void AddWeaponKeyword(WeaponKeyword p_WeaponKeyword)
+    {
+        if (weaponKeywordCounts.ContainsKey(p_WeaponKeyword))
+        {
+            // 키워드가 이미 있다면 카운트를 증가시킴
+            weaponKeywordCounts[p_WeaponKeyword]++;
+        }
+        else
+        {
+            // 키워드가 없다면 새로 추가하고 카운트를 1로 설정한다.
+            weaponKeywordCounts[p_WeaponKeyword] = 1;
+        }
+    }
 
+    // 키워드 카운트를 확인하는 메서드
+    public int GetKeywordCount(WeaponKeyword p_WeaponKeyword)
+    {
+        if (weaponKeywordCounts.ContainsKey(p_WeaponKeyword))
+        {
+            return All_Manager.instance.GameMode_M.Current_Player.weaponKeywordCounts[p_WeaponKeyword];
+        }
+        return 0;
     }
 
 
@@ -1581,87 +1605,87 @@ public class Unit_Player : Unit
 
         var Weapon_WLAT = Convert_WLAT_Player(Weapon_STO);
 
-        switch (p_Weapon.WeaponKeywards)
+        switch (p_Weapon.WeaponKeywords)
         {
-            case WeaponKeyward.NONE:
+            case WeaponKeyword.NONE:
                 break;
-            case WeaponKeyward.Bound:
+            case WeaponKeyword.Bound:
                 {
                     switch (p_Weapon.WT)
                     {
                         case Weapon_Type.Axe:
                             {
-                                if (Axe_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywards);
+                                if (Axe_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywords);
                             }
                             break;
                         case Weapon_Type.RuneTracer:
                             {
-                                if (RuneTracer_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywards);
+                                if (RuneTracer_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywords);
                             }
                             break;
                     }
                 }
                 break;
-            case WeaponKeyward.Phoenix:
+            case WeaponKeyword.Phoenix:
                 {
                     switch (p_Weapon.WT)
                     {
                         case Weapon_Type.Peachone:
                             {
-                                if (Peachone_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywards);
+                                if (Peachone_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywords);
                             }
                             break;
                         case Weapon_Type.FireWand:
                             {
-                                if (FireWand_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywards);
+                                if (FireWand_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywords);
                             }
                             break;
                     }
                 }
                 break;
-            case WeaponKeyward.Paladin:
+            case WeaponKeyword.Paladin:
                 {
                     switch (p_Weapon.WT)
                     {
                         case Weapon_Type.ShadowPinion:
                             {
-                                if (ShadowPinion_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywards);
+                                if (ShadowPinion_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywords);
                             }
                             break;
                         case Weapon_Type.Cross:
                             {
-                                if (Cross_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywards);
+                                if (Cross_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywords);
                             }
                             break;
                     }
                 }
                 break;
-            case WeaponKeyward.Sonic:
+            case WeaponKeyword.Sonic:
                 switch (p_Weapon.WT)
                 {
                     case Weapon_Type.LightningRing:
                         {
-                            if (LightningRing_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywards);
+                            if (LightningRing_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywords);
                         }
                         break;
                     case Weapon_Type.Whip:
                         {
-                            if (Whip_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywards);
+                            if (Whip_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywords);
                         }
                         break;
                 }
                 break;
-            case WeaponKeyward.Holy:
+            case WeaponKeyword.Holy:
                 switch (p_Weapon.WT)
                 {
                     case Weapon_Type.Garlic:
                         {
-                            if (Garlic_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywards);
+                            if (Garlic_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywords);
                         }
                         break;
                     case Weapon_Type.KingBible:
                         {
-                            if (KingBible_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywards);
+                            if (KingBible_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywords);
                         }
                         break;
                 }

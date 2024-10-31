@@ -220,6 +220,8 @@ public class Player_Level_Up : MonoBehaviour
         {
             All_Manager.instance.GameMode_M.Current_Player.Upgrade_Weapon(p_WT);
 
+            All_Manager.instance.GameMode_M.Current_Player.AddWeaponKeyword(Temp_WT.WeaponKeywords);
+
             if (All_Manager.instance.GameMode_M.Current_Player != null)
             {
                 if (Temp_WT != null)

@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IWeaponKeywards
+public interface IWeaponKeywords
 {
-    WeaponKeyward WeaponKeyward { get; set; }
+    WeaponKeyword WeaponKeyword { get; set; }
 }
 
 [System.Serializable]
-public enum WeaponKeyward
+public enum WeaponKeyword
 {
     NONE,       // None
     Bound,      // Axe RuneTracer       -> Bound Axe(조합무기)

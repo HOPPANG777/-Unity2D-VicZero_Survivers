@@ -31,19 +31,19 @@ public class Weapon_Synergy : Weapon
 
  public class Weapon_Synergy : MonoBehaviour
 {
-    private Dictionary<List<WeaponKeyward>, string> synergyEffects;
+    private Dictionary<List<WeaponKeyword>, string> synergyEffects;
 
     public Weapon_Synergy()
     {
-        synergyEffects = new Dictionary<List<WeaponKeyward>, string>(new TypeListComparer())
+        synergyEffects = new Dictionary<List<WeaponKeyword>, string>(new TypeListComparer())
         {
-            { new List<WeaponKeyward> { WeaponKeyward.Bound, WeaponKeyward.Bound }, "Bound Axe"  },
-            { new List<WeaponKeyward> { WeaponKeyward.Phoenix, WeaponKeyward.Phoenix }, "Phoenix" },
+            { new List<WeaponKeyword> { WeaponKeyword.Bound, WeaponKeyword.Bound }, "Bound Axe"  },
+            { new List<WeaponKeyword> { WeaponKeyword.Phoenix, WeaponKeyword.Phoenix }, "Phoenix" },
             // 다른 시너지 효과 추가 가능
         };
     }
 
-    public string GetSynergyEffect(List<WeaponKeyward> weaponType)
+    public string GetSynergyEffect(List<WeaponKeyword> weaponType)
     {
         foreach (var synergy in synergyEffects)
         {
@@ -57,9 +57,9 @@ public class Weapon_Synergy : Weapon
 }
 
 // List 비교를 위한 커스텀 Comparer
-public class TypeListComparer : IEqualityComparer<List<WeaponKeyward>>
+public class TypeListComparer : IEqualityComparer<List<WeaponKeyword>>
 {
-    public bool Equals(List<WeaponKeyward> x, List<WeaponKeyward> y)
+    public bool Equals(List<WeaponKeyword> x, List<WeaponKeyword> y)
     {
         if (x == null || y == null)
             return false;
@@ -67,10 +67,10 @@ public class TypeListComparer : IEqualityComparer<List<WeaponKeyward>>
         if (x.Count != y.Count)
             return false;
 
-        return new HashSet<WeaponKeyward>(x).SetEquals(y);
+        return new HashSet<WeaponKeyword>(x).SetEquals(y);
     }
 
-    public int GetHashCode(List<WeaponKeyward> obj)
+    public int GetHashCode(List<WeaponKeyword> obj)
     {
         if (obj == null)
             return 0;
