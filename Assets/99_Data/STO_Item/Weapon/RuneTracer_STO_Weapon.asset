@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: RuneTracer_STO_Weapon
   m_EditorClassIdentifier: 
   WT: 8
+  WeaponKeywards: 1
   Weapon_Name: "\uB8EC\uD2B8\uB808\uC774\uC11C"
   Weapon_Text: "\n\uB79C\uB364\uD55C \uBC29\uD5A5\uC73C\uB85C \uBC1C\uC0AC\uB418\uC5B4\n\uC801\uC744
     \uAD00\uD1B5\uD558\uACE0 \uD654\uBA74\uC5D0 \n\uBC18\uC0AC\uB41C\uB2E4."

@@ -18,7 +18,6 @@ public class Phoenix : Weapon
     float shootGapValue;
     public const float shootGap = 0.1f;
 
-
     void Start()
     {
         

@@ -9,9 +9,8 @@ using static UnityEngine.UI.CanvasScaler;
 public abstract class Weapon : MonoBehaviour
 {
     public Weapon_Type WT;
-    public IWeaponKeywards WeaponKeyward;
+    public WeaponKeyward WeaponKeywards;
     
-
     public SpriteRenderer SR;
     public BoxCollider2D BC;
     public TrailRenderer TR;
@@ -216,7 +215,7 @@ public abstract class Weapon : MonoBehaviour
 
         weapon.SR.sprite = weapon_STO.Sprite_Image;
         weapon.WT = weapon_STO.WT;
-        weapon.WeaponKeyward = weapon_STO.WeaponKeyward;
+        weapon.WeaponKeywards = weapon_STO.WeaponKeywards;
 
         if (weapon_STO.Weapon_Animator_Controller != null)
         {
@@ -248,7 +247,7 @@ public abstract class Weapon : MonoBehaviour
     }
 
 
-    public void Weapon_Stat_Appliaction()
+    public virtual void Weapon_Stat_Appliaction()
     {
         var Temp_WTO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(WT);
 

@@ -110,8 +110,6 @@ public class BoundAxe : Weapon
         base.Weapon_To_Enemy_Collision();
     }
 
-
-
     void SwapVec3(ref Vector3 v1, ref Vector3 v2)
     {
         Vector3 temp = v1;

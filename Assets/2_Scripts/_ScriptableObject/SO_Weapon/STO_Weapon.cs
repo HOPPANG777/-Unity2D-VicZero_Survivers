@@ -22,7 +22,7 @@ public struct Weapon_Information
 public class STO_Weapon : ScriptableObject
 {
     public Weapon_Type WT;
-    public IWeaponKeywards WeaponKeyward;
+    public WeaponKeyward WeaponKeywards;
 
     public string Weapon_Name;
 

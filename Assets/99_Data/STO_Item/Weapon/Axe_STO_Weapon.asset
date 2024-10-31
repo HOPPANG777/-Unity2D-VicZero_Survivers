@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Axe_STO_Weapon
   m_EditorClassIdentifier: 
   WT: 0
+  WeaponKeywards: 1
   Weapon_Name: "\uB3C4\uB07C"
   Weapon_Text: "\uC57C\uB9CC\uC778\uB4E4\uC758 \uC608\uC808 \uC8FC\uC785\uAE30."
   Info_s:

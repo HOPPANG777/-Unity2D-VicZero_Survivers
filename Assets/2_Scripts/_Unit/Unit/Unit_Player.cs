@@ -59,6 +59,9 @@ public class Unit_Player : Unit
     //찾아보면서 써보기
     public List<Weapon> All_Weapon = new List<Weapon>();
     public List<STO_Equipment> All_Equipment = new List<STO_Equipment>();
+    public Dictionary<Weapon_Type, int> PlayerWeaponLevels = new Dictionary<Weapon_Type, int>();
+    public List<Weapon_Synergy> AllSynergyEffects = new List<Weapon_Synergy>();
+    public HashSet<Weapon_Type> AppliedSynergies = new HashSet<Weapon_Type>();
 
     public Vector2 InputVec;
 
@@ -181,386 +184,386 @@ public class Unit_Player : Unit
     }
 
     #region
-    // 무기 생성
-    public IEnumerator C_Create_Weapon(Weapon_Type p_WT)
-    {
-        yield return new WaitWhile(() => Creating_Weapon == true);
-
-        var Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
-
-        var Weapon_WLAT = Convert_WLAT_Player(Weapon_STO);
-
-        Creating_Weapon = true;
-
-        //GameObject Weapon_Go = null;
-        GameObject Weapon_Go = null;
-
-        switch (p_WT)
+        // 무기 생성
+        public IEnumerator C_Create_Weapon(Weapon_Type p_WT)
         {
-            // 도끼
-            case Weapon_Type.Axe:
-                {
-                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
+            yield return new WaitWhile(() => Creating_Weapon == true);
 
-                    //Weapon_Go.AddComponent<Weapon_Axe>();
-                    
-                    // Weapon_Go가 해당 무기의 컴포넌트를 포함하고 있다면.
-                    if (Weapon_Go.GetComponent<Weapon_Axe>())
-                    {
-                        // 위치 초기화
-                        Weapon_Go.transform.position = this.transform.position;
-                        Weapon_Go.transform.rotation = Quaternion.identity;
-                        Weapon_Go.transform.localScale = Vector3.one;
+            var Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
 
-                        // 이 무기의 스프라이트를 불러올때까지 기다려라.
-                        yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_Axe>().SR);
-                        Vector3 One = this.transform.position;
-                        Vector3 Two, Three, Four;
+            var Weapon_WLAT = Convert_WLAT_Player(Weapon_STO);
 
-                        // 도끼 방향에 따라서
-                        if (Weapon_Trigger)
-                        {
-                            Two = One + new Vector3(0, 5, 0);
-                            Three = Two + new Vector3(Random.Range(1, 5), 0, 0);        // 오른쪽
-                            Four = One + new Vector3(Random.Range(1, 5), -10, 0);       // 오른쪽 아래
-                        }
-                        else
-                        {
-                            Two = One + new Vector3(0, 5, 0);
-                            Three = Two + new Vector3(Random.Range(-5, -1), 0, 0);      // 왼쪽
-                            Four = One + new Vector3(Random.Range(-5, -1), -10, 0);     // 왼쪽 아래
-                        }
+            Creating_Weapon = true;
 
-                        // 도끼 초기화
-                        Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, Axe_LAT.Level);
-                        Weapon_Go.GetComponent<Weapon_Axe>().Axe_Init(One, Two, Three, Four);
+            //GameObject Weapon_Go = null;
+            GameObject Weapon_Go = null;
 
-                        // 다음에 생성될때 방향 반대로 변경
-                        Weapon_Trigger = !Weapon_Trigger;
-
-                        // 무기 생성시 효과음
-                        All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.Axe);
-                    }
-                }
-                break;
-            case Weapon_Type.KingBible:
-                {
-                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
-
-                    //Weapon_Go.AddComponent<Weapon_KingBible>();
-
-                    if (Weapon_Go.GetComponent<Weapon_KingBible>())
-                    {
-                        Weapon_Go.transform.position = this.transform.position;
-                        Weapon_Go.transform.rotation = Quaternion.identity;
-                        Weapon_Go.transform.localScale = Vector3.one;
-
-                        //Start()
-                        //Update()
-
-                        yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_KingBible>().SR);
-
-                        Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, KingBible_LAT.Level);
-
-                        // 지금 현재 가지고 있는 성경의 갯수
-                        int Max = 0;
-
-                        // 플레이어가 사용하고 있는 성경의 갯수
-                        for (int i = 0; i < All_Weapon.Count; i++)
-                        {
-                            if (All_Weapon[i].GetComponent<Weapon_KingBible>())
-                            {
-                                Max++;
-                            }
-                        }
-
-                        // 
-                        Max++;
-
-                        //
-                        for (int i = 0; i < All_Weapon.Count; i++)
-                        {
-                            if (All_Weapon[i].GetComponent<Weapon_KingBible>())
-                            {
-                                All_Weapon[i].GetComponent<Weapon_KingBible>().Weapon_Max_KingBible_Count = Max;
-                            }
-                        }
-
-                        Weapon_Go.GetComponent<Weapon_KingBible>().Weapon_Max_KingBible_Count = Max;
-                        Weapon_Go.GetComponent<Weapon_KingBible>().Weapon_Mine_KingBible_Count = Max;
-
-                        //var Temp_KingBible_Range = Current_Weapon_Range(Weapon_Type.KingBible, KingBible_LAT);
-
-                        //Weapon_Go.GetComponent<Weapon_KingBible>().Weapon_Range = Temp_KingBible_Range;
-
-                        All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.KingBible);
-                    }
-                }
-                break;
-            case Weapon_Type.Peachone:
-                {
-                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
-
-                    //Weapon_Go.AddComponent<Weapon_Peachone>();
-
-                    if (Weapon_Go.GetComponent<Weapon_Peachone>())
-                    {
-                        Weapon_Go.transform.position = All_Manager.instance.UI_M.Peachone_Image.rectTransform.position;
-                        Weapon_Go.transform.rotation = Quaternion.identity;
-                        Weapon_Go.transform.localScale = Vector3.one;
-
-                        yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_Peachone>().SR);
-
-                        var P_Peachone_UI_Range = Weapon_Go.GetComponent<Weapon_Peachone>().Convert_RectTransform_To_Position(All_Manager.instance.UI_M.Peachone_Range_Image.rectTransform);
-                        var P_Peachone_UI = Weapon_Go.GetComponent<Weapon_Peachone>().Convert_RectTransform_To_Position(All_Manager.instance.UI_M.Peachone_Image.rectTransform);
-
-                        Vector3 One = All_Manager.instance.UI_M.Peachone_Image.transform.position;
-                        Vector3 Two = Weapon_Go.GetComponent<Weapon_Peachone>().Peachone_Point_Setting(All_Manager.instance.UI_M.Peachone_Image.transform.position);
-                        Vector3 Three = Weapon_Go.GetComponent<Weapon_Peachone>().Peachone_Point_Setting(P_Peachone_UI_Range);
-                        Vector3 Four = P_Peachone_UI_Range;
-
-                        Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, Peachone_LAT.Level);
-                        Weapon_Go.GetComponent<Weapon_Peachone>().Peachone_Init(One, Two, Three, Four);
-                        All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.Peachone);
-                    }
-
-                }
-                break;
-            case Weapon_Type.FireWand:
-                {
-                    var FireWand_Stat = Weapon_STO.Info_s[FireWand_LAT.Level];
-
-                    for (int i = 0; i < Current_Weapon_Count(Weapon_Type.FireWand, FireWand_LAT); i++)
+            switch (p_WT)
+            {
+                // 도끼
+                case Weapon_Type.Axe:
                     {
                         Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
 
-                        //Weapon_Go.AddComponent<Weapon_FireWand>();
-
-                        if (Weapon_Go.GetComponent<Weapon_FireWand>())
+                        //Weapon_Go.AddComponent<Weapon_Axe>();
+                    
+                        // Weapon_Go가 해당 무기의 컴포넌트를 포함하고 있다면.
+                        if (Weapon_Go.GetComponent<Weapon_Axe>())
                         {
-                            Weapon_Go.transform.position = this.transform.position + new Vector3(0, -0.3f, 0);
+                            // 위치 초기화
+                            Weapon_Go.transform.position = this.transform.position;
                             Weapon_Go.transform.rotation = Quaternion.identity;
                             Weapon_Go.transform.localScale = Vector3.one;
 
-                            yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_FireWand>().SR);
+                            // 이 무기의 스프라이트를 불러올때까지 기다려라.
+                            yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_Axe>().SR);
+                            Vector3 One = this.transform.position;
+                            Vector3 Two, Three, Four;
 
-                            Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, FireWand_LAT.Level);
-
-                            Vector3 Dir_Vec = new Vector3(Mathf.Cos((Mathf.PI * 2 * i / Current_Weapon_Count(Weapon_Type.FireWand, FireWand_LAT))), Mathf.Sin((Mathf.PI * i * 2 / Current_Weapon_Count(Weapon_Type.FireWand, FireWand_LAT)))); //원을 기준으로 각각의 투사체마다 벡터를 정리
-
-                            if (All_Manager.instance.GameMode_M.Game_Stop == false)
+                            // 도끼 방향에 따라서
+                            if (Weapon_Trigger)
                             {
-                                Weapon_Go.transform.position = Weapon_Go.transform.position + (Dir_Vec.normalized * FireWand_Stat.Weapon_Speed * Time.deltaTime);
-                            }
-                            else { }
-
-                            Weapon_Go.transform.rotation = Quaternion.Euler(0, 0, (360 * i / (Current_Weapon_Count(Weapon_Type.FireWand, FireWand_LAT))) + 180); //투사체의 각도가 자연스럽게 회전값을 넣었다.
-                            All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.FireWand);
-                        }
-                    }
-                }
-                break;
-            case Weapon_Type.Cross:
-                {
-                    var W_Cross_S = Weapon_STO.Info_s[Cross_LAT.Level];
-
-                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
-
-                    //Weapon_Go.AddComponent<Weapon_Cross>();
-
-                    if (Weapon_Go.GetComponent<Weapon_Cross>())
-                    {
-                        Weapon_Go.transform.position = this.transform.position;
-                        Weapon_Go.transform.rotation = Quaternion.identity;
-                        Weapon_Go.transform.localScale = Vector3.one;
-
-                        yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_Cross>().SR);
-
-                        Vector3 One = this.transform.position;
-                        Vector3 Target = One + new Vector3(Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range), Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range), 0);
-
-                        Vector3 Two = One + (Target - One) / 3 + new Vector3(Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2, Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2, 0);
-                        Vector3 Three = Target + (One - Target) / 3 + new Vector3(Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2, Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2, 0);
-                        Vector3 Four = One + ((One - Target) * W_Cross_S.Weapon_Range);
-
-                        Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, Cross_LAT.Level);
-                        Weapon_Go.GetComponent<Weapon_Cross>().Cross_Init(One, Two, Three, Four);
-                        //Weapon_Go.GetComponent<Weapon_Cross>().Weapon_Application_Equipment();
-                        All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.Cross);
-                    }
-                }
-                break;
-            case Weapon_Type.Garlic:
-                {
-                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
-                    //Weapon_Go.AddComponent<Weapon_Garlic>();
-
-                    if (Weapon_Go.GetComponent<Weapon_Garlic>())
-                    {
-                        Weapon_Go.transform.position = this.transform.position;
-                        Weapon_Go.transform.rotation = Quaternion.identity;
-                        Weapon_Go.transform.localScale = Vector3.one;
-
-                        Weapon_Go.transform.parent = this.transform;
-
-                        yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_Garlic>().SR);
-
-                        Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, Garlic_LAT.Level);
-
-                        //Weapon_Go.GetComponent<Weapon_Garlic>().Weapon_Application_Equipment();
-                        //All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.Garlic);
-                    }
-                }
-                break;
-            case Weapon_Type.LightningRing:
-                {
-                    if (All_Manager.instance != null && All_Manager.instance.GameMode_M != null && All_Manager.instance.GameMode_M.Enemy_List != null && All_Manager.instance.GameMode_M.Enemy_List.Count > 0)
-                    {
-                        var Max_Count = Current_Weapon_Count(Weapon_Type.LightningRing, LightningRing_LAT);
-                        int Count_To_Spawn = Mathf.Min(Max_Count, All_Manager.instance.GameMode_M.Enemy_List.Count); // 최대 10개까지만 생성하도록 제한
-
-                        List<int> Spawned_Indices = new List<int>(); // 이미 생성된 적의 인덱스를 저장할 리스트
-
-                        for (int i = 0; i < Count_To_Spawn; i++)
-                        {
-                            int Random_Index = Random.Range(0, All_Manager.instance.GameMode_M.Enemy_List.Count);
-
-                            // 중첩 방지: 이미 생성된 적 위치에 LightningRing이 있으면 건너뜀
-                            if (Spawned_Indices.Contains(Random_Index))
-                            {
-                                continue;
-                            }
-
-                            Spawned_Indices.Add(Random_Index);
-
-                            var Check_Enemy_Alive = All_Manager.instance.GameMode_M.Enemy_List[Random_Index];
-
-                            if (Check_Enemy_Alive == null)
-                            {
-                                //Debug.LogWarning("None Enemy! : " + Random_Index);
-                                continue;
-                            }
-
-                            Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
-                            //Weapon_Go.AddComponent<Weapon_LightningRing>();
-
-
-                            // LightningRing이 데미지를 주는지 확인 후 처리
-                            if (Weapon_Go.GetComponent<Weapon_LightningRing>() != null)
-                            {
-                                Weapon_Go.transform.position = All_Manager.instance.GameMode_M.Enemy_List[Random_Index].transform.position;
-                                Weapon_Go.transform.rotation = Quaternion.identity;
-                                Weapon_Go.transform.localScale = Vector3.one;
-
-                                yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_LightningRing>().SR);
-
-                                // Weapon_Init을 통해 필요한 초기화 작업 수행
-                                Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, LightningRing_LAT.Level);
-                                //Weapon_Go.GetComponent<Weapon_LightningRing>().Weapon_Application_Equipment();
-                                All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.LightningRing);
+                                Two = One + new Vector3(0, 5, 0);
+                                Three = Two + new Vector3(Random.Range(1, 5), 0, 0);        // 오른쪽
+                                Four = One + new Vector3(Random.Range(1, 5), -10, 0);       // 오른쪽 아래
                             }
                             else
                             {
-                                //Debug.Log("LightningRing Gone!");
+                                Two = One + new Vector3(0, 5, 0);
+                                Three = Two + new Vector3(Random.Range(-5, -1), 0, 0);      // 왼쪽
+                                Four = One + new Vector3(Random.Range(-5, -1), -10, 0);     // 왼쪽 아래
                             }
 
+                            // 도끼 초기화
+                            Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, Axe_LAT.Level);
+                            Weapon_Go.GetComponent<Weapon_Axe>().Axe_Init(One, Two, Three, Four);
+
+                            // 다음에 생성될때 방향 반대로 변경
+                            Weapon_Trigger = !Weapon_Trigger;
+
+                            // 무기 생성시 효과음
+                            All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.Axe);
                         }
                     }
-
-
-
-                }
-                break;
-            case Weapon_Type.ShadowPinion:
-                {
-                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
-                    //Weapon_Go.AddComponent<Weapon_ShadowPinion>();
-
-                    if (Weapon_Go.GetComponent<Weapon_ShadowPinion>())
+                    break;
+                case Weapon_Type.KingBible:
                     {
-                        Weapon_Go.transform.position = this.transform.position + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0);
-                        Weapon_Go.transform.rotation = Quaternion.identity;
-                        Weapon_Go.transform.localScale = Vector3.one;
+                        Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
 
-                        yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_ShadowPinion>().SR);
+                        //Weapon_Go.AddComponent<Weapon_KingBible>();
 
-                        Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, ShadowPinion_LAT.Level);
-                        //Weapon_Go.GetComponent<Weapon_ShadowPinion>().Weapon_Application_Equipment();
-                        All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.ShadowPinion);
-                    }
-                }
-                break;
-            case Weapon_Type.RuneTracer:
-                {
-                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
-                    //Weapon_Go.AddComponent<Weapon_RuneTracer>();
-
-                    if (Weapon_Go.GetComponent<Weapon_RuneTracer>())
-                    {
-                        Weapon_Go.transform.position = this.transform.position;
-                        Weapon_Go.transform.rotation = Quaternion.identity;
-                        Weapon_Go.transform.localScale = Vector3.one;
-
-                        yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_RuneTracer>().SR);
-
-                        Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, RuneTracer_LAT.Level);
-                        //Weapon_Go.GetComponent<Weapon_RuneTracer>().Weapon_Application_Equipment();
-                        All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.RuneTracer);
-                    }
-                }
-                break;
-            case Weapon_Type.Whip:
-                {
-                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
-                    //Weapon_Go.AddComponent<Weapon_Whip>();
-
-                    //Weapon_Go.transform.parent = this.transform;
-
-                    if (Weapon_Go.GetComponent<Weapon_Whip>())
-                    {
-                        yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_Whip>().SR);
-
-                        if (Weapon_Trigger)
+                        if (Weapon_Go.GetComponent<Weapon_KingBible>())
                         {
-                            Weapon_Go.transform.position = this.transform.position + new Vector3(-2f + Random.Range(-0.5f, 0.5f), -0.1f + Random.Range(-0.2f, 0.2f), 0);
+                            Weapon_Go.transform.position = this.transform.position;
                             Weapon_Go.transform.rotation = Quaternion.identity;
-                            Weapon_Go.transform.localScale = new Vector3(-4, -1, -1);
+                            Weapon_Go.transform.localScale = Vector3.one;
+
+                            //Start()
+                            //Update()
+
+                            yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_KingBible>().SR);
+
+                            Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, KingBible_LAT.Level);
+
+                            // 지금 현재 가지고 있는 성경의 갯수
+                            int Max = 0;
+
+                            // 플레이어가 사용하고 있는 성경의 갯수
+                            for (int i = 0; i < All_Weapon.Count; i++)
+                            {
+                                if (All_Weapon[i].GetComponent<Weapon_KingBible>())
+                                {
+                                    Max++;
+                                }
+                            }
+
+                            // 
+                            Max++;
+
+                            //
+                            for (int i = 0; i < All_Weapon.Count; i++)
+                            {
+                                if (All_Weapon[i].GetComponent<Weapon_KingBible>())
+                                {
+                                    All_Weapon[i].GetComponent<Weapon_KingBible>().Weapon_Max_KingBible_Count = Max;
+                                }
+                            }
+
+                            Weapon_Go.GetComponent<Weapon_KingBible>().Weapon_Max_KingBible_Count = Max;
+                            Weapon_Go.GetComponent<Weapon_KingBible>().Weapon_Mine_KingBible_Count = Max;
+
+                            //var Temp_KingBible_Range = Current_Weapon_Range(Weapon_Type.KingBible, KingBible_LAT);
+
+                            //Weapon_Go.GetComponent<Weapon_KingBible>().Weapon_Range = Temp_KingBible_Range;
+
+                            All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.KingBible);
                         }
-                        else
-                        {
-                            Weapon_Go.transform.position = this.transform.position + new Vector3(2f + Random.Range(-0.5f, 0.5f), -0.1f + Random.Range(-0.2f, 0.2f), 0);
-                            Weapon_Go.transform.rotation = Quaternion.identity;
-                            Weapon_Go.transform.localScale = new Vector3(4, 1, 1);
-                        }
-
-
-                        Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, Whip_LAT.Level);
-                        Weapon_Trigger = !Weapon_Trigger;
-
-                        All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.Whip);
                     }
+                    break;
+                case Weapon_Type.Peachone:
+                    {
+                        Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
 
-                }
-                break;
-            default:
-                break;
+                        //Weapon_Go.AddComponent<Weapon_Peachone>();
+
+                        if (Weapon_Go.GetComponent<Weapon_Peachone>())
+                        {
+                            Weapon_Go.transform.position = All_Manager.instance.UI_M.Peachone_Image.rectTransform.position;
+                            Weapon_Go.transform.rotation = Quaternion.identity;
+                            Weapon_Go.transform.localScale = Vector3.one;
+
+                            yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_Peachone>().SR);
+
+                            var P_Peachone_UI_Range = Weapon_Go.GetComponent<Weapon_Peachone>().Convert_RectTransform_To_Position(All_Manager.instance.UI_M.Peachone_Range_Image.rectTransform);
+                            var P_Peachone_UI = Weapon_Go.GetComponent<Weapon_Peachone>().Convert_RectTransform_To_Position(All_Manager.instance.UI_M.Peachone_Image.rectTransform);
+
+                            Vector3 One = All_Manager.instance.UI_M.Peachone_Image.transform.position;
+                            Vector3 Two = Weapon_Go.GetComponent<Weapon_Peachone>().Peachone_Point_Setting(All_Manager.instance.UI_M.Peachone_Image.transform.position);
+                            Vector3 Three = Weapon_Go.GetComponent<Weapon_Peachone>().Peachone_Point_Setting(P_Peachone_UI_Range);
+                            Vector3 Four = P_Peachone_UI_Range;
+
+                            Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, Peachone_LAT.Level);
+                            Weapon_Go.GetComponent<Weapon_Peachone>().Peachone_Init(One, Two, Three, Four);
+                            All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.Peachone);
+                        }
+
+                    }
+                    break;
+                case Weapon_Type.FireWand:
+                    {
+                        var FireWand_Stat = Weapon_STO.Info_s[FireWand_LAT.Level];
+
+                        for (int i = 0; i < Current_Weapon_Count(Weapon_Type.FireWand, FireWand_LAT); i++)
+                        {
+                            Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
+
+                            //Weapon_Go.AddComponent<Weapon_FireWand>();
+
+                            if (Weapon_Go.GetComponent<Weapon_FireWand>())
+                            {
+                                Weapon_Go.transform.position = this.transform.position + new Vector3(0, -0.3f, 0);
+                                Weapon_Go.transform.rotation = Quaternion.identity;
+                                Weapon_Go.transform.localScale = Vector3.one;
+
+                                yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_FireWand>().SR);
+
+                                Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, FireWand_LAT.Level);
+
+                                Vector3 Dir_Vec = new Vector3(Mathf.Cos((Mathf.PI * 2 * i / Current_Weapon_Count(Weapon_Type.FireWand, FireWand_LAT))), Mathf.Sin((Mathf.PI * i * 2 / Current_Weapon_Count(Weapon_Type.FireWand, FireWand_LAT)))); //원을 기준으로 각각의 투사체마다 벡터를 정리
+
+                                if (All_Manager.instance.GameMode_M.Game_Stop == false)
+                                {
+                                    Weapon_Go.transform.position = Weapon_Go.transform.position + (Dir_Vec.normalized * FireWand_Stat.Weapon_Speed * Time.deltaTime);
+                                }
+                                else { }
+
+                                Weapon_Go.transform.rotation = Quaternion.Euler(0, 0, (360 * i / (Current_Weapon_Count(Weapon_Type.FireWand, FireWand_LAT))) + 180); //투사체의 각도가 자연스럽게 회전값을 넣었다.
+                                All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.FireWand);
+                            }
+                        }
+                    }
+                    break;
+                case Weapon_Type.Cross:
+                    {
+                        var W_Cross_S = Weapon_STO.Info_s[Cross_LAT.Level];
+
+                        Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
+
+                        //Weapon_Go.AddComponent<Weapon_Cross>();
+
+                        if (Weapon_Go.GetComponent<Weapon_Cross>())
+                        {
+                            Weapon_Go.transform.position = this.transform.position;
+                            Weapon_Go.transform.rotation = Quaternion.identity;
+                            Weapon_Go.transform.localScale = Vector3.one;
+
+                            yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_Cross>().SR);
+
+                            Vector3 One = this.transform.position;
+                            Vector3 Target = One + new Vector3(Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range), Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range), 0);
+
+                            Vector3 Two = One + (Target - One) / 3 + new Vector3(Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2, Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2, 0);
+                            Vector3 Three = Target + (One - Target) / 3 + new Vector3(Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2, Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2, 0);
+                            Vector3 Four = One + ((One - Target) * W_Cross_S.Weapon_Range);
+
+                            Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, Cross_LAT.Level);
+                            Weapon_Go.GetComponent<Weapon_Cross>().Cross_Init(One, Two, Three, Four);
+                            //Weapon_Go.GetComponent<Weapon_Cross>().Weapon_Application_Equipment();
+                            All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.Cross);
+                        }
+                    }
+                    break;
+                case Weapon_Type.Garlic:
+                    {
+                        Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
+                        //Weapon_Go.AddComponent<Weapon_Garlic>();
+
+                        if (Weapon_Go.GetComponent<Weapon_Garlic>())
+                        {
+                            Weapon_Go.transform.position = this.transform.position;
+                            Weapon_Go.transform.rotation = Quaternion.identity;
+                            Weapon_Go.transform.localScale = Vector3.one;
+
+                            Weapon_Go.transform.parent = this.transform;
+
+                            yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_Garlic>().SR);
+
+                            Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, Garlic_LAT.Level);
+
+                            //Weapon_Go.GetComponent<Weapon_Garlic>().Weapon_Application_Equipment();
+                            //All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.Garlic);
+                        }
+                    }
+                    break;
+                case Weapon_Type.LightningRing:
+                    {
+                        if (All_Manager.instance != null && All_Manager.instance.GameMode_M != null && All_Manager.instance.GameMode_M.Enemy_List != null && All_Manager.instance.GameMode_M.Enemy_List.Count > 0)
+                        {
+                            var Max_Count = Current_Weapon_Count(Weapon_Type.LightningRing, LightningRing_LAT);
+                            int Count_To_Spawn = Mathf.Min(Max_Count, All_Manager.instance.GameMode_M.Enemy_List.Count); // 최대 10개까지만 생성하도록 제한
+
+                            List<int> Spawned_Indices = new List<int>(); // 이미 생성된 적의 인덱스를 저장할 리스트
+
+                            for (int i = 0; i < Count_To_Spawn; i++)
+                            {
+                                int Random_Index = Random.Range(0, All_Manager.instance.GameMode_M.Enemy_List.Count);
+
+                                // 중첩 방지: 이미 생성된 적 위치에 LightningRing이 있으면 건너뜀
+                                if (Spawned_Indices.Contains(Random_Index))
+                                {
+                                    continue;
+                                }
+
+                                Spawned_Indices.Add(Random_Index);
+
+                                var Check_Enemy_Alive = All_Manager.instance.GameMode_M.Enemy_List[Random_Index];
+
+                                if (Check_Enemy_Alive == null)
+                                {
+                                    //Debug.LogWarning("None Enemy! : " + Random_Index);
+                                    continue;
+                                }
+
+                                Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
+                                //Weapon_Go.AddComponent<Weapon_LightningRing>();
+
+
+                                // LightningRing이 데미지를 주는지 확인 후 처리
+                                if (Weapon_Go.GetComponent<Weapon_LightningRing>() != null)
+                                {
+                                    Weapon_Go.transform.position = All_Manager.instance.GameMode_M.Enemy_List[Random_Index].transform.position;
+                                    Weapon_Go.transform.rotation = Quaternion.identity;
+                                    Weapon_Go.transform.localScale = Vector3.one;
+
+                                    yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_LightningRing>().SR);
+
+                                    // Weapon_Init을 통해 필요한 초기화 작업 수행
+                                    Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, LightningRing_LAT.Level);
+                                    //Weapon_Go.GetComponent<Weapon_LightningRing>().Weapon_Application_Equipment();
+                                    All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.LightningRing);
+                                }
+                                else
+                                {
+                                    //Debug.Log("LightningRing Gone!");
+                                }
+
+                            }
+                        }
+
+
+
+                    }
+                    break;
+                case Weapon_Type.ShadowPinion:
+                    {
+                        Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
+                        //Weapon_Go.AddComponent<Weapon_ShadowPinion>();
+
+                        if (Weapon_Go.GetComponent<Weapon_ShadowPinion>())
+                        {
+                            Weapon_Go.transform.position = this.transform.position + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0);
+                            Weapon_Go.transform.rotation = Quaternion.identity;
+                            Weapon_Go.transform.localScale = Vector3.one;
+
+                            yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_ShadowPinion>().SR);
+
+                            Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, ShadowPinion_LAT.Level);
+                            //Weapon_Go.GetComponent<Weapon_ShadowPinion>().Weapon_Application_Equipment();
+                            All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.ShadowPinion);
+                        }
+                    }
+                    break;
+                case Weapon_Type.RuneTracer:
+                    {
+                        Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
+                        //Weapon_Go.AddComponent<Weapon_RuneTracer>();
+
+                        if (Weapon_Go.GetComponent<Weapon_RuneTracer>())
+                        {
+                            Weapon_Go.transform.position = this.transform.position;
+                            Weapon_Go.transform.rotation = Quaternion.identity;
+                            Weapon_Go.transform.localScale = Vector3.one;
+
+                            yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_RuneTracer>().SR);
+
+                            Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, RuneTracer_LAT.Level);
+                            //Weapon_Go.GetComponent<Weapon_RuneTracer>().Weapon_Application_Equipment();
+                            All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.RuneTracer);
+                        }
+                    }
+                    break;
+                case Weapon_Type.Whip:
+                    {
+                        Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
+                        //Weapon_Go.AddComponent<Weapon_Whip>();
+
+                        //Weapon_Go.transform.parent = this.transform;
+
+                        if (Weapon_Go.GetComponent<Weapon_Whip>())
+                        {
+                            yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_Whip>().SR);
+
+                            if (Weapon_Trigger)
+                            {
+                                Weapon_Go.transform.position = this.transform.position + new Vector3(-2f + Random.Range(-0.5f, 0.5f), -0.1f + Random.Range(-0.2f, 0.2f), 0);
+                                Weapon_Go.transform.rotation = Quaternion.identity;
+                                Weapon_Go.transform.localScale = new Vector3(-4, -1, -1);
+                            }
+                            else
+                            {
+                                Weapon_Go.transform.position = this.transform.position + new Vector3(2f + Random.Range(-0.5f, 0.5f), -0.1f + Random.Range(-0.2f, 0.2f), 0);
+                                Weapon_Go.transform.rotation = Quaternion.identity;
+                                Weapon_Go.transform.localScale = new Vector3(4, 1, 1);
+                            }
+
+
+                            Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, Whip_LAT.Level);
+                            Weapon_Trigger = !Weapon_Trigger;
+
+                            All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.Whip);
+                        }
+
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            //Debug.Log(Weapon_Go);
+
+            if (Weapon_Go != null)
+            {
+                All_Weapon.Add(Weapon_Go.GetComponent<Weapon>());
+                //Weapon_Go.transform.parent = this.transform;
+            }
+
+            else
+            {
+                //Debug.Log("Weapon_Go Null");
+            }
+
+            Creating_Weapon = false;
         }
-
-        //Debug.Log(Weapon_Go);
-
-        if (Weapon_Go != null)
-        {
-            All_Weapon.Add(Weapon_Go.GetComponent<Weapon>());
-            //Weapon_Go.transform.parent = this.transform;
-        }
-
-        else
-        {
-            //Debug.Log("Weapon_Go Null");
-        }
-
-        Creating_Weapon = false;
-    }
 
     // 무기 업그레이드
     public void Upgrade_Weapon(Weapon_Type p_WT)
@@ -1478,6 +1481,63 @@ public class Unit_Player : Unit
 
         return p_Weapon_Duration;
     }
+    #endregion
+
+    #region
+    public void InitializeSynergyEffects(Weapon_Type weapon_A, Weapon_Type weapon_B)
+    {
+        AllSynergyEffects.Add(new Weapon_Synergy(
+            weapon_A, 3,
+            weapon_B, 3,
+            //UnlockSynergyWeapon
+        ));
+    }
+
+    public void UnlockSynergyWeapon()
+    {
+
+
+        //if (!AppliedSynergies.Contains())
+        {
+        //    StartCoroutine(C_Create_Weapon(synergyWeaponType));
+        //    AppliedSynergies.Add(synergyWeaponType);
+        //    Debug.Log("시너지 무기를 획득했습니다!");
+
+        
+        }
+
+
+    }
+
+    public void CheckAndApplySynergyEffects()
+    {
+        foreach (var synergy in AllSynergyEffects)
+        {
+            if (PlayerWeaponLevels.ContainsKey(synergy.Weapon1) && PlayerWeaponLevels.ContainsKey(synergy.Weapon2))
+            {
+                if (PlayerWeaponLevels[synergy.Weapon1] >= synergy.RequiredLevel1 &&
+                    PlayerWeaponLevels[synergy.Weapon2] >= synergy.RequiredLevel2)
+                {
+                    //synergy.ApplyEffect();
+                }
+            }
+        }
+    }
+
+    public void UpdateWeaponLevel(Weapon_Type weaponType, int level)
+    {
+        if (PlayerWeaponLevels.ContainsKey(weaponType))
+        {
+            PlayerWeaponLevels[weaponType] = level;
+        }
+        else
+        {
+            PlayerWeaponLevels.Add(weaponType, level);
+        }
+
+        CheckAndApplySynergyEffects(); // 레벨 업데이트 후 시너지 효과 검사
+    }
+
     #endregion
 
     // 플레이어 이동
