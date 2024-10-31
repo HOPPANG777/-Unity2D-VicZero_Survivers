@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: FireWand_STO_Weapon
   m_EditorClassIdentifier: 
   WT: 3
+  WeaponKeywards: 0
   Weapon_Name: "\uD654\uC5FC\uAD6C"
   Weapon_Text: "\n\uD50C\uB808\uC774\uC5B4\uC758 \uC8FC\uBCC0\uC73C\uB85C\n\uBC1C\uC0AC\uB418\uB294
     \uD654\uC5FC\uAD6C"
@@ -31,7 +32,7 @@ MonoBehaviour:
     Weapon_Speed: 3
     Weapon_Range: 2
     Weapon_Time: 0
-    Weapon_Pen: 0
+    Weapon_Pen: 1
     Weapon_CoolDown: 4
     Weapon_Duration: 4
     Weapon_Knock: 0.5
@@ -41,7 +42,7 @@ MonoBehaviour:
     Weapon_Speed: 3
     Weapon_Range: 2
     Weapon_Time: 0
-    Weapon_Pen: 0
+    Weapon_Pen: 1
     Weapon_CoolDown: 4
     Weapon_Duration: 4
     Weapon_Knock: 0.5
@@ -51,7 +52,7 @@ MonoBehaviour:
     Weapon_Speed: 3
     Weapon_Range: 2
     Weapon_Time: 0
-    Weapon_Pen: 0
+    Weapon_Pen: 1
     Weapon_CoolDown: 4
     Weapon_Duration: 4
     Weapon_Knock: 0.5
@@ -61,7 +62,7 @@ MonoBehaviour:
     Weapon_Speed: 3
     Weapon_Range: 2
     Weapon_Time: 0
-    Weapon_Pen: 0
+    Weapon_Pen: 1
     Weapon_CoolDown: 4
     Weapon_Duration: 4
     Weapon_Knock: 0.5
@@ -71,7 +72,7 @@ MonoBehaviour:
     Weapon_Speed: 3
     Weapon_Range: 2
     Weapon_Time: 0
-    Weapon_Pen: 0
+    Weapon_Pen: 1
     Weapon_CoolDown: 4
     Weapon_Duration: 4
     Weapon_Knock: 0.5
@@ -81,7 +82,7 @@ MonoBehaviour:
     Weapon_Speed: 3
     Weapon_Range: 2
     Weapon_Time: 0
-    Weapon_Pen: 0
+    Weapon_Pen: 1
     Weapon_CoolDown: 4
     Weapon_Duration: 4
     Weapon_Knock: 0.5
@@ -91,7 +92,7 @@ MonoBehaviour:
     Weapon_Speed: 3
     Weapon_Range: 2
     Weapon_Time: 0
-    Weapon_Pen: 0
+    Weapon_Pen: 1
     Weapon_CoolDown: 4
     Weapon_Duration: 4
     Weapon_Knock: 0.5
@@ -101,7 +102,7 @@ MonoBehaviour:
     Weapon_Speed: 3
     Weapon_Range: 2
     Weapon_Time: 0
-    Weapon_Pen: 0
+    Weapon_Pen: 1
     Weapon_CoolDown: 4
     Weapon_Duration: 4
     Weapon_Knock: 0.5

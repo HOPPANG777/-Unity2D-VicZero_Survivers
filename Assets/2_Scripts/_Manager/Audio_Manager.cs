@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Audio_Manager : Singleton<Audio_Manager>
+public class Audio_Manager : MonoBehaviour
 {
     public AudioSource Background_AS;
     public AudioSource UI_Click_AS;
@@ -13,8 +13,6 @@ public class Audio_Manager : Singleton<Audio_Manager>
 
     void Start()
     {
-
-
         for (int i = 0; i < System.Enum.GetValues(typeof(Weapon_Type)).Length; i++)
         {
             GameObject Go = new GameObject(((Weapon_Type)i).ToString() + "-AS");

@@ -54,7 +54,7 @@ public abstract class Unit : MonoBehaviour
 
     public bool isDead = false;
     public bool isAlive = false;
-    protected bool isHit_C = false;
+    //protected bool isHit_C = false;
     public bool isEffect = false;
     public bool isHit = false;
     public bool isDeathAnim = false;
@@ -76,7 +76,7 @@ public abstract class Unit : MonoBehaviour
     public float Current_HP = 0f;
 
     public float Knock_Timer = 0f;
-    public float SR_GB = 0f;
+    //public float SR_GB = 0f;
     public float Hit_Time = 0.0f;
 
     public float Dead_Effect = 0.0f;
@@ -85,13 +85,11 @@ public abstract class Unit : MonoBehaviour
     private Vector3 knockDirection; // 넉백 방향
     private float knockStrength; // 넉백 강도
     private float knockTimer; // 넉백 지속 시간 타이머
+    private float knockDuration;
 
     public virtual void Start()
     {
         SR = this.AddComponent<SpriteRenderer>();
-
-        //RB = this.AddComponent<Rigidbody2D>();
-        //RB.bodyType = RigidbodyType2D.Kinematic;
 
         BC = this.AddComponent<BoxCollider2D>();
         BC.isTrigger = true;
@@ -113,58 +111,76 @@ public abstract class Unit : MonoBehaviour
             Perform_Knockback();
         }
 
-        // 피격 효과 처리
-        if (isHit_C)
-        {
-            Update_Hit_Effect();
-        }
+        //if (isHit_C)
+        //{
+        //   Update_Hit_Effect();
+        //}
 
+        // 피격 효과 처리
         // Hit 상태 시간 경과 처리
         if (!isHit)
         {
             Update_Hit_Timer();
+            
         }
     }
 
     private void Update_Sprite_Renderer()
     {
         // SR_GB와 Dead_Effect를 기반으로 색상 및 재질 값 설정
-        SR.color = new Color(1, 1 - SR_GB, 1 - SR_GB, 1 - Dead_Effect);
-        SR.material.SetFloat("_Red_Value", 1 - SR_GB);
+        SR.color = new Color(1, 1 - Hit_Time, 1 - Hit_Time, 1 - Dead_Effect);
+        SR.material.SetFloat("_Red_Value", 1 - Hit_Time);
         SR.material.SetFloat("_Alpha", 1 - Dead_Effect);
     }
 
     private void Perform_Knockback()
     {
-        Knock_Timer -= Time.deltaTime;
+        //Knock_Timer -= Time.deltaTime;
 
-        if (Knock_Timer < 0)
+        //if (Knock_Timer < 0)
+        //{
+        //    Knock_Timer = 0;
+
+        //    isKnock = false;
+        //}
+
+        if (isKnock)
         {
-            Knock_Timer = 0;
+            if (knockTimer < knockDuration)
+            {
+                float knockProgress = knockTimer / knockDuration;
+                float currentPower = knockStrength * (1f - Mathf.Pow(knockProgress, 2));
 
-            isKnock = false;
+                transform.position += knockDirection * currentPower * Time.deltaTime;
+
+                knockTimer += Time.deltaTime;
+            }
+            else
+            {
+                isKnock = false;
+            }
         }
     }
 
-    private void Update_Hit_Effect()
-    {
-        // 피격 효과 시간 경과
-        SR_GB -= Time.deltaTime;
+    //private void Update_Hit_Effect()
+    //{
+    //    // 피격 효과 시간 경과
+    //    SR_GB -= Time.deltaTime;
 
-        if (SR_GB < 0)
-        {
-            isHit_C = false;
-        }
-    }
+    //    if (SR_GB < 0)
+    //    {
+    //        isHit_C = false;
+    //    }
+    //}
 
     private void Update_Hit_Timer()
     {
         // 피격 이후 회복 시간을 계산
-        Hit_Time += Time.deltaTime;
+        Hit_Time -= Time.deltaTime;
 
-        if (Hit_Time > 1.0f)
+        if (Hit_Time < 0.0f)
         {
-            Hit_Time = 0;
+            //Hit_Time = 1.0f;
             isHit = true;
         }
     }
@@ -173,6 +189,10 @@ public abstract class Unit : MonoBehaviour
     {
         if (isHit == true)
         {
+            //isHit_C = true;
+            //SR_GB = 1f;
+            Hit_Time = 1.0f;
+
             var Temp_Defense = 100f / (100f + this.Origin_Stat.Unit_Defense) * p_Damage_Value;
 
             All_Manager.instance.Audio_M.Unit_Hitted_Effect_Audio_Play(this.UT);
@@ -182,21 +202,25 @@ public abstract class Unit : MonoBehaviour
             var Temp_Shader_Alpha = this.SR.material.GetFloat("_Alpha");
             var Temp_Color_Alpha = this.SR.color.a;
 
-            if (!isHit_C)
-            {
-                isHit_C = true;
-                SR_GB = 1f;
-            }
-            if (Current_HP <= 0)
-            {
-                AM.SetBool("Move", false);
-                Current_HP = 0;
-                Die();
-            }
-
-            isHit = false;
+            isHit = false;  
         }
 
+        CheckDead();
+    }
+
+    protected virtual bool CheckDead()
+    {
+        if (Current_HP <= 0)
+        {
+            AM.SetBool("Move", false);
+            Current_HP = 0;
+            Die();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public virtual void Die()
@@ -206,7 +230,7 @@ public abstract class Unit : MonoBehaviour
         isDead = true;
         AM.SetBool("Death", true);
 
-        SR_GB = 0f;
+        //SR_GB = 0f;
         Hit_Time = 0.0f;
 
         All_Manager.instance.Audio_M.Unit_Death_Effect_Audio_Play(UT);
@@ -233,17 +257,23 @@ public abstract class Unit : MonoBehaviour
 
     public abstract void Unit_Clear();
 
-    public void Knock_Back(Vector3 Knock_Dir, float Knock_Garlic, float Knock_Duration)
+    public void Knock_Back(Vector3 Knock_Dir, float Knock_Power, float Knock_Duration)
     {
         if (!isKnock)
         {
-            for (int i = 0; i < 100; i++)
-            {
-                this.transform.position = this.transform.position + ((Knock_Dir.normalized * Knock_Garlic) * (100 - i) * 0.01f * Time.deltaTime);
-            }
+            //for (int i = 0; i < 100; i++)
+            //{
+            //    this.transform.position = this.transform.position + ((Knock_Dir.normalized * Knock_Power) * (100 - i) * 0.01f * Time.deltaTime);
+            //}
 
-            isKnock = true;
-            Knock_Timer = Knock_Duration;
+            //isKnock = true;
+            //Knock_Timer = Knock_Duration;
+
+            this.knockDirection = Knock_Dir.normalized;
+            this.knockStrength = Knock_Power;
+            this.knockTimer = 0.0f;
+            this.knockDuration = Knock_Duration;
+            this.isKnock = true;
         }
     }
 

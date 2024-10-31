@@ -112,7 +112,7 @@ public class Pool_Manager : MonoBehaviour
 
         p_UE.GetComponent<Unit_Enemy>().SR.size = new Vector2(1, 1);
 
-        p_UE.SR_GB = 0.0f;
+        //p_UE.SR_GB = 0.0f;
 
         p_UE.Dead_Effect = 0.0f;
 

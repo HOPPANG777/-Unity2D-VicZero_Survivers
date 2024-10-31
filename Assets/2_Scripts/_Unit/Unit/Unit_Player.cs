@@ -1484,14 +1484,14 @@ public class Unit_Player : Unit
     #endregion
 
     #region
-    public void InitializeSynergyEffects(Weapon_Type weapon_A, Weapon_Type weapon_B)
-    {
-        AllSynergyEffects.Add(new Weapon_Synergy(
-            weapon_A, 3,
-            weapon_B, 3,
-            //UnlockSynergyWeapon
-        ));
-    }
+    //public void InitializeSynergyEffects(Weapon_Type weapon_A, Weapon_Type weapon_B)
+    //{
+    //    AllSynergyEffects.Add(new Weapon_Synergy(
+    //        weapon_A, 3,
+    //        weapon_B, 3,
+    //        //UnlockSynergyWeapon
+    //    ));
+    //}
 
     public void UnlockSynergyWeapon()
     {

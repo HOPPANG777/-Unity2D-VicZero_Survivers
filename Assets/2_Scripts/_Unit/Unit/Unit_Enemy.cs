@@ -26,7 +26,7 @@ public class Unit_Enemy : Unit
 
     private float Push_Strength = 0.5f;
 
-    private float CheckInterval = 0.5f;
+    private float CheckInterval = 0.25f;
     private float LastCheckTime = 0.0f;
 
     private bool isSpeedBoosted = false;
@@ -45,8 +45,11 @@ public class Unit_Enemy : Unit
             if (All_Manager.instance.GameMode_M.Current_Player != null)
             {
                 base.Update();
-
-                Update_Enemy_Move();
+                
+                if (Current_HP > 0)
+                {
+                    Update_Enemy_Move();
+                }
 
                 Player_To_Far_Enemy();
 
