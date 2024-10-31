@@ -5,25 +5,7 @@ using UnityEngine;
 
 public class Weapon_Synergy : Weapon
 {
-    public Weapon_Type Weapon1;
-    public int RequiredLevel1;
-    public Weapon_Type Weapon2;
-    public int RequiredLevel2;
-
-    // 강화할 스탯 정보: 키워드와 강화 비율의 딕셔너리
-    public Dictionary<WeaponKeyward, float> StatBoosts;
-
-    // 이미 적용되었는지 여부를 저장하는 플래그
-    public bool IsApplied = false;
-
-    public Weapon_Synergy(Weapon_Type weapon1, int level1, Weapon_Type weapon2, int level2, Dictionary<WeaponKeyward, float> statBoosts)
-    {
-        Weapon1 = weapon1;
-        RequiredLevel1 = level1;
-        Weapon2 = weapon2;
-        RequiredLevel2 = level2;
-        StatBoosts = statBoosts;
-    }
+    
 }
 
 

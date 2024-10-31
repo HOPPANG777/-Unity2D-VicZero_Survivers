@@ -9,8 +9,6 @@ TODO
 
 public class Phoenix : Weapon
 {
-    // Start is called before the first frame update
-
     public FireBullet bullet;
 
     List<FireBullet> bullets;
@@ -18,14 +16,15 @@ public class Phoenix : Weapon
     float shootGapValue;
     public const float shootGap = 0.1f;
 
-    void Start()
+    public override void Start()
     {
-        
+        base.Start();
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Update()
     {
+        base.Update();
+
         shootGapValue += Time.deltaTime;
         if (shootGapValue > shootGap)
         {

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Player_Weapon_Controller : MonoBehaviour
 {
-    
 
 
 }

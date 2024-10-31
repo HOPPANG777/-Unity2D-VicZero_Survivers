@@ -10,7 +10,7 @@ public abstract class Weapon : MonoBehaviour
 {
     public Weapon_Type WT;
     public WeaponKeyward WeaponKeywards;
-    
+
     public SpriteRenderer SR;
     public BoxCollider2D BC;
     public TrailRenderer TR;
@@ -334,6 +334,7 @@ public abstract class Weapon : MonoBehaviour
 
         All_Manager.instance.Pool_M.Weapon_Pool_In(this.gameObject.GetComponent<Weapon>());
     }
+
 }
 
 
