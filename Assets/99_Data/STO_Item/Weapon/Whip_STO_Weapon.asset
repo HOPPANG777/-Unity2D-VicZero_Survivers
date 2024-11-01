@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Whip_STO_Weapon
   m_EditorClassIdentifier: 
   WT: 9
+  WeaponKeywords: 4
   Weapon_Name: "\uC30D\uC808\uACE4"
   Weapon_Text: "\n\uD50C\uB808\uC774\uC5B4 \uC591 \uBC29\uD5A5\uC73C\uB85C \n\uC30D\uC808\uACE4\uC744
     \uD6C4\uB9B0\uB2E4."

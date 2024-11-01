@@ -100,10 +100,15 @@ public class BoundAxe : Weapon
         }
     }
 
-    //public override void OnTriggerStay2D(Collider2D collision)
-    //{
-    //    base.OnTriggerStay2D(collision);
-    //}
+    public override void Upgrade(int p_Level)
+    {
+
+    }
+
+    public override void Weapon_Stat_Appliaction()
+    {
+        base.Weapon_Stat_Appliaction();
+    }
 
     public override void Weapon_To_Enemy_Collision()
     {

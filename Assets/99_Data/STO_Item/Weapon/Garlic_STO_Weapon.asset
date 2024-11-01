@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Garlic_STO_Weapon
   m_EditorClassIdentifier: 
   WT: 5
-  WeaponKeywards: 0
+  WeaponKeywords: 5
   Weapon_Name: "\uD3EC\uC2A4"
   Weapon_Text: "\n\uD50C\uB808\uC774\uC5B4 \uC8FC\uBCC0\uC758 \uC801\uC744\n\uBC00\uC5B4\uB0B4\uBA70
     \uACF5\uACA9\uD55C\uB2E4."

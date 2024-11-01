@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ShadowPinion_STO_Weapon
   m_EditorClassIdentifier: 
   WT: 7
+  WeaponKeywords: 3
   Weapon_Name: "\uC720\uB3C4\uD568\uC815"
   Weapon_Text: "\n\uD50C\uB808\uC774\uC5B4\uAC00 \uC9C0\uB098\uAC04\n\uC790\uB9AC\uC5D0
     \uC18C\uD658\uB418\uC5B4\n\uC8FC\uBCC0\uC5D0 \uC801\uC5D0\uAC8C \uC720\uB3C4\uB41C\uB2E4."

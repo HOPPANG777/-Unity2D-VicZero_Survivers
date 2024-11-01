@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-public class Weapon_Synergy : Weapon
+public class Weapon_Synergy 
 {
 
 }

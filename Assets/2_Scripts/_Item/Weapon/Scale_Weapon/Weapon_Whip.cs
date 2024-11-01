@@ -32,16 +32,6 @@ public class Weapon_Whip : Weapon
 
     }
 
-    public override void Upgrade(int p_Level)
-    {
-        All_Manager.instance.GameMode_M.Current_Player.AddWeaponKeyword(WeaponKeywords);
-    }
-
-    public override void Weapon_Stat_Appliaction()
-    {
-        base.Weapon_Stat_Appliaction();
-    }
-
     public void Whip_Init()
     {
         if (All_Manager.instance.GameMode_M.Current_Player.InputVec.x != 0)
@@ -50,10 +40,19 @@ public class Weapon_Whip : Weapon
         }
     }
 
-    //public override void OnTriggerStay2D(Collider2D collision)
-    //{
-    //    base.OnTriggerStay2D(collision);
-    //}
+    public override void Upgrade(int p_Level)
+    {
+        base.Upgrade(p_Level);
+        if (p_Level == 3)
+        {
+            All_Manager.instance.GameMode_M.Current_Player.AddWeaponKeyword(this.WeaponKeywords);
+        }
+    }
+
+    public override void Weapon_Stat_Appliaction()
+    {
+        base.Weapon_Stat_Appliaction();
+    }
 
     public override void Weapon_To_Enemy_Collision()
     {

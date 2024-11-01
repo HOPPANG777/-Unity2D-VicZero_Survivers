@@ -554,7 +554,6 @@ public class Unit_Player : Unit
         if (Weapon_Go != null)
         {
             All_Weapon.Add(Weapon_Go.GetComponent<Weapon>());
-            WeaponKeywordsSynergy(Weapon_Go.GetComponent<Weapon>());
             //Weapon_Go.transform.parent = this.transform;
         }
 
@@ -1575,6 +1574,8 @@ public class Unit_Player : Unit
             // 키워드가 없다면 새로 추가하고 카운트를 1로 설정한다.
             weaponKeywordCounts[p_WeaponKeyword] = 1;
         }
+
+        Debug.Log("키워드확인데수: " + p_WeaponKeyword.ToString());
     }
 
     // 키워드 카운트를 확인하는 메서드

@@ -86,7 +86,11 @@ public class Weapon_ShadowPinion : Weapon
 
     public override void Upgrade(int p_Level)
     {
-        All_Manager.instance.GameMode_M.Current_Player.AddWeaponKeyword(WeaponKeywords);
+        base.Upgrade(p_Level);
+        if (p_Level == 1)
+        {
+            All_Manager.instance.GameMode_M.Current_Player.AddWeaponKeyword(this.WeaponKeywords);
+        }
     }
 
     public override void Weapon_Stat_Appliaction()

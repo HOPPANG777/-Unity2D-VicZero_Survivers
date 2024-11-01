@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Cross_STO_Weapon
   m_EditorClassIdentifier: 
   WT: 4
+  WeaponKeywords: 3
   Weapon_Name: "\uBD80\uBA54\uB791"
   Weapon_Text: "\n\uB79C\uB364\uC73C\uB85C \uBC1C\uC0AC\uB418\uC5B4 \n\uD50C\uB808\uC774\uC5B4\uC5D0\uAC8C
     \uB3CC\uC544\uC624\uB294\n\uBD80\uBA54\uB791"

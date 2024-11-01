@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Peachone_STO_Weapon
   m_EditorClassIdentifier: 
   WT: 2
+  WeaponKeywords: 2
   Weapon_Name: "\uBE44\uB458\uAE30"
   Weapon_Text: "\n\uD68C\uC804\uD558\uB294 \uBC94\uC704\uC5D0\n\uC790\uC2E0\uC758
     \uBD84\uC2E0\uC73C\uB85C \n\uD3ED\uACA9\uD55C\uB2E4"
