@@ -20,7 +20,7 @@ MonoBehaviour:
   SR_Size_X: 1.5
   SR_Size_Y: 1.5
   Player_info_s:
-    HP: 200
+    HP: 400
     Unit_Speed: 2
     Unit_Defense: 0
     Unit_Weapon_Damage: 0

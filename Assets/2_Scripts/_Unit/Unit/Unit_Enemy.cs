@@ -85,6 +85,9 @@ public class Unit_Enemy : Unit
     public override void Die()
     {
         base.Die();
+        if (this.UT == Unit_Type.Boss) return;
+        All_Manager.instance.GameMode_M.Enemy_Down(this);
+        
     }
     protected override void Death_Animation_End()
     {
@@ -99,12 +102,8 @@ public class Unit_Enemy : Unit
     protected override void Return_Pool()
     {
         base.Return_Pool();
-
-        if (this.UT != Unit_Type.Boss)
-        {
-            All_Manager.instance.GameMode_M.Enemy_Down(this);
-            All_Manager.instance.Pool_M.Enemy_Pool_In(this);
-        }
+        if (this.UT == Unit_Type.Boss) return;
+        All_Manager.instance.Pool_M.Enemy_Pool_In(this);
     }
 
     public override void Unit_Clear()

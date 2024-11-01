@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class UI_OnGUI : MonoBehaviour
 {
+    private bool showGUI = false;
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F3))
+        {
+            showGUI = !showGUI;
+        }
+    }
+
     public void OnGUI()
     {
         // 무기, 장비, 패널 스타일에 대한 옵션을 Enum에서 가져옵니다.
@@ -11,6 +21,7 @@ public class UI_OnGUI : MonoBehaviour
         All_Manager.instance.UI_M.EQ_Options = System.Enum.GetNames(typeof(Equipment_Type));
         All_Manager.instance.UI_M.PS_Options = System.Enum.GetNames(typeof(Panel_Style));
 
+        if (showGUI != true) return;
         GUILayout.BeginHorizontal();
 
         // 패널 스타일 섹션

@@ -102,16 +102,16 @@ public class Unit_Player : Unit
     {
         base.Start();
         /*
-        Upgrade_Weapon(Weapon_Type.Axe);              // 肯己
-        Upgrade_Weapon(Weapon_Type.KingBible);            // 肯己 
-        Upgrade_Weapon(Weapon_Type.Peachone);             // 肯己
+        Upgrade_Weapon(Weapon_Type.Axe);                // 肯己
+        Upgrade_Weapon(Weapon_Type.KingBible);          // 肯己 
+        Upgrade_Weapon(Weapon_Type.Peachone);           // 肯己
         Upgrade_Weapon(Weapon_Type.FireWand);           // 肯己
-        Upgrade_Weapon(Weapon_Type.Cross);            // 肯己
-        Upgrade_Weapon(Weapon_Type.Garlic);            // 肯己
-        Upgrade_Weapon(Weapon_Type.LightningRing);        // 肯己
-        Upgrade_Weapon(Weapon_Type.ShadowPinion);          // 肯己
-        Upgrade_Weapon(Weapon_Type.RuneTracer);       // 肯己
-        Upgrade_Weapon(Weapon_Type.Whip);             // 肯己
+        Upgrade_Weapon(Weapon_Type.Cross);              // 肯己
+        Upgrade_Weapon(Weapon_Type.Garlic);             // 肯己
+        Upgrade_Weapon(Weapon_Type.LightningRing);      // 肯己
+        Upgrade_Weapon(Weapon_Type.ShadowPinion);       // 肯己
+        Upgrade_Weapon(Weapon_Type.RuneTracer);         // 肯己
+        Upgrade_Weapon(Weapon_Type.Whip);               // 肯己
         */
         rigidBody = this.AddComponent<Rigidbody2D>();
         rigidBody.bodyType = RigidbodyType2D.Kinematic;
