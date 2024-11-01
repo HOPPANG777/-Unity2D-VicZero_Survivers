@@ -11,6 +11,7 @@ public class Unit_Manager : MonoBehaviour
     public Projectile_Factory Projectile_F;
     public Misc_Factory Misc_F;
     public UI_Factory UI_F;
+    public Mission_Factory Mission_F;
 }
 
 #region

@@ -1,16 +1,40 @@
 using UnityEngine;
 
-public class FollowMission : MonoBehaviour
+public class FollowMission : Mission
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected override void Start()
+    {
+        base.Start();
+    }
+
+    private void Update()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+    }
+
+    protected override void CheckPlayerCollision()
+    {
+        base.CheckPlayerCollision();
+    }
+
+    protected override void MissionReward()
+    {
+
+    }
+
+    protected override void RemoveMission()
     {
         
     }
+
+    protected override void MissionSetting()
+    {
+
+    }
+
 }

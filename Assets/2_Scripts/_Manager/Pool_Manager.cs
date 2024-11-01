@@ -158,7 +158,7 @@ public class Pool_Manager : MonoBehaviour
         p_MISC.transform.parent = Target_Pool;
     }
 
-    public void MISC_Pool_Out(MISC_Type p_MT, Unit_Enemy p_UE)
+    public void MISC_Pool_Out(MISC_Type p_MT, Transform p_TF)
     {
         var Target_Pool = this.transform.Find(p_MT.ToString() + "-Pool");
 
@@ -170,7 +170,7 @@ public class Pool_Manager : MonoBehaviour
 
         MISC_Go.transform.parent = null;
 
-        MISC_Go.transform.position = p_UE.transform.position;
+        MISC_Go.transform.position = p_TF.transform.position;
 
         MISC_Go.SetActive(true);
 

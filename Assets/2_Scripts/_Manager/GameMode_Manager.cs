@@ -307,21 +307,21 @@ public class GameMode_Manager : MonoBehaviour
 
         if (p_UE.UT == Unit_Type.Barrel)
         {
-            All_Manager.instance.Pool_M.MISC_Pool_Out(MISC_Type.Food, p_UE);
+            All_Manager.instance.Pool_M.MISC_Pool_Out(MISC_Type.Food, p_UE.transform);
         }
 
         else
         {
             if (p_UE.Elite == false)
             {
-                All_Manager.instance.Pool_M.MISC_Pool_Out(MISC_Type.Gem, p_UE);
+                All_Manager.instance.Pool_M.MISC_Pool_Out(MISC_Type.Gem, p_UE.transform);
             }
 
             else
             {
-                All_Manager.instance.Pool_M.MISC_Pool_Out(MISC_Type.Gem, p_UE);
+                All_Manager.instance.Pool_M.MISC_Pool_Out(MISC_Type.Gem, p_UE.transform);
 
-                All_Manager.instance.Pool_M.MISC_Pool_Out(MISC_Type.Chest, p_UE);
+                All_Manager.instance.Pool_M.MISC_Pool_Out(MISC_Type.Chest, p_UE.transform);
             }
         }
 
