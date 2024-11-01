@@ -34,4 +34,6 @@ public class Phoenix : Weapon
             if (bulletCount >= bullets.Count) bulletCount = 0;
         }
     }
+
+
 }

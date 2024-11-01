@@ -89,10 +89,7 @@ public abstract class Weapon : MonoBehaviour
     }
 
     // 업그레이드
-    public void Upgrade(int p_Level)
-    {
-        //Weapon_Application_Equipment();
-    }
+    public abstract void Upgrade(int p_Level);
 
     // 무기 파괴 타이머
     public void Weapon_Timer()

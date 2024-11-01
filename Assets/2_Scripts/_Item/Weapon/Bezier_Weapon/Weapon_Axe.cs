@@ -55,10 +55,15 @@ public class Weapon_Axe : Weapon
         this.transform.position = Axe_Bezier(W_Axe_Point[0], W_Axe_Point[1], W_Axe_Point[2], W_Axe_Point[3], W_Accumulate);
     }
 
-    //public override void OnTriggerStay2D(Collider2D collision)
-    //{
-    //    base.OnTriggerStay2D(collision);
-    //}
+    public override void Upgrade(int p_Level)
+    {
+        All_Manager.instance.GameMode_M.Current_Player.AddWeaponKeyword(WeaponKeywords);
+    }
+
+    public override void Weapon_Stat_Appliaction()
+    {
+        base.Weapon_Stat_Appliaction();
+    }
 
     public override void Weapon_To_Enemy_Collision()
     {

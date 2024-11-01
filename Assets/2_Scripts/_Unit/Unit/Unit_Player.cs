@@ -554,7 +554,7 @@ public class Unit_Player : Unit
         if (Weapon_Go != null)
         {
             All_Weapon.Add(Weapon_Go.GetComponent<Weapon>());
-            
+            WeaponKeywordsSynergy(Weapon_Go.GetComponent<Weapon>());
             //Weapon_Go.transform.parent = this.transform;
         }
 
@@ -1492,33 +1492,74 @@ public class Unit_Player : Unit
                 break;
             case WeaponKeyword.Bound:
                 {
-                    if (GetKeywordCount(WeaponKeyword.Bound) == 2)
-                    {
-                        //if (p_Weapon.WeaponKeywords == WeaponKeyword.Bound)
-
-                    }
+                    WeaponSynergyBound(p_Weapon);
                 }
                 break;
             case WeaponKeyword.Phoenix:
                 {
-
+                    WeaponSynergyPhoenix(p_Weapon);
                 }
                 break;
             case WeaponKeyword.Paladin:
                 {
-
+                    WeaponSynergyPaladin(p_Weapon);
                 }
                 break;
             case WeaponKeyword.Sonic:
                 {
-
+                    WeaponSynergySonic(p_Weapon);
                 }
                 break;
             case WeaponKeyword.Holy:
                 {
-
+                    WeaponSynergyHoly(p_Weapon);
                 }
                 break;
+        }
+    }
+
+    public void WeaponSynergyBound(Weapon p_Weapon)
+    {
+        if (GetKeywordCount(WeaponKeyword.Bound) != 2) return;
+        if (p_Weapon.WeaponKeywords == WeaponKeyword.Bound)
+        {
+            p_Weapon.BoostDamage(1.5f);
+        }
+    }
+
+    public void WeaponSynergyPhoenix(Weapon p_Weapon)
+    {
+        if (GetKeywordCount(WeaponKeyword.Phoenix) != 2) return;
+        if (p_Weapon.WeaponKeywords == WeaponKeyword.Phoenix)
+        {
+            p_Weapon.BoostSpeed(1.2f);
+        }
+    }
+
+    public void WeaponSynergySonic(Weapon p_Weapon)
+    {
+        if (GetKeywordCount(WeaponKeyword.Sonic) != 2) return;
+        if (p_Weapon.WeaponKeywords == WeaponKeyword.Sonic)
+        {
+            p_Weapon.BoostCoolDown(1.3f);
+        }
+    }
+
+    public void WeaponSynergyPaladin(Weapon p_Weapon)
+    {
+        if (GetKeywordCount(WeaponKeyword.Paladin) != 2) return;
+        if (p_Weapon.WeaponKeywords == WeaponKeyword.Paladin)
+        {
+            p_Weapon.BoostRange(1.4f);
+        }
+    }
+
+    public void WeaponSynergyHoly(Weapon p_Weapon)
+    {
+        if (GetKeywordCount(WeaponKeyword.Holy) != 2) return;
+        if (p_Weapon.WeaponKeywords == WeaponKeyword.Holy)
+        {
+            p_Weapon.BoostSize(1.2f);
         }
     }
 
