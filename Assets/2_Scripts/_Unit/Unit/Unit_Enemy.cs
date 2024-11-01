@@ -67,7 +67,7 @@ public class Unit_Enemy : Unit
     {
         if (Time.time >= LastCheckTime + CheckInterval)
         {
-            // 0.5초가 경과한 경우 충돌 검사 수행
+            // 0.25초가 경과한 경우 충돌 검사 수행
             Enemy_To_Enemy_Push();
 
             // 현재 시간을 기준으로 마지막 체크 시간을 업데이트

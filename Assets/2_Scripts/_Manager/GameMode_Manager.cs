@@ -23,6 +23,7 @@ public class GameMode_Manager : MonoBehaviour
 
     public Unit_Player Current_Player = null;
     public List<Unit_Enemy> Enemy_List = new List<Unit_Enemy>();
+    public List<Mission> missionList = new List<Mission>();
     public List<MISC> MISC_List = new List<MISC>();
     public Camera Current_Camera = null;
     public List<GameObject> Tilemap_List = new List<GameObject>();
