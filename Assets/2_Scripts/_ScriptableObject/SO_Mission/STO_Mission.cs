@@ -5,6 +5,6 @@ public class STO_Mission : ScriptableObject
 {
     [Header("MissionData")]
     // 미션 타입
-    [SerializeField] MissionType _missionType;
+    [SerializeField] MissionType _missionType = MissionType.SURVIVE;
     public MissionType missionType { get { return _missionType; } set { _missionType = value; } }
 }

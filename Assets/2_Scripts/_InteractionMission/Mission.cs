@@ -83,6 +83,6 @@ public abstract class Mission : MonoBehaviour, IMissionType
     protected abstract void RemoveMission();
 
     // 미션 생성시 Scriptable Object로 초기화
-    protected abstract void MissionSetting();
+    protected abstract void MissionSetting(Mission p_Mission, STO_Mission p_MTO);
 
 }

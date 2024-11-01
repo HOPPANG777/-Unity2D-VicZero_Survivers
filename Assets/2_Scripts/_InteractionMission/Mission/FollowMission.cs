@@ -32,9 +32,9 @@ public class FollowMission : Mission
         
     }
 
-    protected override void MissionSetting()
+    protected override void MissionSetting(Mission p_Mission, STO_Mission p_MTO)
     {
-
+        p_Mission.MissionType = p_MTO.missionType;
     }
 
 }

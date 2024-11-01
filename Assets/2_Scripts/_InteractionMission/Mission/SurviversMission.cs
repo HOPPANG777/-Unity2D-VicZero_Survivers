@@ -13,9 +13,10 @@ public class SurviversMission : Mission
 
     private void Update()
     {
-        if (All_Manager.instance.GameMode_M.Game_Stop != true) return;
+        if (All_Manager.instance.GameMode_M.Game_Stop != false) return;
 
         SurviveOnMission();
+        MissionReward();
     }
 
     protected override void FixedUpdate()
@@ -57,9 +58,9 @@ public class SurviversMission : Mission
 
     }
 
-    protected override void MissionSetting()
+    protected override void MissionSetting(Mission p_Mission, STO_Mission p_MTO)
     {
-        
+        p_Mission.MissionType = p_MTO.missionType;
     }
 
 }

@@ -13,7 +13,10 @@ public class DefendMission : Mission
 
     private void Update()
     {
+        if (All_Manager.instance.GameMode_M.Game_Stop != false) return;
 
+        DefendOnMission();
+        MissionReward();
     }
 
     protected override void FixedUpdate()
@@ -26,9 +29,29 @@ public class DefendMission : Mission
         base.CheckPlayerCollision();
     }
 
+    // 수비 -> 몬스터 100마리 죽이기
+    private void DefendOnMission()
+    {
+        // 발판을 밟고
+        if (_isMissionPrograce != true) return;
+
+        // 죽인 적의 수가 미션 클리어 조건수보다 많으면
+        if (All_Manager.instance.GameMode_M.Kill_Count > (All_Manager.instance.GameMode_M.Kill_Count + _missionClearKill))
+        {
+            // 미션 클리어
+            _isMissionClear = true;
+        }
+    }
+
+
     protected override void MissionReward()
     {
+        // 미션이 클리어 되면
+        if (_isMissionClear != true) return;
 
+        // Reward(보물상자)를 떨군 후 미션(발판) 삭제 
+        All_Manager.instance.Pool_M.MISC_Pool_Out(MISC_Type.Chest, this.gameObject.transform);  // 보물상자 드랍
+        RemoveMission();  // 발판 삭제
     }
 
     protected override void RemoveMission()
@@ -36,9 +59,9 @@ public class DefendMission : Mission
 
     }
 
-    protected override void MissionSetting()
+    protected override void MissionSetting(Mission p_Mission, STO_Mission p_MTO)
     {
-
+        p_Mission.MissionType = p_MTO.missionType;
     }
 
 }
