@@ -114,7 +114,7 @@ public class Unit_Player : Unit
         Upgrade_Weapon(Weapon_Type.Whip);             // ¿Ï¼º
         */
         rigidBody = this.AddComponent<Rigidbody2D>();
-        rigidBody.isKinematic = true;
+        rigidBody.bodyType = RigidbodyType2D.Kinematic;
 
         All_Manager.instance.Resource_M.Ghost_Effect.Add_Ghost_Target(this.transform);
     }
