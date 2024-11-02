@@ -27,7 +27,7 @@ public class GameMode_Manager : MonoBehaviour
     public List<MISC> MISC_List = new List<MISC>();
     public Camera Current_Camera = null;
     public List<GameObject> Tilemap_List = new List<GameObject>();
-    private List<float> missionSpawnTimes = new List<float> { 10f, 180f, 240f }; // 2분, 3분, 4분(초 단위)
+    private List<float> missionSpawnTimes = new List<float> { 120f, 180f, 240f }; // 2분, 3분, 4분(초 단위)
     private HashSet<float> spawnedMissions = new HashSet<float>();
 
     // 킬 카운트

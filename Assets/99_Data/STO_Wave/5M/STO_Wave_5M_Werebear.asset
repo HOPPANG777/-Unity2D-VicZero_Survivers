@@ -15,7 +15,7 @@ MonoBehaviour:
   WST: 0
   Wave_Time: 300
   Kill_Count: 0
-  Spawn_Time: 60
-  Spawn_Count: 6
+  Spawn_Time: 1
+  Spawn_Count: 1
   STO_Enemy: {fileID: 11400000, guid: ed403524fabf84643ac689ec97229bb1, type: 2}
-  Elite: 0
+  Elite: 1

@@ -50,16 +50,17 @@ public class DefendMission : Mission
     protected override void MissionReward()
     {
         // 미션이 클리어 되면
-        if (_isMissionClear != true) return;
-
-        // Reward(보물상자)를 떨군 후 미션(발판) 삭제 
-        All_Manager.instance.Pool_M.MISC_Pool_Out(MISC_Type.Chest, this.gameObject.transform);  // 보물상자 드랍
-        RemoveMission();  // 발판 삭제
+        if (_isMissionClear == true)
+        {
+            // Reward(보물상자)를 떨군 후 미션(발판) 삭제 
+            All_Manager.instance.Pool_M.MISC_Pool_Out(MISC_Type.Chest, this.gameObject.transform);  // 보물상자 드랍
+            RemoveMission();  // 발판 삭제
+        }
     }
 
     protected override void RemoveMission()
     {
-        Destroy(this.gameObject, 1.0f);
+        Destroy(this.gameObject);
     }
 
     public override void MissionSetting(Mission p_Mission, STO_Mission p_MTO)

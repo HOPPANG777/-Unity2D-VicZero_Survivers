@@ -25,7 +25,7 @@ public class Treasure_Box : MonoBehaviour
         float Treasure_Reset_Pos_Y = 2300;
         float Treasure_Image_Move = 1000f;
 
-        if (Treasure_Timer > All_Manager.instance.Audio_M.Treasure_Chest_AS.clip.length && !Treasure_Stop)
+        if (Treasure_Timer > (All_Manager.instance.Audio_M.Treasure_Chest_AS.clip.length - 2.0f) && !Treasure_Stop)
         {
             Treasure_Timer = 0;
 

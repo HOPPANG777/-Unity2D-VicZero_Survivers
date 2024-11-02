@@ -176,17 +176,20 @@ public class Audio_Manager : MonoBehaviour
 
         else if (p_PS == Panel_Style.Level)
         {
-            Background_AS.Pause();
+            //Background_AS.Pause();
+            Background_AS.volume = 0.1f;
         }
 
         else if (p_PS == Panel_Style.TreasureFound)
         {
-            Background_AS.Pause();
+            //Background_AS.Pause();
+            Background_AS.volume = 0.1f;
         }
 
         else if (p_PS == Panel_Style.Pause)
         {
-            Background_AS.Pause();
+            //Background_AS.Pause();
+            Background_AS.volume = 0.1f;
         }
     }
 

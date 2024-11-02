@@ -25,7 +25,7 @@ public class FollowMission : Mission
 
     private void Update()
     {
-        if (All_Manager.instance.GameMode_M.Game_Stop != false) return;
+        if (All_Manager.instance.GameMode_M.Game_Stop == true) return;
 
         FollowOnMission();
         MissionReward();
@@ -69,8 +69,8 @@ public class FollowMission : Mission
 
     private void SetNewTargetPosition()
     {
-        float randomX = UnityEngine.Random.Range(minBounds.x, maxBounds.x);
-        float randomY = UnityEngine.Random.Range(minBounds.y, maxBounds.y);
+        float randomX = UnityEngine.Random.Range(minBounds.x + 1, maxBounds.x + 5);
+        float randomY = UnityEngine.Random.Range(minBounds.y + 1, maxBounds.y + 5);
         targetPosition = new Vector3(randomX, randomY, transform.position.z);
     }
 
@@ -91,16 +91,17 @@ public class FollowMission : Mission
     protected override void MissionReward()
     {
         // 미션이 클리어 되면
-        if (_isMissionClear != true) return;
-
-        // Reward(보물상자)를 떨군 후 미션(발판) 삭제 
-        All_Manager.instance.Pool_M.MISC_Pool_Out(MISC_Type.Chest, this.gameObject.transform);  // 보물상자 드랍
-        RemoveMission();  // 발판 삭제
+        if (_isMissionClear == true)
+        {
+            // Reward(보물상자)를 떨군 후 미션(발판) 삭제 
+            All_Manager.instance.Pool_M.MISC_Pool_Out(MISC_Type.Chest, this.gameObject.transform);  // 보물상자 드랍
+            RemoveMission();  // 발판 삭제
+        }
     }
 
     protected override void RemoveMission()
     {
-        Destroy(this.gameObject, 1.0f);
+        Destroy(this.gameObject);
     }
 
     public override void MissionSetting(Mission p_Mission, STO_Mission p_MTO)

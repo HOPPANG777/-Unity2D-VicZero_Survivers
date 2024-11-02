@@ -85,7 +85,7 @@ public class Unit_Enemy : Unit
     public override void Die()
     {
         base.Die();
-        if (this.UT == Unit_Type.Boss) return;
+        if (this.UT == Unit_Type.Boss || this.UT == Unit_Type.Barrel) return;
         All_Manager.instance.GameMode_M.Enemy_Down(this);
         
     }
@@ -104,6 +104,11 @@ public class Unit_Enemy : Unit
         base.Return_Pool();
         if (this.UT == Unit_Type.Boss) return;
         All_Manager.instance.Pool_M.Enemy_Pool_In(this);
+
+        if (this.UT == Unit_Type.Barrel)
+        {
+            All_Manager.instance.GameMode_M.Enemy_Down(this);
+        }
     }
 
     public override void Unit_Clear()
@@ -204,11 +209,11 @@ public class Unit_Enemy : Unit
         }
 
         // 플레이어 추가 (플레이어가 화면 내에 있는 경우)
-        Vector3 Player_View_Pos = Temp_Camera.WorldToViewportPoint(Temp_Player.transform.position);
-        if (Player_View_Pos.x >= 0 && Player_View_Pos.x <= 1 && Player_View_Pos.y >= 0 && Player_View_Pos.y <= 1 && Player_View_Pos.z >= 0)
-        {
-            InView_Unit_List.Add(Temp_Player);
-        }
+        //Vector3 Player_View_Pos = Temp_Camera.WorldToViewportPoint(Temp_Player.transform.position);
+        //if (Player_View_Pos.x >= 0 && Player_View_Pos.x <= 1 && Player_View_Pos.y >= 0 && Player_View_Pos.y <= 1 && Player_View_Pos.z >= 0)
+        //{
+        //    InView_Unit_List.Add(Temp_Player);
+        //}
 
         // 그리드 크기 설정 (예: 5x5 유닛 영역)
         float Grid_Size = 3f;

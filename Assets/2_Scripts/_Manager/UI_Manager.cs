@@ -408,7 +408,8 @@ public class UI_Manager : MonoBehaviour
 
         isLevelUp = false;
 
-        All_Manager.instance.Audio_M.Background_AS.UnPause();
+        //All_Manager.instance.Audio_M.Background_AS.UnPause();
+        All_Manager.instance.Audio_M.Background_AS.volume = 0.3f;
     }
 
     public void Update_Player_Information_Panel()

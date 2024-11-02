@@ -12,7 +12,6 @@ using UnityEngine;
 using UnityEngine.Rendering.UI;
 using UnityEngine.UIElements;
 using UnityEngine.XR;
-using static UnityEditor.IMGUI.Controls.PrimitiveBoundsHandle;
 using static UnityEngine.UI.CanvasScaler;
 
 [System.Serializable]

@@ -1,3 +1,4 @@
+using System.Threading;
 using UnityEngine;
 
 public class SurviversMission : Mission
@@ -11,12 +12,12 @@ public class SurviversMission : Mission
     protected override void Start()
     {
         base.Start();
-        _timer = (All_Manager.instance.GameMode_M.Game_Time + _missionClearTime);
+        _timer = All_Manager.instance.GameMode_M.Game_Time + _missionClearTime;
     }
 
     private void Update()
     {
-        if (All_Manager.instance.GameMode_M.Game_Stop != false) return;
+        if (All_Manager.instance.GameMode_M.Game_Stop == true) return;
 
         SurviveOnMission();
         MissionReward();
@@ -37,28 +38,30 @@ public class SurviversMission : Mission
         // 발판을 밟고
         if (_isMissionPrograce != true) return;
 
+        
+
         // 게임시간이 미션클리어시간보다 더 흐르면
         if (All_Manager.instance.GameMode_M.Game_Time > _timer)
         {
             // 미션을 클리어 하고 발판을 없앤후 보물상자 드랍
             _isMissionClear = true;
         }
- 
     }
 
     protected override void MissionReward()
     {
         // 미션이 클리어 되면
-        if(_isMissionClear != true) return;
-
-        // Reward(보물상자)를 떨군 후 미션(발판) 삭제 
-        All_Manager.instance.Pool_M.MISC_Pool_Out(MISC_Type.Chest, this.gameObject.transform);  // 보물상자 드랍
-        RemoveMission();  // 발판 삭제
+        if (_isMissionClear == true)
+        {
+            // Reward(보물상자)를 떨군 후 미션(발판) 삭제 
+            All_Manager.instance.Pool_M.MISC_Pool_Out(MISC_Type.Chest, this.gameObject.transform);  // 보물상자 드랍
+            RemoveMission();  // 발판 삭제
+        }
     }
 
     protected override void RemoveMission()
     {
-        Destroy(this.gameObject, 1.0f);
+        Destroy(this.gameObject);
     }
 
     public override void MissionSetting(Mission p_Mission, STO_Mission p_MTO)
