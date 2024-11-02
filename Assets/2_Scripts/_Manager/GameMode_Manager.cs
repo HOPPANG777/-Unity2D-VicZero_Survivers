@@ -27,6 +27,8 @@ public class GameMode_Manager : MonoBehaviour
     public List<MISC> MISC_List = new List<MISC>();
     public Camera Current_Camera = null;
     public List<GameObject> Tilemap_List = new List<GameObject>();
+    private List<float> missionSpawnTimes = new List<float> { 10f, 180f, 240f }; // 2분, 3분, 4분(초 단위)
+    private HashSet<float> spawnedMissions = new HashSet<float>();
 
     // 킬 카운트
     public int Kill_Count = 0;
@@ -81,14 +83,14 @@ public class GameMode_Manager : MonoBehaviour
         {
             Current_Camera.transform.position = Vector2.Lerp
             (
-                Current_Camera.transform.position, 
-                Current_Player.transform.position, 
+                Current_Camera.transform.position,
+                Current_Player.transform.position,
                 Follow_Speed * Time.deltaTime
             );
             Current_Camera.transform.Translate(0, 0, Fixed_Camera_Z); //카메라를 원래 z축으로 이동
             Tilemap_Move();
         }
-        
+
         if (GM_State == GameMode_State.Ingame)
         {
             //Time.timeScale = 1f;
@@ -99,9 +101,9 @@ public class GameMode_Manager : MonoBehaviour
             {
                 Game_Time += Time.deltaTime;
             }
-            else 
+            else
             {
-                
+
             }
 
             All_Manager.instance.UI_M.Update_Time_Count_Text(Game_Time);
@@ -131,6 +133,8 @@ public class GameMode_Manager : MonoBehaviour
                     }
                 }
             }
+
+            CheckMissionSpawn();
 
             All_Manager.instance.UI_M.Update_State_Check_Text(GameMode_State.Ingame.ToString());
         }
@@ -198,7 +202,7 @@ public class GameMode_Manager : MonoBehaviour
         Kill_Count = 0;
 
         All_Manager.instance.Unit_M.Unit_F.Create_Player(All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr(Unit_Type.Player));
-        
+
         GM_State = GameMode_State.Ingame;
 
         All_Manager.instance.UI_M.On_Panel(Panel_Style.GameStart);
@@ -241,7 +245,7 @@ public class GameMode_Manager : MonoBehaviour
             float Right_Boundary = Map_Pos.x + (Tilemap_Size * 0.5f);
             float Bottom_Boundary = Map_Pos.y - (Tilemap_Size * 0.5f);
             float Top_Boundary = Map_Pos.y + (Tilemap_Size * 0.5f);
-            
+
             // 플레이어가 경계를 넘었는지 확인
             var Move_Offset = Vector3.zero;
 
@@ -380,12 +384,12 @@ public class GameMode_Manager : MonoBehaviour
 
         StartCoroutine(C_Wave_Temp);
     }
-    
+
     public IEnumerator C_Start_Wave(STO_Wave p_STO_Wave)
     {
         if (p_STO_Wave.Spawn_Time == 0)
         {
-            while (true)    
+            while (true)
             {
                 if (p_STO_Wave.WST == Wave_Spawn_Type.Random)
                 {
@@ -457,7 +461,7 @@ public class GameMode_Manager : MonoBehaviour
                         }
 
                         else
-                        { 
+                        {
 
                         }
                     }
@@ -601,9 +605,9 @@ public class GameMode_Manager : MonoBehaviour
                             Angle += Angle_Step;
                         }
 
-                        else 
-                        { 
-                            
+                        else
+                        {
+
                         }
                     }
                 }
@@ -672,7 +676,41 @@ public class GameMode_Manager : MonoBehaviour
         }
     }
 
-    
+    private void CheckMissionSpawn()
+    {
+        foreach (var spawnTime in missionSpawnTimes)
+        {
+            if (Game_Time >= spawnTime && !spawnedMissions.Contains(spawnTime))
+            {
+                SpawnRandomMission();
+                spawnedMissions.Add(spawnTime);
+            }
+        }
+    }
+
+    private void SpawnRandomMission()
+    {
+        // 랜덤 미션 타입 선택
+        MissionType randomMissionType = (MissionType)Random.Range(0, System.Enum.GetValues(typeof(MissionType)).Length);
+
+        // Convert_Mission_Type_To_STO_Mission_Arr를 사용해 STO_Mission 가져오기
+        STO_Mission newMission = All_Manager.instance.Resource_M.Convert_Mission_Type_To_STO_Mission_Arr(randomMissionType);
+
+        if (newMission != null)
+        {
+            // 플레이어 주변의 랜덤한 위치 설정
+            Vector3 randomPosition = Current_Player.transform.position + new Vector3(Random.Range(-10f, 10f), Random.Range(-10f, 10f), 0f);
+
+            // 생성된 미션을 사용하여 미션 생성
+            All_Manager.instance.Unit_M.Mission_F.Create_Mission(newMission, randomPosition);
+            All_Manager.instance.UI_M.Update_Mission_Check_Text(randomMissionType.ToString());
+        }
+        else
+        {
+            UnityEngine.Debug.LogWarning($"Mission of type '{randomMissionType}' could not be found.");
+        }
+    }
+
 }
 
 #region

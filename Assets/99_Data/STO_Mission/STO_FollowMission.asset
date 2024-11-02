@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b329aa8765a4ed9488bd54babcc9390d, type: 3}
+  m_Name: STO_FollowMission
+  m_EditorClassIdentifier: 
+  _missionType: 2
+  _sprite: {fileID: 21300000, guid: 6347eafdcfd33184d9956de8dfef3f7a, type: 3}
+  _material: {fileID: 2100000, guid: 562cb0ad3f0f2a44b8fa57aa7e02b64a, type: 2}
+  Mission_Time: 0

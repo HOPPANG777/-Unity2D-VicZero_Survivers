@@ -40,6 +40,7 @@ public class UI_Manager : MonoBehaviour
     public Text Game_State_Text;
     public Text Panel_Style_Text;
     public Text Game_Pool_Ready_Text;
+    public Text Mission_Text;
 
     [Header("UI캔버스")]
     public GameObject Basic_Panel;
@@ -258,6 +259,11 @@ public class UI_Manager : MonoBehaviour
     public void Update_Pool_Ready_Check_Text(string p_Text)
     {
         Game_Pool_Ready_Text.text = p_Text;
+    }
+
+    public void Update_Mission_Check_Text(string p_Text)
+    {
+        Mission_Text.text = p_Text;
     }
 
     // 킬 카운트 갱신

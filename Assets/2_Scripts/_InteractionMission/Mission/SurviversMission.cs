@@ -6,9 +6,12 @@ public class SurviversMission : Mission
     [SerializeField] private float _missionClearTime = 30.0f;
     public float MissionClearTime { get { return _missionClearTime; } }
 
+    [SerializeField] private float _timer = 0.0f;
+
     protected override void Start()
     {
         base.Start();
+        _timer = (All_Manager.instance.GameMode_M.Game_Time + _missionClearTime);
     }
 
     private void Update()
@@ -35,7 +38,7 @@ public class SurviversMission : Mission
         if (_isMissionPrograce != true) return;
 
         // 게임시간이 미션클리어시간보다 더 흐르면
-        if (All_Manager.instance.GameMode_M.Game_Time > (All_Manager.instance.GameMode_M.Game_Time + _missionClearTime))
+        if (All_Manager.instance.GameMode_M.Game_Time > _timer)
         {
             // 미션을 클리어 하고 발판을 없앤후 보물상자 드랍
             _isMissionClear = true;
@@ -55,12 +58,15 @@ public class SurviversMission : Mission
 
     protected override void RemoveMission()
     {
-
+        Destroy(this.gameObject, 1.0f);
     }
 
-    protected override void MissionSetting(Mission p_Mission, STO_Mission p_MTO)
+    public override void MissionSetting(Mission p_Mission, STO_Mission p_MTO)
     {
         p_Mission.MissionType = p_MTO.missionType;
+        p_Mission.SpriteRenderer.sprite = p_MTO.Sprite;
+        p_Mission.SpriteRenderer.material = p_MTO.Material;
+        p_Mission.SpriteRenderer.sortingOrder = -1;
     }
 
 }

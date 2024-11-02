@@ -6,9 +6,12 @@ public class DefendMission : Mission
     [SerializeField] private int _missionClearKill = 100;
     public int MissionClearKill { get { return _missionClearKill; } }
 
+    [SerializeField] private int _killCount = 0;
+
     protected override void Start()
     {
         base.Start();
+        _killCount = (All_Manager.instance.GameMode_M.Kill_Count + _missionClearKill);
     }
 
     private void Update()
@@ -36,7 +39,7 @@ public class DefendMission : Mission
         if (_isMissionPrograce != true) return;
 
         // 죽인 적의 수가 미션 클리어 조건수보다 많으면
-        if (All_Manager.instance.GameMode_M.Kill_Count > (All_Manager.instance.GameMode_M.Kill_Count + _missionClearKill))
+        if (All_Manager.instance.GameMode_M.Kill_Count > _killCount)
         {
             // 미션 클리어
             _isMissionClear = true;
@@ -56,12 +59,15 @@ public class DefendMission : Mission
 
     protected override void RemoveMission()
     {
-
+        Destroy(this.gameObject, 1.0f);
     }
 
-    protected override void MissionSetting(Mission p_Mission, STO_Mission p_MTO)
+    public override void MissionSetting(Mission p_Mission, STO_Mission p_MTO)
     {
         p_Mission.MissionType = p_MTO.missionType;
+        p_Mission.SpriteRenderer.sprite = p_MTO.Sprite;
+        p_Mission.SpriteRenderer.material = p_MTO.Material;
+        p_Mission.SpriteRenderer.sortingOrder = -1;
     }
 
 }

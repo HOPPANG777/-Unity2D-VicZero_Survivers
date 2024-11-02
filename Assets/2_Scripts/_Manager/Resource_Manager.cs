@@ -22,6 +22,9 @@ public class Resource_Manager : MonoBehaviour
     // 장신구(패시브 스탯 증가)
     public STO_Equipment[] STO_Equipments;            // STO 넣어놓는곳
 
+    // 미션
+    public STO_Mission[] STO_Missions;
+
     public Ghost_Effect_Controller Ghost_Effect;
 
     // 외부에서 유닛 STO불러올때 쓰는거
@@ -87,6 +90,19 @@ public class Resource_Manager : MonoBehaviour
         }
 
         return Temp_EQ_STO;
+    }
+
+    // 외부에서 미션 STO불러올때 쓰는거
+    public STO_Mission Convert_Mission_Type_To_STO_Mission_Arr(MissionType p_Mission)
+    {
+        STO_Mission Temp_Mission_STO = null;
+
+        for (int i = 0; i < STO_Missions.Length; i++)
+        {
+            if (STO_Missions[i].missionType == p_Mission) Temp_Mission_STO = STO_Missions[i];
+        }
+
+        return Temp_Mission_STO;
     }
 
 }

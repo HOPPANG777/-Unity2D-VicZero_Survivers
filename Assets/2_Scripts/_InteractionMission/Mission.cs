@@ -9,6 +9,7 @@ public abstract class Mission : MonoBehaviour, IMissionType
 {
     [SerializeField] protected BoxCollider2D _boxCollider2D;
     [SerializeField] protected SpriteRenderer _spriteRenderer;
+    public SpriteRenderer SpriteRenderer { get { return _spriteRenderer; } set { _spriteRenderer = value; } }
 
     // 미션 시작
     [SerializeField] protected bool _isMissionPrograce = false;
@@ -83,6 +84,6 @@ public abstract class Mission : MonoBehaviour, IMissionType
     protected abstract void RemoveMission();
 
     // 미션 생성시 Scriptable Object로 초기화
-    protected abstract void MissionSetting(Mission p_Mission, STO_Mission p_MTO);
+    public abstract void MissionSetting(Mission p_Mission, STO_Mission p_MTO);
 
 }
