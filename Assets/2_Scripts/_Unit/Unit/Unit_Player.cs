@@ -554,6 +554,7 @@ public class Unit_Player : Unit
         {
             All_Weapon.Add(Weapon_Go.GetComponent<Weapon>());
             //Weapon_Go.transform.parent = this.transform;
+            All_Manager.instance.GameMode_M.Current_Player.WeaponKeywordsSynergy(Weapon_Go.GetComponent<Weapon>());
         }
 
         else

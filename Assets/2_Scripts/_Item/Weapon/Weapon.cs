@@ -89,10 +89,7 @@ public abstract class Weapon : MonoBehaviour
     }
 
     // 업그레이드
-    public virtual void Upgrade(int p_Level)
-    {
-        All_Manager.instance.GameMode_M.Current_Player.WeaponKeywordsSynergy(this);
-    }
+    public abstract void Upgrade(int p_Level);
 
     // 무기 파괴 타이머
     public void Weapon_Timer()

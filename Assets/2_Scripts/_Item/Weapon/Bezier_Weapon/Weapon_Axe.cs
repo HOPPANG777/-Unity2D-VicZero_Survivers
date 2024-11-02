@@ -57,7 +57,6 @@ public class Weapon_Axe : Weapon
 
     public override void Upgrade(int p_Level)
     {
-        base.Upgrade(p_Level);
         if (p_Level == 3)
         {
             All_Manager.instance.GameMode_M.Current_Player.AddWeaponKeyword(this.WeaponKeywords);
