@@ -128,6 +128,8 @@ public class Unit_Enemy : Unit
 
         this.transform.position = this.transform.position + (dir.normalized * (UnityEngine.Random.Range(Unit_Enemy_Speed, Unit_Enemy_Speed) * Time.deltaTime));
 
+        if (this.UT == Unit_Type.Barrel) return;
+
         if (All_Manager.instance.GameMode_M.Enemy_List.Contains(this) || gameObject.GetComponent<Animator>())
         {
             AM.SetBool("Move", true);

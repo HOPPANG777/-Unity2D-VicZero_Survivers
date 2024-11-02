@@ -158,7 +158,7 @@ public abstract class Weapon : MonoBehaviour
                     enemiesHit.Add(Temp_Enemy); // 해당 적이 이미 타격 처리되었음을 기록
 
                     // 무기가 영구적인 것이 아닌 경우만 충돌 횟수 및 무기 파괴 로직 처리
-                    if (Forever == false)
+                    if (Forever)
                     {
                         Collision_Count++;
 

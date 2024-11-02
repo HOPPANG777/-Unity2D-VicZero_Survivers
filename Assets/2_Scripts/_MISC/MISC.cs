@@ -20,7 +20,7 @@ public class MISC : MonoBehaviour
     public Rigidbody2D RB;
     public BoxCollider2D BC;
 
-    public float Gem_Level = 5.0f;
+    public float Gem_Level = 4.0f;
 
     public virtual void Start()
     {
@@ -39,56 +39,118 @@ public class MISC : MonoBehaviour
 
         else
         {
-            if (Vector3.Distance(this.transform.position, Temp_Player.transform.position) > Temp_Player.Origin_Stat.Unit_Get_Gem_Range)
+            switch (MT)
             {
-
-            }
-
-            else
-            {
-                if (Vector3.Distance(this.transform.position, Temp_Player.transform.position) < 0.1f)
-                {
-                    if (All_Manager.instance.GameMode_M.Game_Stop == false)
+                case MISC_Type.Gem:
                     {
-                        if (MT == MISC_Type.Gem)
+                        if (Vector3.Distance(this.transform.position, Temp_Player.transform.position) > Temp_Player.Origin_Stat.Unit_Get_Gem_Range)
                         {
-                            Temp_Player.Get_Gem(Gem_Level);
-                            All_Manager.instance.Audio_M.MISC_Get_Effect_Audio_Play(MISC_Type.Gem);
+
                         }
 
-                        if (MT == MISC_Type.Chest)
+                        else
                         {
-                            All_Manager.instance.UI_M.On_Panel(Panel_Style.TreasureFound);
-                            All_Manager.instance.Audio_M.MISC_Get_Effect_Audio_Play(MISC_Type.Chest);
-                        }
+                            if (Vector3.Distance(this.transform.position, Temp_Player.transform.position) < 0.1f)
+                            {
+                                if (All_Manager.instance.GameMode_M.Game_Stop == false)
+                                {
+                                    Temp_Player.Get_Gem(Gem_Level);
+                                    All_Manager.instance.Audio_M.MISC_Get_Effect_Audio_Play(MISC_Type.Gem);
+                                }
 
-                        if (MT == MISC_Type.Food)
-                        {
-                            Temp_Player.Recovery_Current_HP();
-                            All_Manager.instance.Audio_M.MISC_Get_Effect_Audio_Play(MISC_Type.Food);
+                                this.gameObject.SetActive(false);
+
+                                All_Manager.instance.GameMode_M.MISC_List.Remove(this);
+
+                                All_Manager.instance.Pool_M.MISC_Pool_In(this);
+                            }
+
+                            var Dir = (Temp_Player.transform.position - this.transform.position).normalized;
+
+                            this.transform.position += (Dir * 0.05f);
+
+                            if (this.transform.localScale.x > 0.01f)
+                            {
+                                this.transform.localScale -= Vector3.one * 0.02f;
+                            }
                         }
                     }
+                    break;
+                case MISC_Type.Chest:
+                    {
+                        if (Vector3.Distance(this.transform.position, Temp_Player.transform.position) > 0.5f)
+                        {
 
-                    this.gameObject.SetActive(false);
+                        }
 
+                        else
+                        {
+                            if (Vector3.Distance(this.transform.position, Temp_Player.transform.position) < 0.1f)
+                            {
+                                if (All_Manager.instance.GameMode_M.Game_Stop == false)
+                                { 
+                                    All_Manager.instance.UI_M.On_Panel(Panel_Style.TreasureFound);
+                                    All_Manager.instance.Audio_M.MISC_Get_Effect_Audio_Play(MISC_Type.Chest);
+                                }
 
-                    All_Manager.instance.GameMode_M.MISC_List.Remove(this);
-                    
-                    All_Manager.instance.Pool_M.MISC_Pool_In(this);   
-                }
+                                this.gameObject.SetActive(false);
 
-                var Dir = (Temp_Player.transform.position - this.transform.position).normalized;
+                                All_Manager.instance.GameMode_M.MISC_List.Remove(this);
 
-                this.transform.position += (Dir * 0.05f);
+                                All_Manager.instance.Pool_M.MISC_Pool_In(this);
+                            }
 
-                if (this.transform.localScale.x > 0.01f)
-                {
-                    this.transform.localScale -= Vector3.one * 0.02f;
-                }
+                            var Dir = (Temp_Player.transform.position - this.transform.position).normalized;
+
+                            this.transform.position += (Dir * 0.05f);
+
+                            if (this.transform.localScale.x > 0.01f)
+                            {
+                                this.transform.localScale -= Vector3.one * 0.02f;
+                            }
+                        }
+                    }
+                    break;
+                case MISC_Type.Food:
+                    {
+                        if (Vector3.Distance(this.transform.position, Temp_Player.transform.position) > 0.5f)
+                        {
+
+                        }
+
+                        else
+                        {
+                            if (Vector3.Distance(this.transform.position, Temp_Player.transform.position) < 0.1f)
+                            {
+                                if (All_Manager.instance.GameMode_M.Game_Stop == false)
+                                {
+                                    Temp_Player.Recovery_Current_HP();
+                                    All_Manager.instance.Audio_M.MISC_Get_Effect_Audio_Play(MISC_Type.Food);
+                                }
+
+                                this.gameObject.SetActive(false);
+
+                                All_Manager.instance.GameMode_M.MISC_List.Remove(this);
+
+                                All_Manager.instance.Pool_M.MISC_Pool_In(this);
+                            }
+
+                            var Dir = (Temp_Player.transform.position - this.transform.position).normalized;
+
+                            this.transform.position += (Dir * 0.05f);
+
+                            if (this.transform.localScale.x > 0.01f)
+                            {
+                                this.transform.localScale -= Vector3.one * 0.02f;
+                            }
+                        }
+                    }
+                    break;
+                default:
+                    break;
             }
+
         }
-
-
     }
 
     public void MISC_Setting(MISC p_MISC, STO_MISC MISC_STO)

@@ -45,6 +45,7 @@ public class Weapon_Peachone : Weapon
         W_Peachone_Point[1] = Two; // P1
         W_Peachone_Point[2] = Three; // P2
         W_Peachone_Point[3] = Four; // P3
+        TR.enabled = true;
     }
 
     public Vector3 Peachone_Point_Setting(Vector3 p_VE)

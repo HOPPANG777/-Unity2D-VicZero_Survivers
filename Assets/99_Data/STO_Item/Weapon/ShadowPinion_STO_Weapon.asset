@@ -32,82 +32,82 @@ MonoBehaviour:
     Weapon_Speed: 4
     Weapon_Range: 4
     Weapon_Time: 0
-    Weapon_Pen: 10
+    Weapon_Pen: 2
     Weapon_CoolDown: 3
     Weapon_Duration: 3
     Weapon_Knock: 0.5
     Weapon_Count: 3
-    Weapon_Size: 1
+    Weapon_Size: 2
   - Weapon_Damage: 35
     Weapon_Speed: 4
     Weapon_Range: 4
     Weapon_Time: 0
-    Weapon_Pen: 10
+    Weapon_Pen: 2
     Weapon_CoolDown: 3
     Weapon_Duration: 3
     Weapon_Knock: 0.5
     Weapon_Count: 4
-    Weapon_Size: 1
+    Weapon_Size: 2
   - Weapon_Damage: 45
     Weapon_Speed: 5
     Weapon_Range: 5
     Weapon_Time: 0
-    Weapon_Pen: 10
+    Weapon_Pen: 2
     Weapon_CoolDown: 3
     Weapon_Duration: 3
     Weapon_Knock: 0.5
     Weapon_Count: 4
-    Weapon_Size: 1
+    Weapon_Size: 2
   - Weapon_Damage: 45
     Weapon_Speed: 5
     Weapon_Range: 5
     Weapon_Time: 0
-    Weapon_Pen: 10
+    Weapon_Pen: 2
     Weapon_CoolDown: 3
     Weapon_Duration: 3
     Weapon_Knock: 0.5
     Weapon_Count: 5
-    Weapon_Size: 1
+    Weapon_Size: 2
   - Weapon_Damage: 45
     Weapon_Speed: 5
     Weapon_Range: 6
     Weapon_Time: 0
-    Weapon_Pen: 10
+    Weapon_Pen: 2
     Weapon_CoolDown: 3
     Weapon_Duration: 3
     Weapon_Knock: 0.5
     Weapon_Count: 5
-    Weapon_Size: 1
+    Weapon_Size: 2
   - Weapon_Damage: 55
     Weapon_Speed: 5
     Weapon_Range: 6
     Weapon_Time: 0
-    Weapon_Pen: 10
+    Weapon_Pen: 2
     Weapon_CoolDown: 3
     Weapon_Duration: 3
     Weapon_Knock: 0.5
     Weapon_Count: 6
-    Weapon_Size: 1
+    Weapon_Size: 2
   - Weapon_Damage: 55
     Weapon_Speed: 5
     Weapon_Range: 6
     Weapon_Time: 0
-    Weapon_Pen: 10
+    Weapon_Pen: 2
     Weapon_CoolDown: 3
     Weapon_Duration: 3
     Weapon_Knock: 0.5
     Weapon_Count: 6
-    Weapon_Size: 1
+    Weapon_Size: 2
   - Weapon_Damage: 55
     Weapon_Speed: 6
     Weapon_Range: 7
     Weapon_Time: 0
-    Weapon_Pen: 10
+    Weapon_Pen: 2
     Weapon_CoolDown: 3
     Weapon_Duration: 3
     Weapon_Knock: 0.5
     Weapon_Count: 7
-    Weapon_Size: 1
+    Weapon_Size: 2
   Size_X: 0.6
   Size_Y: 0.6
   Offset_X: 0
@@ -116,6 +116,6 @@ MonoBehaviour:
   Sprite_Image: {fileID: 21300000, guid: cb8474496b2579a4ba52d2111128ddcd, type: 3}
   Item_Image: {fileID: 21300000, guid: cb8474496b2579a4ba52d2111128ddcd, type: 3}
   Sprite_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  Attacking_Audio_Clip: {fileID: 8300000, guid: 12222e8346ff77742a5c5af18dd9b836,
+  Attacking_Audio_Clip: {fileID: 8300000, guid: 907fff2ca440c20469e160325e2107d2,
     type: 3}
   Weapon_Animator_Controller: {fileID: 0}
