@@ -24,6 +24,7 @@ public class Unit_Factory : MonoBehaviour
         player.transform.position = Vector3.zero;
         player.transform.rotation = Quaternion.identity;
         player.transform.localScale = Vector3.one;
+
         //SR�� ���������� ��ٷ�        
         // 여기서 코루틴으로 WaitUntil 사용했던데, 그거 거의 의미 없는 로직인듯...?                                                         
         player.Unit_Stat_Setting(player, P_Unit);
