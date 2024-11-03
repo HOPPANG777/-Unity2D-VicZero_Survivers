@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class Damage_Effect_Controller : MonoBehaviour
 {
-    public int poolSize = 100; // ¹Ì¸® »ı¼ºÇÒ µ¥¹ÌÁö ÀÌÆåÆ® ¼ö
+    public int poolSize = 100; // ë¯¸ë¦¬ ìƒì„±í•  ë°ë¯¸ì§€ ì´í™íŠ¸ ìˆ˜
     private GameObject[] damageEffects;
     private int currentIndex = 0;
+    private float damageEffectCooldown = 0.2f; // ë°ë¯¸ì§€ ì´í™íŠ¸ ê°„ ìµœì†Œ ê°„ê²© (ì´ˆ ë‹¨ìœ„)
+    private float lastDamageEffectTime = -Mathf.Infinity;
 
-    // °´Ã¼ Ç® ÃÊ±âÈ­
+    // ê°ì²´ í’€ ì´ˆê¸°í™”
     public void Damage_Effect_Pool()
     {
         damageEffects = new GameObject[poolSize];
@@ -17,8 +19,8 @@ public class Damage_Effect_Controller : MonoBehaviour
             GameObject damageEffect = new GameObject("Damage_Effect_" + i);
             TextMesh damageText = damageEffect.AddComponent<TextMesh>();
 
-            damageText.fontSize = 32;
-            damageText.characterSize = 0.1f;
+            damageText.fontSize = 32; // í°íŠ¸ ì‚¬ì´ì¦ˆ
+            damageText.characterSize = 0.1f; // ìºë¦­í„° í¬ê¸°ë¥¼ ì‘ê²Œ ì„¤ì •
             damageText.color = Color.white;
 
             damageEffect.transform.parent = this.transform;
@@ -28,9 +30,18 @@ public class Damage_Effect_Controller : MonoBehaviour
         }
     }
 
-    // µ¥¹ÌÁö ÀÌÆåÆ® »ı¼º ¹× À§Ä¡ ÁöÁ¤
+    // ë°ë¯¸ì§€ ì´í™íŠ¸ ìƒì„± ë° ìœ„ì¹˜ ì§€ì •
     public void Show_Damage_Effect(Vector3 position, string damageValue)
     {
+        // ì¿¨ë‹¤ìš´ ì²´í¬
+        if (Time.time - lastDamageEffectTime < damageEffectCooldown)
+        {
+            // ì•„ì§ ì¿¨ë‹¤ìš´ì´ ëë‚˜ì§€ ì•Šì•˜ë‹¤ë©´ ì´í™íŠ¸ë¥¼ ìƒì„±í•˜ì§€ ì•ŠìŒ
+            return;
+        }
+
+        lastDamageEffectTime = Time.time; // ë§ˆì§€ë§‰ ë°ë¯¸ì§€ ì´í™íŠ¸ ìƒì„± ì‹œê°„ ê°±ì‹ 
+
         GameObject damageEffect = Get_Next_Available_Effect();
 
         if (damageEffect != null)
@@ -41,12 +52,12 @@ public class Damage_Effect_Controller : MonoBehaviour
             TextMesh textMesh = damageEffect.GetComponent<TextMesh>();
             textMesh.text = damageValue;
 
-            // ÀÏÁ¤ ½Ã°£ ÈÄ¿¡ ºñÈ°¼ºÈ­
-            StartCoroutine(Hide_Damage_Effect(damageEffect, 1.0f)); // 1ÃÊ ÈÄ ºñÈ°¼ºÈ­
+            // ì¼ì • ì‹œê°„ í›„ì— ë¹„í™œì„±í™”
+            StartCoroutine(Hide_Damage_Effect(damageEffect, 1.0f)); // 1ì´ˆ í›„ ë¹„í™œì„±í™”
         }
     }
 
-    // Ç®¿¡¼­ ´ÙÀ½ »ç¿ë °¡´ÉÇÑ ÀÌÆåÆ®¸¦ °¡Á®¿À±â
+    // í’€ì—ì„œ ë‹¤ìŒ ì‚¬ìš© ê°€ëŠ¥í•œ ì´í™íŠ¸ë¥¼ ê°€ì ¸ì˜¤ê¸°
     private GameObject Get_Next_Available_Effect()
     {
         for (int i = 0; i < poolSize; i++)
@@ -58,12 +69,12 @@ public class Damage_Effect_Controller : MonoBehaviour
             }
         }
 
-        // ¸ğµç ÀÌÆåÆ®°¡ »ç¿ë ÁßÀÏ °æ¿ì null ¹İÈ¯
+        // ëª¨ë“  ì´í™íŠ¸ê°€ ì‚¬ìš© ì¤‘ì¼ ê²½ìš° null ë°˜í™˜
         return null;
     }
 
-    // ÀÏÁ¤ ½Ã°£ ÈÄ ÀÌÆåÆ®¸¦ ºñÈ°¼ºÈ­
-    private System.Collections.IEnumerator Hide_Damage_Effect(GameObject effect, float delay)
+    // ì¼ì • ì‹œê°„ í›„ ì´í™íŠ¸ë¥¼ ë¹„í™œì„±í™”
+    private IEnumerator Hide_Damage_Effect(GameObject effect, float delay)
     {
         yield return new WaitForSeconds(delay);
         effect.SetActive(false);
