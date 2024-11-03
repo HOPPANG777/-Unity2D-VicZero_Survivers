@@ -182,6 +182,13 @@ public class UI_Manager : MonoBehaviour
             Game_End_Panel.SetActive(true);
             Game_State_Text.text = "GameOver";
         };
+
+        All_Manager.instance.GameMode_M.onGameClear += () =>
+        {
+            Game_Clear_Panel.SetActive(true);
+            Game_End_Panel.SetActive(true);
+            All_Manager.instance.UI_M.Update_State_Check_Text("GameClear");
+        };
     }
 
 
@@ -193,11 +200,6 @@ public class UI_Manager : MonoBehaviour
         {
             UI_Peachone.Update_Peachone_Range_Image();
             UI_Peachone.Update_Peachone_Image();
-        }
-
-        else
-        {
-
         }
 
         if (isLevelUp == true)
@@ -383,12 +385,6 @@ public class UI_Manager : MonoBehaviour
         else if (p_PS == Panel_Style.TreasureFound)
         {
             Treasure_Chest_Panel.SetActive(true);
-        }
-
-        else if (p_PS == Panel_Style.GameClear)
-        {
-            Game_Clear_Panel.SetActive(true);
-            Game_End_Panel.SetActive(true);
         }
 
 

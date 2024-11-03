@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Mono.Cecil;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -12,8 +13,6 @@ using UnityEngine.UIElements;
 public enum GameMode_State
 {
     Idle,
-    Ingame,
-    GameClear
 }
 
 public class GameMode_Manager : MonoBehaviour
@@ -73,14 +72,18 @@ public class GameMode_Manager : MonoBehaviour
     public float Tilemap_Boundary_Offset = 1.0f;
     public float Tilemap_Overlap_Offset = 0.1f;
 
-    public delegate void OnGameOver();
-    public OnGameOver onGameOver;
+    public delegate void OnGameState();
+    public OnGameState onGameOver;
+    public OnGameState onGameClear;
+    Coroutine executeCoroutine;
 
 
     private void Update()
     {
         All_Manager.instance.UI_M.Update_Pool_Ready_Check_Text(All_Manager.instance.Pool_M.Ready.ToString());
         if (All_Manager.instance.Pool_M.Ready == false) return;
+
+        // 카메라가 따라가는 로직
         if (Current_Player != null)
         {
             Current_Camera.transform.position = Vector2.Lerp
@@ -93,11 +96,16 @@ public class GameMode_Manager : MonoBehaviour
             Tilemap_Move();
         }
 
-        if (GM_State == GameMode_State.Ingame)
+    }
+
+    IEnumerator CoExecuteGame()
+    {
+        while (true)
         {
             //Time.timeScale = 1f;
 
-            if (Current_Player == null) return;
+            if (Current_Player == null)
+                yield return null;
 
             if (Game_Stop == false)
             {
@@ -106,27 +114,27 @@ public class GameMode_Manager : MonoBehaviour
 
             All_Manager.instance.UI_M.Update_Time_Count_Text(Game_Time);
 
-            var Re = All_Manager.instance.Resource_M;
+            Resource_Manager resourceManager = All_Manager.instance.Resource_M;
 
-            // GM_State == GameMode_State.Ingame
-            for (int i = 0; i < Re.STO_Waves.Length; i++)
+            for (int i = 0; i < resourceManager.STO_Waves.Length; i++)
             {
                 //ų ������ �´ٸ�
-                if (Re.STO_Waves[i].Kill_Count <= Kill_Count)
+                if (resourceManager.STO_Waves[i].Kill_Count <= Kill_Count)
                 {
                     //�ð� ������ �´ٸ�
-                    if (Re.STO_Waves[i].Wave_Time <= Game_Time)
+                    if (resourceManager.STO_Waves[i].Wave_Time <= Game_Time)
                     {
+                        // 특정 시간과 킬 개수를 만족하면 해당 코드를 실행
                         //������� ���̺� ����Ʈ�� ���ٸ�
                         // Contains �� ����Ʈ�� ���� �մϱ�?
-                        if (Use_STO_Wave_List.Contains(Re.STO_Waves[i]) == false)
+                        if (Use_STO_Wave_List.Contains(resourceManager.STO_Waves[i]) == false)
                         {
-                            Use_STO_Wave_List.Add(Re.STO_Waves[i]);
+                            Use_STO_Wave_List.Add(resourceManager.STO_Waves[i]);
 
-                            Start_Wave(Re.STO_Waves[i]);
+                            Start_Wave(resourceManager.STO_Waves[i]);
 
                             //UnityEngine.Debug.Log(Re.STO_Waves[i].name + " Start!");
-                            All_Manager.instance.UI_M.Update_Wave_Check_Text(Re.STO_Waves[i].name.ToString());
+                            All_Manager.instance.UI_M.Update_Wave_Check_Text(resourceManager.STO_Waves[i].name.ToString());
                         }
                     }
                 }
@@ -134,36 +142,10 @@ public class GameMode_Manager : MonoBehaviour
 
             CheckMissionSpawn();
 
-            All_Manager.instance.UI_M.Update_State_Check_Text(GameMode_State.Ingame.ToString());
+            All_Manager.instance.UI_M.Update_State_Check_Text("InGame");
+
+            yield return null;
         }
-
-        if (GM_State == GameMode_State.GameClear)
-        {
-            StopCoroutine(C_Wave_Temp);
-
-            Game_Time = 0;
-            Use_STO_Wave_List.Clear();
-
-            All_Manager.instance.UI_M.On_Panel(Panel_Style.GameClear);
-
-            All_Manager.instance.UI_M.Update_State_Check_Text(GameMode_State.GameClear.ToString());
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (Game_Stop == false)
-            {
-                All_Manager.instance.UI_M.On_Panel(Panel_Style.Pause);
-                return;
-            }
-
-            else if (Game_Stop == true)
-            {
-                All_Manager.instance.UI_M.Off_Panel();
-                return;
-            }
-        }
-
     }
 
     public void GameOver()
@@ -173,18 +155,30 @@ public class GameMode_Manager : MonoBehaviour
         Game_Time = 0;
         Use_STO_Wave_List.Clear();
         All_Manager.instance.GameMode_M.Game_Stop = true;
+        StopCoroutine(executeCoroutine);
 
         onGameOver();
     }
+    // 게임 클리어 상태일 경우
+    public void GameClear()
+    {
+        StopCoroutine(C_Wave_Temp);
+
+        Game_Time = 0;
+        Use_STO_Wave_List.Clear();
+        All_Manager.instance.GameMode_M.Game_Stop = true;
+        StopCoroutine(executeCoroutine);
+
+        onGameClear();
+    }
 
     //���� ���� �Լ�
-    public void Game_Start()
+    public void GameStart()
     {
         All_Manager.instance.Unit_M.Unit_F.Create_Player(All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr(Unit_Type.Player));
-
-        GM_State = GameMode_State.Ingame;
-
         All_Manager.instance.UI_M.On_Panel(Panel_Style.GameStart);
+
+        executeCoroutine = StartCoroutine(CoExecuteGame());
     }
 
     // ���� �����
@@ -200,7 +194,7 @@ public class GameMode_Manager : MonoBehaviour
 
         All_Manager.instance.Unit_M.Unit_F.Create_Player(All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr(Unit_Type.Player));
 
-        GM_State = GameMode_State.Ingame;
+        GameStart();
 
         All_Manager.instance.UI_M.On_Panel(Panel_Style.GameStart);
     }
