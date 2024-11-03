@@ -62,15 +62,15 @@ public class Audio_Manager : MonoBehaviour
 
             Go.transform.parent = this.transform;
 
-            Go.AddComponent<AudioSource>();
+            AudioSource audioSource = Go.AddComponent<AudioSource>();
 
-            Go.GetComponent<AudioSource>().clip = All_Manager.instance.Resource_M.Convert_MISC_Type_To_STO_MISC_Arr((MISC_Type)i).Get_MISC_Audio_Clip;
+            audioSource.clip = All_Manager.instance.Resource_M.Convert_MISC_Type_To_STO_MISC_Arr((MISC_Type)i).Get_MISC_Audio_Clip;
 
-            Go.GetComponent<AudioSource>().playOnAwake = false;
-            Go.GetComponent<AudioSource>().rolloffMode = AudioRolloffMode.Linear;
-            Go.GetComponent<AudioSource>().spatialBlend = 0.5f;
+            audioSource.playOnAwake = false;
+            audioSource.rolloffMode = AudioRolloffMode.Linear;
+            audioSource.spatialBlend = 0.5f;
 
-            Effect_Audio_List.Add(Go.GetComponent<AudioSource>());
+            Effect_Audio_List.Add(audioSource);
         }
     }
 
@@ -196,9 +196,9 @@ public class Audio_Manager : MonoBehaviour
         {
             Background_AS.Stop();
         }
-}
+    }
 
-public void UI_Click_Audio_Play()
+    public void UI_Click_Audio_Play()
     {
         UI_Click_AS.Play();
     }
