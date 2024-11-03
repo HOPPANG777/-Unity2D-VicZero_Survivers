@@ -173,6 +173,25 @@ public class UI_Manager : MonoBehaviour
     public UI_Peachone UI_Peachone;
     public UI_Weapon_Force UI_Force;
 
+    void Start()
+    {
+        All_Manager.instance.GameMode_M.onGameOver += () =>
+        {
+            Debug.Log("GameOver UI OnPanel is called");
+            Game_Over_Panel.SetActive(true);
+            Game_End_Panel.SetActive(true);
+            Game_State_Text.text = "GameOver";
+        };
+
+        All_Manager.instance.GameMode_M.onGameClear += () =>
+        {
+            Game_Clear_Panel.SetActive(true);
+            Game_End_Panel.SetActive(true);
+            All_Manager.instance.UI_M.Update_State_Check_Text("GameClear");
+        };
+    }
+
+
     private void Update()
     {
         if (All_Manager.instance.Pool_M.Ready == false) return;
@@ -181,11 +200,6 @@ public class UI_Manager : MonoBehaviour
         {
             UI_Peachone.Update_Peachone_Range_Image();
             UI_Peachone.Update_Peachone_Image();
-        }
-
-        else
-        {
-
         }
 
         if (isLevelUp == true)
@@ -340,8 +354,6 @@ public class UI_Manager : MonoBehaviour
     public void On_Panel(Panel_Style p_PS)
     {
 
-        All_Manager.instance.GameMode_M.Game_Stop = true;
-
         if (p_PS == Panel_Style.Pause)
         {
             Update_Player_Information_Panel();
@@ -363,8 +375,6 @@ public class UI_Manager : MonoBehaviour
 
         else if (p_PS == Panel_Style.GameOver)
         {
-            Game_Over_Panel.SetActive(true);
-            Game_End_Panel.SetActive(true);
         }
 
         else if (p_PS == Panel_Style.GameStart)
@@ -375,12 +385,6 @@ public class UI_Manager : MonoBehaviour
         else if (p_PS == Panel_Style.TreasureFound)
         {
             Treasure_Chest_Panel.SetActive(true);
-        }
-
-        else if (p_PS == Panel_Style.GameClear)
-        {
-            Game_Clear_Panel.SetActive(true);
-            Game_End_Panel.SetActive(true);
         }
 
 

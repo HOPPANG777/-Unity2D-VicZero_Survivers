@@ -13,6 +13,7 @@ public class All_Manager : Singleton<All_Manager>
     public Resource_Manager Resource_M;
     public Audio_Manager Audio_M;
     public Synergy_Manager Synergy_M;
+    public InputManager inputManager;
 
     public Weapon_Type TEST_WP;
     public Equipment_Type TEST_EQ;
@@ -40,15 +41,15 @@ public class All_Manager : Singleton<All_Manager>
             GameMode_M.Tilemap_List[i].layer = 9;
         }
 
-        if (UI_M == null) Debug.Log("UI_Manager ¾øÀ½");
-        if (Unit_M == null) Debug.Log("Unit_Manager ¾øÀ½");
-        if (GameMode_M == null) Debug.Log("GameMode_Manager ¾øÀ½");
-        if (Pool_M == null) Debug.Log("Pool_Manager ¾øÀ½");
-        if (Resource_M == null) Debug.Log("Resource_Manager ¾øÀ½");
-        if (Audio_M == null) Debug.Log("Audio_Manager ¾øÀ½");
-        if (Synergy_M == null) Debug.Log("Synergy_Manager ¾øÀ½");
+        if (UI_M == null) Debug.Log("UI_Manager ï¿½ï¿½ï¿½ï¿½");
+        if (Unit_M == null) Debug.Log("Unit_Manager ï¿½ï¿½ï¿½ï¿½");
+        if (GameMode_M == null) Debug.Log("GameMode_Manager ï¿½ï¿½ï¿½ï¿½");
+        if (Pool_M == null) Debug.Log("Pool_Manager ï¿½ï¿½ï¿½ï¿½");
+        if (Resource_M == null) Debug.Log("Resource_Manager ï¿½ï¿½ï¿½ï¿½");
+        if (Audio_M == null) Debug.Log("Audio_Manager ï¿½ï¿½ï¿½ï¿½");
+        if (Synergy_M == null) Debug.Log("Synergy_Manager ï¿½ï¿½ï¿½ï¿½");
 
-        GameMode_M.Game_Start();
+        GameMode_M.GameStart();
     }
 
 }
