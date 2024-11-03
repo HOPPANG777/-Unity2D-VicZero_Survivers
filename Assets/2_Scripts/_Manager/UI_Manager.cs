@@ -173,17 +173,6 @@ public class UI_Manager : MonoBehaviour
     public UI_Peachone UI_Peachone;
     public UI_Weapon_Force UI_Force;
 
-    void Start()
-    {
-        All_Manager.instance.GameMode_M.onGameOver += () =>
-        {
-            Game_Over_Panel.SetActive(true);
-            Game_End_Panel.SetActive(true);
-            Game_State_Text.text = "GameOver";
-        };
-    }
-
-
     private void Update()
     {
         if (All_Manager.instance.Pool_M.Ready == false) return;
@@ -374,6 +363,8 @@ public class UI_Manager : MonoBehaviour
 
         else if (p_PS == Panel_Style.GameOver)
         {
+            Game_Over_Panel.SetActive(true);
+            Game_End_Panel.SetActive(true);
         }
 
         else if (p_PS == Panel_Style.GameStart)
