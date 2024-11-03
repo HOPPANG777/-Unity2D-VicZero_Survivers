@@ -15,22 +15,22 @@ public enum BossState
 
 public class Unit_Boss : Unit_Enemy
 {
-    public float Prepare_Time = 1.0f; // µ¹Áø ÁØºñ ½Ã°£
-    public float Rush_Duration = 2.0f; // µ¹Áø Áö¼Ó ½Ã°£
-    public float Cool_Down_Time = 10.0f; // µ¹Áø ÈÄ Äð´Ù¿î ½Ã°£
+    public float Prepare_Time = 1.0f; // ï¿½ï¿½ï¿½ï¿½ ï¿½Øºï¿½ ï¿½Ã°ï¿½
+    public float Rush_Duration = 2.0f; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
+    public float Cool_Down_Time = 10.0f; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Ù¿ï¿½ ï¿½Ã°ï¿½
 
     public BossState Current_State = BossState.Idle;
     public float State_Timer = 0.0f;
     public Vector3 Rush_Direction;
 
-    public float Chain_Rush_Cooldown = 30.0f; // ¿¬¼Ó µ¹Áø Äð´Ù¿î ½Ã°£
+    public float Chain_Rush_Cooldown = 30.0f; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ù¿ï¿½ ï¿½Ã°ï¿½
 
     public bool Rush_On = false;
     public bool Chain_Rush_On = false;
-    
-    public int Chain_Rush_Count = 0; // ¿¬¼Ó µ¹Áø È½¼ö
-    public int Max_Chain_Rush_Count = 5; // ¿¬¼Ó µ¹Áø ÃÖ´ë È½¼ö
-    public Vector3 Chain_Rush_Dir; // ¿¬¼Ó µ¹Áø ¹æÇâ
+
+    public int Chain_Rush_Count = 0; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È½ï¿½ï¿½
+    public int Max_Chain_Rush_Count = 5; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ È½ï¿½ï¿½
+    public Vector3 Chain_Rush_Dir; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     public override void Start()
     {
@@ -66,7 +66,7 @@ public class Unit_Boss : Unit_Enemy
     public override void Die()
     {
         base.Die();
-        All_Manager.instance.GameMode_M.GM_State = GameMode_State.GameClear;
+        All_Manager.instance.GameMode_M.GameClear();
     }
 
     protected override void Death_Animation_End()
@@ -94,12 +94,12 @@ public class Unit_Boss : Unit_Enemy
         base.Unit_Stat_Setting(unit, Un_STO);
     }
 
-    // º¸½º ¿òÁ÷ÀÓ
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public void Update_Boss_State()
     {
         State_Timer -= Time.deltaTime;
 
-        // º¸½º ÆÐÅÏ
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         switch (Current_State)
         {
             case BossState.Move:
@@ -124,7 +124,7 @@ public class Unit_Boss : Unit_Enemy
                 break;
             case BossState.PrepareRush:
                 {
-                    // µ¹Áø ÁØºñ »óÅÂ¿¡¼­´Â º¸½º°¡ ¸ØÃá´Ù.
+                    // ï¿½ï¿½ï¿½ï¿½ ï¿½Øºï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
                     if (State_Timer <= 0.0f)
                     {
                         Rush_Direction = (All_Manager.instance.GameMode_M.Current_Player.transform.position - this.transform.position).normalized;
@@ -136,7 +136,7 @@ public class Unit_Boss : Unit_Enemy
             case BossState.Rush:
                 {
                     Rush_Towards_Player(Rush_Direction);
-                    
+
                     if (State_Timer <= 0.0f)
                     {
                         Current_State = BossState.Cooldown;
@@ -146,7 +146,7 @@ public class Unit_Boss : Unit_Enemy
                 break;
             case BossState.Cooldown:
                 {
-                    // µ¹Áø ÈÄ Äð´Ù¿î »óÅÂ
+                    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Ù¿ï¿½ ï¿½ï¿½ï¿½ï¿½
                     if (State_Timer <= 0.0f)
                     {
                         Current_State = BossState.Move;
@@ -168,7 +168,7 @@ public class Unit_Boss : Unit_Enemy
                         }
                         else
                         {
-                            Set_Chain_Rush_Dir(); // ´ÙÀ½ µ¹Áø ¹æÇâ ¼³Á¤
+                            Set_Chain_Rush_Dir(); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                         }
                     }
                 }
@@ -176,7 +176,7 @@ public class Unit_Boss : Unit_Enemy
         }
     }
 
-    // ÇÃ·¹ÀÌ¾î ÃßÀû
+    // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½
     public void Move_Towards_Player()
     {
         if (All_Manager.instance.GameMode_M.Game_Stop == false)
@@ -201,12 +201,12 @@ public class Unit_Boss : Unit_Enemy
         }
     }
 
-    // º¸½º µ¹Áø
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public void Rush_Towards_Player(Vector3 Dir)
     {
         this.transform.position = this.transform.position + (Dir * (Unit_Enemy_Speed * 5.0f) * Time.deltaTime);
 
-        // µ¹Áø Áß¿¡´Â ¹æÇâ ÀüÈ¯À» ÇÏÁö ¾Ê´Â´Ù.
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ß¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
         if (Dir.x < 0)
         {
             SR.flipX = false;
@@ -217,28 +217,28 @@ public class Unit_Boss : Unit_Enemy
         }
     }
 
-    // ´ÙÀ½ ¿¬¼Ó µ¹Áø ¹æÇâ ¼³Á¤ (Áö±×Àç±× ÆÐÅÏ)
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
     public void Set_Chain_Rush_Dir()
     {
-        // ÇÃ·¹ÀÌ¾îÀÇ À§Ä¡¸¦ ±â¹ÝÀ¸·Î ¹æÇâ ¼³Á¤
+        // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         Vector3 Player_Dir = (All_Manager.instance.GameMode_M.Current_Player.transform.position - this.transform.position).normalized;
 
-        // ÇöÀç µ¹Áø ¹æÇâÀ» ±âÁØÀ¸·Î Áö±×Àç±× ¹æÇâ ¼³Á¤
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (Chain_Rush_Count % 2 == 0)
         {
-            // ¿À¸¥ÂÊ À§·Î µ¹Áø
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             Chain_Rush_Dir = new Vector3(Player_Dir.x + 1.0f, Player_Dir.y + 1.0f).normalized;
         }
         else
         {
-            // ¿ÞÂÊ ¾Æ·¡·Î µ¹Áø
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             Chain_Rush_Dir = new Vector3(Player_Dir.x - 1.0f, Player_Dir.y - 1.0f).normalized;
         }
 
-        State_Timer = Rush_Duration / Max_Chain_Rush_Count; // ÂªÀº °Å¸® µ¹Áø
+        State_Timer = Rush_Duration / Max_Chain_Rush_Count; // Âªï¿½ï¿½ ï¿½Å¸ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
-    // º¸½º Ã¼·Â ÆÇ´Ü ÈÄ ÆÐÅÏ È°¼ºÈ­
+    // ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­
     public void Check_Boss_HP()
     {
         var Boss_HP = (this.Current_HP / this.Max_HP) * 100;

@@ -128,11 +128,6 @@ public class Unit_Player : Unit
 
             Spawn_Weapon_Timer_Update();
         }
-
-        else
-        {
-
-        }
     }
 
     public override void Hitted(float p_Damage_Value)
@@ -146,7 +141,7 @@ public class Unit_Player : Unit
     {
         base.Die();
 
-        All_Manager.instance.GameMode_M.GM_State = GameMode_State.GameOver;
+        All_Manager.instance.GameMode_M.GameOver();
     }
 
     protected override void Death_Animation_End()
