@@ -13,7 +13,6 @@ public enum GameMode_State
 {
     Idle,
     Ingame,
-    GameOver,
     GameClear
 }
 
@@ -138,11 +137,6 @@ public class GameMode_Manager : MonoBehaviour
             All_Manager.instance.UI_M.Update_State_Check_Text(GameMode_State.Ingame.ToString());
         }
 
-        if (GM_State == GameMode_State.GameOver)
-        {
-            GameOver();
-        }
-
         if (GM_State == GameMode_State.GameClear)
         {
             StopCoroutine(C_Wave_Temp);
@@ -174,11 +168,11 @@ public class GameMode_Manager : MonoBehaviour
 
     public void GameOver()
     {
-        GM_State = GameMode_State.GameOver;
         StopCoroutine(C_Wave_Temp);
 
         Game_Time = 0;
         Use_STO_Wave_List.Clear();
+        All_Manager.instance.GameMode_M.Game_Stop = true;
 
         onGameOver();
     }

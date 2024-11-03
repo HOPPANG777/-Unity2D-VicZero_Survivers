@@ -177,6 +177,7 @@ public class UI_Manager : MonoBehaviour
     {
         All_Manager.instance.GameMode_M.onGameOver += () =>
         {
+            Debug.Log("GameOver UI OnPanel is called");
             Game_Over_Panel.SetActive(true);
             Game_End_Panel.SetActive(true);
             Game_State_Text.text = "GameOver";
@@ -350,8 +351,6 @@ public class UI_Manager : MonoBehaviour
     // ÆÐ³Î Å´
     public void On_Panel(Panel_Style p_PS)
     {
-
-        All_Manager.instance.GameMode_M.Game_Stop = true;
 
         if (p_PS == Panel_Style.Pause)
         {

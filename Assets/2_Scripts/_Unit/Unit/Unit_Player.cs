@@ -128,11 +128,6 @@ public class Unit_Player : Unit
 
             Spawn_Weapon_Timer_Update();
         }
-
-        else
-        {
-
-        }
     }
 
     public override void Hitted(float p_Damage_Value)
