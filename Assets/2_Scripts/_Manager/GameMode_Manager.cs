@@ -6,8 +6,8 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 
-//ï¿½Ì°ï¿½ ï¿½ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¶ï¿½Å°ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
-//ï¿½ï¿½ï¿½ï¿½È­
+//ÀÌ°Å ÀÌ Å¸ÀÔ À¯´ÏÆ¼¿¡ ¿¬°á½ÃÄÑÁà ³ª ÇÏÀÌ¶óÅ°¿¡¼­ º¸°Ô
+//Á÷·ÄÈ­
 [System.Serializable]
 public enum GameMode_State
 {
@@ -27,55 +27,52 @@ public class GameMode_Manager : MonoBehaviour
     public List<MISC> MISC_List = new List<MISC>();
     public Camera Current_Camera = null;
     public List<GameObject> Tilemap_List = new List<GameObject>();
-    private List<float> missionSpawnTimes = new List<float> { 120f, 180f, 240f }; // 2ï¿½ï¿½, 3ï¿½ï¿½, 4ï¿½ï¿½(ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+    private List<float> missionSpawnTimes = new List<float> { 120f, 180f, 240f }; // 2ºÐ, 3ºÐ, 4ºÐ(ÃÊ ´ÜÀ§)
     private HashSet<float> spawnedMissions = new HashSet<float>();
 
-    // Å³ Ä«ï¿½ï¿½Æ®
+    // Å³ Ä«¿îÆ®
     public int Kill_Count = 0;
 
-    // ï¿½ï¿½ Ä«ï¿½ï¿½Æ®
+    // Áª Ä«¿îÆ®
     public int Gem_Count = 0;
     public float Current_Gem;
     public float Max_Gem = 5.0f;
     public float Base_Max_Gem = 5.0f;
 
-    // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½
+    // ÇÃ·¹ÀÌ¾î ·¹º§
     public int Player_Level_Count = 0;
 
-    //ï¿½ï¿½ï¿½Ó½Ã°ï¿½
+    //°ÔÀÓ½Ã°£
     public float Game_Time = 0;
 
-    // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
+    // »ç¿ëÇÒ ¿þÀÌºê ¸®½ºÆ®
     public List<STO_Wave> Use_STO_Wave_List = new List<STO_Wave>();
 
     public bool Game_Stop = false;
 
     IEnumerator C_Wave_Temp;
 
-    //ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
-    //ï¿½Ìºï¿½Å© ï¿½Ô¼ï¿½ - X
+    //½Ã°£Â÷¸¦ ÀÌ¿ëÇØ¼­ ¸¸µé±â
+    //ÀÌº¸Å© ÇÔ¼ö - X
     //Update()
-    //ï¿½Ú·ï¿½Æ¾
+    //ÄÚ·çÆ¾
 
-    //ï¿½Ú·ï¿½Æ¾ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ì³ï¿½.
-    //ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½Ä¿ï¿½ Ã³ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò¶ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½ï¿½Ì´ï¿½.
-    //ï¿½Ú·ï¿½Æ¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å«ï¿½å¸§ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-    //ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ ï¿½å¸£ï¿½ï¿½ ï¿½Ù½ï¿½ Å«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¿ï¿½ï¿½ï¿½
-    //ï¿½Ã³ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½.
-    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½Æ¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ê¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¸ï¿½
-    //ï¿½ï¿½ï¿½É¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
-    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½Ï´ï¿½.
+    //ÄÚ·çÆ¾Àº ½Ã°£Â÷¸¦ ÀÌ¿ëÇÑ ±â´ÉÀÌ³ª.
+    //ÀÏÁ¤½Ã°£ ÀÌÈÄ¿¡ Ã³¸®ÇÏ´Â ±â´ÉÀ» ¿øÇÒ¶§ »ç¿ëÇÏ´Â ÇÔ¼öÀÌ´Ù.
+    //ÄÚ·çÆ¾Àº °ÔÀÓÀÇ Å«Èå¸§À» °­ÀÌ¶ó°í ÃÆÀ»¶§
+    //°­ ¿¡¼­ ºüÁ®³ª¿Í¼­ Èå¸£´Ù ´Ù½Ã Å«°­À¸·Î µ¹¾Æ¿À´Â
+    //½Ã³Á¹°ÀÌ¶ó º¼¼ö ÀÖ´Ù.
+    //ÇÏÁö¸¸ ÄÚ·çÆ¾À» Áö³ªÄ¡°Ô ³Ê¹« ¸¹ÀÌ ¾²°Ô µÇ¸é
+    //¼º´É¿¡ ¿µÇâÀ» ÁÖ¾î °ÔÀÓÀ» ¸ÁÄ¥¼ö ÀÖÀ¸´Ï 
+    //ÀûÀýÇÑ »ç¿ëÀÌ ÇÊ¿äÇÏ´Ù.
 
     public float Follow_Speed = 4.0f;
     public float Fixed_Camera_Z = -10.0f;
 
-    // Å¸ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½
+    // Å¸ÀÏ¸Ê °ü·Ã
     public float Tilemap_Size = 40.0f;
     public float Tilemap_Boundary_Offset = 1.0f;
     public float Tilemap_Overlap_Offset = 0.1f;
-
-    public delegate void OnGameOver();
-    public OnGameOver onGameOver;
 
 
     private void Update()
@@ -90,7 +87,7 @@ public class GameMode_Manager : MonoBehaviour
                 Current_Player.transform.position,
                 Follow_Speed * Time.deltaTime
             );
-            Current_Camera.transform.Translate(0, 0, Fixed_Camera_Z); //Ä«ï¿½Þ¶ï¿½ ï¿½ï¿½ï¿½ï¿½ zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
+            Current_Camera.transform.Translate(0, 0, Fixed_Camera_Z); //Ä«¸Þ¶ó¸¦ ¿ø·¡ zÃàÀ¸·Î ÀÌµ¿
             Tilemap_Move();
         }
 
@@ -104,6 +101,10 @@ public class GameMode_Manager : MonoBehaviour
             {
                 Game_Time += Time.deltaTime;
             }
+            else
+            {
+
+            }
 
             All_Manager.instance.UI_M.Update_Time_Count_Text(Game_Time);
 
@@ -112,14 +113,14 @@ public class GameMode_Manager : MonoBehaviour
             // GM_State == GameMode_State.Ingame
             for (int i = 0; i < Re.STO_Waves.Length; i++)
             {
-                //Å³ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Â´Ù¸ï¿½
+                //Å³ Á¶°ÇÀÌ ¸Â´Ù¸é
                 if (Re.STO_Waves[i].Kill_Count <= Kill_Count)
                 {
-                    //ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Â´Ù¸ï¿½
+                    //½Ã°£ Á¶°ÇÀÌ ¸Â´Ù¸é
                     if (Re.STO_Waves[i].Wave_Time <= Game_Time)
                     {
-                        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½
-                        // Contains ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Õ´Ï±ï¿½?
+                        //»ç¿ëÁßÀÎ ¿þÀÌºê ¸®½ºÆ®¿¡ ¾ø´Ù¸é
+                        // Contains ÀÌ ¸®½ºÆ®¿¡ Æ÷ÇÔ ÇÕ´Ï±î?
                         if (Use_STO_Wave_List.Contains(Re.STO_Waves[i]) == false)
                         {
                             Use_STO_Wave_List.Add(Re.STO_Waves[i]);
@@ -140,7 +141,14 @@ public class GameMode_Manager : MonoBehaviour
 
         if (GM_State == GameMode_State.GameOver)
         {
-            GameOver();
+            StopCoroutine(C_Wave_Temp);
+
+            Game_Time = 0;
+            Use_STO_Wave_List.Clear();
+
+            All_Manager.instance.UI_M.On_Panel(Panel_Style.GameOver);
+
+            All_Manager.instance.UI_M.Update_State_Check_Text(GameMode_State.GameOver.ToString());
         }
 
         if (GM_State == GameMode_State.GameClear)
@@ -172,18 +180,7 @@ public class GameMode_Manager : MonoBehaviour
 
     }
 
-    public void GameOver()
-    {
-        GM_State = GameMode_State.GameOver;
-        StopCoroutine(C_Wave_Temp);
-
-        Game_Time = 0;
-        Use_STO_Wave_List.Clear();
-
-        onGameOver();
-    }
-
-    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
+    //°ÔÀÓ ½ÃÀÛ ÇÔ¼ö
     public void Game_Start()
     {
         All_Manager.instance.Unit_M.Unit_F.Create_Player(All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr(Unit_Type.Player));
@@ -193,7 +190,7 @@ public class GameMode_Manager : MonoBehaviour
         All_Manager.instance.UI_M.On_Panel(Panel_Style.GameStart);
     }
 
-    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
+    // °ÔÀÓ Àç½ÃÀÛ
     public void Game_Restart()
     {
         Enemy_List_Remove();
@@ -211,7 +208,7 @@ public class GameMode_Manager : MonoBehaviour
         All_Manager.instance.UI_M.On_Panel(Panel_Style.GameStart);
     }
 
-    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    // °ÔÀÓ ³ª°¡±â
     public void Game_Exit()
     {
 #if UNITY_EDITOR
@@ -221,19 +218,19 @@ public class GameMode_Manager : MonoBehaviour
 #endif
     }
 
-    // ï¿½ï¿½ï¿½ï¿½ ï¿½Ï½ï¿½ï¿½ï¿½ï¿½ï¿½
+    // °ÔÀÓ ÀÏ½ÃÁ¤Áö
     public void Button_Game_Pause()
     {
         All_Manager.instance.UI_M.On_Panel(Panel_Style.Pause);
     }
 
-    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
+    // °ÔÀÓ °è¼ÓÇÏ±â
     public void Button_Game_Continue()
     {
         All_Manager.instance.UI_M.Off_Panel();
     }
 
-    // Å¸ï¿½Ï¸ï¿½ ï¿½Ìµï¿½
+    // Å¸ÀÏ¸Ê ÀÌµ¿
     public void Tilemap_Move()
     {
         Vector3 Player_Pos = Current_Player.transform.position;
@@ -243,48 +240,48 @@ public class GameMode_Manager : MonoBehaviour
             GameObject tilemap = Tilemap_List[i];
             Vector3 Map_Pos = tilemap.transform.position;
 
-            // Å¸ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+            // Å¸ÀÏ¸Ê °æ°è °è»ê
             float Left_Boundary = Map_Pos.x - (Tilemap_Size * 0.5f);
             float Right_Boundary = Map_Pos.x + (Tilemap_Size * 0.5f);
             float Bottom_Boundary = Map_Pos.y - (Tilemap_Size * 0.5f);
             float Top_Boundary = Map_Pos.y + (Tilemap_Size * 0.5f);
 
-            // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½è¸¦ ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+            // ÇÃ·¹ÀÌ¾î°¡ °æ°è¸¦ ³Ñ¾ú´ÂÁö È®ÀÎ
             var Move_Offset = Vector3.zero;
 
             if (Player_Pos.x < Left_Boundary)
             {
-                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½è¸¦ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+                // ¿ÞÂÊ °æ°è¸¦ ³ÑÀº °æ¿ì
                 Move_Offset.x = -Tilemap_Size + Tilemap_Overlap_Offset;
             }
             else if (Player_Pos.x > Right_Boundary)
             {
-                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½è¸¦ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+                // ¿À¸¥ÂÊ °æ°è¸¦ ³ÑÀº °æ¿ì
                 Move_Offset.x = Tilemap_Size - Tilemap_Overlap_Offset;
             }
 
             if (Player_Pos.y < Bottom_Boundary)
             {
-                // ï¿½Æ·ï¿½ ï¿½ï¿½è¸¦ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+                // ¾Æ·¡ °æ°è¸¦ ³ÑÀº °æ¿ì
                 Move_Offset.y = -Tilemap_Size + Tilemap_Overlap_Offset;
             }
             else if (Player_Pos.y > Top_Boundary)
             {
-                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½è¸¦ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+                // À§ÂÊ °æ°è¸¦ ³ÑÀº °æ¿ì
                 Move_Offset.y = Tilemap_Size - Tilemap_Overlap_Offset;
             }
 
-            // Å¸ï¿½Ï¸ï¿½ ï¿½Ìµï¿½(ï¿½ë°¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+            // Å¸ÀÏ¸Ê ÀÌµ¿(´ë°¢¼± Æ÷ÇÔ)
             if (Move_Offset != Vector3.zero)
             {
-                // Å¸ï¿½Ï¸ï¿½ ï¿½Ìµï¿½
+                // Å¸ÀÏ¸Ê ÀÌµ¿
                 tilemap.transform.position += Move_Offset;
             }
         }
 
     }
 
-    // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ê±ï¿½È­
+    // Àû ¸®½ºÆ® ÃÊ±âÈ­
     public void Enemy_List_Remove()
     {
         foreach (Unit_Enemy enemy in Enemy_List)
@@ -307,7 +304,7 @@ public class GameMode_Manager : MonoBehaviour
         All_Manager.instance.UI_M.Update_Gem_Count_Image(0);
     }
 
-    // ï¿½ï¿½ Ã³Ä¡ï¿½ï¿½ Å³ Ä«ï¿½ï¿½Æ® & ï¿½ï¿½ ï¿½ï¿½ï¿½
+    // Àû Ã³Ä¡½Ã Å³ Ä«¿îÆ® & Áª µå¶ø
     public void Enemy_Down(Unit_Enemy p_UE)
     {
         Kill_Count++;
@@ -340,7 +337,7 @@ public class GameMode_Manager : MonoBehaviour
 
 
 
-    // ï¿½ï¿½ï¿½ï¿½Ä¡ È¹ï¿½ï¿½
+    // °æÇèÄ¡ È¹µæ
     public void Add_Gem(float p_Gem_Count)
     {
         float Gem_Prev = 0;
@@ -351,7 +348,7 @@ public class GameMode_Manager : MonoBehaviour
         Update_Gem_Count_Bar_Fill(Gem_Prev);
     }
 
-    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½È²
+    // ·¹º§¾÷ È£Ãâ ¹× °æÇèÄ¡ ÇöÈ²
     public void Update_Gem_Count_Bar_Fill(float Gem_Prev)
     {
 
@@ -371,8 +368,8 @@ public class GameMode_Manager : MonoBehaviour
                 Current_Gem = 0;
             }
 
-            All_Manager.instance.UI_M.Update_Player_Level_Count_Text(Player_Level_Count);   // ï¿½ï¿½ï¿½ï¿½ UI È£ï¿½ï¿½
-            All_Manager.instance.UI_M.On_Panel(Panel_Style.Level); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½
+            All_Manager.instance.UI_M.Update_Player_Level_Count_Text(Player_Level_Count);   // ·¹º§ UI È£Ãâ
+            All_Manager.instance.UI_M.On_Panel(Panel_Style.Level); // ·¹º§¾÷ È£Ãâ
 
             All_Manager.instance.UI_M.isLevelUp = true;
             //UnityEngine.Debug.Log(Current_Gem);
@@ -407,7 +404,7 @@ public class GameMode_Manager : MonoBehaviour
                         Vector3 Player_Pos = Current_Player.transform.position;
                         Player_Pos += new Vector3(Temp_X, Temp_Y, 0);
 
-                        // STO ï¿½ï¿½ Position ï¿½ï¿½ ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½
+                        // STO ¶û Position ¸¦ ¸Å°³º¯¼ö·Î ¹ÞÀ»¼ö ÀÖ°Ô
                         // All_Manager.instance.Unit_M.Create_Unit(STO , Position);
                         // All_Manager.instance.Unit_M.Create_Unit(Unit_Name.Enemy);
 
@@ -431,7 +428,7 @@ public class GameMode_Manager : MonoBehaviour
                 else if (p_STO_Wave.WST == Wave_Spawn_Type.Surround)
                 {
 
-                    float Rad = 6.0f;   // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ß½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 6ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½. 
+                    float Rad = 6.0f;   // ÇÃ·¹ÀÌ¾î Áß½É ±âÁØ ¹ÝÁö¸§ÀÌ 6ÀÎ ¿øÀ» ±¸ÇÑ´Ù. 
 
                     Vector3 Player_Pos = Current_Player.transform.position;
 
@@ -483,7 +480,7 @@ public class GameMode_Manager : MonoBehaviour
                     Vector3 Player_Pos = Current_Player.transform.position;
                     Player_Pos += new Vector3(Temp_X, Temp_Y, 0);
 
-                    // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Öºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+                    // ÇÃ·¹ÀÌ¾î ÁÖº¯ÀÇ ·£´ýÇÑ ÁöÁ¡ °è»ê
                     //Vector3 Dot_Spawn = Player_Pos + (Vector3)(Random.insideUnitCircle * spawnRadius);
 
                     if (Game_Stop == false)
@@ -518,7 +515,7 @@ public class GameMode_Manager : MonoBehaviour
                         Vector3 Player_Pos = Current_Player.transform.position;
                         Player_Pos += new Vector3(Temp_X, Temp_Y, 0);
 
-                        // STO ï¿½ï¿½ Position ï¿½ï¿½ ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½
+                        // STO ¶û Position ¸¦ ¸Å°³º¯¼ö·Î ¹ÞÀ»¼ö ÀÖ°Ô
                         // All_Manager.instance.Unit_M.Create_Unit(STO , Position);
                         // All_Manager.instance.Unit_M.Create_Unit(Unit_Name.Enemy);
 
@@ -556,7 +553,7 @@ public class GameMode_Manager : MonoBehaviour
                         Vector3 Player_Pos = Current_Player.transform.position;
                         Player_Pos += new Vector3(Temp_X, Temp_Y, 0);
 
-                        // STO ï¿½ï¿½ Position ï¿½ï¿½ ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½
+                        // STO ¶û Position ¸¦ ¸Å°³º¯¼ö·Î ¹ÞÀ»¼ö ÀÖ°Ô
                         //All_Manager.instance.Unit_M.Create_Unit(STO , Position);
 
                         if (Game_Stop == false)
@@ -579,7 +576,7 @@ public class GameMode_Manager : MonoBehaviour
                 else if (p_STO_Wave.WST == Wave_Spawn_Type.Surround)
                 {
 
-                    float Rad = 6.0f;   // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ß½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 6ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½. 
+                    float Rad = 6.0f;   // ÇÃ·¹ÀÌ¾î Áß½É ±âÁØ ¹ÝÁö¸§ÀÌ 6ÀÎ ¿øÀ» ±¸ÇÑ´Ù. 
 
                     Vector3 Player_Pos = Current_Player.transform.position;
 
@@ -693,18 +690,18 @@ public class GameMode_Manager : MonoBehaviour
 
     private void SpawnRandomMission()
     {
-        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¼ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        // ·£´ý ¹Ì¼Ç Å¸ÀÔ ¼±ÅÃ
         MissionType randomMissionType = (MissionType)Random.Range(0, System.Enum.GetValues(typeof(MissionType)).Length);
 
-        // Convert_Mission_Type_To_STO_Mission_Arrï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ STO_Mission ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        // Convert_Mission_Type_To_STO_Mission_Arr¸¦ »ç¿ëÇØ STO_Mission °¡Á®¿À±â
         STO_Mission newMission = All_Manager.instance.Resource_M.Convert_Mission_Type_To_STO_Mission_Arr(randomMissionType);
 
         if (newMission != null)
         {
-            // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Öºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
+            // ÇÃ·¹ÀÌ¾î ÁÖº¯ÀÇ ·£´ýÇÑ À§Ä¡ ¼³Á¤
             Vector3 randomPosition = Current_Player.transform.position + new Vector3(Random.Range(-10f, 10f), Random.Range(-10f, 10f), 0f);
 
-            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½
+            // »ý¼ºµÈ ¹Ì¼ÇÀ» »ç¿ëÇÏ¿© ¹Ì¼Ç »ý¼º
             All_Manager.instance.Unit_M.Mission_F.Create_Mission(newMission, randomPosition);
             All_Manager.instance.UI_M.Update_Mission_Check_Text(randomMissionType.ToString());
         }
@@ -740,7 +737,7 @@ public class GameMode_Manager : MonoBehaviour
 //    //    ExpCurrent -= ExpMax;
 //    //    ExpMax *= 2.0f;
 
-//    //    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½
+//    //    // ·¹º§¾÷ È£Ãâ
 //    //}
 
 //    float process = 0f;
@@ -759,7 +756,7 @@ public class GameMode_Manager : MonoBehaviour
 //            Gem_Current -= Gem_Max;
 //            Gem_Max *= 1.3f;
 
-//            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½
+//            // ·¹º§¾÷ È£Ãâ
 //        }
 
 //        yield return null;
@@ -792,7 +789,7 @@ public class GameMode_Manager : MonoBehaviour
 //        Gem_Current -= Gem_Max;
 //        Gem_Max *= 1.3f;
 
-//        All_Manager.instance.UI_M.On_Panel(Panel_Style.Level);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½
+//        All_Manager.instance.UI_M.On_Panel(Panel_Style.Level);// ·¹º§¾÷ È£Ãâ
 //    }
 
 //}

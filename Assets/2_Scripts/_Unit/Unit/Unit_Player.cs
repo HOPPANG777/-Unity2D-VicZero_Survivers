@@ -146,7 +146,7 @@ public class Unit_Player : Unit
     {
         base.Die();
 
-        All_Manager.instance.GameMode_M.GameOver();
+        All_Manager.instance.GameMode_M.GM_State = GameMode_State.GameOver;
     }
 
     protected override void Death_Animation_End()
