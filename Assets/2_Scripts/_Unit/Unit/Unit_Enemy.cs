@@ -82,6 +82,11 @@ public class Unit_Enemy : Unit
         All_Manager.instance.Pool_M.Damage_Effect.Show_Damage_Effect(transform.position, Damage_Text);
     }
 
+    protected override bool CheckDead()
+    {
+        return base.CheckDead();
+    }
+
     public override void Die()
     {
         base.Die();
@@ -89,6 +94,7 @@ public class Unit_Enemy : Unit
         All_Manager.instance.GameMode_M.Enemy_Down(this);
         
     }
+
     protected override void Death_Animation_End()
     {
         base.Death_Animation_End();
@@ -103,12 +109,13 @@ public class Unit_Enemy : Unit
     {
         base.Return_Pool();
         if (this.UT == Unit_Type.Boss) return;
+        //if (this.UT == Unit_Type.Barrel)
+        //{
+        //    All_Manager.instance.GameMode_M.Enemy_Down(this);
+        //}
+
         All_Manager.instance.Pool_M.Enemy_Pool_In(this);
 
-        if (this.UT == Unit_Type.Barrel)
-        {
-            All_Manager.instance.GameMode_M.Enemy_Down(this);
-        }
     }
 
     public override void Unit_Clear()

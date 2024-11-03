@@ -353,6 +353,7 @@ public class UI_Manager : MonoBehaviour
     // ÆÐ³Î Å´
     public void On_Panel(Panel_Style p_PS)
     {
+        All_Manager.instance.GameMode_M.Game_Stop = true;
 
         if (p_PS == Panel_Style.Pause)
         {

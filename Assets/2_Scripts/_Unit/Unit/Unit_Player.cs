@@ -568,11 +568,6 @@ public class Unit_Player : Unit
         Creating_Weapon = false;
     }
 
-    void UseWeapon()
-    {
-
-    }
-
     // ���� ���׷��̵�
     public void Upgrade_Weapon(Weapon_Type p_WT)
     {
