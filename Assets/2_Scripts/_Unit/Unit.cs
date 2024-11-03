@@ -121,7 +121,6 @@ public abstract class Unit : MonoBehaviour
         if (!isHit)
         {
             Update_Hit_Timer();
-            
         }
     }
 
@@ -205,6 +204,15 @@ public abstract class Unit : MonoBehaviour
             isHit = false;  
         }
 
+        StartCoroutine(CheckDeadWithDelay());
+    }
+
+    private IEnumerator CheckDeadWithDelay()
+    {
+        // Wait for hit effect to complete
+        yield return new WaitForSeconds(Hit_Time);
+
+        // Check if the unit is dead
         CheckDead();
     }
 
