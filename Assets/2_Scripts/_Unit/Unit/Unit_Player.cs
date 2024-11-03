@@ -137,6 +137,16 @@ public class Unit_Player : Unit
         All_Manager.instance.UI_M.Update_Player_HPBar_Image(Current_HP / Max_HP);
     }
 
+    protected override IEnumerator CheckDeadWithDelay()
+    {
+        return base.CheckDeadWithDelay();
+    }
+
+    protected override bool CheckDead()
+    {
+        return base.CheckDead();
+    }
+
     public override void Die()
     {
         base.Die();

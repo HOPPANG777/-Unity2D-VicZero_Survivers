@@ -54,7 +54,6 @@ public abstract class Unit : MonoBehaviour
 
     public bool isDead = false;
     public bool isAlive = false;
-    //protected bool isHit_C = false;
     public bool isEffect = false;
     public bool isHit = false;
     public bool isDeathAnim = false;
@@ -116,11 +115,6 @@ public abstract class Unit : MonoBehaviour
             Perform_Knockback();
         }
 
-        //if (isHit_C)
-        //{
-        //   Update_Hit_Effect();
-        //}
-
         // �ǰ� ȿ�� ó��
         // Hit ���� �ð� ��� ó��
         if (!isHit)
@@ -131,7 +125,6 @@ public abstract class Unit : MonoBehaviour
 
     private void Update_Sprite_Renderer()
     {
-        // SR_GB�� Dead_Effect�� ������� ���� �� ���� �� ����
         SR.color = new Color(1, 1 - Hit_Time, 1 - Hit_Time, 1 - Dead_Effect);
         SR.material.SetFloat("_Red_Value", 1 - Hit_Time);
         SR.material.SetFloat("_Alpha", 1 - Dead_Effect);
@@ -139,15 +132,6 @@ public abstract class Unit : MonoBehaviour
 
     private void Perform_Knockback()
     {
-        //Knock_Timer -= Time.deltaTime;
-
-        //if (Knock_Timer < 0)
-        //{
-        //    Knock_Timer = 0;
-
-        //    isKnock = false;
-        //}
-
         if (isKnock)
         {
             if (knockTimer < knockDuration)
@@ -166,17 +150,6 @@ public abstract class Unit : MonoBehaviour
         }
     }
 
-    //private void Update_Hit_Effect()
-    //{
-    //    // �ǰ� ȿ�� �ð� ���
-    //    SR_GB -= Time.deltaTime;
-
-    //    if (SR_GB < 0)
-    //    {
-    //        isHit_C = false;
-    //    }
-    //}
-
     private void Update_Hit_Timer()
     {
         // �ǰ� ���� ȸ�� �ð��� ���
@@ -193,8 +166,6 @@ public abstract class Unit : MonoBehaviour
     {
         if (isHit == true)
         {
-            //isHit_C = true;
-            //SR_GB = 1f;
             Hit_Time = 1.0f;
 
             var Temp_Defense = 100f / (100f + this.Origin_Stat.Unit_Defense) * p_Damage_Value;
@@ -207,26 +178,26 @@ public abstract class Unit : MonoBehaviour
             var Temp_Color_Alpha = this.SR.color.a;
 
             isHit = false;
+            
+            //CheckDead();
+            StartCoroutine(CheckDeadWithDelay());
         }
 
-        //StartCoroutine(CheckDeadWithDelay());
-        CheckDead();
     }
 
-    private IEnumerator CheckDeadWithDelay()
+    protected virtual IEnumerator CheckDeadWithDelay()
     {
         // Wait for hit effect to complete
         yield return new WaitForSeconds(Hit_Time);
 
         // Check if the unit is dead
-        
+        CheckDead();
     }
 
     protected virtual bool CheckDead()
     {
-        if (Current_HP <= 0)
+        if (Current_HP < 0)
         {
-            AM.SetBool("Move", false);
             Current_HP = 0;
             Die();
             return true;
@@ -242,6 +213,7 @@ public abstract class Unit : MonoBehaviour
         if (isDead) return;
 
         isDead = true;
+        AM.SetBool("Move", false);
         AM.SetBool("Death", true);
 
         //SR_GB = 0f;

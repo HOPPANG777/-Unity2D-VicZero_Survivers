@@ -67,10 +67,10 @@ public class Unit_Enemy : Unit
     {
         if (Time.time >= LastCheckTime + CheckInterval)
         {
-            // 0.25ÃÊ°¡ °æ°úÇÑ °æ¿ì Ãæµ¹ °Ë»ç ¼öÇà
+            // 0.25ì´ˆê°€ ê²½ê³¼í•œ ê²½ìš° ì¶©ëŒ ê²€ì‚¬ ìˆ˜í–‰
             Enemy_To_Enemy_Push();
 
-            // ÇöÀç ½Ã°£À» ±âÁØÀ¸·Î ¸¶Áö¸· Ã¼Å© ½Ã°£À» ¾÷µ¥ÀÌÆ®
+            // í˜„ì¬ ì‹œê°„ì„ ê¸°ì¤€ìœ¼ë¡œ ë§ˆì§€ë§‰ ì²´í¬ ì‹œê°„ì„ ì—…ë°ì´íŠ¸
             LastCheckTime = Time.time;
         }
     }
@@ -82,6 +82,11 @@ public class Unit_Enemy : Unit
         All_Manager.instance.Pool_M.Damage_Effect.Show_Damage_Effect(transform.position, Damage_Text);
     }
 
+    protected override IEnumerator CheckDeadWithDelay()
+    {
+        return base.CheckDeadWithDelay();
+    }
+
     protected override bool CheckDead()
     {
         return base.CheckDead();
@@ -90,9 +95,10 @@ public class Unit_Enemy : Unit
     public override void Die()
     {
         base.Die();
-        if (this.UT == Unit_Type.Boss || this.UT == Unit_Type.Barrel) return;
-        All_Manager.instance.GameMode_M.Enemy_Down(this);
-        
+        if (this.UT != Unit_Type.Boss || this.UT != Unit_Type.Barrel)
+        {
+            All_Manager.instance.GameMode_M.Enemy_Down(this);
+        }
     }
 
     protected override void Death_Animation_End()
@@ -109,10 +115,10 @@ public class Unit_Enemy : Unit
     {
         base.Return_Pool();
         if (this.UT == Unit_Type.Boss) return;
-        //if (this.UT == Unit_Type.Barrel)
-        //{
-        //    All_Manager.instance.GameMode_M.Enemy_Down(this);
-        //}
+        if (this.UT == Unit_Type.Barrel)
+        {
+            All_Manager.instance.GameMode_M.Enemy_Down(this);
+        }
 
         All_Manager.instance.Pool_M.Enemy_Pool_In(this);
 
@@ -163,16 +169,16 @@ public class Unit_Enemy : Unit
         var Player = All_Manager.instance.GameMode_M.Current_Player;
         var Enemy_List = All_Manager.instance.GameMode_M.Enemy_List;
 
-        // ÇÃ·¹ÀÌ¾îÀÇ À§Ä¡¸¦ ¹Ì¸® °è»êÇÏ¿© º¯¼ö¿¡ ÀúÀåÇÏ¿© ¹İº¹ »ç¿ë
+        // í”Œë ˆì´ì–´ì˜ ìœ„ì¹˜ë¥¼ ë¯¸ë¦¬ ê³„ì‚°í•˜ì—¬ ë³€ìˆ˜ì— ì €ì¥í•˜ì—¬ ë°˜ë³µ ì‚¬ìš©
         Vector2 Player_Position = Player.transform.position;
-        float Min_Distance = 0.5f; // Ãæµ¹ ¹İ°æ »ó¼ö¸¦ ¹İº¹ÇÒ ÇÊ¿ä ¾øÀÌ »ó¼ö·Î ¼±¾ğ
+        float Min_Distance = 0.5f; // ì¶©ëŒ ë°˜ê²½ ìƒìˆ˜ë¥¼ ë°˜ë³µí•  í•„ìš” ì—†ì´ ìƒìˆ˜ë¡œ ì„ ì–¸
 
         for (int i = 0; i < Enemy_List.Count; i++)
         {
-            // ÇÃ·¹ÀÌ¾î¿Í ÀûÀÇ À§Ä¡ Â÷ÀÌ º¤ÅÍ °è»ê
+            // í”Œë ˆì´ì–´ì™€ ì ì˜ ìœ„ì¹˜ ì°¨ì´ ë²¡í„° ê³„ì‚°
             Vector2 Dir = Player_Position - (Vector2)Enemy_List[i].transform.position;
 
-            // °Å¸® °è»êÀ» Á¦°öµÈ ÇüÅÂ·Î À¯ÁöÇÏ¿© ¼º´É ÃÖÀûÈ­ (·çÆ® °è»ê ¹æÁö)
+            // ê±°ë¦¬ ê³„ì‚°ì„ ì œê³±ëœ í˜•íƒœë¡œ ìœ ì§€í•˜ì—¬ ì„±ëŠ¥ ìµœì í™” (ë£¨íŠ¸ ê³„ì‚° ë°©ì§€)
             float Dis_Sqr = Dir.sqrMagnitude;
             float Min_Distance_Sqr = Min_Distance * Min_Distance;
 
@@ -182,7 +188,7 @@ public class Unit_Enemy : Unit
                 {
                     Unit_Player Temp = Player.GetComponent<Unit_Player>();
 
-                    if (this.UT != Unit_Type.Barrel) // ºÒÇÊ¿äÇÑ ºó Á¶°Ç¹® Á¦°Å
+                    if (this.UT != Unit_Type.Barrel) // ë¶ˆí•„ìš”í•œ ë¹ˆ ì¡°ê±´ë¬¸ ì œê±°
                     {
                         Temp.Hitted(Unit_Enemy_Damage);
                     }
@@ -204,10 +210,10 @@ public class Unit_Enemy : Unit
             return;
         }
 
-        // È­¸é ³»¿¡ ÀÖ´Â À¯´Öµé¸¸ µû·Î ¸®½ºÆ®·Î °ü¸® (Àû ¹× ÇÃ·¹ÀÌ¾î Æ÷ÇÔ)
+        // í™”ë©´ ë‚´ì— ìˆëŠ” ìœ ë‹›ë“¤ë§Œ ë”°ë¡œ ë¦¬ìŠ¤íŠ¸ë¡œ ê´€ë¦¬ (ì  ë° í”Œë ˆì´ì–´ í¬í•¨)
         List<Unit> InView_Unit_List = new List<Unit>();
 
-        // Àû Ãß°¡
+        // ì  ì¶”ê°€
         for (int i = 0; i < Enemy_List.Count; i++)
         {
             Vector3 View_Pos = Temp_Camera.WorldToViewportPoint(Enemy_List[i].transform.position);
@@ -217,18 +223,18 @@ public class Unit_Enemy : Unit
             }
         }
 
-        // ÇÃ·¹ÀÌ¾î Ãß°¡ (ÇÃ·¹ÀÌ¾î°¡ È­¸é ³»¿¡ ÀÖ´Â °æ¿ì)
+        // í”Œë ˆì´ì–´ ì¶”ê°€ (í”Œë ˆì´ì–´ê°€ í™”ë©´ ë‚´ì— ìˆëŠ” ê²½ìš°)
         //Vector3 Player_View_Pos = Temp_Camera.WorldToViewportPoint(Temp_Player.transform.position);
         //if (Player_View_Pos.x >= 0 && Player_View_Pos.x <= 1 && Player_View_Pos.y >= 0 && Player_View_Pos.y <= 1 && Player_View_Pos.z >= 0)
         //{
         //    InView_Unit_List.Add(Temp_Player);
         //}
 
-        // ±×¸®µå Å©±â ¼³Á¤ (¿¹: 5x5 À¯´Ö ¿µ¿ª)
+        // ê·¸ë¦¬ë“œ í¬ê¸° ì„¤ì • (ì˜ˆ: 5x5 ìœ ë‹› ì˜ì—­)
         float Grid_Size = 3f;
         Dictionary<Vector2Int, List<Unit>> Grid = new Dictionary<Vector2Int, List<Unit>>();
 
-        // °¢ À¯´ÖÀ» ±×¸®µå¿¡ ÇÒ´ç
+        // ê° ìœ ë‹›ì„ ê·¸ë¦¬ë“œì— í• ë‹¹
         for (int i = 0; i < InView_Unit_List.Count; i++)
         {
             Vector2Int Grid_Position = new Vector2Int(
@@ -244,7 +250,7 @@ public class Unit_Enemy : Unit
             Grid[Grid_Position].Add(InView_Unit_List[i]);
         }
 
-        // °¢ ±×¸®µå ¼¿ ³»ÀÇ À¯´Öµé¿¡ ´ëÇØ ¹ĞÃÄ³»±â Ã³¸®
+        // ê° ê·¸ë¦¬ë“œ ì…€ ë‚´ì˜ ìœ ë‹›ë“¤ì— ëŒ€í•´ ë°€ì³ë‚´ê¸° ì²˜ë¦¬
         foreach (var Cell in Grid)
         {
             List<Unit> Cluster_Unit_List = Cell.Value;
@@ -255,19 +261,19 @@ public class Unit_Enemy : Unit
                 {
                     Vector2 Dir = Cluster_Unit_List[j].transform.position - Cluster_Unit_List[i].transform.position;
 
-                    // Ä³½ÌµÈ °Å¸® Á¦°ö°ªÀ» »ç¿ë
+                    // ìºì‹±ëœ ê±°ë¦¬ ì œê³±ê°’ì„ ì‚¬ìš©
                     float sqrDis = Dir.sqrMagnitude;
 
-                    // Ãæµ¹ ¹İ°æ ¼³Á¤
+                    // ì¶©ëŒ ë°˜ê²½ ì„¤ì •
                     float Min_Distance = 0.5f;
                     float minDistanceSquared = Min_Distance * Min_Distance;
 
                     if (sqrDis < minDistanceSquared)
                     {
-                        // ¹ĞÃÄ³»±â °è»ê
+                        // ë°€ì³ë‚´ê¸° ê³„ì‚°
                         Vector2 pushDirection = Dir.normalized * (Min_Distance - Mathf.Sqrt(sqrDis)) * Push_Strength;
 
-                        // Ãæµ¹ÀÌ ¹ß»ıÇÑ °æ¿ì À§Ä¡ ¾÷µ¥ÀÌÆ®
+                        // ì¶©ëŒì´ ë°œìƒí•œ ê²½ìš° ìœ„ì¹˜ ì—…ë°ì´íŠ¸
                         Cluster_Unit_List[i].transform.position -= (Vector3)pushDirection * 0.5f;
                         Cluster_Unit_List[j].transform.position += (Vector3)pushDirection * 0.5f;
                     }
@@ -312,7 +318,7 @@ public class Unit_Enemy : Unit
         }
     }
 
-    // À¯´Ö ¿¡³Ê¹Ì ½ºÅÈ Á¶Á¤
+    // ìœ ë‹› ì—ë„ˆë¯¸ ìŠ¤íƒ¯ ì¡°ì •
     public override void Unit_Stat_Setting(Unit p_Unit, STO_Unit p_Un_STO)
     {
         p_Unit.SR.sprite = p_Un_STO.Sprite_Image;
@@ -329,12 +335,12 @@ public class Unit_Enemy : Unit
         if (p_Un_STO.Unit_Animator_Controller != null)
         {
             p_Unit.AM.runtimeAnimatorController = p_Un_STO.Unit_Animator_Controller;
-            p_Unit.AM.speed = 1.0f; // ¾Ö´Ï¸ŞÀÌ¼Ç Àç»ı
+            p_Unit.AM.speed = 1.0f; // ì• ë‹ˆë©”ì´ì…˜ ì¬ìƒ
             p_Unit.AM.cullingMode = AnimatorCullingMode.CullCompletely;
         }
     }
 
-    // ³Ê¹« ¸Ö¸®ÀÖ´Â Àû ¿ÀºêÁ§Æ® Ç®·Î ¹İÈ¯.
+    // ë„ˆë¬´ ë©€ë¦¬ìˆëŠ” ì  ì˜¤ë¸Œì íŠ¸ í’€ë¡œ ë°˜í™˜.
     public void Player_To_Far_Enemy()
     {
         var Temp_Player = All_Manager.instance.GameMode_M.Current_Player;
@@ -358,7 +364,7 @@ public class Unit_Enemy : Unit
             if (this.UT != Unit_Type.Boss)
             {
                 Unit_Enemy_Speed *= 10.0f;
-                isSpeedBoosted = true; // ¼Óµµ ºÎ½ºÅÍ »óÅÂ ¼³Á¤
+                isSpeedBoosted = true; // ì†ë„ ë¶€ìŠ¤í„° ìƒíƒœ ì„¤ì •
             }
         }
         else if (distance <= distanceThreshold && isSpeedBoosted)
@@ -366,7 +372,7 @@ public class Unit_Enemy : Unit
             if (this.UT != Unit_Type.Boss)
             {
                 Unit_Enemy_Speed = All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr(this.UT).Unit_Enemy_Speed * 1.5f;
-                isSpeedBoosted = false; // ¼Óµµ ºÎ½ºÅÍ ÇØÁ¦
+                isSpeedBoosted = false; // ì†ë„ ë¶€ìŠ¤í„° í•´ì œ
             }
         }
 
@@ -381,12 +387,12 @@ public class Unit_Enemy : Unit
 
 //var target = All_Manager.instance.GameMode_M.Current_Player.transform;
 
-//¹æÇâ ¹Ù²Ù°í
+//ë°©í–¥ ë°”ê¾¸ê³ 
 //float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 //this.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
 //public virtual void OnTriggerStay2D(Collider2D collision)
 //{
-//    //Ãæµ¹Ã¼°¡ ÀÌ ÄÄÆ÷³ÍÆ®¸¦ °¡Áö°í ÀÖ´Â°¡?
+//    //ì¶©ëŒì²´ê°€ ì´ ì»´í¬ë„ŒíŠ¸ë¥¼ ê°€ì§€ê³  ìˆëŠ”ê°€?
 //    if (collision.transform.GetComponent<Unit_Player>())
 //    {
 //        if (Attack_Time > Wating_Attack)

@@ -19,7 +19,7 @@ public class Damage_Effect_Controller : MonoBehaviour
             GameObject damageEffect = new GameObject("Damage_Effect_" + i);
             TextMesh damageText = damageEffect.AddComponent<TextMesh>();
 
-            damageText.fontSize = 32; // 폰트 사이즈
+            damageText.fontSize = 50; // 폰트 사이즈
             damageText.characterSize = 0.1f; // 캐릭터 크기를 작게 설정
             damageText.color = Color.white;
 
