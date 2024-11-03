@@ -17,33 +17,33 @@ using static UnityEngine.UI.CanvasScaler;
 [System.Serializable]
 public enum Weapon_Type
 {
-    //None,               // = "¾øÀ½"
-    Axe,                  // Æ÷¹°¼±À» ±×¸®¸ç ¶³¾îÁö´Â µµ³¢
-    KingBible,            // ¼º°æ
-    Peachone,             // ¹ì¼­ÀÇ ºñµÑ±â
-    FireWand,             // È­¿°±¸ »Ñ¸®°³
-    Cross,                // ºÎ¸Þ¶û
-    Garlic,               // ÀÏÁ¤ ÄðÅ¸ÀÓÈÄ ÁÖº¯ ¹Ð¾î³¿
-    LightningRing,        // ÇÃ·¹ÀÌ¾î ÁÖº¯À¸·Î ¶³¾îÁö´Â ¹ø°³
-    ShadowPinion,         // À¯µµÇÔÁ¤
-    RuneTracer,           // ÇÎÆþÃ³·³ È­¸é¿¡ ´êÀ»½Ã Æ¨±â´Â ·é Æ®·¹ÀÌ¼­
-    Whip                  // ÇÃ·¹ÀÌ¾î ¾çÂÊÀ¸·Î ¹ø°¥¾Æ°¡¸ç °ø°ÝÇÏ´Â Ã¤Âï
+    //None,               // = "ï¿½ï¿½ï¿½ï¿½"
+    Axe,                  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    KingBible,            // ï¿½ï¿½ï¿½ï¿½
+    Peachone,             // ï¿½ì¼­ï¿½ï¿½ ï¿½ï¿½Ñ±ï¿½
+    FireWand,             // È­ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¸ï¿½ï¿½ï¿½
+    Cross,                // ï¿½Î¸Þ¶ï¿½
+    Garlic,               // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½Öºï¿½ ï¿½Ð¾î³¿
+    LightningRing,        // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Öºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    ShadowPinion,         // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    RuneTracer,           // ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ È­ï¿½é¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Æ¨ï¿½ï¿½ï¿½ ï¿½ï¿½ Æ®ï¿½ï¿½ï¿½Ì¼ï¿½
+    Whip                  // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Æ°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ Ã¤ï¿½ï¿½
 }
 
 [System.Serializable]
 public enum Equipment_Type
 {
-    //None,                 // = "¾øÀ½"
-    Spinach,              // ·¹º§´ç °ø°Ý·Â 10%Áõ°¡ (ÃÖ´ë·¹º§ : 5)
-    Bracer,               // ·¹º§´ç Åõ»çÃ¼ ¼Óµµ 10%Áõ°¡ (ÃÖ´ë·¹º§ : 5)
-    Duplicator,           // ·¹º§´ç Åõ»çÃ¼ 1°³¾¿ Áõ°¡ (ÃÖ´ë·¹º§ : 5)
-    EmptyTome,            // ·¹º§´ç ¹«±â ÄðÅ¸ÀÓ 8%¾¿ °¨¼Ò (ÃÖ´ë·¹º§ : 5)
-    Wings,                // ·¹º§´ç ÀÌµ¿¼Óµµ 10%Áõ°¡ (ÃÖ´ë·¹º§ : 5)
-    Candelabrador,        // ·¹º§´ç °ø°Ý¹üÀ§ 10%Áõ°¡   (ÃÖ´ë·¹º§ : 5)
-    Armour,               // ·¹º§´ç ¹æ¾î·Â 5%Áõ°¡ (ÃÖ´ë·¹º§ : 5)
-    SpellBinder,          // ·¹º§´ç Áö¼Ó½Ã°£ 10%Áõ°¡ (ÃÖ´ë·¹º§ 5)
-    Attractorb,           // ·¹º§´ç ¾ÆÀÌÅÛ È¹µæ ¹üÀ§ 30% (ÃÖ´ë·¹º§ : 5)
-    HollowHeart           // ·¹º§´ç Ã¼·Â 20%Áõ°¡ (ÃÖ´ë·¹º§ : 5)
+    //None,                 // = "ï¿½ï¿½ï¿½ï¿½"
+    Spinach,              // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½ 10%ï¿½ï¿½ï¿½ï¿½ (ï¿½Ö´ë·¹ï¿½ï¿½ : 5)
+    Bracer,               // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼ ï¿½Óµï¿½ 10%ï¿½ï¿½ï¿½ï¿½ (ï¿½Ö´ë·¹ï¿½ï¿½ : 5)
+    Duplicator,           // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼ 1ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½Ö´ë·¹ï¿½ï¿½ : 5)
+    EmptyTome,            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ 8%ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½Ö´ë·¹ï¿½ï¿½ : 5)
+    Wings,                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½Óµï¿½ 10%ï¿½ï¿½ï¿½ï¿½ (ï¿½Ö´ë·¹ï¿½ï¿½ : 5)
+    Candelabrador,        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½ 10%ï¿½ï¿½ï¿½ï¿½   (ï¿½Ö´ë·¹ï¿½ï¿½ : 5)
+    Armour,               // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 5%ï¿½ï¿½ï¿½ï¿½ (ï¿½Ö´ë·¹ï¿½ï¿½ : 5)
+    SpellBinder,          // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ó½Ã°ï¿½ 10%ï¿½ï¿½ï¿½ï¿½ (ï¿½Ö´ë·¹ï¿½ï¿½ 5)
+    Attractorb,           // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 30% (ï¿½Ö´ë·¹ï¿½ï¿½ : 5)
+    HollowHeart           // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½ 20%ï¿½ï¿½ï¿½ï¿½ (ï¿½Ö´ë·¹ï¿½ï¿½ : 5)
 }
 
 [System.Serializable]
@@ -57,7 +57,7 @@ public class Unit_Player : Unit
 {
     public Rigidbody2D rigidBody;
 
-    //Ã£¾Æº¸¸é¼­ ½áº¸±â
+    //Ã£ï¿½Æºï¿½ï¿½é¼­ ï¿½áº¸ï¿½ï¿½
     public List<Weapon> All_Weapon = new List<Weapon>();
     public List<STO_Equipment> All_Equipment = new List<STO_Equipment>();
     public Dictionary<WeaponKeyword, int> weaponKeywordCounts = new Dictionary<WeaponKeyword, int>();
@@ -101,16 +101,16 @@ public class Unit_Player : Unit
     {
         base.Start();
         /*
-        Upgrade_Weapon(Weapon_Type.Axe);                // ¿Ï¼º
-        Upgrade_Weapon(Weapon_Type.KingBible);          // ¿Ï¼º 
-        Upgrade_Weapon(Weapon_Type.Peachone);           // ¿Ï¼º
-        Upgrade_Weapon(Weapon_Type.FireWand);           // ¿Ï¼º
-        Upgrade_Weapon(Weapon_Type.Cross);              // ¿Ï¼º
-        Upgrade_Weapon(Weapon_Type.Garlic);             // ¿Ï¼º
-        Upgrade_Weapon(Weapon_Type.LightningRing);      // ¿Ï¼º
-        Upgrade_Weapon(Weapon_Type.ShadowPinion);       // ¿Ï¼º
-        Upgrade_Weapon(Weapon_Type.RuneTracer);         // ¿Ï¼º
-        Upgrade_Weapon(Weapon_Type.Whip);               // ¿Ï¼º
+        Upgrade_Weapon(Weapon_Type.Axe);                // ï¿½Ï¼ï¿½
+        Upgrade_Weapon(Weapon_Type.KingBible);          // ï¿½Ï¼ï¿½ 
+        Upgrade_Weapon(Weapon_Type.Peachone);           // ï¿½Ï¼ï¿½
+        Upgrade_Weapon(Weapon_Type.FireWand);           // ï¿½Ï¼ï¿½
+        Upgrade_Weapon(Weapon_Type.Cross);              // ï¿½Ï¼ï¿½
+        Upgrade_Weapon(Weapon_Type.Garlic);             // ï¿½Ï¼ï¿½
+        Upgrade_Weapon(Weapon_Type.LightningRing);      // ï¿½Ï¼ï¿½
+        Upgrade_Weapon(Weapon_Type.ShadowPinion);       // ï¿½Ï¼ï¿½
+        Upgrade_Weapon(Weapon_Type.RuneTracer);         // ï¿½Ï¼ï¿½
+        Upgrade_Weapon(Weapon_Type.Whip);               // ï¿½Ï¼ï¿½
         */
         rigidBody = this.AddComponent<Rigidbody2D>();
         rigidBody.bodyType = RigidbodyType2D.Kinematic;
@@ -183,7 +183,7 @@ public class Unit_Player : Unit
     }
 
     #region
-    // ¹«±â »ý¼º
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public IEnumerator C_Create_Weapon(Weapon_Type p_WT)
     {
         yield return new WaitWhile(() => Creating_Weapon == true);
@@ -199,49 +199,49 @@ public class Unit_Player : Unit
 
         switch (p_WT)
         {
-            // µµ³¢
+            // ï¿½ï¿½ï¿½ï¿½
             case Weapon_Type.Axe:
                 {
                     Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
 
                     //Weapon_Go.AddComponent<Weapon_Axe>();
 
-                    // Weapon_Go°¡ ÇØ´ç ¹«±âÀÇ ÄÄÆ÷³ÍÆ®¸¦ Æ÷ÇÔÇÏ°í ÀÖ´Ù¸é.
+                    // Weapon_Goï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ö´Ù¸ï¿½.
                     if (Weapon_Go.GetComponent<Weapon_Axe>())
                     {
-                        // À§Ä¡ ÃÊ±âÈ­
+                        // ï¿½ï¿½Ä¡ ï¿½Ê±ï¿½È­
                         Weapon_Go.transform.position = this.transform.position;
                         Weapon_Go.transform.rotation = Quaternion.identity;
                         Weapon_Go.transform.localScale = Vector3.one;
 
-                        // ÀÌ ¹«±âÀÇ ½ºÇÁ¶óÀÌÆ®¸¦ ºÒ·¯¿Ã¶§±îÁö ±â´Ù·Á¶ó.
+                        // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ù·ï¿½ï¿½ï¿½.
                         yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_Axe>().SR);
                         Vector3 One = this.transform.position;
                         Vector3 Two, Three, Four;
 
-                        // µµ³¢ ¹æÇâ¿¡ µû¶ó¼­
+                        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½â¿¡ ï¿½ï¿½ï¿½ï¿½
                         if (Weapon_Trigger)
                         {
                             Two = One + new Vector3(0, 5, 0);
-                            Three = Two + new Vector3(Random.Range(1, 5), 0, 0);        // ¿À¸¥ÂÊ
-                            Four = One + new Vector3(Random.Range(1, 5), -10, 0);       // ¿À¸¥ÂÊ ¾Æ·¡
+                            Three = Two + new Vector3(Random.Range(1, 5), 0, 0);        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                            Four = One + new Vector3(Random.Range(1, 5), -10, 0);       // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ·ï¿½
                         }
                         else
                         {
                             Two = One + new Vector3(0, 5, 0);
-                            Three = Two + new Vector3(Random.Range(-5, -1), 0, 0);      // ¿ÞÂÊ
-                            Four = One + new Vector3(Random.Range(-5, -1), -10, 0);     // ¿ÞÂÊ ¾Æ·¡
+                            Three = Two + new Vector3(Random.Range(-5, -1), 0, 0);      // ï¿½ï¿½ï¿½ï¿½
+                            Four = One + new Vector3(Random.Range(-5, -1), -10, 0);     // ï¿½ï¿½ï¿½ï¿½ ï¿½Æ·ï¿½
                         }
 
-                        // µµ³¢ ÃÊ±âÈ­
+                        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
                         Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, Axe_LAT.Level);
                         Weapon_Go.GetComponent<Weapon_Axe>().Axe_Init(One, Two, Three, Four);
                         CheckSynergyEffects(Weapon_Go.GetComponent<Weapon_Axe>().WeaponKeyword);
 
-                        // ´ÙÀ½¿¡ »ý¼ºµÉ¶§ ¹æÇâ ¹Ý´ë·Î º¯°æ
+                        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½É¶ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ý´ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                         Weapon_Trigger = !Weapon_Trigger;
 
-                        // ¹«±â »ý¼º½Ã È¿°úÀ½
+                        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¿ï¿½ï¿½ï¿½ï¿½
                         All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.Axe);
                     }
                 }
@@ -266,10 +266,10 @@ public class Unit_Player : Unit
                         Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, KingBible_LAT.Level);
                         CheckSynergyEffects(Weapon_Go.GetComponent<Weapon_KingBible>().WeaponKeyword);
 
-                        // Áö±Ý ÇöÀç °¡Áö°í ÀÖ´Â ¼º°æÀÇ °¹¼ö
+                        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                         int Max = 0;
 
-                        // ÇÃ·¹ÀÌ¾î°¡ »ç¿ëÇÏ°í ÀÖ´Â ¼º°æÀÇ °¹¼ö
+                        // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                         for (int i = 0; i < All_Weapon.Count; i++)
                         {
                             if (All_Weapon[i].GetComponent<Weapon_KingBible>())
@@ -352,7 +352,7 @@ public class Unit_Player : Unit
                             Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, FireWand_LAT.Level);
                             CheckSynergyEffects(Weapon_Go.GetComponent<Weapon_FireWand>().WeaponKeyword);
 
-                            Vector3 Dir_Vec = new Vector3(Mathf.Cos((Mathf.PI * 2 * i / Current_Weapon_Count(Weapon_Type.FireWand, FireWand_LAT))), Mathf.Sin((Mathf.PI * i * 2 / Current_Weapon_Count(Weapon_Type.FireWand, FireWand_LAT)))); //¿øÀ» ±âÁØÀ¸·Î °¢°¢ÀÇ Åõ»çÃ¼¸¶´Ù º¤ÅÍ¸¦ Á¤¸®
+                            Vector3 Dir_Vec = new Vector3(Mathf.Cos((Mathf.PI * 2 * i / Current_Weapon_Count(Weapon_Type.FireWand, FireWand_LAT))), Mathf.Sin((Mathf.PI * i * 2 / Current_Weapon_Count(Weapon_Type.FireWand, FireWand_LAT)))); //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 
                             if (All_Manager.instance.GameMode_M.Game_Stop == false)
                             {
@@ -360,7 +360,7 @@ public class Unit_Player : Unit
                             }
                             else { }
 
-                            Weapon_Go.transform.rotation = Quaternion.Euler(0, 0, (360 * i / (Current_Weapon_Count(Weapon_Type.FireWand, FireWand_LAT))) + 180); //Åõ»çÃ¼ÀÇ °¢µµ°¡ ÀÚ¿¬½º·´°Ô È¸Àü°ªÀ» ³Ö¾ú´Ù.
+                            Weapon_Go.transform.rotation = Quaternion.Euler(0, 0, (360 * i / (Current_Weapon_Count(Weapon_Type.FireWand, FireWand_LAT))) + 180); //ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ï¿½.
                             All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.FireWand);
                         }
                     }
@@ -424,15 +424,15 @@ public class Unit_Player : Unit
                     if (All_Manager.instance != null && All_Manager.instance.GameMode_M != null && All_Manager.instance.GameMode_M.Enemy_List != null && All_Manager.instance.GameMode_M.Enemy_List.Count > 0)
                     {
                         var Max_Count = Current_Weapon_Count(Weapon_Type.LightningRing, LightningRing_LAT);
-                        int Count_To_Spawn = Mathf.Min(Max_Count, All_Manager.instance.GameMode_M.Enemy_List.Count); // ÃÖ´ë 10°³±îÁö¸¸ »ý¼ºÇÏµµ·Ï Á¦ÇÑ
+                        int Count_To_Spawn = Mathf.Min(Max_Count, All_Manager.instance.GameMode_M.Enemy_List.Count); // ï¿½Ö´ï¿½ 10ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-                        List<int> Spawned_Indices = new List<int>(); // ÀÌ¹Ì »ý¼ºµÈ ÀûÀÇ ÀÎµ¦½º¸¦ ÀúÀåÇÒ ¸®½ºÆ®
+                        List<int> Spawned_Indices = new List<int>(); // ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 
                         for (int i = 0; i < Count_To_Spawn; i++)
                         {
                             int Random_Index = Random.Range(0, All_Manager.instance.GameMode_M.Enemy_List.Count);
 
-                            // ÁßÃ¸ ¹æÁö: ÀÌ¹Ì »ý¼ºµÈ Àû À§Ä¡¿¡ LightningRingÀÌ ÀÖÀ¸¸é °Ç³Ê¶Ü
+                            // ï¿½ï¿½Ã¸ ï¿½ï¿½ï¿½ï¿½: ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ LightningRingï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç³Ê¶ï¿½
                             if (Spawned_Indices.Contains(Random_Index))
                             {
                                 continue;
@@ -452,7 +452,7 @@ public class Unit_Player : Unit
                             //Weapon_Go.AddComponent<Weapon_LightningRing>();
 
 
-                            // LightningRingÀÌ µ¥¹ÌÁö¸¦ ÁÖ´ÂÁö È®ÀÎ ÈÄ Ã³¸®
+                            // LightningRingï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ Ã³ï¿½ï¿½
                             if (Weapon_Go.GetComponent<Weapon_LightningRing>() != null)
                             {
                                 Weapon_Go.transform.position = All_Manager.instance.GameMode_M.Enemy_List[Random_Index].transform.position;
@@ -461,7 +461,7 @@ public class Unit_Player : Unit
 
                                 yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_LightningRing>().SR);
 
-                                // Weapon_InitÀ» ÅëÇØ ÇÊ¿äÇÑ ÃÊ±âÈ­ ÀÛ¾÷ ¼öÇà
+                                // Weapon_Initï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½Û¾ï¿½ ï¿½ï¿½ï¿½ï¿½
                                 Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, LightningRing_LAT.Level);
                                 CheckSynergyEffects(Weapon_Go.GetComponent<Weapon_LightningRing>().WeaponKeyword);
                                 //Weapon_Go.GetComponent<Weapon_LightningRing>().Weapon_Application_Equipment();
@@ -573,7 +573,7 @@ public class Unit_Player : Unit
         Creating_Weapon = false;
     }
 
-    // ¹«±â ¾÷±×·¹ÀÌµå
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½
     public void Upgrade_Weapon(Weapon_Type p_WT)
     {
         if (p_WT == Weapon_Type.Axe)
@@ -721,13 +721,13 @@ public class Unit_Player : Unit
 
     }
 
-    // °¡Áö°í ÀÖ´ÂÁö
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½
     public bool Check_Weapon(Weapon_Type p_PT)
     {
         return false;
     }
 
-    // ¹«±â ½ºÆù Å¸ÀÌ¸Ó ¾÷µ¥ÀÌÆ®
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
     public void Spawn_Weapon_Timer_Update()
     {
         if (Axe_LAT.Level > 0)
@@ -756,7 +756,7 @@ public class Unit_Player : Unit
             {
                 KingBible_LAT.Timer = 0;
 
-                //for (int i = 0; i < Current_Weapon_Count(Weapon_Type.KingBible, KingBible_LAT); i++)    // ¼º°æÀÌ ¿Ö °¹¼ö¿¡ µû¶ó °¢µµ·Î ¾È³ª´²Áö´Â ÀÌÀ¯, Áö±Ý ÀÌ°Ç STO¿¡ ÀÇÇØ ¼º°æÀ» È¸Àü ½ÃÅ²´Ù Áï ÀÌ°É °íÃÄ¾ß ÇÑ´Ù.
+                //for (int i = 0; i < Current_Weapon_Count(Weapon_Type.KingBible, KingBible_LAT); i++)    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½È³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½Ì°ï¿½ STOï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½Å²ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½Ä¾ï¿½ ï¿½Ñ´ï¿½.
                 //{
                 //    Create_Weapon(Weapon_Type.KingBible);
                 //}
@@ -883,7 +883,7 @@ public class Unit_Player : Unit
         //Debug.Log("Weapon_Spawn!");
     }
 
-    // Àå½Å±¸ ÀåÂø
+    // ï¿½ï¿½Å±ï¿½ ï¿½ï¿½ï¿½ï¿½
     public void Update_Get_Equipment(Equipment_Type p_ET)
     {
         var Temp = All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(p_ET);
@@ -998,7 +998,7 @@ public class Unit_Player : Unit
             //Get_Equipment_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Equipment_HollowHeart);
         }
 
-        //Debug.Log("Àå½Å±¸ ÀåÂø");
+        //Debug.Log("ï¿½ï¿½Å±ï¿½ ï¿½ï¿½ï¿½ï¿½");
 
         if (Temp != null)
         {
@@ -1006,7 +1006,7 @@ public class Unit_Player : Unit
         }
     }
 
-    // Àå½Å±¸ ¾÷±×·¹ÀÌµå
+    // ï¿½ï¿½Å±ï¿½ ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½
     public void Upgrade_Equipment(Equipment_Type p_ET)
     {
         if (p_ET == Equipment_Type.HollowHeart)
@@ -1080,7 +1080,7 @@ public class Unit_Player : Unit
         }
     }
 
-    // ÇÃ·¹ÀÌ¾î ¿À¸®Áø ½ºÅÈ¿¡ ÆÛ¼¾Æ¼Áö ½ºÅÈ Àû¿ë
+    // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½È¿ï¿½ ï¿½Û¼ï¿½Æ¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public void Origin_Stat_Application_Player(Equipment_Type p_ET)
     {
         //
@@ -1206,7 +1206,7 @@ public class Unit_Player : Unit
     }
 
 
-    // Àå½Å±¸·Î ÆÐ½Ãºê ½ºÅÈ Á¶Á¤
+    // ï¿½ï¿½Å±ï¿½ï¿½ï¿½ ï¿½Ð½Ãºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public void Get_Equipment_Player_Percentage_Stat(Unit Player_Unit, STO_Equipment Eq_STO)
     {
         var Temp_Equipment_STO = All_Manager.instance.Resource_M.STO_Equipments;
@@ -1277,7 +1277,7 @@ public class Unit_Player : Unit
 
     }
 
-    // ¹«±â ·¹º§ Ã£¾Æ°¥¼ö ÀÖ°Ô
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½Æ°ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½
     public Weapon_Level_And_Timer Convert_WLAT_Player(STO_Weapon p_WTO)
     {
         Weapon_Level_And_Timer WLAT = null;
@@ -1338,7 +1338,7 @@ public class Unit_Player : Unit
 
     }
 
-    // Àå½Å±¸ ·¹º§ Ã£¾Æ°¥¼ö ÀÖ°Ô // ±Ùµ¥ ÀÌ°É À§¿¡ ÀÌ³ÑÀÌ³ª ½ºÆ®·°Æ®·Î ¸¸µé¾î¼­ ÀúÀåÇÏ¸é ½¬¿ï²¨ °°±äÇÑµ¥
+    // ï¿½ï¿½Å±ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½Æ°ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½ // ï¿½Ùµï¿½ ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì³ï¿½ï¿½Ì³ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½î¼­ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï²¨ ï¿½ï¿½ï¿½ï¿½ï¿½Ñµï¿½
     public int Convert_Equipment_Level_Player(Equipment_Type p_ET)
     {
         var Equipment_Level = 0;
@@ -1399,7 +1399,7 @@ public class Unit_Player : Unit
     }
 
 
-    // Àå½Å±¸·Î Áõ°¡ÇÏ´Â ¹«±â Åõ»çÃ¼ °¹¼ö
+    // ï¿½ï¿½Å±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
     public int Current_Weapon_Count(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
         var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
@@ -1412,7 +1412,7 @@ public class Unit_Player : Unit
         return p_Weapon_Count;
     }
 
-    // Àå½Å±¸·Î °¨¼ÒµÇ´Â ¹«±âÀÇ ÄðÅ¸ÀÓ
+    // ï¿½ï¿½Å±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ÒµÇ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½
     public float Current_Weapon_CoolDown(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
         var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
@@ -1425,7 +1425,7 @@ public class Unit_Player : Unit
         return p_Weapon_CoolDown;
     }
 
-    // Àå½Å±¸·Î Áõ°¡ÇÏ´Â ÇöÀç ¹«±âÀÇ »ç°Å¸®
+    // ï¿½ï¿½Å±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½
     public float Current_Weapon_Range(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
         var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
@@ -1438,7 +1438,7 @@ public class Unit_Player : Unit
         return p_Weapon_Range;
     }
 
-    // Àå½Å±¸·Î Áõ°¡ÇÏ´Â ÇöÀç ¹«±âÀÇ Å©±â
+    // ï¿½ï¿½Å±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½
     public float Current_Weapon_Size(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
         var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
@@ -1451,7 +1451,7 @@ public class Unit_Player : Unit
         return p_Weapon_Size;
     }
 
-    //Áö±Ý ÇöÀç ¹«±âÀÇ °ø°Ý¼Óµµ.
+    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý¼Óµï¿½.
     public float Current_Weapon_Speed(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
         var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
@@ -1464,7 +1464,7 @@ public class Unit_Player : Unit
         return p_Weapon_Speed;
     }
 
-    //Áö±Ý ÇöÀç ¹«±âÀÇ °ø°Ý·Â.
+    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½.
     public float Current_Weapon_Damage(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
         var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
@@ -1477,7 +1477,7 @@ public class Unit_Player : Unit
         return p_Weapon_Damage;
     }
 
-    //Áö±Ý ÇöÀç ¹«±âÀÇ Áö¼Ó½Ã°£.
+    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ó½Ã°ï¿½.
     public float Current_Weapon_Duration(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
         var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
@@ -1491,7 +1491,7 @@ public class Unit_Player : Unit
     }
     #endregion
 
-    // ½Ã³ÊÁö È¿°ú Àû¿ë È®ÀÎ ¹× Ã³¸®
+    // ï¿½Ã³ï¿½ï¿½ï¿½ È¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ Ã³ï¿½ï¿½
     public void CheckSynergyEffects(WeaponKeyword keyword)
     {
         if (keyword == WeaponKeyword.NONE) return;
@@ -1511,7 +1511,7 @@ public class Unit_Player : Unit
         }
     }
 
-    // ½Ã³ÊÁö È¿°ú Àû¿ë ÇÔ¼ö
+    // ï¿½Ã³ï¿½ï¿½ï¿½ È¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
     public void ApplySynergyEffect(WeaponKeyword keyword)
     {
         switch (keyword)
@@ -1561,11 +1561,11 @@ public class Unit_Player : Unit
                     }
                 }
                 break;
-                // ´Ù¸¥ Å°¿öµå¿¡ ´ëÇÑ ½Ã³ÊÁö È¿°ú Ãß°¡ °¡´É
+                // ï¿½Ù¸ï¿½ Å°ï¿½ï¿½ï¿½å¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã³ï¿½ï¿½ï¿½ È¿ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
     }
 
-    // ÇÃ·¹ÀÌ¾î ÀÌµ¿
+    // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Ìµï¿½
     public void Player_Move()
     {
         if (isDead == true) return;
@@ -1595,7 +1595,7 @@ public class Unit_Player : Unit
     }
 
 
-    // Ã¼·Â È¸º¹ ÇÔ¼ö
+    // Ã¼ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½Ô¼ï¿½
     public void Recovery_Current_HP()
     {
         int Recovery_HP = 25;
@@ -1607,22 +1607,30 @@ public class Unit_Player : Unit
 
         else
         {
-            Debug.Log("ÀÌ¹Ì ÃÖ´ë Ã¼·Â ÀÔ´Ï´Ù.");
+            Debug.Log("ï¿½Ì¹ï¿½ ï¿½Ö´ï¿½ Ã¼ï¿½ï¿½ ï¿½Ô´Ï´ï¿½.");
         }
 
         All_Manager.instance.UI_M.Update_Player_HPBar_Image(Current_HP / Max_HP);
     }
 
-    // Áª È¹µæ ÇÔ¼ö
+    // ï¿½ï¿½ È¹ï¿½ï¿½ ï¿½Ô¼ï¿½
     public void Get_Gem(float p_Get_Gem_Current_Count)
     {
         //All_Manager.instance.UI_M.Update_Gem_Count_Image(p_Get_Gem_Current_Count);
         All_Manager.instance.GameMode_M.Add_Gem(p_Get_Gem_Current_Count);
     }
 
-    // À¯´Ö ÇÃ·¹ÀÌ¾î ½ºÅÈ Á¶Á¤
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public override void Unit_Stat_Setting(Unit p_Unit, STO_Unit p_Un_STO)
     {
+        if (p_Unit == null)
+        {
+            Debug.Log("unitì´ nullìž„");
+        }
+        if (p_Un_STO == null)
+        {
+            Debug.Log("unit STOê°€ nullìž„");
+        }
         p_Unit.SR.sprite = p_Un_STO.Sprite_Image;
         p_Unit.SR.material = p_Un_STO.Elite_Material;
 
@@ -1638,7 +1646,7 @@ public class Unit_Player : Unit
         if (p_Un_STO.Unit_Animator_Controller != null)
         {
             p_Unit.AM.runtimeAnimatorController = p_Un_STO.Unit_Animator_Controller;
-            p_Unit.AM.speed = 1.0f; // ¾Ö´Ï¸ÞÀÌ¼Ç Àç»ý
+            p_Unit.AM.speed = 1.0f; // ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½
             p_Unit.AM.cullingMode = AnimatorCullingMode.CullCompletely;
         }
     }
@@ -1784,7 +1792,7 @@ public class Unit_Player : Unit
 //{
 //    Debug.Log("Gem Not Null");
 
-//    //¹æÇâ ¹Ù²Ù°í
+//    //ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²Ù°ï¿½
 //    Vector2 Dir = (this.transform.position - Target_Gem.transform.position).normalized;
 
 //    //float angle = Mathf.Atan2(Dir.y, Dir.x) * Mathf.Rad2Deg;
@@ -1800,7 +1808,7 @@ public class Unit_Player : Unit
 //    Debug.Log("Gem Null");
 //}
 
-// ±× ¹æÇâÀ» ÇâÇØ¼­ ¾ÕÀ¸·Î
+// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 //if (All_Manager.instance != null && All_Manager.instance.GameMode_M != null && All_Manager.instance.GameMode_M.Gem_List != null && All_Manager.instance.GameMode_M.Gem_List.Count > 0)
 //{
@@ -1865,7 +1873,7 @@ public class Unit_Player : Unit
 //}
 
 
-// ¿©±â¼­ All_Weapon¿¡ ÀÖ´Â ¸ðµç ¼º°æÀ» ´Ù½Ã °»½Å
+// ï¿½ï¿½ï¿½â¼­ All_Weaponï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½
 // All_Weapon.GetComponent<KingBible>().Max = 3;
 // All_Weapon.GetComponent<KingBible>().Current = 3;
 //
@@ -1899,10 +1907,10 @@ public class Unit_Player : Unit
 //float xSpeed = xInput * Xspeed * Time.deltaTime;
 //float ySpeed = yInput * Yspeed * Time.deltaTime;
 
-//¾Õ µÚÀ¸·Î°¡±â
+//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ï¿½ï¿½
 // this.transform.position = this.transform.position + (this.transform.up * ySpeed);
 
-//µ¹±â
+//ï¿½ï¿½ï¿½ï¿½
 // this.transform.Rotate(new Vector3(0, 0, -xSpeed));
 
 //if (Skill_Full < Skill_Cool)
@@ -2153,9 +2161,9 @@ public class Unit_Player : Unit
 //                    yield return new WaitUntil(() => Weapon_Go.GetComponent<Axe>().SR);
 //                    Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, All_Manager.instance.Resource_M.STO_Axe, Axe_LAT.Level);
 //                    Vector3 One = this.transform.position;
-//                    Vector3 Two = One + new Vector3(0, 5, 0); // À§
-//                    Vector3 Three = Two + new Vector3(5, 0, 0); //¿À¸¥ÂÊ
-//                    Vector3 Four = One + new Vector3(5, -10, 0); // ¿À¸¥ÂÊ ¾Æ·¡
+//                    Vector3 Two = One + new Vector3(0, 5, 0); // ï¿½ï¿½
+//                    Vector3 Three = Two + new Vector3(5, 0, 0); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//                    Vector3 Four = One + new Vector3(5, -10, 0); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ·ï¿½
 
 
 //                    Weapon_Go.GetComponent<Axe>().Axe_Init(One, Two, Three, Four);
@@ -2222,9 +2230,9 @@ public class Unit_Player : Unit
 
 //public IEnumerator C_Get_Equipment(Equipment_Type p_ET)
 //{
-//    // Áö±Ý Temp°¡ ³ÎÀÌ¿©¼­ ¹ß»ýÇÏ´Â ¹®Á¦ÀÎ°ÍÀ¸·Î º¸ÀÎ´Ù.
-//    // ÀÏ´Ü ¿Ö ³ÎÀÌ ³ª³Ä
-//    // Áö±Ý ÀÏ´Ü ´Ù½Ã ÇÑ¹ø
+//    // ï¿½ï¿½ï¿½ï¿½ Tempï¿½ï¿½ ï¿½ï¿½ï¿½Ì¿ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î´ï¿½.
+//    // ï¿½Ï´ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+//    // ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½Ù½ï¿½ ï¿½Ñ¹ï¿½
 //    yield return new WaitWhile(() => Creating_Equipment == true);
 
 //    var Temp = All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment(p_ET);
@@ -2245,7 +2253,7 @@ public class Unit_Player : Unit
 
 //            Get_Equipment_Player_Percentage_Stat(this, Temp);
 //            Debug.Log(Temp);
-//            Debug.Log("Àå½Å±¸ ÀåÂø");
+//            Debug.Log("ï¿½ï¿½Å±ï¿½ ï¿½ï¿½ï¿½ï¿½");
 //        }
 //    }
 

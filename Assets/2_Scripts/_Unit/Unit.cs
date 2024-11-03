@@ -62,9 +62,9 @@ public abstract class Unit : MonoBehaviour
     public Unit_Stat_Sheet Origin_Stat;
     public Unit_Stat_Sheet Percent_Stat;
 
-    //ÆÛ¼¾Å×ÀÌÁö ½ºÅÈ.Unit_Get_Gem_Range = 10.0f;
-    //void PLUS_Àå½Å±¸(¸Å°³º¯¼ö Àå½Å±¸ ÀÌ¸§, ½ºÅÈ ÀÌ³Ñ);
-    //±×¸®°í ÆÛ¼¾Å×ÀÌÁî ½ºÅÈÀ» °¡Áø Àå½Å±¸°¡ ¿À¸®Áø ½ºÅÈ¿¡ °öÇÏ±â
+    //ï¿½Û¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.Unit_Get_Gem_Range = 10.0f;
+    //void PLUS_ï¿½ï¿½Å±ï¿½(ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å±ï¿½ ï¿½Ì¸ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½Ì³ï¿½);
+    //ï¿½×¸ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½È¿ï¿½ ï¿½ï¿½ï¿½Ï±ï¿½
 
     public Unit_Type UT;
 
@@ -82,13 +82,14 @@ public abstract class Unit : MonoBehaviour
     public float Dead_Effect = 0.0f;
 
     protected bool isKnock = false;
-    private Vector3 knockDirection; // ³Ë¹é ¹æÇâ
-    private float knockStrength; // ³Ë¹é °­µµ
-    private float knockTimer; // ³Ë¹é Áö¼Ó ½Ã°£ Å¸ÀÌ¸Ó
+    private Vector3 knockDirection; // ï¿½Ë¹ï¿½ ï¿½ï¿½ï¿½ï¿½
+    private float knockStrength; // ï¿½Ë¹ï¿½ ï¿½ï¿½ï¿½ï¿½
+    private float knockTimer; // ï¿½Ë¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ Å¸ï¿½Ì¸ï¿½
     private float knockDuration;
 
-    public virtual void Start()
+    void Awake()
     {
+        // Awakeë¥¼ ìƒì„±ì ëŒ€ìš©ìœ¼ë¡œ ì‚¬ìš©í•˜ì…ˆ. StartëŠ” ìƒì„±ë˜ìë§ˆì í˜¸ì¶œë˜ì§€ ì•ŠìŒ.
         SR = this.AddComponent<SpriteRenderer>();
 
         BC = this.AddComponent<BoxCollider2D>();
@@ -97,15 +98,19 @@ public abstract class Unit : MonoBehaviour
         AM = this.AddComponent<Animator>();
     }
 
+    public virtual void Start()
+    {
+    }
+
     public virtual void Update()
     {
-        // °ÔÀÓÀÌ Á¤ÁöµÈ »óÅÂ¶ó¸é ÇÔ¼ö Á¾·á
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¶ï¿½ï¿½ ï¿½Ô¼ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (All_Manager.instance.GameMode_M.Game_Stop) return;
 
-        // SpriteRenderer »ö»ó ¾÷µ¥ÀÌÆ®
+        // SpriteRenderer ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
         Update_Sprite_Renderer();
 
-        // ³Ë¹é Ã³¸®
+        // ï¿½Ë¹ï¿½ Ã³ï¿½ï¿½
         if (isKnock == true)
         {
             Perform_Knockback();
@@ -116,8 +121,8 @@ public abstract class Unit : MonoBehaviour
         //   Update_Hit_Effect();
         //}
 
-        // ÇÇ°İ È¿°ú Ã³¸®
-        // Hit »óÅÂ ½Ã°£ °æ°ú Ã³¸®
+        // ï¿½Ç°ï¿½ È¿ï¿½ï¿½ Ã³ï¿½ï¿½
+        // Hit ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
         if (!isHit)
         {
             Update_Hit_Timer();
@@ -126,7 +131,7 @@ public abstract class Unit : MonoBehaviour
 
     private void Update_Sprite_Renderer()
     {
-        // SR_GB¿Í Dead_Effect¸¦ ±â¹İÀ¸·Î »ö»ó ¹× ÀçÁú °ª ¼³Á¤
+        // SR_GBï¿½ï¿½ Dead_Effectï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         SR.color = new Color(1, 1 - Hit_Time, 1 - Hit_Time, 1 - Dead_Effect);
         SR.material.SetFloat("_Red_Value", 1 - Hit_Time);
         SR.material.SetFloat("_Alpha", 1 - Dead_Effect);
@@ -163,7 +168,7 @@ public abstract class Unit : MonoBehaviour
 
     //private void Update_Hit_Effect()
     //{
-    //    // ÇÇ°İ È¿°ú ½Ã°£ °æ°ú
+    //    // ï¿½Ç°ï¿½ È¿ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½
     //    SR_GB -= Time.deltaTime;
 
     //    if (SR_GB < 0)
@@ -174,7 +179,7 @@ public abstract class Unit : MonoBehaviour
 
     private void Update_Hit_Timer()
     {
-        // ÇÇ°İ ÀÌÈÄ È¸º¹ ½Ã°£À» °è»ê
+        // ï¿½Ç°ï¿½ ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
         Hit_Time -= Time.deltaTime;
 
         if (Hit_Time < 0.0f)
@@ -201,7 +206,7 @@ public abstract class Unit : MonoBehaviour
             var Temp_Shader_Alpha = this.SR.material.GetFloat("_Alpha");
             var Temp_Color_Alpha = this.SR.color.a;
 
-            isHit = false;  
+            isHit = false;
         }
 
         StartCoroutine(CheckDeadWithDelay());
@@ -294,7 +299,7 @@ public abstract class Unit : MonoBehaviour
         {
             case Unit_Anim_State.Idle:
                 {
-                    Debug.Log("Idle ¹Ù²ñ");
+                    Debug.Log("Idle ï¿½Ù²ï¿½");
                     AM.SetBool("Idle", true);
                     AM.SetBool("Move", false);
                     AM.SetBool("Death", false);
@@ -302,14 +307,14 @@ public abstract class Unit : MonoBehaviour
                 break;
             case Unit_Anim_State.Walk:
                 {
-                    Debug.Log("Walk ¹Ù²ñ");
+                    Debug.Log("Walk ï¿½Ù²ï¿½");
                     AM.SetBool("Idle", false);
                     AM.SetBool("Move", true);
                 }
                 break;
             case Unit_Anim_State.Death:
                 {
-                    Debug.Log("Death ¹Ù²ñ");
+                    Debug.Log("Death ï¿½Ù²ï¿½");
                     AM.SetBool("Idle", false);
                     AM.SetBool("Death", true);
                 }
@@ -320,7 +325,7 @@ public abstract class Unit : MonoBehaviour
 
 
 #region
-// ³Ë¹é ÁßÀÏ ¶§, Å¸ÀÌ¸Ó¸¦ °¨¼Ò½ÃÅ°¸é¼­ ³Ë¹é Ã³¸®
+// ï¿½Ë¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½, Å¸ï¿½Ì¸Ó¸ï¿½ ï¿½ï¿½ï¿½Ò½ï¿½Å°ï¿½é¼­ ï¿½Ë¹ï¿½ Ã³ï¿½ï¿½
 //if (knockTimer > 0)
 //{
 //    float currentKnockStrength = Mathf.Lerp(knockStrength, 0, 1 - (knockTimer / knockStrength));
@@ -330,7 +335,7 @@ public abstract class Unit : MonoBehaviour
 //}
 //else
 //{
-//    // ³Ë¹é Á¾·á
+//    // ï¿½Ë¹ï¿½ ï¿½ï¿½ï¿½ï¿½
 //    isKnock = false;
 //}
 
@@ -398,21 +403,21 @@ public abstract class Unit : MonoBehaviour
 //    //    }
 //    //}
 
-//    // ³Ë¹é ÁßÀÏ ¶§, ¸Å ÇÁ·¹ÀÓ¸¶´Ù ³Ë¹é Ã³¸®
+//    // ï¿½Ë¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½, ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ó¸ï¿½ï¿½ï¿½ ï¿½Ë¹ï¿½ Ã³ï¿½ï¿½
 //    if (isKnock)
 //    {
 //        if (knockTimer > 0)
 //        {
-//            // ³Ë¹é Ã³¸®: Á¡Á¡ ÁÙ¾îµå´Â °­µµ·Î ¹Ğ·Á³²
+//            // ï¿½Ë¹ï¿½ Ã³ï¿½ï¿½: ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ğ·ï¿½ï¿½ï¿½
 //            float currentKnockStrength = Mathf.Lerp(knockStrength, 0, 1 - (knockTimer / knockStrength));
 //            transform.position += knockDirection * currentKnockStrength * Time.deltaTime;
 
-//            // Å¸ÀÌ¸Ó °¨¼Ò
+//            // Å¸ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 //            knockTimer -= Time.deltaTime;
 //        }
 //        else
 //        {
-//            // ³Ë¹é Á¾·á
+//            // ï¿½Ë¹ï¿½ ï¿½ï¿½ï¿½ï¿½
 //            isKnock = false;
 //        }
 //    }
@@ -439,18 +444,18 @@ public abstract class Unit : MonoBehaviour
 //        Hit_Time += Time.deltaTime;
 //    }
 
-//    //// ³Ë¹é ÁßÀÏ ¶§ Ã³¸®
+//    //// ï¿½Ë¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ã³ï¿½ï¿½
 //    //if (isKnockback)
 //    //{
 //    //    if (knockbackElapsed < knockbackTime)
 //    //    {
-//    //        // ³Ë¹é ¹æÇâÀ¸·Î ÀÌµ¿
+//    //        // ï¿½Ë¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
 //    //        transform.position += knockbackDirection * Time.deltaTime;
 //    //        knockbackElapsed += Time.deltaTime;
 //    //    }
 //    //    else
 //    //    {
-//    //        // ³Ë¹é Á¾·á
+//    //        // ï¿½Ë¹ï¿½ ï¿½ï¿½ï¿½ï¿½
 //    //        isKnockback = false;
 //    //    }
 //    //}
