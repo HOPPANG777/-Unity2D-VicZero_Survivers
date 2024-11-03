@@ -18,16 +18,16 @@ public class Audio_Manager : MonoBehaviour
             GameObject Go = new GameObject(((Weapon_Type)i).ToString() + "-AS");
 
             Go.transform.parent = this.transform;
+            AudioSource audioSource = Go.AddComponent<AudioSource>();
 
-            Go.AddComponent<AudioSource>();
 
-            Go.GetComponent<AudioSource>().clip = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr((Weapon_Type)i).Attacking_Audio_Clip;
+            audioSource.clip = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr((Weapon_Type)i).Attacking_Audio_Clip;
 
-            Go.GetComponent<AudioSource>().playOnAwake = false;
-            Go.GetComponent<AudioSource>().rolloffMode = AudioRolloffMode.Linear;
-            Go.GetComponent<AudioSource>().spatialBlend = 0.5f;
+            audioSource.playOnAwake = false;
+            audioSource.rolloffMode = AudioRolloffMode.Linear;
+            audioSource.spatialBlend = 0.5f;
 
-            Effect_Audio_List.Add(Go.GetComponent<AudioSource>());
+            Effect_Audio_List.Add(audioSource);
         }
 
         for (int i = 0; i < System.Enum.GetValues(typeof(Unit_Type)).Length; i++)
@@ -38,22 +38,22 @@ public class Audio_Manager : MonoBehaviour
             Hitted_Go.transform.parent = this.transform;
             Death_Go.transform.parent = this.transform;
 
-            Hitted_Go.AddComponent<AudioSource>();
-            Death_Go.AddComponent<AudioSource>();
+            AudioSource hittedSound = Hitted_Go.AddComponent<AudioSource>();
+            AudioSource deathSound = Death_Go.AddComponent<AudioSource>();
 
-            Hitted_Go.GetComponent<AudioSource>().clip = All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr((Unit_Type)i).Hitted_Audio_Clip;
-            Death_Go.GetComponent<AudioSource>().clip = All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr((Unit_Type)i).Death_Audio_Clip;
+            hittedSound.clip = All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr((Unit_Type)i).Hitted_Audio_Clip;
+            deathSound.clip = All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr((Unit_Type)i).Death_Audio_Clip;
 
-            Hitted_Go.GetComponent<AudioSource>().playOnAwake = false;
-            Hitted_Go.GetComponent<AudioSource>().rolloffMode = AudioRolloffMode.Linear;
-            Hitted_Go.GetComponent<AudioSource>().spatialBlend = 0.5f;
+            hittedSound.playOnAwake = false;
+            hittedSound.rolloffMode = AudioRolloffMode.Linear;
+            hittedSound.spatialBlend = 0.5f;
 
-            Death_Go.GetComponent<AudioSource>().playOnAwake = false;
-            Death_Go.GetComponent<AudioSource>().rolloffMode = AudioRolloffMode.Linear;
-            Death_Go.GetComponent<AudioSource>().spatialBlend = 0.5f;
+            deathSound.playOnAwake = false;
+            deathSound.rolloffMode = AudioRolloffMode.Linear;
+            deathSound.spatialBlend = 0.5f;
 
-            Effect_Audio_List.Add(Hitted_Go.GetComponent<AudioSource>());
-            Effect_Audio_List.Add(Death_Go.GetComponent<AudioSource>());
+            Effect_Audio_List.Add(hittedSound);
+            Effect_Audio_List.Add(deathSound);
         }
 
         for (int i = 0; i < System.Enum.GetValues(typeof(MISC_Type)).Length; i++)
@@ -200,7 +200,7 @@ public class Audio_Manager : MonoBehaviour
 
     public void Level_Up_Audio_Play()
     {
-       Level_Up_AS.Play();
+        Level_Up_AS.Play();
     }
 
     public void Treasure_Found_Audio_Play()
