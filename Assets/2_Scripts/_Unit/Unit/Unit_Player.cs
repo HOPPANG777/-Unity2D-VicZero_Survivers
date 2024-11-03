@@ -1521,7 +1521,8 @@ public class Unit_Player : Unit
                 {
                     if (weapon.WeaponKeyword == keyword)
                     {
-                        weapon.Weapon_Damage *= 1.5f;
+                        var Temp = All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.Spinach);
+                        Get_Equipment_Player_Percentage_Stat(this, Temp);
                     }
                 }
                 break;
