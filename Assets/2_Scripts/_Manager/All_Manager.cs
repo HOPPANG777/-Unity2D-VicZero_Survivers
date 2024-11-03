@@ -12,6 +12,7 @@ public class All_Manager : Singleton<All_Manager>
     public Pool_Manager Pool_M;
     public Resource_Manager Resource_M;
     public Audio_Manager Audio_M;
+    public Synergy_Manager Synergy_M;
 
     public Weapon_Type TEST_WP;
     public Equipment_Type TEST_EQ;
@@ -45,6 +46,7 @@ public class All_Manager : Singleton<All_Manager>
         if (Pool_M == null) Debug.Log("Pool_Manager 없음");
         if (Resource_M == null) Debug.Log("Resource_Manager 없음");
         if (Audio_M == null) Debug.Log("Audio_Manager 없음");
+        if (Synergy_M == null) Debug.Log("Synergy_Manager 없음");
 
         GameMode_M.Game_Start();
     }

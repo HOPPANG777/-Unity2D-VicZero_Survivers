@@ -236,6 +236,7 @@ public class Unit_Player : Unit
                         // 도끼 초기화
                         Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, Axe_LAT.Level);
                         Weapon_Go.GetComponent<Weapon_Axe>().Axe_Init(One, Two, Three, Four);
+                        CheckSynergyEffects(Weapon_Go.GetComponent<Weapon_Axe>().WeaponKeyword);
 
                         // 다음에 생성될때 방향 반대로 변경
                         Weapon_Trigger = !Weapon_Trigger;
@@ -263,6 +264,7 @@ public class Unit_Player : Unit
                         yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_KingBible>().SR);
 
                         Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, KingBible_LAT.Level);
+                        CheckSynergyEffects(Weapon_Go.GetComponent<Weapon_KingBible>().WeaponKeyword);
 
                         // 지금 현재 가지고 있는 성경의 갯수
                         int Max = 0;
@@ -323,6 +325,7 @@ public class Unit_Player : Unit
 
                         Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, Peachone_LAT.Level);
                         Weapon_Go.GetComponent<Weapon_Peachone>().Peachone_Init(One, Two, Three, Four);
+                        CheckSynergyEffects(Weapon_Go.GetComponent<Weapon_Peachone>().WeaponKeyword);
                         All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.Peachone);
                     }
 
@@ -347,6 +350,7 @@ public class Unit_Player : Unit
                             yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_FireWand>().SR);
 
                             Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, FireWand_LAT.Level);
+                            CheckSynergyEffects(Weapon_Go.GetComponent<Weapon_FireWand>().WeaponKeyword);
 
                             Vector3 Dir_Vec = new Vector3(Mathf.Cos((Mathf.PI * 2 * i / Current_Weapon_Count(Weapon_Type.FireWand, FireWand_LAT))), Mathf.Sin((Mathf.PI * i * 2 / Current_Weapon_Count(Weapon_Type.FireWand, FireWand_LAT)))); //원을 기준으로 각각의 투사체마다 벡터를 정리
 
@@ -387,6 +391,7 @@ public class Unit_Player : Unit
 
                         Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, Cross_LAT.Level);
                         Weapon_Go.GetComponent<Weapon_Cross>().Cross_Init(One, Two, Three, Four);
+                        CheckSynergyEffects(Weapon_Go.GetComponent<Weapon_Cross>().WeaponKeyword);
                         //Weapon_Go.GetComponent<Weapon_Cross>().Weapon_Application_Equipment();
                         All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.Cross);
                     }
@@ -408,7 +413,7 @@ public class Unit_Player : Unit
                         yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_Garlic>().SR);
 
                         Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, Garlic_LAT.Level);
-
+                        CheckSynergyEffects(Weapon_Go.GetComponent<Weapon_Garlic>().WeaponKeyword);
                         //Weapon_Go.GetComponent<Weapon_Garlic>().Weapon_Application_Equipment();
                         //All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.Garlic);
                     }
@@ -458,6 +463,7 @@ public class Unit_Player : Unit
 
                                 // Weapon_Init을 통해 필요한 초기화 작업 수행
                                 Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, LightningRing_LAT.Level);
+                                CheckSynergyEffects(Weapon_Go.GetComponent<Weapon_LightningRing>().WeaponKeyword);
                                 //Weapon_Go.GetComponent<Weapon_LightningRing>().Weapon_Application_Equipment();
                                 All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.LightningRing);
                             }
@@ -487,6 +493,7 @@ public class Unit_Player : Unit
                         yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_ShadowPinion>().SR);
 
                         Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, ShadowPinion_LAT.Level);
+                        CheckSynergyEffects(Weapon_Go.GetComponent<Weapon_ShadowPinion>().WeaponKeyword);
                         //Weapon_Go.GetComponent<Weapon_ShadowPinion>().Weapon_Application_Equipment();
                         All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.ShadowPinion);
                     }
@@ -507,6 +514,7 @@ public class Unit_Player : Unit
 
                         Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, RuneTracer_LAT.Level);
                         //Weapon_Go.GetComponent<Weapon_RuneTracer>().Weapon_Application_Equipment();
+                        CheckSynergyEffects(Weapon_Go.GetComponent<Weapon_RuneTracer>().WeaponKeyword);
                         All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.RuneTracer);
                     }
                 }
@@ -537,6 +545,7 @@ public class Unit_Player : Unit
 
 
                         Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, Whip_LAT.Level);
+                        CheckSynergyEffects(Weapon_Go.GetComponent<Weapon_Whip>().WeaponKeyword);
                         Weapon_Trigger = !Weapon_Trigger;
 
                         All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.Whip);
@@ -554,7 +563,6 @@ public class Unit_Player : Unit
         {
             All_Weapon.Add(Weapon_Go.GetComponent<Weapon>());
             //Weapon_Go.transform.parent = this.transform;
-            All_Manager.instance.GameMode_M.Current_Player.WeaponKeywordsSynergy(Weapon_Go.GetComponent<Weapon>());
         }
 
         else
@@ -1483,111 +1491,79 @@ public class Unit_Player : Unit
     }
     #endregion
 
-    public void WeaponKeywordsSynergy(Weapon p_Weapon)
+    // 시너지 효과 적용 확인 및 처리
+    public void CheckSynergyEffects(WeaponKeyword keyword)
     {
-        switch (p_Weapon.WeaponKeywords)
+        if (keyword == WeaponKeyword.NONE) return;
+
+        int keywordCount = 0;
+        foreach (Weapon weapon in All_Weapon)
         {
-            case WeaponKeyword.NONE:
-                break;
+            if (weapon.WeaponKeyword == keyword)
+            {
+                keywordCount++;
+            }
+        }
+
+        if (keywordCount >= 2)
+        {
+            ApplySynergyEffect(keyword);
+        }
+    }
+
+    // 시너지 효과 적용 함수
+    public void ApplySynergyEffect(WeaponKeyword keyword)
+    {
+        switch (keyword)
+        {
             case WeaponKeyword.Bound:
+                foreach (Weapon weapon in All_Weapon)
                 {
-                    WeaponSynergyBound(p_Weapon);
+                    if (weapon.WeaponKeyword == keyword)
+                    {
+                        weapon.Weapon_Damage *= 1.5f;
+                    }
                 }
                 break;
             case WeaponKeyword.Phoenix:
+                foreach (Weapon weapon in All_Weapon)
                 {
-                    WeaponSynergyPhoenix(p_Weapon);
+                    if (weapon.WeaponKeyword == keyword)
+                    {
+                        weapon.Weapon_Speed *= 1.5f;
+                    }
                 }
                 break;
             case WeaponKeyword.Paladin:
+                foreach (Weapon weapon in All_Weapon)
                 {
-                    WeaponSynergyPaladin(p_Weapon);
+                    if (weapon.WeaponKeyword == keyword)
+                    {
+                        weapon.Weapon_Range *= 1.5f;
+                    }
                 }
                 break;
             case WeaponKeyword.Sonic:
+                foreach (Weapon weapon in All_Weapon)
                 {
-                    WeaponSynergySonic(p_Weapon);
+                    if (weapon.WeaponKeyword == keyword)
+                    {
+                        weapon.Weapon_CoolDown *= 0.5f;
+                    }
                 }
                 break;
             case WeaponKeyword.Holy:
+                foreach (Weapon weapon in All_Weapon)
                 {
-                    WeaponSynergyHoly(p_Weapon);
+                    if (weapon.WeaponKeyword == keyword)
+                    {
+                        weapon.Weapon_Size *= 1.5f;
+                    }
                 }
                 break;
+                // 다른 키워드에 대한 시너지 효과 추가 가능
         }
     }
-
-    public void WeaponSynergyBound(Weapon p_Weapon)
-    {
-        if (GetKeywordCount(WeaponKeyword.Bound) != 2) return;
-        if (p_Weapon.WeaponKeywords == WeaponKeyword.Bound)
-        {
-            p_Weapon.BoostDamage(1.5f);
-        }
-    }
-
-    public void WeaponSynergyPhoenix(Weapon p_Weapon)
-    {
-        if (GetKeywordCount(WeaponKeyword.Phoenix) != 2) return;
-        if (p_Weapon.WeaponKeywords == WeaponKeyword.Phoenix)
-        {
-            p_Weapon.BoostSpeed(1.2f);
-        }
-    }
-
-    public void WeaponSynergySonic(Weapon p_Weapon)
-    {
-        if (GetKeywordCount(WeaponKeyword.Sonic) != 2) return;
-        if (p_Weapon.WeaponKeywords == WeaponKeyword.Sonic)
-        {
-            p_Weapon.BoostCoolDown(1.3f);
-        }
-    }
-
-    public void WeaponSynergyPaladin(Weapon p_Weapon)
-    {
-        if (GetKeywordCount(WeaponKeyword.Paladin) != 2) return;
-        if (p_Weapon.WeaponKeywords == WeaponKeyword.Paladin)
-        {
-            p_Weapon.BoostRange(1.4f);
-        }
-    }
-
-    public void WeaponSynergyHoly(Weapon p_Weapon)
-    {
-        if (GetKeywordCount(WeaponKeyword.Holy) != 2) return;
-        if (p_Weapon.WeaponKeywords == WeaponKeyword.Holy)
-        {
-            p_Weapon.BoostSize(1.2f);
-        }
-    }
-
-    public void AddWeaponKeyword(WeaponKeyword p_WeaponKeyword)
-    {
-        if (weaponKeywordCounts.ContainsKey(p_WeaponKeyword))
-        {
-            // 키워드가 이미 있다면 카운트를 증가시킴
-            weaponKeywordCounts[p_WeaponKeyword]++;
-        }
-        else
-        {
-            // 키워드가 없다면 새로 추가하고 카운트를 1로 설정한다.
-            weaponKeywordCounts[p_WeaponKeyword] = 1;
-        }
-
-        Debug.Log("키워드확인데수: " + p_WeaponKeyword.ToString());
-    }
-
-    // 키워드 카운트를 확인하는 메서드
-    public int GetKeywordCount(WeaponKeyword p_WeaponKeyword)
-    {
-        if (weaponKeywordCounts.ContainsKey(p_WeaponKeyword))
-        {
-            return All_Manager.instance.GameMode_M.Current_Player.weaponKeywordCounts[p_WeaponKeyword];
-        }
-        return 0;
-    }
-
 
     // 플레이어 이동
     public void Player_Move()

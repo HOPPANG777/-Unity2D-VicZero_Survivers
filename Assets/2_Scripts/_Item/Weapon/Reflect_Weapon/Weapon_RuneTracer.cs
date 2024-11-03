@@ -15,7 +15,7 @@ public class Weapon_RuneTracer : Weapon
         Dir = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0);
         mainCamera = Camera.main;
         TR.enabled = true;
-        this.Weapon_Trail();
+        
     }
 
     public override void Update()
@@ -29,6 +29,8 @@ public class Weapon_RuneTracer : Weapon
             this.Weapon_KnockBack_Weapon();
 
             this.Weapon_Timer();
+
+            this.Weapon_Trail();
         }
 
         else
@@ -85,10 +87,7 @@ public class Weapon_RuneTracer : Weapon
 
     public override void Upgrade(int p_Level)
     {
-        if (p_Level == 3)
-        {
-            All_Manager.instance.GameMode_M.Current_Player.AddWeaponKeyword(this.WeaponKeywords);
-        }
+
     }
 
     public override void Weapon_Stat_Appliaction()
@@ -100,6 +99,7 @@ public class Weapon_RuneTracer : Weapon
     {
         base.Weapon_To_Enemy_Collision();
     }
+
 }
 
 #region

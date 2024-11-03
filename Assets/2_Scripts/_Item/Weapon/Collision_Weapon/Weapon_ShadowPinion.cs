@@ -86,10 +86,7 @@ public class Weapon_ShadowPinion : Weapon
 
     public override void Upgrade(int p_Level)
     {
-        if (p_Level == 2)
-        {
-            All_Manager.instance.GameMode_M.Current_Player.AddWeaponKeyword(this.WeaponKeywords);
-        }
+
     }
 
     public override void Weapon_Stat_Appliaction()
@@ -101,6 +98,8 @@ public class Weapon_ShadowPinion : Weapon
     {
         base.Weapon_To_Enemy_Collision();
     }
+
+
 
 }
 

@@ -6,10 +6,10 @@ using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 using static UnityEngine.UI.CanvasScaler;
 
-public abstract class Weapon : MonoBehaviour
+public abstract class Weapon : MonoBehaviour, IWeaponKeywords
 {
     public Weapon_Type WT;
-    public WeaponKeyword WeaponKeywords;
+    public WeaponKeyword WeaponKeyword { get; set; }
 
     public SpriteRenderer SR;
     public BoxCollider2D BC;
@@ -45,6 +45,8 @@ public abstract class Weapon : MonoBehaviour
     private float Next_Check_Time = 0.0f;
 
     public bool Forever = false;
+
+    public bool IsKeywordCounted { get; set; } = false;
 
     public virtual void Start()
     {
@@ -155,7 +157,7 @@ public abstract class Weapon : MonoBehaviour
                     enemiesHit.Add(Temp_Enemy); // 해당 적이 이미 타격 처리되었음을 기록
 
                     // 무기가 영구적인 것이 아닌 경우만 충돌 횟수 및 무기 파괴 로직 처리
-                    if (Forever)
+                    if (Forever == false)
                     {
                         Collision_Count++;
 
@@ -212,7 +214,7 @@ public abstract class Weapon : MonoBehaviour
 
         weapon.SR.sprite = weapon_STO.Sprite_Image;
         weapon.WT = weapon_STO.WT;
-        weapon.WeaponKeywords = weapon_STO.WeaponKeywords;
+        weapon.WeaponKeyword = weapon_STO.WeaponKeywords;
 
         if (weapon_STO.Weapon_Animator_Controller != null)
         {
@@ -241,6 +243,9 @@ public abstract class Weapon : MonoBehaviour
 
         weapon.GetComponent<Weapon>().SR.size = new Vector2((Temp_Weapon_Size), (Temp_Weapon_Size));
         weapon.BC.size = new Vector2((SR.size.x * 0.5f), (SR.size.y * 0.5f));
+
+        // 설정된 키워드를 Synergy_Manager에 등록한다.
+        Synergy_Manager.instance.RegisterWeaponKeyword(weapon.WeaponKeyword, weapon);
     }
 
 
@@ -315,6 +320,7 @@ public abstract class Weapon : MonoBehaviour
             //Destroy(this.gameObject);
 
             All_Manager.instance.Pool_M.Weapon_Pool_In(this.gameObject.GetComponent<Weapon>());
+            Synergy_Manager.instance.UnregisterWeaponKeyword(WeaponKeyword, this);
         }
 
         // Mine이 null이 아니라면
@@ -323,6 +329,7 @@ public abstract class Weapon : MonoBehaviour
             if (All_Manager.instance.GameMode_M.Current_Player.All_Weapon.Contains(this))
             {
                 All_Manager.instance.GameMode_M.Current_Player.All_Weapon.Remove(this);
+                Synergy_Manager.instance.UnregisterWeaponKeyword(WeaponKeyword, this);
                 //Debug.Log("Weapon Destroy");
             }
         }
@@ -333,61 +340,6 @@ public abstract class Weapon : MonoBehaviour
     }
 
 
-    public void BoostDamage(float multiply)
-    {
-        var Temp_WTO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(WT);
-
-        var Temp_WLAT = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_WTO);
-
-        var Temp_Weapon_Damage = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Damage(WT, Temp_WLAT);
-
-        Temp_Weapon_Damage *= multiply;
-    }
-
-    public void BoostSpeed(float multiply)
-    {
-        var Temp_WTO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(WT);
-
-        var Temp_WLAT = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_WTO);
-
-        var Temp_Weapon_Speed = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Speed(WT, Temp_WLAT);
-
-        Temp_Weapon_Speed *= multiply;
-    }
-
-    public void BoostRange(float multiply)
-    {
-        var Temp_WTO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(WT);
-
-        var Temp_WLAT = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_WTO);
-
-        var Temp_Weapon_Range = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Range(WT, Temp_WLAT);
-
-        Temp_Weapon_Range *= multiply;
-    }
-
-
-    public void BoostCoolDown(float multiply)
-    {
-        var Temp_WTO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(WT);
-
-        var Temp_WLAT = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_WTO);
-
-        var Temp_Weapon_CoolDown = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_CoolDown(WT, Temp_WLAT);
-
-        Temp_Weapon_CoolDown *= multiply;
-    }
-
-    public void BoostSize(float multiply)
-    {
-        var Temp_WTO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(WT);
-
-        var Temp_WLAT = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_WTO);
-
-        var Temp_Weapon_Size = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Size(WT, Temp_WLAT);
-
-        Temp_Weapon_Size *= multiply;
-    }   
 
 }
 
