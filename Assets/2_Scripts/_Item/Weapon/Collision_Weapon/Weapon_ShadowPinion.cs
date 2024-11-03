@@ -29,7 +29,7 @@ public class Weapon_ShadowPinion : Weapon
             base.Update();
             ShadowPinion_Attack();
             this.Weapon_KnockBack_Weapon();
-            //this.Weapon_Timer();
+            this.Weapon_Timer();
         }
     }
 

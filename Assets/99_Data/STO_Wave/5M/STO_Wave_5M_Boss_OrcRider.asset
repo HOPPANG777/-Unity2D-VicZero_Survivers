@@ -18,4 +18,4 @@ MonoBehaviour:
   Spawn_Time: 1
   Spawn_Count: 1
   STO_Enemy: {fileID: 11400000, guid: e8e35d902247f794eb6ccfdc3c67f631, type: 2}
-  Elite: 1
+  Elite: 0

@@ -191,9 +191,14 @@ public class Audio_Manager : MonoBehaviour
             //Background_AS.Pause();
             Background_AS.volume = 0.1f;
         }
-    }
 
-    public void UI_Click_Audio_Play()
+        else if (p_PS == Panel_Style.GameClear)
+        {
+            Background_AS.Stop();
+        }
+}
+
+public void UI_Click_Audio_Play()
     {
         UI_Click_AS.Play();
     }

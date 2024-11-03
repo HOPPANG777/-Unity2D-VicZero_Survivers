@@ -153,14 +153,13 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
                 if (!enemiesHit.Contains(Temp_Enemy))
                 {
                     // 적에게 피해 입히기
+                    Collision_Count++;
                     Temp_Enemy.Hitted(Weapon_Damage);
                     enemiesHit.Add(Temp_Enemy); // 해당 적이 이미 타격 처리되었음을 기록
 
                     // 무기가 영구적인 것이 아닌 경우만 충돌 횟수 및 무기 파괴 로직 처리
                     if (Forever == false)
                     {
-                        Collision_Count++;
-
                         if (Collision_Count >= Weapon_Pen)
                         {
                             Destroy_Weapon();
