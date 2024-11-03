@@ -209,7 +209,8 @@ public abstract class Unit : MonoBehaviour
             isHit = false;
         }
 
-        StartCoroutine(CheckDeadWithDelay());
+        //StartCoroutine(CheckDeadWithDelay());
+        CheckDead();
     }
 
     private IEnumerator CheckDeadWithDelay()
@@ -218,7 +219,7 @@ public abstract class Unit : MonoBehaviour
         yield return new WaitForSeconds(Hit_Time);
 
         // Check if the unit is dead
-        CheckDead();
+        
     }
 
     protected virtual bool CheckDead()
