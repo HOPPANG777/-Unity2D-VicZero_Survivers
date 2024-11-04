@@ -4,32 +4,32 @@ using UnityEngine;
 
 public class UIFactory : MonoBehaviour
 {
-    public void CreatDamageEffect(Transform pTF, int pNumber, Transform pPool)
+    public void Creat_Damage_Effect(Transform p_TF, int p_Number, Transform p_Pool)
     {
-        StartCoroutine(CCreateDamageEffect(pTF, pNumber, pPool));
+        StartCoroutine(C_Create_Damage_Effect(p_TF, p_Number, p_Pool));
     }
 
-    public IEnumerator CCreateDamageEffect(Transform pTF, int pNumber, Transform pPool)
+    public IEnumerator C_Create_Damage_Effect(Transform p_TF, int p_Number, Transform p_Pool)
     {
-        GameObject DamageEffect = new GameObject("DamageEffect" + "-" + pNumber.ToString());
+        GameObject Damage_Effect = new GameObject("Damage_Effect" + "-" + p_Number.ToString());
 
-        TextMesh DamageText = DamageEffect.AddComponent<TextMesh>();
+        TextMesh Damage_Text = Damage_Effect.AddComponent<TextMesh>();
 
-        DamageEffect.transform.position = pTF.transform.position;
-        DamageEffect.transform.rotation = Quaternion.identity;
-        DamageEffect.transform.localScale = Vector3.one;
+        Damage_Effect.transform.position = p_TF.transform.position;
+        Damage_Effect.transform.rotation = Quaternion.identity;
+        Damage_Effect.transform.localScale = Vector3.one;
 
-        if (DamageEffect.GetComponent<TextMesh>())
+        if (Damage_Effect.GetComponent<TextMesh>())
         {
             yield return null;
 
-            DamageText.fontSize = 32;
-            DamageText.color = Color.white;
+            Damage_Text.fontSize = 32;
+            Damage_Text.color = Color.white;
         }
 
-        DamageEffect.transform.parent = pPool;
+        Damage_Effect.transform.parent = p_Pool;
 
-        DamageEffect.SetActive(false);
+        Damage_Effect.SetActive(false);
     }
 
 

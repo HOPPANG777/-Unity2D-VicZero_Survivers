@@ -12,45 +12,45 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
     public WeaponKeyword WeaponKeyword { get; set; }
     public WeaponType weaponType;
 
-    [SerializeField] protected SpriteRenderer weaponSpriteRenderer;
-    public SpriteRenderer WeaponSpriteRenderer { get {  return weaponSpriteRenderer; } set { weaponSpriteRenderer = value; } }
+    [SerializeField] protected SpriteRenderer _weaponSpriteRenderer;
+    public SpriteRenderer WeaponSpriteRenderer { get {  return _weaponSpriteRenderer; } set { _weaponSpriteRenderer = value; } }
 
-    [SerializeField] protected BoxCollider2D weaponBoxCollider2D;
-    public BoxCollider2D WeaponBoxCollider2D { get { return weaponBoxCollider2D; } set { weaponBoxCollider2D = value; } }
+    [SerializeField] protected BoxCollider2D _weaponBoxCollider2D;
+    public BoxCollider2D WeaponBoxCollider2D { get { return _weaponBoxCollider2D; } set { _weaponBoxCollider2D = value; } }
 
-    [SerializeField] protected TrailRenderer weaponTrailRenderer;
-    public TrailRenderer WeaponTrailRenderer { get { return weaponTrailRenderer; } set { weaponTrailRenderer = value; } }
+    [SerializeField] protected TrailRenderer _weaponTrailRenderer;
+    public TrailRenderer WeaponTrailRenderer { get { return _weaponTrailRenderer; } set { _weaponTrailRenderer = value; } }
 
-    [SerializeField] protected Animator weaponAnimator;
-    public Animator WeaponAnimator { get { return weaponAnimator; } set { weaponAnimator = value; } }
+    [SerializeField] protected Animator _weaponAnimator;
+    public Animator WeaponAnimator { get { return _weaponAnimator; } set { _weaponAnimator = value; } }
 
     public Unit Mine;
 
-    public UnitEnemy WeaponTargetWeapon;
+    public Unit_Enemy Weapon_Target_Weapon;
 
-    public float WeaponDamage = 0;
-    public float WeaponSpeed = 0;
-    public float WeaponRange = 0;
-    public float WeaponTime = 0;
-    public float WeaponPen = 0;
-    public float WeaponCoolDown = 0;
-    public float WeaponDuration = 0;
-    public float WAccumulate = 0;
-    public float WeaponKnock = 0;
-    public float WeaponSize = 0;
-    public int WeaponLevel = 0;
-    public int WeaponCount = 0;
+    public float Weapon_Damage = 0;
+    public float Weapon_Speed = 0;
+    public float Weapon_Range = 0;
+    public float Weapon_Time = 0;
+    public float Weapon_Pen = 0;
+    public float Weapon_CoolDown = 0;
+    public float Weapon_Duration = 0;
+    public float W_Accumulate = 0;
+    public float Weapon_Knock = 0;
+    public float Weapon_Size = 0;
+    public int Weapon_Level = 0;
+    public int Weapon_Count = 0;
 
-    public float WeaponBasicDamage = 0;
-    public float WeaponBasicSpeed = 0;
-    public float WeaponBasicRange = 0;
-    public float WeaponBasicDuration = 0;
+    public float Weapon_Basic_Damage = 0;
+    public float Weapon_Basic_Speed = 0;
+    public float Weapon_Basic_Range = 0;
+    public float Weapon_Basic_Duration = 0;
 
-    public int CollisionCount = 0;
-    public float ClosetDistance = 0;
+    public int Collision_Count = 0;
+    public float Closet_Distance = 0;
 
-    private float CheckInterval = 0.5f;
-    private float NextCheckTime = 0.0f;
+    private float Check_Interval = 0.5f;
+    private float Next_Check_Time = 0.0f;
 
     public bool Forever = false;
 
@@ -58,116 +58,116 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
 
     public virtual void Start()
     {
-        weaponSpriteRenderer = this.AddComponent<SpriteRenderer>();
+        _weaponSpriteRenderer = this.AddComponent<SpriteRenderer>();
 
-        weaponBoxCollider2D = this.AddComponent<BoxCollider2D>();
-        weaponBoxCollider2D.isTrigger = true;
+        _weaponBoxCollider2D = this.AddComponent<BoxCollider2D>();
+        _weaponBoxCollider2D.isTrigger = true;
 
-        weaponTrailRenderer = this.AddComponent<TrailRenderer>();
-        weaponTrailRenderer.enabled = false;
+        _weaponTrailRenderer = this.AddComponent<TrailRenderer>();
+        _weaponTrailRenderer.enabled = false;
 
-        weaponAnimator = this.AddComponent<Animator>();
+        _weaponAnimator = this.AddComponent<Animator>();
     }
 
-    public void WeaponInit(Unit pUser, WeaponData pWP, int pLevel)
+    public void Weapon_Init(Unit p_User, STO_Weapon p_WP, int p_Level)
     {
-        Mine = pUser;
+        Mine = p_User;
 
-        WeaponLevel = pLevel;
+        Weapon_Level = p_Level;
 
-        WeaponStat(WeaponLevel, this, pWP);
+        Weapon_Stat(Weapon_Level, this, p_WP);
     }
 
     public virtual void Update()
     {
-        if (AllManager.instance.GameModeM.CurrentPlayer == null)
+        if (All_Manager.instance.GameMode_M.Current_Player == null)
         {
-            DestroyWeapon();
+            Destroy_Weapon();
         }
         else
         {
-            WeaponStatAppliaction();
+            Weapon_Stat_Appliaction();
 
-            WeaponToEnemyCollision();
+            Weapon_To_Enemy_Collision();
 
-            NextCheckTime = Time.time + CheckInterval;
+            Next_Check_Time = Time.time + Check_Interval;
         }
 
     }
 
     // 업그레이드
-    public abstract void Upgrade(int pLevel);
+    public abstract void Upgrade(int p_Level);
 
     // 무기 파괴 타이머
-    public void WeaponTimer()
+    public void Weapon_Timer()
     {
-        if (WeaponTime > WeaponDuration)
+        if (Weapon_Time > Weapon_Duration)
         {
-            WeaponTime = 0;
+            Weapon_Time = 0;
 
-            DestroyWeapon();
+            Destroy_Weapon();
         }
 
-        WeaponTime += Time.deltaTime;
+        Weapon_Time += Time.deltaTime;
     }
 
     // 베지어 곡선을 쓰는 무기들을 위한 타이머
-    public void WeaponAccumulate()
+    public void Weapon_Accumulate()
     {
-        if (WAccumulate < 1.0f)
+        if (W_Accumulate < 1.0f)
         {
-            WAccumulate += (WeaponSpeed * Time.deltaTime);
+            W_Accumulate += (Weapon_Speed * Time.deltaTime);
         }
-        else if (WAccumulate > 1.0f)
+        else if (W_Accumulate > 1.0f)
         {
-            DestroyWeapon();
+            Destroy_Weapon();
         }
     }
 
-    public virtual void WeaponToEnemyCollision()
+    public virtual void Weapon_To_Enemy_Collision()
     {
-        var EnemyList = AllManager.instance.GameModeM.EnemyList;
+        var Enemy_List = All_Manager.instance.GameMode_M.Enemy_List;
         var Weapon = this;
 
         // 무기 위치를 변수로 저장하여 반복 사용
-        Vector2 WeaponPosition = Weapon.transform.position;
+        Vector2 Weapon_Position = Weapon.transform.position;
 
         // 무기 타입에 따른 STO 및 무기 범위 관련 변수 미리 계산
-        var TempweaponTypeO = AllManager.instance.ResourceM.ConvertWeaponTypeToWeaponDataArr(weaponType);
-        var TempWALT = AllManager.instance.GameModeM.CurrentPlayer.ConvertWLATPlayer(TempweaponTypeO);
-        float MinDistance = AllManager.instance.GameModeM.CurrentPlayer.CurrentWeaponSize(weaponType, TempWALT) * 0.5f;
+        var Temp_weaponTypeO = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr(weaponType);
+        var Temp_WALT = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_weaponTypeO);
+        float Min_Distance = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Size(weaponType, Temp_WALT) * 0.5f;
 
-        // MinDistance를 제곱하여 루트 계산 방지 (성능 최적화)
-        float MinDistanceSqr = (MinDistance * MinDistance);
+        // Min_Distance를 제곱하여 루트 계산 방지 (성능 최적화)
+        float Min_Distance_Sqr = (Min_Distance * Min_Distance);
 
         // 무기에 의한 적의 타격 처리 여부를 저장할 리스트
-        List<UnitEnemy> enemiesHit = new List<UnitEnemy>();
+        List<Unit_Enemy> enemiesHit = new List<Unit_Enemy>();
 
-        for (int i = 0; i < EnemyList.Count; i++)
+        for (int i = 0; i < Enemy_List.Count; i++)
         {
             // 무기와 적 간의 거리 계산
-            Vector2 Dir = WeaponPosition - (Vector2)EnemyList[i].transform.position;
+            Vector2 Dir = Weapon_Position - (Vector2)Enemy_List[i].transform.position;
 
             // 거리의 제곱을 계산하여 비교 (루트 계산 방지)
-            float DisSqr = Dir.sqrMagnitude;
+            float Dis_Sqr = Dir.sqrMagnitude;
 
-            if (DisSqr < MinDistanceSqr)
+            if (Dis_Sqr < Min_Distance_Sqr)
             {
-                UnitEnemy TempEnemy = EnemyList[i].transform.GetComponent<UnitEnemy>();
+                Unit_Enemy Temp_Enemy = Enemy_List[i].transform.GetComponent<Unit_Enemy>();
 
-                if (!enemiesHit.Contains(TempEnemy))
+                if (!enemiesHit.Contains(Temp_Enemy))
                 {
                     // 적에게 피해 입히기
-                    CollisionCount++;
-                    TempEnemy.Hitted(WeaponDamage);
-                    enemiesHit.Add(TempEnemy); // 해당 적이 이미 타격 처리되었음을 기록
+                    Collision_Count++;
+                    Temp_Enemy.Hitted(Weapon_Damage);
+                    enemiesHit.Add(Temp_Enemy); // 해당 적이 이미 타격 처리되었음을 기록
 
                     // 무기가 영구적인 것이 아닌 경우만 충돌 횟수 및 무기 파괴 로직 처리
                     if (Forever == false)
                     {
-                        if (CollisionCount >= WeaponPen)
+                        if (Collision_Count >= Weapon_Pen)
                         {
-                            DestroyWeapon();
+                            Destroy_Weapon();
                             return; // 무기를 파괴하고 함수 종료
                         }
                     }
@@ -177,21 +177,21 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
     }
 
     // 무기 넉백
-    public void WeaponKnockBackWeapon()
+    public void Weapon_KnockBack_Weapon()
     {
         // 모든 적 유닛을 가져와 충돌 검사
-        var EnemyList = AllManager.instance.GameModeM.EnemyList;
-        var TempPlayer = AllManager.instance.GameModeM.CurrentPlayer;
-        var TempweaponTypeO = AllManager.instance.ResourceM.ConvertWeaponTypeToWeaponDataArr(weaponType);
-        var TempWLAT = AllManager.instance.GameModeM.CurrentPlayer.ConvertWLATPlayer(TempweaponTypeO);
+        var Enemy_List = All_Manager.instance.GameMode_M.Enemy_List;
+        var Temp_Player = All_Manager.instance.GameMode_M.Current_Player;
+        var Temp_weaponTypeO = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr(weaponType);
+        var Temp_WLAT = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_weaponTypeO);
 
         // 넉백 범위 설정
-        float KnockBackRange = AllManager.instance.GameModeM.CurrentPlayer.CurrentWeaponSize(weaponType, TempWLAT) * 0.5f; // 넉백 범위 (필요에 따라 조정 가능)
-        float KnockBackRangeSqr = (KnockBackRange * KnockBackRange); // 거리 비교 최적화 (루트 계산 방지)
+        float KnockBack_Range = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Size(weaponType, Temp_WLAT) * 0.5f; // 넉백 범위 (필요에 따라 조정 가능)
+        float KnockBack_Range_Sqr = (KnockBack_Range * KnockBack_Range); // 거리 비교 최적화 (루트 계산 방지)
 
-        for (int i = 0; i < EnemyList.Count; i++)
+        for (int i = 0; i < Enemy_List.Count; i++)
         {
-            UnitEnemy Enemy = EnemyList[i];
+            Unit_Enemy Enemy = Enemy_List[i];
 
             if (Enemy == this || Enemy.UnitType == UnitType.Barrel)
             {
@@ -200,98 +200,98 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
 
             // 적과 무기 간의 거리 계산
             Vector3 Dir = this.transform.position - Enemy.transform.position;
-            float DisSqr = Dir.sqrMagnitude;
+            float Dis_Sqr = Dir.sqrMagnitude;
 
             // 넉백 범위 내의 적에 대해서만 넉백 적용
-            if (DisSqr <= KnockBackRangeSqr)
+            if (Dis_Sqr <= KnockBack_Range_Sqr)
             {
                 Vector3 direction = (Enemy.transform.position - this.transform.position).normalized;
-                Enemy.KnockBack(direction, WeaponKnock, WeaponDuration);
+                Enemy.Knock_Back(direction, Weapon_Knock, Weapon_Duration);
             }
         }
     }
 
     // 무기 기본 스탯 조정
-    public void WeaponStat(int pLevel, Weapon weapon, WeaponData weaponSTO)
+    public void Weapon_Stat(int p_Level, Weapon weapon, STO_Weapon weapon_STO)
     {
         //Debug.Log("스프라이트 삽입");
 
-        weapon.weaponSpriteRenderer.sprite = weaponSTO.SpriteImage;
-        weapon.weaponType = weaponSTO.weaponType;
-        weapon.WeaponKeyword = weaponSTO.WeaponKeywords;
+        weapon._weaponSpriteRenderer.sprite = weapon_STO.Sprite_Image;
+        weapon.weaponType = weapon_STO.weaponType;
+        weapon.WeaponKeyword = weapon_STO.WeaponKeywords;
 
-        if (weaponSTO.WeaponAnimatorController != null)
+        if (weapon_STO.Weapon_Animator_Controller != null)
         {
-            weapon.weaponAnimator.runtimeAnimatorController = weaponSTO.WeaponAnimatorController;
-            weapon.weaponAnimator.speed = 1.0f;
-            weapon.weaponAnimator.cullingMode = AnimatorCullingMode.CullCompletely;
+            weapon._weaponAnimator.runtimeAnimatorController = weapon_STO.Weapon_Animator_Controller;
+            weapon._weaponAnimator.speed = 1.0f;
+            weapon._weaponAnimator.cullingMode = AnimatorCullingMode.CullCompletely;
         }
 
-        weapon.WeaponDamage = weaponSTO.Infos[pLevel].WeaponDamage;
-        weapon.WeaponSpeed = (weaponSTO.Infos[pLevel].WeaponSpeed * 1.5f);
-        weapon.WeaponRange = weaponSTO.Infos[pLevel].WeaponRange;
-        weapon.WeaponTime = weaponSTO.Infos[pLevel].WeaponTime;
-        weapon.WeaponCount = weaponSTO.Infos[pLevel].WeaponCount;
-        weapon.WeaponPen = weaponSTO.Infos[pLevel].WeaponPen;
-        weapon.WeaponCoolDown = weaponSTO.Infos[pLevel].WeaponCoolDown;
-        weapon.WeaponDuration = weaponSTO.Infos[pLevel].WeaponDuration;
-        weapon.WeaponKnock = weaponSTO.Infos[pLevel].WeaponKnock;
-        weapon.WeaponSize = weaponSTO.Infos[pLevel].WeaponSize;
-        weapon.Forever = weaponSTO.Forever;
+        weapon.Weapon_Damage = weapon_STO.Info_s[p_Level].Weapon_Damage;
+        weapon.Weapon_Speed = (weapon_STO.Info_s[p_Level].Weapon_Speed * 1.5f);
+        weapon.Weapon_Range = weapon_STO.Info_s[p_Level].Weapon_Range;
+        weapon.Weapon_Time = weapon_STO.Info_s[p_Level].Weapon_Time;
+        weapon.Weapon_Count = weapon_STO.Info_s[p_Level].Weapon_Count;
+        weapon.Weapon_Pen = weapon_STO.Info_s[p_Level].Weapon_Pen;
+        weapon.Weapon_CoolDown = weapon_STO.Info_s[p_Level].Weapon_CoolDown;
+        weapon.Weapon_Duration = weapon_STO.Info_s[p_Level].Weapon_Duration;
+        weapon.Weapon_Knock = weapon_STO.Info_s[p_Level].Weapon_Knock;
+        weapon.Weapon_Size = weapon_STO.Info_s[p_Level].Weapon_Size;
+        weapon.Forever = weapon_STO.Forever;
 
-        var TempWLAT = AllManager.instance.GameModeM.CurrentPlayer.ConvertWLATPlayer(weaponSTO);
+        var Temp_WLAT = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(weapon_STO);
 
-        var TempWeaponSize = AllManager.instance.GameModeM.CurrentPlayer.CurrentWeaponSize(weaponType, TempWLAT);
+        var Temp_Weapon_Size = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Size(weaponType, Temp_WLAT);
 
-        weapon.GetComponent<Weapon>().weaponSpriteRenderer.drawMode = SpriteDrawMode.Sliced;
+        weapon.GetComponent<Weapon>()._weaponSpriteRenderer.drawMode = SpriteDrawMode.Sliced;
 
-        weapon.GetComponent<Weapon>().weaponSpriteRenderer.size = new Vector2((TempWeaponSize), (TempWeaponSize));
-        weapon.weaponBoxCollider2D.size = new Vector2((weaponSpriteRenderer.size.x * 0.5f), (weaponSpriteRenderer.size.y * 0.5f));
+        weapon.GetComponent<Weapon>()._weaponSpriteRenderer.size = new Vector2((Temp_Weapon_Size), (Temp_Weapon_Size));
+        weapon._weaponBoxCollider2D.size = new Vector2((_weaponSpriteRenderer.size.x * 0.5f), (_weaponSpriteRenderer.size.y * 0.5f));
 
-        // 설정된 키워드를 SynergyManager에 등록한다.
-        SynergyManager.instance.RegisterWeaponKeyword(weapon.WeaponKeyword, weapon);
+        // 설정된 키워드를 Synergy_Manager에 등록한다.
+        Synergy_Manager.instance.RegisterWeaponKeyword(weapon.WeaponKeyword, weapon);
     }
 
 
-    public virtual void WeaponStatAppliaction()
+    public virtual void Weapon_Stat_Appliaction()
     {
-        var TempweaponTypeO = AllManager.instance.ResourceM.ConvertWeaponTypeToWeaponDataArr(weaponType);
+        var Temp_weaponTypeO = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr(weaponType);
 
-        var TempWLAT = AllManager.instance.GameModeM.CurrentPlayer.ConvertWLATPlayer(TempweaponTypeO);
+        var Temp_WLAT = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_weaponTypeO);
 
-        var TempWeaponDamage = AllManager.instance.GameModeM.CurrentPlayer.CurrentWeaponDamage(weaponType, TempWLAT);
-        var TempWeaponSpeed = AllManager.instance.GameModeM.CurrentPlayer.CurrentWeaponSpeed(weaponType, TempWLAT);
-        var TempWeaponRange = AllManager.instance.GameModeM.CurrentPlayer.CurrentWeaponRange(weaponType, TempWLAT);
-        var TempWeaponSize = AllManager.instance.GameModeM.CurrentPlayer.CurrentWeaponSize(weaponType, TempWLAT);
-        var TempWeaponDuration = AllManager.instance.GameModeM.CurrentPlayer.CurrentWeaponDuration(weaponType, TempWLAT);
+        var Temp_Weapon_Damage = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Damage(weaponType, Temp_WLAT);
+        var Temp_Weapon_Speed = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Speed(weaponType, Temp_WLAT);
+        var Temp_Weapon_Range = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Range(weaponType, Temp_WLAT);
+        var Temp_Weapon_Size = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Size(weaponType, Temp_WLAT);
+        var Temp_Weapon_Duration = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Duration(weaponType, Temp_WLAT);
 
-        WeaponDamage = TempWeaponDamage;
-        WeaponSpeed = TempWeaponSpeed;
-        WeaponRange = TempWeaponRange;
-        WeaponDuration = TempWeaponDuration;
-        WeaponSize = TempWeaponSize;
+        Weapon_Damage = Temp_Weapon_Damage;
+        Weapon_Speed = Temp_Weapon_Speed;
+        Weapon_Range = Temp_Weapon_Range;
+        Weapon_Duration = Temp_Weapon_Duration;
+        Weapon_Size = Temp_Weapon_Size;
     }
 
 
-    public void WeaponTrail()
+    public void Weapon_Trail()
     {
         // Trail Renderer 설정
-        weaponTrailRenderer.time = 1.0f; // 꼬리가 지속되는 시간
-        weaponTrailRenderer.startWidth = 0.05f; // 꼬리의 시작 너비
-        weaponTrailRenderer.endWidth = 0.01f; // 꼬리의 끝 너비
+        _weaponTrailRenderer.time = 1.0f; // 꼬리가 지속되는 시간
+        _weaponTrailRenderer.startWidth = 0.05f; // 꼬리의 시작 너비
+        _weaponTrailRenderer.endWidth = 0.01f; // 꼬리의 끝 너비
 
         // 재질 설정
-        weaponTrailRenderer.material = new Material(Shader.Find("Sprites/Default"));
-        weaponTrailRenderer.startColor = Color.white; // 꼬리의 시작 색상
-        weaponTrailRenderer.endColor = Color.white; // 꼬리의 끝 색상
+        _weaponTrailRenderer.material = new Material(Shader.Find("Sprites/Default"));
+        _weaponTrailRenderer.startColor = Color.white; // 꼬리의 시작 색상
+        _weaponTrailRenderer.endColor = Color.white; // 꼬리의 끝 색상
 
         // 추가 설정 (필요에 따라 변경 가능)
-        weaponTrailRenderer.minVertexDistance = 0.1f; // 최소 꼭짓점 간 거리
-        weaponTrailRenderer.widthCurve = new AnimationCurve(
+        _weaponTrailRenderer.minVertexDistance = 0.1f; // 최소 꼭짓점 간 거리
+        _weaponTrailRenderer.widthCurve = new AnimationCurve(
             new Keyframe(0, 0.2f),
             new Keyframe(0.5f, 0.0f)
         ); // 너비 변화 곡선
-        weaponTrailRenderer.colorGradient = new Gradient()
+        _weaponTrailRenderer.colorGradient = new Gradient()
         {
             colorKeys = new GradientColorKey[]
             {
@@ -308,10 +308,10 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
     }
 
     // 무기 파괴 함수
-    public void DestroyWeapon()
+    public void Destroy_Weapon()
     {
-        // 만약 이 Mine으로 안된다면 다 CurrentPlayer로 통합해야 한다.
-        //if (AllManager.instance.GameModeM.CurrentPlayer == null)
+        // 만약 이 Mine으로 안된다면 다 Current_Player로 통합해야 한다.
+        //if (All_Manager.instance.GameMode_M.Current_Player == null)
         //{
         //    Destroy(this.gameObject);
         //}
@@ -319,28 +319,28 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
         //Debug.Log("Weapon Destroy");
 
         // 만약 Mine이 null 이라면
-        if (AllManager.instance.GameModeM.CurrentPlayer == null)
+        if (All_Manager.instance.GameMode_M.Current_Player == null)
         {
             //Destroy(this.gameObject);
 
-            AllManager.instance.PoolM.WeaponPoolIn(this.gameObject.GetComponent<Weapon>());
-            SynergyManager.instance.UnregisterWeaponKeyword(WeaponKeyword, this);
+            All_Manager.instance.Pool_M.Weapon_Pool_In(this.gameObject.GetComponent<Weapon>());
+            Synergy_Manager.instance.UnregisterWeaponKeyword(WeaponKeyword, this);
         }
 
         // Mine이 null이 아니라면
         else
         {
-            if (AllManager.instance.GameModeM.CurrentPlayer.AllWeapon.Contains(this))
+            if (All_Manager.instance.GameMode_M.Current_Player.All_Weapon.Contains(this))
             {
-                AllManager.instance.GameModeM.CurrentPlayer.AllWeapon.Remove(this);
-                SynergyManager.instance.UnregisterWeaponKeyword(WeaponKeyword, this);
+                All_Manager.instance.GameMode_M.Current_Player.All_Weapon.Remove(this);
+                Synergy_Manager.instance.UnregisterWeaponKeyword(WeaponKeyword, this);
                 //Debug.Log("Weapon Destroy");
             }
         }
 
         //Destroy(this.gameObject);
 
-        AllManager.instance.PoolM.WeaponPoolIn(this.gameObject.GetComponent<Weapon>());
+        All_Manager.instance.Pool_M.Weapon_Pool_In(this.gameObject.GetComponent<Weapon>());
     }
 
 
@@ -353,21 +353,21 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
 //public virtual void OnTriggerStay2D(Collider2D collision)
 //{
 //    //충돌체가 이 컴포넌트를 가지고 있는가?
-//    if (collision.transform.GetComponent<UnitEnemy>())
+//    if (collision.transform.GetComponent<Unit_Enemy>())
 //    {
-//        //collision.transform.GetComponent<UnitEnemy>().Hitted(WeaponDamage);
+//        //collision.transform.GetComponent<Unit_Enemy>().Hitted(Weapon_Damage);
 
-//        UnitEnemy TempEnemy = collision.transform.GetComponent<UnitEnemy>();
+//        Unit_Enemy Temp_Enemy = collision.transform.GetComponent<Unit_Enemy>();
 
-//        //Temp.Hitted(WeaponDamageValue);
+//        //Temp.Hitted(Weapon_Damage_Value);
 
-//        TempEnemy.Hitted(WeaponDamage);
+//        Temp_Enemy.Hitted(Weapon_Damage);
 
 //        if (Forever == false)
 //        {
-//            if (CollisionCount > WeaponPen)
+//            if (Collision_Count > Weapon_Pen)
 //            {
-//                DestroyWeapon();
+//                Destroy_Weapon();
 //            }
 //        }
 //        else
@@ -377,159 +377,159 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
 
 //        //Debug.Log("Enemey Hitted");
 
-//        CollisionCount++;
+//        Collision_Count++;
 
 //    }
 
 //}
-//    public void WeaponKnockBackWeapon()
+//    public void Weapon_KnockBack_Weapon()
 //{
-//    Vector3 boxCollider2DCenter = boxCollider2D.transform.TransformPoint(boxCollider2D.offset);
-//    Vector3 boxCollider2DHalfExtents = Vector3.Scale(boxCollider2D.size, boxCollider2D.transform.lossyScale) * 0.5f;
-//    Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(boxCollider2DCenter, boxCollider2D.size * 0.9f, 0);
+//    Vector3 _boxCollider2D_Center = _boxCollider2D.transform.TransformPoint(_boxCollider2D.offset);
+//    Vector3 _boxCollider2D_Half_Extents = Vector3.Scale(_boxCollider2D.size, _boxCollider2D.transform.lossyScale) * 0.5f;
+//    Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(_boxCollider2D_Center, _boxCollider2D.size * 0.9f, 0);
 //    //Debug.Log(collider2Ds);
 
 //    float Dis = 10000;
 
 //    foreach (UnityEngine.Collider2D collider in collider2Ds)
 //    {
-//        if (collider.gameObject.GetComponent<UnitEnemy>())
+//        if (collider.gameObject.GetComponent<Unit_Enemy>())
 //        {
-//            UnitEnemy EnemyTemp = collider.gameObject.GetComponent<UnitEnemy>();
+//            Unit_Enemy Enemy_Temp = collider.gameObject.GetComponent<Unit_Enemy>();
 
-//            if (Dis > Vector3.Distance(this.transform.position, EnemyTemp.transform.position))
+//            if (Dis > Vector3.Distance(this.transform.position, Enemy_Temp.transform.position))
 //            {
-//                Dis = Vector3.Distance(this.transform.position, EnemyTemp.transform.position);
-//                WeaponTargetWeapon = EnemyTemp;
+//                Dis = Vector3.Distance(this.transform.position, Enemy_Temp.transform.position);
+//                Weapon_Target_Weapon = Enemy_Temp;
 //            }
 
-//            //WeaponTargetWeapon = EnemyTemp;
+//            //Weapon_Target_Weapon = Enemy_Temp;
 //        }
 //    }
 
-//    if (WeaponTargetWeapon != null)
+//    if (Weapon_Target_Weapon != null)
 //    {
-//        Vector3 Dir = (WeaponTargetWeapon.transform.position - this.transform.position).normalized;
+//        Vector3 Dir = (Weapon_Target_Weapon.transform.position - this.transform.position).normalized;
 
-//        if (WeaponTargetWeapon.UnitType == UnitType.Barrel)
+//        if (Weapon_Target_Weapon.UnitType == UnitType.Barrel)
 //        {
 
 //        }
 
 //        else
 //        {
-//            WeaponTargetWeapon.KnockBack(Dir, WeaponKnock, WeaponDuration);
+//            Weapon_Target_Weapon.Knock_Back(Dir, Weapon_Knock, Weapon_Duration);
 //        }
 //    }
 //}
 /*
 도끼같은건 보통 관통력을 지니고 있다 룬트레이서도 마찬가지
-따라서 WeaponPen을 추가했는데 
+따라서 Weapon_Pen을 추가했는데 
 유닛이나 웨폰에 충돌할때마다 Pen을 감소시키거나 혹은 변수하나 만들어서 
 하나씩 증가시키고 변수의 값이 Pen보다 크거나 같다면 
 그때 Forever를 false로 만들면 된다.
 */
 
 // 무기 스탯 가중치
-//float WeaponCoolDownValue = 0;
-//WeaponCoolDownValue = Mine.OriginStat.UnitWeaponCoolDown + (Mine.OriginStat.UnitWeaponCoolDown * Mine.PercentStat.UnitWeaponCoolDown * 0.01f);
+//float Weapon_CoolDown_Value = 0;
+//Weapon_CoolDown_Value = Mine.Origin_Stat.Unit_Weapon_CoolDown + (Mine.Origin_Stat.Unit_Weapon_CoolDown * Mine.Percent_Stat.Unit_Weapon_CoolDown * 0.01f);
 
-//WeaponCoolDown -= WeaponCoolDownValue;
+//Weapon_CoolDown -= Weapon_CoolDown_Value;
 
-//for (int i = 0; i < AllManager.instance.ResourceM.WeaponDatas.Length; i++)
+//for (int i = 0; i < All_Manager.instance.Resource_M.STO_Weapons.Length; i++)
 //{
-//    var WLATTemp = AllManager.instance.GameModeM.CurrentPlayer.ConvertWLATPlayer(AllManager.instance.ResourceM.WeaponDatas[i]).Level;
+//    var WLAT_Temp = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(All_Manager.instance.Resource_M.STO_Weapons[i]).Level;
 
-//    var TempCount = AllManager.instance.ResourceM.WeaponDatas[i].Infos[WLATTemp].WeaponCount;
+//    var Temp_Count = All_Manager.instance.Resource_M.STO_Weapons[i].Info_s[WLAT_Temp].Weapon_Count;
 
-//    AllManager.instance.GameModeM.CurrentPlayer.WeaponPublicCount = TempCount + WeaponCountValue;
+//    All_Manager.instance.GameMode_M.Current_Player.Weapon_Public_Count = Temp_Count + Weapon_Count_Value;
 //}
 // 무기 오리진 스탯에 퍼센티지 스탯 적용
-//public void WeaponApplicationAccessory()
+//public void Weapon_Application_Accessory()
 //{
-//    float WeaponDamageValue = 0;
-//    WeaponDamageValue = Mine.OriginStat.UnitWeaponDamage + (Mine.OriginStat.UnitWeaponDamage * Mine.PercentStat.UnitWeaponDamage * 0.01f);
+//    float Weapon_Damage_Value = 0;
+//    Weapon_Damage_Value = Mine.Origin_Stat.Unit_Weapon_Damage + (Mine.Origin_Stat.Unit_Weapon_Damage * Mine.Percent_Stat.Unit_Weapon_Damage * 0.01f);
 
-//    for (int i = 0; i < AllManager.instance.ResourceM.WeaponDatas.Length; i++)
+//    for (int i = 0; i < All_Manager.instance.Resource_M.STO_Weapons.Length; i++)
 //    {
-//        var WLATTemp = AllManager.instance.GameModeM.CurrentPlayer.ConvertWLATPlayer(AllManager.instance.ResourceM.WeaponDatas[i]).Level;
+//        var WLAT_Temp = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(All_Manager.instance.Resource_M.STO_Weapons[i]).Level;
 
-//        var TempDamage = AllManager.instance.ResourceM.WeaponDatas[i].Infos[WLATTemp].WeaponDamage;
+//        var Temp_Damage = All_Manager.instance.Resource_M.STO_Weapons[i].Info_s[WLAT_Temp].Weapon_Damage;
 
-//        TempDamage += WeaponDamageValue;
+//        Temp_Damage += Weapon_Damage_Value;
 //    }
 
-//    float WeaponSpeedValue = 0;
-//    WeaponSpeedValue = Mine.OriginStat.UnitWeaponProjSpeed + (Mine.OriginStat.UnitWeaponProjSpeed * Mine.PercentStat.UnitWeaponProjSpeed * 0.01f);
+//    float Weapon_Speed_Value = 0;
+//    Weapon_Speed_Value = Mine.Origin_Stat.Unit_Weapon_Proj_Speed + (Mine.Origin_Stat.Unit_Weapon_Proj_Speed * Mine.Percent_Stat.Unit_Weapon_Proj_Speed * 0.01f);
 
-//    for (int i = 0; i < AllManager.instance.ResourceM.WeaponDatas.Length; i++)
+//    for (int i = 0; i < All_Manager.instance.Resource_M.STO_Weapons.Length; i++)
 //    {
-//        var WLATTemp = AllManager.instance.GameModeM.CurrentPlayer.ConvertWLATPlayer(AllManager.instance.ResourceM.WeaponDatas[i]).Level;
+//        var WLAT_Temp = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(All_Manager.instance.Resource_M.STO_Weapons[i]).Level;
 
-//        var TempSpeed = AllManager.instance.ResourceM.WeaponDatas[i].Infos[WLATTemp].WeaponSpeed;
+//        var Temp_Speed = All_Manager.instance.Resource_M.STO_Weapons[i].Info_s[WLAT_Temp].Weapon_Speed;
 
-//        TempSpeed += WeaponSpeedValue;
+//        Temp_Speed += Weapon_Speed_Value;
 //    }
 
-//    float WeaponRangeValue = 0;
-//    WeaponRangeValue = Mine.OriginStat.UnitWeaponRange + (Mine.OriginStat.UnitWeaponRange * Mine.PercentStat.UnitWeaponRange * 0.01f);
+//    float Weapon_Range_Value = 0;
+//    Weapon_Range_Value = Mine.Origin_Stat.Unit_Weapon_Range + (Mine.Origin_Stat.Unit_Weapon_Range * Mine.Percent_Stat.Unit_Weapon_Range * 0.01f);
 
-//    for (int i = 0; i < AllManager.instance.ResourceM.WeaponDatas.Length; i++)
+//    for (int i = 0; i < All_Manager.instance.Resource_M.STO_Weapons.Length; i++)
 //    {
-//        var WLATTemp = AllManager.instance.GameModeM.CurrentPlayer.ConvertWLATPlayer(AllManager.instance.ResourceM.WeaponDatas[i]).Level;
+//        var WLAT_Temp = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(All_Manager.instance.Resource_M.STO_Weapons[i]).Level;
 
-//        var TempRange = AllManager.instance.ResourceM.WeaponDatas[i].Infos[WLATTemp].WeaponRange;
+//        var Temp_Range = All_Manager.instance.Resource_M.STO_Weapons[i].Info_s[WLAT_Temp].Weapon_Range;
 
-//        TempRange += WeaponRangeValue;
+//        Temp_Range += Weapon_Range_Value;
 //    }
 
-//    float WeaponCoolDownValue = 0;
-//    WeaponCoolDownValue = Mine.OriginStat.UnitWeaponCoolDown + (Mine.OriginStat.UnitWeaponCoolDown * Mine.PercentStat.UnitWeaponCoolDown * 0.01f);
+//    float Weapon_CoolDown_Value = 0;
+//    Weapon_CoolDown_Value = Mine.Origin_Stat.Unit_Weapon_CoolDown + (Mine.Origin_Stat.Unit_Weapon_CoolDown * Mine.Percent_Stat.Unit_Weapon_CoolDown * 0.01f);
 
-//    for (int i = 0; i < AllManager.instance.ResourceM.WeaponDatas.Length; i++)
+//    for (int i = 0; i < All_Manager.instance.Resource_M.STO_Weapons.Length; i++)
 //    {
-//        var WLATTemp = AllManager.instance.GameModeM.CurrentPlayer.ConvertWLATPlayer(AllManager.instance.ResourceM.WeaponDatas[i]).Level;
+//        var WLAT_Temp = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(All_Manager.instance.Resource_M.STO_Weapons[i]).Level;
 
-//        var TempCoolDown = AllManager.instance.ResourceM.WeaponDatas[i].Infos[WLATTemp].WeaponCoolDown;
+//        var Temp_CoolDown = All_Manager.instance.Resource_M.STO_Weapons[i].Info_s[WLAT_Temp].Weapon_CoolDown;
 
-//        TempCoolDown -= WeaponCoolDownValue;
+//        Temp_CoolDown -= Weapon_CoolDown_Value;
 //    }
 
-//    float WeaponDurationValue = 0;
-//    WeaponDurationValue = Mine.OriginStat.UnitWeaponDuration + (Mine.OriginStat.UnitWeaponDuration * Mine.PercentStat.UnitWeaponDuration * 0.01f);
+//    float Weapon_Duration_Value = 0;
+//    Weapon_Duration_Value = Mine.Origin_Stat.Unit_Weapon_Duration + (Mine.Origin_Stat.Unit_Weapon_Duration * Mine.Percent_Stat.Unit_Weapon_Duration * 0.01f);
 
-//    for (int i = 0; i < AllManager.instance.ResourceM.WeaponDatas.Length; i++)
+//    for (int i = 0; i < All_Manager.instance.Resource_M.STO_Weapons.Length; i++)
 //    {
-//        var WLATTemp = AllManager.instance.GameModeM.CurrentPlayer.ConvertWLATPlayer(AllManager.instance.ResourceM.WeaponDatas[i]).Level;
+//        var WLAT_Temp = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(All_Manager.instance.Resource_M.STO_Weapons[i]).Level;
 
-//        var TempDuration = AllManager.instance.ResourceM.WeaponDatas[i].Infos[WLATTemp].WeaponDuration;
+//        var Temp_Duration = All_Manager.instance.Resource_M.STO_Weapons[i].Info_s[WLAT_Temp].Weapon_Duration;
 
-//        TempDuration += WeaponDurationValue;
+//        Temp_Duration += Weapon_Duration_Value;
 //    }
 
-//    int WeaponCountValue = 0;
-//    WeaponCountValue = Mine.OriginStat.UnitWeaponProjCount + Mine.PercentStat.UnitWeaponProjCount;
+//    int Weapon_Count_Value = 0;
+//    Weapon_Count_Value = Mine.Origin_Stat.Unit_Weapon_Proj_Count + Mine.Percent_Stat.Unit_Weapon_Proj_Count;
 
-//    //WeaponCount += WeaponCountValue;
+//    //Weapon_Count += Weapon_Count_Value;
 
-//    //for (int i = 0; i < AllManager.instance.ResourceM.WeaponDatas.Length; i++)
+//    //for (int i = 0; i < All_Manager.instance.Resource_M.STO_Weapons.Length; i++)
 //    //{
-//    //    //AllManager.instance.ResourceM.WeaponDatas[i].Infos[]
+//    //    //All_Manager.instance.Resource_M.STO_Weapons[i].Info_s[]
 //    //    //for (int i = 0; i < )
 //    //}
 
-//    for (int i = 0; i < AllManager.instance.ResourceM.WeaponDatas.Length; i++)
+//    for (int i = 0; i < All_Manager.instance.Resource_M.STO_Weapons.Length; i++)
 //    {
-//        var WLATTemp = AllManager.instance.GameModeM.CurrentPlayer.ConvertWLATPlayer(AllManager.instance.ResourceM.WeaponDatas[i]).Level;
+//        var WLAT_Temp = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(All_Manager.instance.Resource_M.STO_Weapons[i]).Level;
 
-//        var TempCount = AllManager.instance.ResourceM.WeaponDatas[i].Infos[WLATTemp].WeaponCount;
+//        var Temp_Count = All_Manager.instance.Resource_M.STO_Weapons[i].Info_s[WLAT_Temp].Weapon_Count;
 
-//        TempCount += WeaponCountValue;
+//        Temp_Count += Weapon_Count_Value;
 //    }
 //}
 
 ////
-//Vector3 Knock = Dir * WeaponSpeed;
-// Ftarget.KnockBack(Dir, WeaponKnock, WeaponDuration, WeaponKncokTemp);
+//Vector3 Knock = Dir * Weapon_Speed;
+// F_target.Knock_Back(Dir, Weapon_Knock, Weapon_Duration, Weapon_Kncok_Temp);
 ////
 #endregion

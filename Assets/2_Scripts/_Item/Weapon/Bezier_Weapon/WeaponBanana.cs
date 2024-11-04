@@ -10,12 +10,12 @@ using static UnityEngine.GraphicsBuffer;
 
 public class WeaponBanana : Weapon
 {
-    public Vector3[] WBananaPoint = new Vector3[4];
+    public Vector3[] W_Banana_Point = new Vector3[4];
 
-    public UnitEnemy Bananatarget;
-    public UnitPlayer BananaPoint;
+    public Unit_Enemy Banana_target;
+    public Unit_Player Banana_Point;
 
-    public float RotationSpeed = 360f;
+    public float Rotation_Speed = 360f;
 
     public override void Start()
     {
@@ -24,17 +24,17 @@ public class WeaponBanana : Weapon
 
     public override void Update()
     {
-        if (AllManager.instance.GameModeM.GameStop == false)
+        if (All_Manager.instance.GameMode_M.Game_Stop == false)
         {
             base.Update();
 
-            BananaAttack();
+            Banana_Attack();
 
-            this.WeaponKnockBackWeapon();
+            this.Weapon_KnockBack_Weapon();
 
-            this.transform.Rotate(Vector3.forward, RotationSpeed * Time.deltaTime);
+            this.transform.Rotate(Vector3.forward, Rotation_Speed * Time.deltaTime);
 
-            //this.WeaponTimer();
+            //this.Weapon_Timer();
         }
 
         else
@@ -46,27 +46,27 @@ public class WeaponBanana : Weapon
     }
 
     // 부메랑 베지어 곡선 할당
-    public void BananaInit(Vector3 pOneVector, Vector3 pTwoVector, Vector3 pThreeVector, Vector3 pFourVector)
+    public void Banana_Init(Vector3 p_One_Vector, Vector3 p_Two_Vector, Vector3 p_Three_Vector, Vector3 p_Four_Vector)
     {
-        WBananaPoint[0] = pOneVector;
-        WBananaPoint[1] = pTwoVector;
-        WBananaPoint[2] = pThreeVector;
-        WBananaPoint[3] = pFourVector;
+        W_Banana_Point[0] = p_One_Vector;
+        W_Banana_Point[1] = p_Two_Vector;
+        W_Banana_Point[2] = p_Three_Vector;
+        W_Banana_Point[3] = p_Four_Vector;
     }
 
     // 부메랑 작동 로직
-    public void BananaAttack()
+    public void Banana_Attack()
     {
-        this.WeaponAccumulate();
+        this.Weapon_Accumulate();
 
-        this.transform.position = BananaBezier(WBananaPoint[0], WBananaPoint[1], WBananaPoint[2], WBananaPoint[3], WAccumulate);
+        this.transform.position = Banana_Bezier(W_Banana_Point[0], W_Banana_Point[1], W_Banana_Point[2], W_Banana_Point[3], W_Accumulate);
     }
 
-    public Vector3 BananaBezier(Vector3 P1, Vector3 P2, Vector3 P3, Vector3 P4, float Value)
+    public Vector3 Banana_Bezier(Vector3 P_1, Vector3 P_2, Vector3 P_3, Vector3 P_4, float Value)
     {
-        Vector3 A = Vector3.Lerp(P1, P2, Value);
-        Vector3 B = Vector3.Lerp(P2, P3, Value);
-        Vector3 C = Vector3.Lerp(P3, P4, Value);
+        Vector3 A = Vector3.Lerp(P_1, P_2, Value);
+        Vector3 B = Vector3.Lerp(P_2, P_3, Value);
+        Vector3 C = Vector3.Lerp(P_3, P_4, Value);
 
         Vector3 D = Vector3.Lerp(A, B, Value);
         Vector3 E = Vector3.Lerp(B, C, Value);
@@ -76,19 +76,19 @@ public class WeaponBanana : Weapon
         return F;
     }
 
-    public override void Upgrade(int pLevel)
+    public override void Upgrade(int p_Level)
     {
 
     }
 
-    public override void WeaponStatAppliaction()
+    public override void Weapon_Stat_Appliaction()
     {
-        base.WeaponStatAppliaction();
+        base.Weapon_Stat_Appliaction();
     }
 
-    public override void WeaponToEnemyCollision()
+    public override void Weapon_To_Enemy_Collision()
     {
-        base.WeaponToEnemyCollision();
+        base.Weapon_To_Enemy_Collision();
     }
 
 
@@ -122,7 +122,7 @@ if (this.transform.position.x < 0)
     oppositeFour = One + new Vector3(-5, -10, 0);    // 반대편 오른쪽 아래
 } 
 
-WeaponGo.GetComponent<WeaponAxe>().AxeInit(One, Two, oppositeThree, oppositeFour);
+Weapon_Go.GetComponent<Weapon_Axe>().Axe_Init(One, Two, oppositeThree, oppositeFour);
 
 해당 코드로 도끼를 생성했을때 플레이어 위로 솟아올랐다가
 if문으로 인해 
@@ -206,7 +206,7 @@ public class Boomerang : MonoBehaviour
 
     private Vector3[] path; // 베지어 곡선을 따라갈 경로
 
-    private bool ispriteRenderereturning = false; // 되돌아가는 중인지 여부
+    private bool i_spriteRenderereturning = false; // 되돌아가는 중인지 여부
 
     void Start() {
         // 발사될 때의 경로 설정 (시계 방향으로 발사)
@@ -225,7 +225,7 @@ public class Boomerang : MonoBehaviour
     }
 
     void Update() {
-        if (!ispriteRenderereturning) {
+        if (!i_spriteRenderereturning) {
             // 비행 중인 경우
             MoveAlongBezierCurve();
         } else {
@@ -243,7 +243,7 @@ public class Boomerang : MonoBehaviour
 
         // 만약 도착점에 도달했다면, 되돌아가는 상태로 전환
         if (flightTime >= 1f) {
-            ispriteRenderereturning = true;
+            i_spriteRenderereturning = true;
         }
     }
 

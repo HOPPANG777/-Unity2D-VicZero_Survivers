@@ -16,10 +16,10 @@ public class FireBullet : MonoBehaviour
     public const float boundSize = 0.0f;
 
     // 발사시 사용할 것들 초기화
-    public void Shoot(Vector3 shootDir)
+    public void Shoot(Vector3 _shootDir)
     {
         isActive = true;
-        shootDir = shootDir;
+        shootDir = _shootDir;
     }
     
     // 정해준 방향의 주변으로 비틀비틀 날아가는 용도의 코드
@@ -35,9 +35,9 @@ public class FireBullet : MonoBehaviour
 
     bool Bounded()
     {
-        for (int i = 0; i < AllManager.instance.GameModeM.EnemyList.Count; i++)
+        for (int i = 0; i < All_Manager.instance.GameMode_M.Enemy_List.Count; i++)
         {
-            float dis = Vector3.Distance(this.transform.position, AllManager.instance.GameModeM.EnemyList[i].transform.position);
+            float dis = Vector3.Distance(this.transform.position, All_Manager.instance.GameMode_M.Enemy_List[i].transform.position);
             
             if(dis < boundSize)
             {

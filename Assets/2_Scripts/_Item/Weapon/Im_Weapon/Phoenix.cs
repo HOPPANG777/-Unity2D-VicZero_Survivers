@@ -35,14 +35,14 @@ public class Phoenix : Weapon
         }
     }
 
-    public override void Upgrade(int pLevel)
+    public override void Upgrade(int p_Level)
     {
         
     }
 
-    public override void WeaponStatAppliaction()
+    public override void Weapon_Stat_Appliaction()
     {
-        base.WeaponStatAppliaction();
+        base.Weapon_Stat_Appliaction();
     }
 
 }

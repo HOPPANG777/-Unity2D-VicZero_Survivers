@@ -6,24 +6,24 @@ public class InputManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (AllManager.instance.GameModeM.GameStop == false)
+            if (All_Manager.instance.GameMode_M.Game_Stop == false)
             {
-                AllManager.instance.UIM.OnPanel(PanelStyle.Pause);
+                All_Manager.instance.UI_M.On_Panel(Panel_Style.Pause);
                 return;
             }
-            else if (AllManager.instance.GameModeM.GameStop == true)
+            else if (All_Manager.instance.GameMode_M.Game_Stop == true)
             {
-                AllManager.instance.UIM.OffPanel();
+                All_Manager.instance.UI_M.Off_Panel();
                 return;
             }
         }
         else if (Input.GetKeyDown(KeyCode.F4))
         {
-            AllManager.instance.GameModeM.GameOver();
+            All_Manager.instance.GameMode_M.GameOver();
         }
         else if (Input.GetKeyDown(KeyCode.F5))
         {
-            AllManager.instance.GameModeM.GameClear();
+            All_Manager.instance.GameMode_M.GameClear();
         }
 
     }

@@ -10,21 +10,21 @@ public class Item : MonoBehaviour, IItemType
 {
     [SerializeField] public ItemType ItemType { get; set; }
 
-    [SerializeField] protected SpriteRenderer itemSpriteRenderer;
-    public SpriteRenderer ItemSpriteRenderer { get {  return itemSpriteRenderer; } set { itemSpriteRenderer = value; } }
+    [SerializeField] protected SpriteRenderer _itemSpriteRenderer;
+    public SpriteRenderer ItemSpriteRenderer { get {  return _itemSpriteRenderer; } set { _itemSpriteRenderer = value; } }
 
-    public float GemLevel = 4.0f;
+    public float Gem_Level = 4.0f;
 
     public virtual void Start()
     {
-        itemSpriteRenderer = this.AddComponent<SpriteRenderer>();
+        _itemSpriteRenderer = this.AddComponent<SpriteRenderer>();
     }
 
     public void Update()
     {
-        UnitPlayer TempPlayer = AllManager.instance.GameModeM.CurrentPlayer;
+        Unit_Player Temp_Player = All_Manager.instance.GameMode_M.Current_Player;
 
-        if (TempPlayer == null)
+        if (Temp_Player == null)
         {
             //Debug.Log("Gem Target Player Null");
             return;
@@ -36,29 +36,29 @@ public class Item : MonoBehaviour, IItemType
             {
                 case ItemType.Gem:
                     {
-                        if (Vector3.Distance(this.transform.position, TempPlayer.transform.position) > TempPlayer.OriginStat.UnitGetGemRange)
+                        if (Vector3.Distance(this.transform.position, Temp_Player.transform.position) > Temp_Player.Origin_Stat.Unit_Get_Gem_Range)
                         {
 
                         }
 
                         else
                         {
-                            if (Vector3.Distance(this.transform.position, TempPlayer.transform.position) < 0.1f)
+                            if (Vector3.Distance(this.transform.position, Temp_Player.transform.position) < 0.1f)
                             {
-                                if (AllManager.instance.GameModeM.GameStop == false)
+                                if (All_Manager.instance.GameMode_M.Game_Stop == false)
                                 {
-                                    TempPlayer.GetGem(GemLevel);
-                                    AllManager.instance.AudioM.ItemGetEffectAudioPlay(ItemType.Gem);
+                                    Temp_Player.Get_Gem(Gem_Level);
+                                    All_Manager.instance.Audio_M.Item_Get_Effect_Audio_Play(ItemType.Gem);
                                 }
 
                                 this.gameObject.SetActive(false);
 
-                                AllManager.instance.GameModeM.ItemList.Remove(this);
+                                All_Manager.instance.GameMode_M.Item_List.Remove(this);
 
-                                AllManager.instance.PoolM.ItemPoolIn(this);
+                                All_Manager.instance.Pool_M.Item_Pool_In(this);
                             }
 
-                            var Dir = (TempPlayer.transform.position - this.transform.position).normalized;
+                            var Dir = (Temp_Player.transform.position - this.transform.position).normalized;
 
                             this.transform.position += (Dir * 0.05f);
 
@@ -71,29 +71,29 @@ public class Item : MonoBehaviour, IItemType
                     break;
                 case ItemType.Chest:
                     {
-                        if (Vector3.Distance(this.transform.position, TempPlayer.transform.position) > 0.5f)
+                        if (Vector3.Distance(this.transform.position, Temp_Player.transform.position) > 0.5f)
                         {
 
                         }
 
                         else
                         {
-                            if (Vector3.Distance(this.transform.position, TempPlayer.transform.position) < 0.1f)
+                            if (Vector3.Distance(this.transform.position, Temp_Player.transform.position) < 0.1f)
                             {
-                                if (AllManager.instance.GameModeM.GameStop == false)
+                                if (All_Manager.instance.GameMode_M.Game_Stop == false)
                                 { 
-                                    AllManager.instance.UIM.OnPanel(PanelStyle.TreasureFound);
-                                    AllManager.instance.AudioM.ItemGetEffectAudioPlay(ItemType.Chest);
+                                    All_Manager.instance.UI_M.On_Panel(Panel_Style.TreasureFound);
+                                    All_Manager.instance.Audio_M.Item_Get_Effect_Audio_Play(ItemType.Chest);
                                 }
 
                                 this.gameObject.SetActive(false);
 
-                                AllManager.instance.GameModeM.ItemList.Remove(this);
+                                All_Manager.instance.GameMode_M.Item_List.Remove(this);
 
-                                AllManager.instance.PoolM.ItemPoolIn(this);
+                                All_Manager.instance.Pool_M.Item_Pool_In(this);
                             }
 
-                            var Dir = (TempPlayer.transform.position - this.transform.position).normalized;
+                            var Dir = (Temp_Player.transform.position - this.transform.position).normalized;
 
                             this.transform.position += (Dir * 0.05f);
 
@@ -106,29 +106,29 @@ public class Item : MonoBehaviour, IItemType
                     break;
                 case ItemType.Food:
                     {
-                        if (Vector3.Distance(this.transform.position, TempPlayer.transform.position) > 0.5f)
+                        if (Vector3.Distance(this.transform.position, Temp_Player.transform.position) > 0.5f)
                         {
 
                         }
 
                         else
                         {
-                            if (Vector3.Distance(this.transform.position, TempPlayer.transform.position) < 0.1f)
+                            if (Vector3.Distance(this.transform.position, Temp_Player.transform.position) < 0.1f)
                             {
-                                if (AllManager.instance.GameModeM.GameStop == false)
+                                if (All_Manager.instance.GameMode_M.Game_Stop == false)
                                 {
-                                    TempPlayer.RecoveryCurrentHP();
-                                    AllManager.instance.AudioM.ItemGetEffectAudioPlay(ItemType.Food);
+                                    Temp_Player.Recovery_Current_HP();
+                                    All_Manager.instance.Audio_M.Item_Get_Effect_Audio_Play(ItemType.Food);
                                 }
 
                                 this.gameObject.SetActive(false);
 
-                                AllManager.instance.GameModeM.ItemList.Remove(this);
+                                All_Manager.instance.GameMode_M.Item_List.Remove(this);
 
-                                AllManager.instance.PoolM.ItemPoolIn(this);
+                                All_Manager.instance.Pool_M.Item_Pool_In(this);
                             }
 
-                            var Dir = (TempPlayer.transform.position - this.transform.position).normalized;
+                            var Dir = (Temp_Player.transform.position - this.transform.position).normalized;
 
                             this.transform.position += (Dir * 0.05f);
 
@@ -146,12 +146,12 @@ public class Item : MonoBehaviour, IItemType
         }
     }
 
-    public void ItemSetting(Item pItem, ItemData ItemSTO)
+    public void Item_Setting(Item p_Item, STO_Item Item_STO)
     {
-        pItem.itemSpriteRenderer.sprite = ItemSTO.SpriteImage;
+        p_Item._itemSpriteRenderer.sprite = Item_STO.Sprite_Image;
     }
 
-    public void ItemClear()
+    public void Item_Clear()
     {
         if (this.gameObject != null)
         {
@@ -159,7 +159,7 @@ public class Item : MonoBehaviour, IItemType
         }
         else
         {
-            AllManager.instance.GameModeM.ItemList.Remove(this);
+            All_Manager.instance.GameMode_M.Item_List.Remove(this);
         }
 
     }

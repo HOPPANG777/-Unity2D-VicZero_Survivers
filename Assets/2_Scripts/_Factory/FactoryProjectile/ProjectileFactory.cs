@@ -4,59 +4,59 @@ using UnityEngine;
 
 public class ProjectileFactory : MonoBehaviour
 {
-    public void CreateProjectile(WeaponData pweaponTypeO, Transform pTF, int pNumber, Transform pPool)
+    public void Create_Projectile(STO_Weapon p_weaponTypeO, Transform p_TF, int p_Number, Transform p_Pool)
     {
-        StartCoroutine(CCreateProjectile(pweaponTypeO, pTF, pNumber, pPool));
+        StartCoroutine(C_Create_Projectile(p_weaponTypeO, p_TF, p_Number, p_Pool));
     }
 
-    public IEnumerator CCreateProjectile(WeaponData pweaponTypeO, Transform pTF, int pNumber, Transform pPool)
+    public IEnumerator C_Create_Projectile(STO_Weapon p_weaponTypeO, Transform p_TF, int p_Number, Transform p_Pool)
     {
-        GameObject WeaponGo = new GameObject(pweaponTypeO.weaponType.ToString() + "-" + pNumber.ToString());
+        GameObject Weapon_Go = new GameObject(p_weaponTypeO.weaponType.ToString() + "-" + p_Number.ToString());
 
-        switch (pweaponTypeO.weaponType)
+        switch (p_weaponTypeO.weaponType)
         {
             case WeaponType.Axe:
-                WeaponGo.AddComponent<WeaponAxe>();
+                Weapon_Go.AddComponent<WeaponAxe>();
                 break;
             case WeaponType.KingBible:
-                WeaponGo.AddComponent<WeaponKingBible>();
+                Weapon_Go.AddComponent<WeaponKingBible>();
                 break;
             case WeaponType.Peachone:
-                WeaponGo.AddComponent<WeaponPeachone>();
+                Weapon_Go.AddComponent<WeaponPeachone>();
                 break;
             case WeaponType.FireWand:
-                WeaponGo.AddComponent<WeaponFireWand>();
+                Weapon_Go.AddComponent<WeaponFireWand>();
                 break;
             case WeaponType.Banana:
-                WeaponGo.AddComponent<WeaponBanana>();
+                Weapon_Go.AddComponent<WeaponBanana>();
                 break;
             case WeaponType.Force:
-                WeaponGo.AddComponent<WeaponForce>();
+                Weapon_Go.AddComponent<WeaponForce>();
                 break;
             case WeaponType.LightningRing:
-                WeaponGo.AddComponent<WeaponLightningRing>();
+                Weapon_Go.AddComponent<WeaponLightningRing>();
                 break;
             case WeaponType.ShieldChasing:
-                WeaponGo.AddComponent<WeaponShieldChasing>();
+                Weapon_Go.AddComponent<WeaponShieldChasing>();
                 break;
             case WeaponType.RuneTracer:
-                WeaponGo.AddComponent<WeaponRuneTracer>();
+                Weapon_Go.AddComponent<WeaponRuneTracer>();
                 break;
             case WeaponType.Nunchaku:
-                WeaponGo.AddComponent<WeaponNunchaku>();
+                Weapon_Go.AddComponent<WeaponNunchaku>();
                 break;
         }
 
-        //WeaponGo.AddComponent<Weapon>();
+        //Weapon_Go.AddComponent<Weapon>();
 
-        WeaponGo.transform.position = pTF.transform.position;
-        WeaponGo.transform.rotation = Quaternion.identity;
-        WeaponGo.transform.localScale = Vector3.one;
+        Weapon_Go.transform.position = p_TF.transform.position;
+        Weapon_Go.transform.rotation = Quaternion.identity;
+        Weapon_Go.transform.localScale = Vector3.one;
 
         yield return null;
 
-        WeaponGo.transform.parent = pPool;
+        Weapon_Go.transform.parent = p_Pool;
 
-        WeaponGo.SetActive(false);
+        Weapon_Go.SetActive(false);
     }
 }
