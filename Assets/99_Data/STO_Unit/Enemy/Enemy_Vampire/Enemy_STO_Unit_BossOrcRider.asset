@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 926065fd38a5ed04a9cccdf9878daf80, type: 3}
   m_Name: Enemy_STO_Unit_BossOrcRider
   m_EditorClassIdentifier: 
-  UnitType: 1
+  UT: 1
   Size_X: 1
   Size_Y: 1.4
   Offset_X: 0
   Offset_Y: -0.12
-  _spriteRenderer_Size_X: 0
-  _spriteRenderer_Size_Y: 0
+  SR_Size_X: 0.8
+  SR_Size_Y: 0.8
   Player_info_s:
     HP: 0
     Unit_Speed: 0

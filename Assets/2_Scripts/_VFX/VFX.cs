@@ -6,21 +6,21 @@ using UnityEngine;
 public enum VFX_Type
 {
     Peachone,
-    Force_Area,
+    Garlic_Area,
     LightningRing,
     RuneTracer,
-    Nunchaku
+    Whip
 }
 
 public class VFX : MonoBehaviour
 {
     public ParticleSystem PS;
-    //public ParticleSystemRenderer P_spriteRenderer;
+    //public ParticleSystemRenderer PSR;
 
     public virtual void Start()
     {
         PS = this.AddComponent<ParticleSystem>();
-        //P_spriteRenderer = PS.GetComponent<ParticleSystemRenderer>();
+        //PSR = PS.GetComponent<ParticleSystemRenderer>();
     }
 
 }

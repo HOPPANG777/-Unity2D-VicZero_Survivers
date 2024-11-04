@@ -8,21 +8,13 @@ using static UnityEngine.UI.CanvasScaler;
 
 public abstract class Weapon : MonoBehaviour, IWeaponKeywords
 {
-
+    public Weapon_Type WT;
     public WeaponKeyword WeaponKeyword { get; set; }
-    public WeaponType weaponType;
 
-    [SerializeField] protected SpriteRenderer _weaponSpriteRenderer;
-    public SpriteRenderer WeaponSpriteRenderer { get {  return _weaponSpriteRenderer; } set { _weaponSpriteRenderer = value; } }
-
-    [SerializeField] protected BoxCollider2D _weaponBoxCollider2D;
-    public BoxCollider2D WeaponBoxCollider2D { get { return _weaponBoxCollider2D; } set { _weaponBoxCollider2D = value; } }
-
-    [SerializeField] protected TrailRenderer _weaponTrailRenderer;
-    public TrailRenderer WeaponTrailRenderer { get { return _weaponTrailRenderer; } set { _weaponTrailRenderer = value; } }
-
-    [SerializeField] protected Animator _weaponAnimator;
-    public Animator WeaponAnimator { get { return _weaponAnimator; } set { _weaponAnimator = value; } }
+    public SpriteRenderer SR;
+    public BoxCollider2D BC;
+    public TrailRenderer TR;
+    public Animator AM;
 
     public Unit Mine;
 
@@ -58,15 +50,18 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
 
     public virtual void Start()
     {
-        _weaponSpriteRenderer = this.AddComponent<SpriteRenderer>();
+        SR = this.AddComponent<SpriteRenderer>();
 
-        _weaponBoxCollider2D = this.AddComponent<BoxCollider2D>();
-        _weaponBoxCollider2D.isTrigger = true;
+        BC = this.AddComponent<BoxCollider2D>();
+        BC.isTrigger = true;
 
-        _weaponTrailRenderer = this.AddComponent<TrailRenderer>();
-        _weaponTrailRenderer.enabled = false;
+        SR.drawMode = SpriteDrawMode.Sliced;
+        SR.size = new Vector2(1, 1);
 
-        _weaponAnimator = this.AddComponent<Animator>();
+        TR = this.AddComponent<TrailRenderer>();
+        TR.enabled = false;
+
+        AM = this.AddComponent<Animator>();
     }
 
     public void Weapon_Init(Unit p_User, STO_Weapon p_WP, int p_Level)
@@ -95,10 +90,10 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
 
     }
 
-    // ì—…ê·¸ë ˆì´ë“œ
+    // ¾÷±×·¹ÀÌµå
     public abstract void Upgrade(int p_Level);
 
-    // ë¬´ê¸° íŒŒê´´ íƒ€ì´ë¨¸
+    // ¹«±â ÆÄ±« Å¸ÀÌ¸Ó
     public void Weapon_Timer()
     {
         if (Weapon_Time > Weapon_Duration)
@@ -111,7 +106,7 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
         Weapon_Time += Time.deltaTime;
     }
 
-    // ë² ì§€ì–´ ê³¡ì„ ì„ ì“°ëŠ” ë¬´ê¸°ë“¤ì„ ìœ„í•œ íƒ€ì´ë¨¸
+    // º£Áö¾î °î¼±À» ¾²´Â ¹«±âµéÀ» À§ÇÑ Å¸ÀÌ¸Ó
     public void Weapon_Accumulate()
     {
         if (W_Accumulate < 1.0f)
@@ -129,26 +124,26 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
         var Enemy_List = All_Manager.instance.GameMode_M.Enemy_List;
         var Weapon = this;
 
-        // ë¬´ê¸° ìœ„ì¹˜ë¥¼ ë³€ìˆ˜ë¡œ ì €ì¥í•˜ì—¬ ë°˜ë³µ ì‚¬ìš©
+        // ¹«±â À§Ä¡¸¦ º¯¼ö·Î ÀúÀåÇÏ¿© ¹İº¹ »ç¿ë
         Vector2 Weapon_Position = Weapon.transform.position;
 
-        // ë¬´ê¸° íƒ€ì…ì— ë”°ë¥¸ STO ë° ë¬´ê¸° ë²”ìœ„ ê´€ë ¨ ë³€ìˆ˜ ë¯¸ë¦¬ ê³„ì‚°
-        var Temp_weaponTypeO = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr(weaponType);
-        var Temp_WALT = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_weaponTypeO);
-        float Min_Distance = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Size(weaponType, Temp_WALT) * 0.5f;
+        // ¹«±â Å¸ÀÔ¿¡ µû¸¥ STO ¹× ¹«±â ¹üÀ§ °ü·Ã º¯¼ö ¹Ì¸® °è»ê
+        var Temp_WTO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(WT);
+        var Temp_WALT = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_WTO);
+        float Min_Distance = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Size(WT, Temp_WALT) * 0.5f;
 
-        // Min_Distanceë¥¼ ì œê³±í•˜ì—¬ ë£¨íŠ¸ ê³„ì‚° ë°©ì§€ (ì„±ëŠ¥ ìµœì í™”)
+        // Min_Distance¸¦ Á¦°öÇÏ¿© ·çÆ® °è»ê ¹æÁö (¼º´É ÃÖÀûÈ­)
         float Min_Distance_Sqr = (Min_Distance * Min_Distance);
 
-        // ë¬´ê¸°ì— ì˜í•œ ì ì˜ íƒ€ê²© ì²˜ë¦¬ ì—¬ë¶€ë¥¼ ì €ì¥í•  ë¦¬ìŠ¤íŠ¸
+        // ¹«±â¿¡ ÀÇÇÑ ÀûÀÇ Å¸°İ Ã³¸® ¿©ºÎ¸¦ ÀúÀåÇÒ ¸®½ºÆ®
         List<Unit_Enemy> enemiesHit = new List<Unit_Enemy>();
 
         for (int i = 0; i < Enemy_List.Count; i++)
         {
-            // ë¬´ê¸°ì™€ ì  ê°„ì˜ ê±°ë¦¬ ê³„ì‚°
+            // ¹«±â¿Í Àû °£ÀÇ °Å¸® °è»ê
             Vector2 Dir = Weapon_Position - (Vector2)Enemy_List[i].transform.position;
 
-            // ê±°ë¦¬ì˜ ì œê³±ì„ ê³„ì‚°í•˜ì—¬ ë¹„êµ (ë£¨íŠ¸ ê³„ì‚° ë°©ì§€)
+            // °Å¸®ÀÇ Á¦°öÀ» °è»êÇÏ¿© ºñ±³ (·çÆ® °è»ê ¹æÁö)
             float Dis_Sqr = Dir.sqrMagnitude;
 
             if (Dis_Sqr < Min_Distance_Sqr)
@@ -157,18 +152,18 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
 
                 if (!enemiesHit.Contains(Temp_Enemy))
                 {
-                    // ì ì—ê²Œ í”¼í•´ ì…íˆê¸°
+                    // Àû¿¡°Ô ÇÇÇØ ÀÔÈ÷±â
                     Collision_Count++;
                     Temp_Enemy.Hitted(Weapon_Damage);
-                    enemiesHit.Add(Temp_Enemy); // í•´ë‹¹ ì ì´ ì´ë¯¸ íƒ€ê²© ì²˜ë¦¬ë˜ì—ˆìŒì„ ê¸°ë¡
+                    enemiesHit.Add(Temp_Enemy); // ÇØ´ç ÀûÀÌ ÀÌ¹Ì Å¸°İ Ã³¸®µÇ¾úÀ½À» ±â·Ï
 
-                    // ë¬´ê¸°ê°€ ì˜êµ¬ì ì¸ ê²ƒì´ ì•„ë‹Œ ê²½ìš°ë§Œ ì¶©ëŒ íšŸìˆ˜ ë° ë¬´ê¸° íŒŒê´´ ë¡œì§ ì²˜ë¦¬
+                    // ¹«±â°¡ ¿µ±¸ÀûÀÎ °ÍÀÌ ¾Æ´Ñ °æ¿ì¸¸ Ãæµ¹ È½¼ö ¹× ¹«±â ÆÄ±« ·ÎÁ÷ Ã³¸®
                     if (Forever == false)
                     {
                         if (Collision_Count >= Weapon_Pen)
                         {
                             Destroy_Weapon();
-                            return; // ë¬´ê¸°ë¥¼ íŒŒê´´í•˜ê³  í•¨ìˆ˜ ì¢…ë£Œ
+                            return; // ¹«±â¸¦ ÆÄ±«ÇÏ°í ÇÔ¼ö Á¾·á
                         }
                     }
                 }
@@ -176,33 +171,33 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
         }
     }
 
-    // ë¬´ê¸° ë„‰ë°±
+    // ¹«±â ³Ë¹é
     public void Weapon_KnockBack_Weapon()
     {
-        // ëª¨ë“  ì  ìœ ë‹›ì„ ê°€ì ¸ì™€ ì¶©ëŒ ê²€ì‚¬
+        // ¸ğµç Àû À¯´ÖÀ» °¡Á®¿Í Ãæµ¹ °Ë»ç
         var Enemy_List = All_Manager.instance.GameMode_M.Enemy_List;
         var Temp_Player = All_Manager.instance.GameMode_M.Current_Player;
-        var Temp_weaponTypeO = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr(weaponType);
-        var Temp_WLAT = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_weaponTypeO);
+        var Temp_WTO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(WT);
+        var Temp_WLAT = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_WTO);
 
-        // ë„‰ë°± ë²”ìœ„ ì„¤ì •
-        float KnockBack_Range = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Size(weaponType, Temp_WLAT) * 0.5f; // ë„‰ë°± ë²”ìœ„ (í•„ìš”ì— ë”°ë¼ ì¡°ì • ê°€ëŠ¥)
-        float KnockBack_Range_Sqr = (KnockBack_Range * KnockBack_Range); // ê±°ë¦¬ ë¹„êµ ìµœì í™” (ë£¨íŠ¸ ê³„ì‚° ë°©ì§€)
+        // ³Ë¹é ¹üÀ§ ¼³Á¤
+        float KnockBack_Range = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Size(WT, Temp_WLAT) * 0.5f; // ³Ë¹é ¹üÀ§ (ÇÊ¿ä¿¡ µû¶ó Á¶Á¤ °¡´É)
+        float KnockBack_Range_Sqr = (KnockBack_Range * KnockBack_Range); // °Å¸® ºñ±³ ÃÖÀûÈ­ (·çÆ® °è»ê ¹æÁö)
 
         for (int i = 0; i < Enemy_List.Count; i++)
         {
             Unit_Enemy Enemy = Enemy_List[i];
 
-            if (Enemy == this || Enemy.UnitType == UnitType.Barrel)
+            if (Enemy == this || Enemy.UT == Unit_Type.Barrel)
             {
-                continue; // ìê¸° ìì‹ ì´ê±°ë‚˜ íŠ¹ì • íƒ€ì…ì€ ê±´ë„ˆëœ€
+                continue; // ÀÚ±â ÀÚ½ÅÀÌ°Å³ª Æ¯Á¤ Å¸ÀÔÀº °Ç³Ê¶Ü
             }
 
-            // ì ê³¼ ë¬´ê¸° ê°„ì˜ ê±°ë¦¬ ê³„ì‚°
+            // Àû°ú ¹«±â °£ÀÇ °Å¸® °è»ê
             Vector3 Dir = this.transform.position - Enemy.transform.position;
             float Dis_Sqr = Dir.sqrMagnitude;
 
-            // ë„‰ë°± ë²”ìœ„ ë‚´ì˜ ì ì— ëŒ€í•´ì„œë§Œ ë„‰ë°± ì ìš©
+            // ³Ë¹é ¹üÀ§ ³»ÀÇ Àû¿¡ ´ëÇØ¼­¸¸ ³Ë¹é Àû¿ë
             if (Dis_Sqr <= KnockBack_Range_Sqr)
             {
                 Vector3 direction = (Enemy.transform.position - this.transform.position).normalized;
@@ -211,20 +206,20 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
         }
     }
 
-    // ë¬´ê¸° ê¸°ë³¸ ìŠ¤íƒ¯ ì¡°ì •
+    // ¹«±â ±âº» ½ºÅÈ Á¶Á¤
     public void Weapon_Stat(int p_Level, Weapon weapon, STO_Weapon weapon_STO)
     {
-        //Debug.Log("ìŠ¤í”„ë¼ì´íŠ¸ ì‚½ì…");
+        //Debug.Log("½ºÇÁ¶óÀÌÆ® »ğÀÔ");
 
-        weapon._weaponSpriteRenderer.sprite = weapon_STO.Sprite_Image;
-        weapon.weaponType = weapon_STO.weaponType;
+        weapon.SR.sprite = weapon_STO.Sprite_Image;
+        weapon.WT = weapon_STO.WT;
         weapon.WeaponKeyword = weapon_STO.WeaponKeywords;
 
         if (weapon_STO.Weapon_Animator_Controller != null)
         {
-            weapon._weaponAnimator.runtimeAnimatorController = weapon_STO.Weapon_Animator_Controller;
-            weapon._weaponAnimator.speed = 1.0f;
-            weapon._weaponAnimator.cullingMode = AnimatorCullingMode.CullCompletely;
+            weapon.AM.runtimeAnimatorController = weapon_STO.Weapon_Animator_Controller;
+            weapon.AM.speed = 1.0f;
+            weapon.AM.cullingMode = AnimatorCullingMode.CullCompletely;
         }
 
         weapon.Weapon_Damage = weapon_STO.Info_s[p_Level].Weapon_Damage;
@@ -241,29 +236,29 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
 
         var Temp_WLAT = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(weapon_STO);
 
-        var Temp_Weapon_Size = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Size(weaponType, Temp_WLAT);
+        var Temp_Weapon_Size = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Size(WT, Temp_WLAT);
 
-        weapon.GetComponent<Weapon>()._weaponSpriteRenderer.drawMode = SpriteDrawMode.Sliced;
+        weapon.GetComponent<Weapon>().SR.drawMode = SpriteDrawMode.Sliced;
 
-        weapon.GetComponent<Weapon>()._weaponSpriteRenderer.size = new Vector2((Temp_Weapon_Size), (Temp_Weapon_Size));
-        weapon._weaponBoxCollider2D.size = new Vector2((_weaponSpriteRenderer.size.x * 0.5f), (_weaponSpriteRenderer.size.y * 0.5f));
+        weapon.GetComponent<Weapon>().SR.size = new Vector2((Temp_Weapon_Size), (Temp_Weapon_Size));
+        weapon.BC.size = new Vector2((SR.size.x * 0.5f), (SR.size.y * 0.5f));
 
-        // ì„¤ì •ëœ í‚¤ì›Œë“œë¥¼ Synergy_Managerì— ë“±ë¡í•œë‹¤.
+        // ¼³Á¤µÈ Å°¿öµå¸¦ Synergy_Manager¿¡ µî·ÏÇÑ´Ù.
         Synergy_Manager.instance.RegisterWeaponKeyword(weapon.WeaponKeyword, weapon);
     }
 
 
     public virtual void Weapon_Stat_Appliaction()
     {
-        var Temp_weaponTypeO = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr(weaponType);
+        var Temp_WTO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(WT);
 
-        var Temp_WLAT = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_weaponTypeO);
+        var Temp_WLAT = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_WTO);
 
-        var Temp_Weapon_Damage = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Damage(weaponType, Temp_WLAT);
-        var Temp_Weapon_Speed = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Speed(weaponType, Temp_WLAT);
-        var Temp_Weapon_Range = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Range(weaponType, Temp_WLAT);
-        var Temp_Weapon_Size = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Size(weaponType, Temp_WLAT);
-        var Temp_Weapon_Duration = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Duration(weaponType, Temp_WLAT);
+        var Temp_Weapon_Damage = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Damage(WT, Temp_WLAT);
+        var Temp_Weapon_Speed = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Speed(WT, Temp_WLAT);
+        var Temp_Weapon_Range = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Range(WT, Temp_WLAT);
+        var Temp_Weapon_Size = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Size(WT, Temp_WLAT);
+        var Temp_Weapon_Duration = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Duration(WT, Temp_WLAT);
 
         Weapon_Damage = Temp_Weapon_Damage;
         Weapon_Speed = Temp_Weapon_Speed;
@@ -275,23 +270,23 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
 
     public void Weapon_Trail()
     {
-        // Trail Renderer ì„¤ì •
-        _weaponTrailRenderer.time = 1.0f; // ê¼¬ë¦¬ê°€ ì§€ì†ë˜ëŠ” ì‹œê°„
-        _weaponTrailRenderer.startWidth = 0.05f; // ê¼¬ë¦¬ì˜ ì‹œì‘ ë„ˆë¹„
-        _weaponTrailRenderer.endWidth = 0.01f; // ê¼¬ë¦¬ì˜ ë ë„ˆë¹„
+        // Trail Renderer ¼³Á¤
+        TR.time = 1.0f; // ²¿¸®°¡ Áö¼ÓµÇ´Â ½Ã°£
+        TR.startWidth = 0.05f; // ²¿¸®ÀÇ ½ÃÀÛ ³Êºñ
+        TR.endWidth = 0.01f; // ²¿¸®ÀÇ ³¡ ³Êºñ
 
-        // ì¬ì§ˆ ì„¤ì •
-        _weaponTrailRenderer.material = new Material(Shader.Find("Sprites/Default"));
-        _weaponTrailRenderer.startColor = Color.white; // ê¼¬ë¦¬ì˜ ì‹œì‘ ìƒ‰ìƒ
-        _weaponTrailRenderer.endColor = Color.white; // ê¼¬ë¦¬ì˜ ë ìƒ‰ìƒ
+        // ÀçÁú ¼³Á¤
+        TR.material = new Material(Shader.Find("Sprites/Default"));
+        TR.startColor = Color.white; // ²¿¸®ÀÇ ½ÃÀÛ »ö»ó
+        TR.endColor = Color.white; // ²¿¸®ÀÇ ³¡ »ö»ó
 
-        // ì¶”ê°€ ì„¤ì • (í•„ìš”ì— ë”°ë¼ ë³€ê²½ ê°€ëŠ¥)
-        _weaponTrailRenderer.minVertexDistance = 0.1f; // ìµœì†Œ ê¼­ì§“ì  ê°„ ê±°ë¦¬
-        _weaponTrailRenderer.widthCurve = new AnimationCurve(
+        // Ãß°¡ ¼³Á¤ (ÇÊ¿ä¿¡ µû¶ó º¯°æ °¡´É)
+        TR.minVertexDistance = 0.1f; // ÃÖ¼Ò ²ÀÁşÁ¡ °£ °Å¸®
+        TR.widthCurve = new AnimationCurve(
             new Keyframe(0, 0.2f),
             new Keyframe(0.5f, 0.0f)
-        ); // ë„ˆë¹„ ë³€í™” ê³¡ì„ 
-        _weaponTrailRenderer.colorGradient = new Gradient()
+        ); // ³Êºñ º¯È­ °î¼±
+        TR.colorGradient = new Gradient()
         {
             colorKeys = new GradientColorKey[]
             {
@@ -303,14 +298,14 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
                 new GradientAlphaKey(1.0f, 0.0f),
                 new GradientAlphaKey(0.0f, 1.0f)
             }
-        }; // ìƒ‰ìƒ ë³€í™” ê·¸ë¼ë””ì–¸íŠ¸
+        }; // »ö»ó º¯È­ ±×¶óµğ¾ğÆ®
 
     }
 
-    // ë¬´ê¸° íŒŒê´´ í•¨ìˆ˜
+    // ¹«±â ÆÄ±« ÇÔ¼ö
     public void Destroy_Weapon()
     {
-        // ë§Œì•½ ì´ Mineìœ¼ë¡œ ì•ˆëœë‹¤ë©´ ë‹¤ Current_Playerë¡œ í†µí•©í•´ì•¼ í•œë‹¤.
+        // ¸¸¾à ÀÌ MineÀ¸·Î ¾ÈµÈ´Ù¸é ´Ù Current_Player·Î ÅëÇÕÇØ¾ß ÇÑ´Ù.
         //if (All_Manager.instance.GameMode_M.Current_Player == null)
         //{
         //    Destroy(this.gameObject);
@@ -318,7 +313,7 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
 
         //Debug.Log("Weapon Destroy");
 
-        // ë§Œì•½ Mineì´ null ì´ë¼ë©´
+        // ¸¸¾à MineÀÌ null ÀÌ¶ó¸é
         if (All_Manager.instance.GameMode_M.Current_Player == null)
         {
             //Destroy(this.gameObject);
@@ -327,7 +322,7 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
             Synergy_Manager.instance.UnregisterWeaponKeyword(WeaponKeyword, this);
         }
 
-        // Mineì´ nullì´ ì•„ë‹ˆë¼ë©´
+        // MineÀÌ nullÀÌ ¾Æ´Ï¶ó¸é
         else
         {
             if (All_Manager.instance.GameMode_M.Current_Player.All_Weapon.Contains(this))
@@ -349,10 +344,10 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
 
 
 #region
-// ë¬´ê¸°ê°€ ì ê³¼ ì¶©ëŒí–ˆì„ë•Œ // í”¼ê²©ì²˜ë¦¬
+// ¹«±â°¡ Àû°ú Ãæµ¹ÇßÀ»¶§ // ÇÇ°İÃ³¸®
 //public virtual void OnTriggerStay2D(Collider2D collision)
 //{
-//    //ì¶©ëŒì²´ê°€ ì´ ì»´í¬ë„ŒíŠ¸ë¥¼ ê°€ì§€ê³  ìˆëŠ”ê°€?
+//    //Ãæµ¹Ã¼°¡ ÀÌ ÄÄÆ÷³ÍÆ®¸¦ °¡Áö°í ÀÖ´Â°¡?
 //    if (collision.transform.GetComponent<Unit_Enemy>())
 //    {
 //        //collision.transform.GetComponent<Unit_Enemy>().Hitted(Weapon_Damage);
@@ -384,9 +379,9 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
 //}
 //    public void Weapon_KnockBack_Weapon()
 //{
-//    Vector3 _boxCollider2D_Center = _boxCollider2D.transform.TransformPoint(_boxCollider2D.offset);
-//    Vector3 _boxCollider2D_Half_Extents = Vector3.Scale(_boxCollider2D.size, _boxCollider2D.transform.lossyScale) * 0.5f;
-//    Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(_boxCollider2D_Center, _boxCollider2D.size * 0.9f, 0);
+//    Vector3 BC_Center = BC.transform.TransformPoint(BC.offset);
+//    Vector3 BC_Half_Extents = Vector3.Scale(BC.size, BC.transform.lossyScale) * 0.5f;
+//    Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(BC_Center, BC.size * 0.9f, 0);
 //    //Debug.Log(collider2Ds);
 
 //    float Dis = 10000;
@@ -411,7 +406,7 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
 //    {
 //        Vector3 Dir = (Weapon_Target_Weapon.transform.position - this.transform.position).normalized;
 
-//        if (Weapon_Target_Weapon.UnitType == UnitType.Barrel)
+//        if (Weapon_Target_Weapon.UT == Unit_Type.Barrel)
 //        {
 
 //        }
@@ -423,14 +418,14 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
 //    }
 //}
 /*
-ë„ë¼ê°™ì€ê±´ ë³´í†µ ê´€í†µë ¥ì„ ì§€ë‹ˆê³  ìˆë‹¤ ë£¬íŠ¸ë ˆì´ì„œë„ ë§ˆì°¬ê°€ì§€
-ë”°ë¼ì„œ Weapon_Penì„ ì¶”ê°€í–ˆëŠ”ë° 
-ìœ ë‹›ì´ë‚˜ ì›¨í°ì— ì¶©ëŒí• ë•Œë§ˆë‹¤ Penì„ ê°ì†Œì‹œí‚¤ê±°ë‚˜ í˜¹ì€ ë³€ìˆ˜í•˜ë‚˜ ë§Œë“¤ì–´ì„œ 
-í•˜ë‚˜ì”© ì¦ê°€ì‹œí‚¤ê³  ë³€ìˆ˜ì˜ ê°’ì´ Penë³´ë‹¤ í¬ê±°ë‚˜ ê°™ë‹¤ë©´ 
-ê·¸ë•Œ Foreverë¥¼ falseë¡œ ë§Œë“¤ë©´ ëœë‹¤.
+µµ³¢°°Àº°Ç º¸Åë °üÅë·ÂÀ» Áö´Ï°í ÀÖ´Ù ·éÆ®·¹ÀÌ¼­µµ ¸¶Âù°¡Áö
+µû¶ó¼­ Weapon_PenÀ» Ãß°¡Çß´Âµ¥ 
+À¯´ÖÀÌ³ª ¿şÆù¿¡ Ãæµ¹ÇÒ¶§¸¶´Ù PenÀ» °¨¼Ò½ÃÅ°°Å³ª È¤Àº º¯¼öÇÏ³ª ¸¸µé¾î¼­ 
+ÇÏ³ª¾¿ Áõ°¡½ÃÅ°°í º¯¼öÀÇ °ªÀÌ Penº¸´Ù Å©°Å³ª °°´Ù¸é 
+±×¶§ Forever¸¦ false·Î ¸¸µé¸é µÈ´Ù.
 */
 
-// ë¬´ê¸° ìŠ¤íƒ¯ ê°€ì¤‘ì¹˜
+// ¹«±â ½ºÅÈ °¡ÁßÄ¡
 //float Weapon_CoolDown_Value = 0;
 //Weapon_CoolDown_Value = Mine.Origin_Stat.Unit_Weapon_CoolDown + (Mine.Origin_Stat.Unit_Weapon_CoolDown * Mine.Percent_Stat.Unit_Weapon_CoolDown * 0.01f);
 
@@ -444,8 +439,8 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
 
 //    All_Manager.instance.GameMode_M.Current_Player.Weapon_Public_Count = Temp_Count + Weapon_Count_Value;
 //}
-// ë¬´ê¸° ì˜¤ë¦¬ì§„ ìŠ¤íƒ¯ì— í¼ì„¼í‹°ì§€ ìŠ¤íƒ¯ ì ìš©
-//public void Weapon_Application_Accessory()
+// ¹«±â ¿À¸®Áø ½ºÅÈ¿¡ ÆÛ¼¾Æ¼Áö ½ºÅÈ Àû¿ë
+//public void Weapon_Application_Equipment()
 //{
 //    float Weapon_Damage_Value = 0;
 //    Weapon_Damage_Value = Mine.Origin_Stat.Unit_Weapon_Damage + (Mine.Origin_Stat.Unit_Weapon_Damage * Mine.Percent_Stat.Unit_Weapon_Damage * 0.01f);

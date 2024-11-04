@@ -309,34 +309,34 @@ public class Help_Script : MonoBehaviour
 //{
 //    Background_AS.loop = true;
 
-//    for (int i = 0; i < System.Enum.GetValues(typeof(WeaponType)).Length; i++)
+//    for (int i = 0; i < System.Enum.GetValues(typeof(Weapon_Type)).Length; i++)
 //    {
-//        GameObject Go = new GameObject(((WeaponType)i).ToString() + "-AS");
+//        GameObject Go = new GameObject(((Weapon_Type)i).ToString() + "-AS");
 
 //        Go.transform.parent = this.transform;
 
 //        Go.AddComponent<AudioSource>();
 
-//        Go.GetComponent<AudioSource>().clip = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr((WeaponType)i).Hit_Audio_Clip;
+//        Go.GetComponent<AudioSource>().clip = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr((Weapon_Type)i).Hit_Audio_Clip;
 
 //        Effect_Audio_List.Add(Go.GetComponent<AudioSource>());
 //    }
 
-//    for (int i = 0; i < System.Enum.GetValues(typeof(UnitType)).Length; i++)
+//    for (int i = 0; i < System.Enum.GetValues(typeof(Unit_Type)).Length; i++)
 //    {
-//        GameObject Go = new GameObject(((UnitType)i).ToString() + "-AS");
+//        GameObject Go = new GameObject(((Unit_Type)i).ToString() + "-AS");
 
 //        Go.transform.parent = this.transform;
 
 //        Go.AddComponent<AudioSource>();
 
-//        Go.GetComponent<AudioSource>().clip = All_Manager.instance.Resource_M.Convert_UnitType_To_STO_Unit_Arr((UnitType)i).Death_Audio_Clip;
+//        Go.GetComponent<AudioSource>().clip = All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr((Unit_Type)i).Death_Audio_Clip;
 
 //        Effect_Audio_List.Add(Go.GetComponent<AudioSource>());
 //    }
 //}
 
-//public void Weapon_Hit_Effect_Audio_Play(WeaponType p_weaponType)
+//public void Weapon_Hit_Effect_Audio_Play(Weapon_Type p_WT)
 //{
 //    int Playing_Audio_Count = 0;
 
@@ -349,7 +349,7 @@ public class Help_Script : MonoBehaviour
 //    {
 //        for (int i = 0; i < Effect_Audio_List.Count; i++)
 //        {
-//            if(Effect_Audio_List[i].gameObject.name.Contains(p_weaponType.ToString()))
+//            if(Effect_Audio_List[i].gameObject.name.Contains(p_WT.ToString()))
 //            {
 //                Effect_Audio_List[i].Play();
 //                break;
@@ -358,7 +358,7 @@ public class Help_Script : MonoBehaviour
 //    }
 //}
 
-//public void Unit_Death_Effect_Audio_Play(UnitType p_UnitType)
+//public void Unit_Death_Effect_Audio_Play(Unit_Type p_UT)
 //{
 //    int Playing_Audio_Count = 0;
 
@@ -371,7 +371,7 @@ public class Help_Script : MonoBehaviour
 //    {
 //        for (int i = 0; i < Effect_Audio_List.Count; i++)
 //        {
-//            if (Effect_Audio_List[i].gameObject.name.Contains(p_UnitType.ToString()))
+//            if (Effect_Audio_List[i].gameObject.name.Contains(p_UT.ToString()))
 //            {
 //                Effect_Audio_List[i].Play();
 //                break;

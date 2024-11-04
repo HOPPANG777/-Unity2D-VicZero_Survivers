@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: EmptyTome_STO_Equipment
   m_EditorClassIdentifier: 
   ET: 3
-  Accessory_Name: "\uBE48 \uCC45"
-  Accessory_Text: "\uBB34\uAE30\uC758 \uCFE8\uD0C0\uC784\uC744 \uC904\uC5EC\uC900\uB2E4."
+  Equipment_Name: "\uBE48 \uCC45"
+  Equipment_Text: "\n\uBE48\uCC45.\n\uCFE8\uD0C0\uC784\uC744 \uC904\uC5EC\uC900\uB2E4."
   Sprite_Image: {fileID: 21300000, guid: d061d896d5020ff49a837bb801758258, type: 3}
-  Accessory_Stat_Sheet:
+  Equipment_Stat_Sheet:
     Unit_HP: 0
     Unit_Speed: 0
     Unit_Defense: 0
@@ -24,7 +24,6 @@ MonoBehaviour:
     Unit_Weapon_Proj_Speed: 0
     Unit_Weapon_Duration: 0
     Unit_Weapon_Range: 0
-    Unit_Weapon_CoolDown: 10
+    Unit_Weapon_CoolDown: 8
     Unit_Weapon_Proj_Count: 0
     Unit_Get_Gem_Range: 0
-    Unit_Weapon_Size: 0

@@ -15,8 +15,8 @@ public class All_Manager : Singleton<All_Manager>
     public Synergy_Manager Synergy_M;
     public InputManager inputManager;
 
-    public WeaponType TEST_WP;
-    public AccessoryType TEST_EQ;
+    public Weapon_Type TEST_WP;
+    public Equipment_Type TEST_EQ;
     public Panel_Style TEST_PS;
 
     //private void Awake()

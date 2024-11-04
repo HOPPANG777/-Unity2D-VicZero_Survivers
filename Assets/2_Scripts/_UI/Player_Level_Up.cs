@@ -12,7 +12,7 @@ public class Player_Level_Up : MonoBehaviour
         List<int> Selected_Start_Weapon_List = new List<int>();
         do
         {
-            All_Manager.instance.UI_M.Start_First_Weapon_Number = UnityEngine.Random.Range(0, System.Enum.GetValues(typeof(WeaponType)).Length - 1);
+            All_Manager.instance.UI_M.Start_First_Weapon_Number = UnityEngine.Random.Range(0, System.Enum.GetValues(typeof(Weapon_Type)).Length - 1);
 
         } while (Selected_Start_Weapon_List.Contains(All_Manager.instance.UI_M.Start_First_Weapon_Number));
 
@@ -20,26 +20,26 @@ public class Player_Level_Up : MonoBehaviour
 
         do
         {
-            All_Manager.instance.UI_M.Start_Second_Weapon_Number = UnityEngine.Random.Range(0, System.Enum.GetValues(typeof(WeaponType)).Length - 1);
+            All_Manager.instance.UI_M.Start_Second_Weapon_Number = UnityEngine.Random.Range(0, System.Enum.GetValues(typeof(Weapon_Type)).Length - 1);
 
         } while (Selected_Start_Weapon_List.Contains(All_Manager.instance.UI_M.Start_Second_Weapon_Number));
 
         Selected_Start_Weapon_List.Add(All_Manager.instance.UI_M.Start_Second_Weapon_Number);
 
 
-        var Temp_weaponType_First = (WeaponType)All_Manager.instance.UI_M.Start_First_Weapon_Number;
+        var Temp_WT_First = (Weapon_Type)All_Manager.instance.UI_M.Start_First_Weapon_Number;
 
-        STO_Weapon Convert_Weapon_First = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr(Temp_weaponType_First);
+        STO_Weapon Convert_Weapon_First = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(Temp_WT_First);
 
         All_Manager.instance.UI_M.Start_Weapon_Icon_Image[0].sprite = Convert_Weapon_First.Item_Image;
         All_Manager.instance.UI_M.Start_Weapon_Name_Text[0].text = Convert_Weapon_First.Weapon_Name;
         All_Manager.instance.UI_M.Start_Weapon_Example_Text[0].text = Convert_Weapon_First.Weapon_Text;
 
-        var Temp_weaponType_Second = (WeaponType)All_Manager.instance.UI_M.Start_Second_Weapon_Number;
+        var Temp_WT_Second = (Weapon_Type)All_Manager.instance.UI_M.Start_Second_Weapon_Number;
 
-        Weapon_Select_Assign_Info(1, Temp_weaponType_Second);
+        Weapon_Select_Assign_Info(1, Temp_WT_Second);
 
-        STO_Weapon Convert_Weapon_Second = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr(Temp_weaponType_Second);
+        STO_Weapon Convert_Weapon_Second = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(Temp_WT_Second);
 
         All_Manager.instance.UI_M.Start_Weapon_Icon_Image[1].sprite = Convert_Weapon_Second.Item_Image;
         All_Manager.instance.UI_M.Start_Weapon_Name_Text[1].text = Convert_Weapon_Second.Weapon_Name;
@@ -51,16 +51,16 @@ public class Player_Level_Up : MonoBehaviour
 
         if (p_Index == 0)
         {
-            var Temp_weaponType = (WeaponType)All_Manager.instance.UI_M.Start_First_Weapon_Number;
+            var Temp_WT = (Weapon_Type)All_Manager.instance.UI_M.Start_First_Weapon_Number;
 
-            Weapon_Select_Assign_Button(Temp_weaponType);
+            Weapon_Select_Assign_Button(Temp_WT);
         }
 
         else if (p_Index == 1)
         {
-            var Temp_weaponType = (WeaponType)All_Manager.instance.UI_M.Start_Second_Weapon_Number;
+            var Temp_WT = (Weapon_Type)All_Manager.instance.UI_M.Start_Second_Weapon_Number;
 
-            Weapon_Select_Assign_Button(Temp_weaponType);
+            Weapon_Select_Assign_Button(Temp_WT);
         }
 
         All_Manager.instance.UI_M.Off_Panel();
@@ -68,9 +68,9 @@ public class Player_Level_Up : MonoBehaviour
     public void Renew_Item_Panel()
     {
         Renew_Current_Weapon_Icon();
-        Renew_Current_Accessory_Icon();
+        Renew_Current_Equipment_Icon();
 
-        int Max = System.Enum.GetValues(typeof(WeaponType)).Length + System.Enum.GetValues(typeof(AccessoryType)).Length;
+        int Max = System.Enum.GetValues(typeof(Weapon_Type)).Length + System.Enum.GetValues(typeof(Equipment_Type)).Length;
         List<int> Selected_Item_List = new List<int>();
         do
         {   // 첫번째 패널에 나타날 아이템 룰렛 
@@ -99,49 +99,49 @@ public class Player_Level_Up : MonoBehaviour
 
 
         //Select_First_Item_Number
-        if (All_Manager.instance.UI_M.Select_First_Item_Number < System.Enum.GetValues(typeof(WeaponType)).Length)
+        if (All_Manager.instance.UI_M.Select_First_Item_Number < System.Enum.GetValues(typeof(Weapon_Type)).Length)
         {
             //무기
-            var Temp_weaponType = (WeaponType)All_Manager.instance.UI_M.Select_First_Item_Number;
-            Weapon_Select_Assign_Info(0, Temp_weaponType);
+            var Temp_WT = (Weapon_Type)All_Manager.instance.UI_M.Select_First_Item_Number;
+            Weapon_Select_Assign_Info(0, Temp_WT);
         }
 
         else
         {
             //장비
-            var Temp_ET = (AccessoryType)(All_Manager.instance.UI_M.Select_First_Item_Number - System.Enum.GetValues(typeof(WeaponType)).Length);
-            Accessory_Select_Assign_Info(0, Temp_ET);
+            var Temp_ET = (Equipment_Type)(All_Manager.instance.UI_M.Select_First_Item_Number - System.Enum.GetValues(typeof(Weapon_Type)).Length);
+            Equipment_Select_Assign_Info(0, Temp_ET);
         }
 
 
         //Select_Second_Item_Number
-        if (All_Manager.instance.UI_M.Select_Second_Item_Number < System.Enum.GetValues(typeof(WeaponType)).Length)
+        if (All_Manager.instance.UI_M.Select_Second_Item_Number < System.Enum.GetValues(typeof(Weapon_Type)).Length)
         {
             //무기
-            var Temp_weaponType = (WeaponType)All_Manager.instance.UI_M.Select_Second_Item_Number;
-            Weapon_Select_Assign_Info(1, Temp_weaponType);
+            var Temp_WT = (Weapon_Type)All_Manager.instance.UI_M.Select_Second_Item_Number;
+            Weapon_Select_Assign_Info(1, Temp_WT);
         }
 
         else
         {
             //장비
-            var Temp_ET = (AccessoryType)(All_Manager.instance.UI_M.Select_Second_Item_Number - System.Enum.GetValues(typeof(WeaponType)).Length);
-            Accessory_Select_Assign_Info(1, Temp_ET);
+            var Temp_ET = (Equipment_Type)(All_Manager.instance.UI_M.Select_Second_Item_Number - System.Enum.GetValues(typeof(Weapon_Type)).Length);
+            Equipment_Select_Assign_Info(1, Temp_ET);
         }
 
         //Select_Third_Item_Number
-        if (All_Manager.instance.UI_M.Select_Third_Item_Number < System.Enum.GetValues(typeof(WeaponType)).Length)
+        if (All_Manager.instance.UI_M.Select_Third_Item_Number < System.Enum.GetValues(typeof(Weapon_Type)).Length)
         {
             //무기
-            var Temp_weaponType = (WeaponType)All_Manager.instance.UI_M.Select_Third_Item_Number;
-            Weapon_Select_Assign_Info(2, Temp_weaponType);
+            var Temp_WT = (Weapon_Type)All_Manager.instance.UI_M.Select_Third_Item_Number;
+            Weapon_Select_Assign_Info(2, Temp_WT);
         }
 
         else
         {
             //장비
-            var Temp_ET = (AccessoryType)(All_Manager.instance.UI_M.Select_Third_Item_Number - System.Enum.GetValues(typeof(WeaponType)).Length);
-            Accessory_Select_Assign_Info(2, Temp_ET);
+            var Temp_ET = (Equipment_Type)(All_Manager.instance.UI_M.Select_Third_Item_Number - System.Enum.GetValues(typeof(Weapon_Type)).Length);
+            Equipment_Select_Assign_Info(2, Temp_ET);
         }
     }
 
@@ -150,54 +150,54 @@ public class Player_Level_Up : MonoBehaviour
         //Select_First_Item_Number 
         if (p_Index == 0)
         {
-            if (All_Manager.instance.UI_M.Select_First_Item_Number < System.Enum.GetValues(typeof(WeaponType)).Length)
+            if (All_Manager.instance.UI_M.Select_First_Item_Number < System.Enum.GetValues(typeof(Weapon_Type)).Length)
             {
-                var Temp_weaponType = (WeaponType)All_Manager.instance.UI_M.Select_First_Item_Number;
+                var Temp_WT = (Weapon_Type)All_Manager.instance.UI_M.Select_First_Item_Number;
 
-                Weapon_Select_Assign_Button(Temp_weaponType);
+                Weapon_Select_Assign_Button(Temp_WT);
             }
 
             else
             {
-                var Temp_ET = (AccessoryType)(All_Manager.instance.UI_M.Select_First_Item_Number - System.Enum.GetValues(typeof(WeaponType)).Length);
+                var Temp_ET = (Equipment_Type)(All_Manager.instance.UI_M.Select_First_Item_Number - System.Enum.GetValues(typeof(Weapon_Type)).Length);
 
-                Accessory_Select_Assign_Button(Temp_ET);
+                Equipment_Select_Assign_Button(Temp_ET);
             }
         }
 
         //Select_Second_Item_Number
         else if (p_Index == 1)
         {
-            if (All_Manager.instance.UI_M.Select_Second_Item_Number < System.Enum.GetValues(typeof(WeaponType)).Length)
+            if (All_Manager.instance.UI_M.Select_Second_Item_Number < System.Enum.GetValues(typeof(Weapon_Type)).Length)
             {
-                var Temp_weaponType = (WeaponType)All_Manager.instance.UI_M.Select_Second_Item_Number;
+                var Temp_WT = (Weapon_Type)All_Manager.instance.UI_M.Select_Second_Item_Number;
 
-                Weapon_Select_Assign_Button(Temp_weaponType);
+                Weapon_Select_Assign_Button(Temp_WT);
             }
 
             else
             {
-                var Temp_ET = (AccessoryType)(All_Manager.instance.UI_M.Select_Second_Item_Number - System.Enum.GetValues(typeof(WeaponType)).Length);
+                var Temp_ET = (Equipment_Type)(All_Manager.instance.UI_M.Select_Second_Item_Number - System.Enum.GetValues(typeof(Weapon_Type)).Length);
 
-                Accessory_Select_Assign_Button(Temp_ET);
+                Equipment_Select_Assign_Button(Temp_ET);
             }
         }
 
         //Select_Third_Item_Number
         else if (p_Index == 2)
         {
-            if (All_Manager.instance.UI_M.Select_Third_Item_Number < System.Enum.GetValues(typeof(WeaponType)).Length)
+            if (All_Manager.instance.UI_M.Select_Third_Item_Number < System.Enum.GetValues(typeof(Weapon_Type)).Length)
             {
-                var Temp_weaponType = (WeaponType)All_Manager.instance.UI_M.Select_Third_Item_Number;
+                var Temp_WT = (Weapon_Type)All_Manager.instance.UI_M.Select_Third_Item_Number;
 
-                Weapon_Select_Assign_Button(Temp_weaponType);
+                Weapon_Select_Assign_Button(Temp_WT);
             }
 
             else
             {
-                var Temp_ET = (AccessoryType)(All_Manager.instance.UI_M.Select_Third_Item_Number - System.Enum.GetValues(typeof(WeaponType)).Length);
+                var Temp_ET = (Equipment_Type)(All_Manager.instance.UI_M.Select_Third_Item_Number - System.Enum.GetValues(typeof(Weapon_Type)).Length);
 
-                Accessory_Select_Assign_Button(Temp_ET);
+                Equipment_Select_Assign_Button(Temp_ET);
             }
         }
 
@@ -205,11 +205,11 @@ public class Player_Level_Up : MonoBehaviour
         All_Manager.instance.UI_M.Update_Gem_Count_Image(0);
     }
 
-    public void Weapon_Select_Assign_Button(WeaponType p_weaponType)
+    public void Weapon_Select_Assign_Button(Weapon_Type p_WT)
     {
-        STO_Weapon Temp_weaponType = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr(p_weaponType);
+        STO_Weapon Temp_WT = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
 
-        var Player_Weapon_Level = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_weaponType);
+        var Player_Weapon_Level = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_WT);
 
         if (Player_Weapon_Level.Level >= 8)
         {
@@ -218,17 +218,17 @@ public class Player_Level_Up : MonoBehaviour
 
         else
         {
-            All_Manager.instance.GameMode_M.Current_Player.Upgrade_Weapon(p_weaponType);
+            All_Manager.instance.GameMode_M.Current_Player.Upgrade_Weapon(p_WT);
 
             if (All_Manager.instance.GameMode_M.Current_Player != null)
             {
-                if (Temp_weaponType != null)
+                if (Temp_WT != null)
                 {
-                    bool Sprite_Currect = All_Manager.instance.UI_M.Weapon_Icon_List.Contains(Temp_weaponType.Item_Image);
+                    bool Sprite_Currect = All_Manager.instance.UI_M.Weapon_Icon_List.Contains(Temp_WT.Item_Image);
 
                     if (!Sprite_Currect)
                     {
-                        All_Manager.instance.UI_M.Weapon_Icon_List.Add(Temp_weaponType.Item_Image);
+                        All_Manager.instance.UI_M.Weapon_Icon_List.Add(Temp_WT.Item_Image);
                     }
 
                     else
@@ -238,7 +238,7 @@ public class Player_Level_Up : MonoBehaviour
 
                     for (int i = 0; i < All_Manager.instance.UI_M.Weapon_Icon_List.Count; i++)
                     {
-                        if (All_Manager.instance.UI_M.Weapon_Icon_List[i] == Temp_weaponType.Item_Image)
+                        if (All_Manager.instance.UI_M.Weapon_Icon_List[i] == Temp_WT.Item_Image)
                         {
                             int Weapon_Level_Temp = 0;
 
@@ -259,20 +259,20 @@ public class Player_Level_Up : MonoBehaviour
 
     }
 
-    public void Accessory_Select_Assign_Button(AccessoryType p_ET)
+    public void Equipment_Select_Assign_Button(Equipment_Type p_ET)
     {
-        STO_Accessory Temp_ET = All_Manager.instance.Resource_M.Convert_AccessoryType_To_STO_Accessory_Arr(p_ET);
+        STO_Equipment Temp_ET = All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(p_ET);
 
-        var Player_Accessory_Level = All_Manager.instance.GameMode_M.Current_Player.Convert_Accessory_Level_Player(p_ET);
+        var Player_Equipment_Level = All_Manager.instance.GameMode_M.Current_Player.Convert_Equipment_Level_Player(p_ET);
 
-        if (Player_Accessory_Level >= 5)
+        if (Player_Equipment_Level >= 5)
         {
             All_Manager.instance.GameMode_M.Current_Player.Recovery_Current_HP();
         }
 
         else
         {
-            All_Manager.instance.GameMode_M.Current_Player.Upgrade_Accessory(p_ET);
+            All_Manager.instance.GameMode_M.Current_Player.Upgrade_Equipment(p_ET);
 
             All_Manager.instance.GameMode_M.Current_Player.Origin_Stat_Application_Player(p_ET);
 
@@ -281,11 +281,11 @@ public class Player_Level_Up : MonoBehaviour
                 if (Temp_ET != null)
                 {
 
-                    bool Sprite_Currect = All_Manager.instance.UI_M.Accessory_Icon_List.Contains(Temp_ET.Sprite_Image);
+                    bool Sprite_Currect = All_Manager.instance.UI_M.Equipment_Icon_List.Contains(Temp_ET.Sprite_Image);
 
                     if (!Sprite_Currect)
                     {
-                        All_Manager.instance.UI_M.Accessory_Icon_List.Add(Temp_ET.Sprite_Image);
+                        All_Manager.instance.UI_M.Equipment_Icon_List.Add(Temp_ET.Sprite_Image);
                     }
 
                     else
@@ -293,25 +293,25 @@ public class Player_Level_Up : MonoBehaviour
                         //Debug.Log("이미 장신구 아이콘이 존재합니다.");
                     }
 
-                    for (int i = 0; i < All_Manager.instance.UI_M.Accessory_Icon_List.Count; i++)
+                    for (int i = 0; i < All_Manager.instance.UI_M.Equipment_Icon_List.Count; i++)
                     {
-                        if (All_Manager.instance.UI_M.Accessory_Icon_List[i] == Temp_ET.Sprite_Image)
+                        if (All_Manager.instance.UI_M.Equipment_Icon_List[i] == Temp_ET.Sprite_Image)
                         {
-                            int Accessory_Level_Temp = 0;
+                            int Equipment_Level_Temp = 0;
 
-                            var Temp_Current_Accessory_Level = All_Manager.instance.GameMode_M.Current_Player.Convert_Accessory_Level_Player(p_ET);
+                            var Temp_Current_Equipment_Level = All_Manager.instance.GameMode_M.Current_Player.Convert_Equipment_Level_Player(p_ET);
 
-                            for (int j = 0; j < Temp_Current_Accessory_Level; j++)
+                            for (int j = 0; j < Temp_Current_Equipment_Level; j++)
                             {
-                                Accessory_Level_Temp++;
+                                Equipment_Level_Temp++;
                             }
 
-                            All_Manager.instance.UI_M.Basic_Current_Accessory_Icon_Image[i].GetComponentInChildren<Text>().text = "Lv. " + Accessory_Level_Temp;
+                            All_Manager.instance.UI_M.Basic_Current_Equipment_Icon_Image[i].GetComponentInChildren<Text>().text = "Lv. " + Equipment_Level_Temp;
                         }
 
                     }
 
-                    Renew_Current_Accessory_Icon();
+                    Renew_Current_Equipment_Icon();
                 }
 
             }
@@ -320,15 +320,15 @@ public class Player_Level_Up : MonoBehaviour
 
     }
 
-    public void Weapon_Select_Assign_Info(int Index, WeaponType p_weaponType)
+    public void Weapon_Select_Assign_Info(int Index, Weapon_Type p_WT)
     {
-        STO_Weapon Temp_weaponType = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr(p_weaponType);
+        STO_Weapon Temp_WT = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
 
-        STO_Item Temp_Food = All_Manager.instance.Resource_M.Convert_ItemType_To_STO_Item_Arr(ItemType.Food);
+        STO_MISC Temp_Food = All_Manager.instance.Resource_M.Convert_MISC_Type_To_STO_MISC_Arr(MISC_Type.Food);
 
         if (All_Manager.instance.GameMode_M.Current_Player != null)
         {
-            var Player_Weapon_Level = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_weaponType);
+            var Player_Weapon_Level = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_WT);
 
             if (Player_Weapon_Level.Level >= 8)
             {
@@ -336,58 +336,58 @@ public class Player_Level_Up : MonoBehaviour
                 All_Manager.instance.UI_M.Select_Item_Icon_Image[Index].sprite = Temp_Food.Sprite_Image;
 
                 if (All_Manager.instance.UI_M.Select_Item_Name_Text[Index] == null) Debug.Log(3);
-                All_Manager.instance.UI_M.Select_Item_Name_Text[Index].text = Temp_Food.Item_Name;
+                All_Manager.instance.UI_M.Select_Item_Name_Text[Index].text = Temp_Food.MISC_Name;
 
                 if (All_Manager.instance.UI_M.Select_Item_Example_Text[Index] == null) Debug.Log(4);
-                All_Manager.instance.UI_M.Select_Item_Example_Text[Index].text = Temp_Food.Item_Text;
+                All_Manager.instance.UI_M.Select_Item_Example_Text[Index].text = Temp_Food.MISC_Text;
             }
 
             else
             {
                 if (All_Manager.instance.UI_M.Select_Item_Icon_Image[Index] == null) Debug.Log(2);
-                All_Manager.instance.UI_M.Select_Item_Icon_Image[Index].sprite = Temp_weaponType.Item_Image;
+                All_Manager.instance.UI_M.Select_Item_Icon_Image[Index].sprite = Temp_WT.Item_Image;
 
                 if (All_Manager.instance.UI_M.Select_Item_Name_Text[Index] == null) Debug.Log(3);
-                All_Manager.instance.UI_M.Select_Item_Name_Text[Index].text = Temp_weaponType.Weapon_Name;
+                All_Manager.instance.UI_M.Select_Item_Name_Text[Index].text = Temp_WT.Weapon_Name;
 
                 if (All_Manager.instance.UI_M.Select_Item_Example_Text[Index] == null) Debug.Log(4);
-                All_Manager.instance.UI_M.Select_Item_Example_Text[Index].text = Temp_weaponType.Weapon_Text;
+                All_Manager.instance.UI_M.Select_Item_Example_Text[Index].text = Temp_WT.Weapon_Text;
             }
         }
     }
 
-    public void Accessory_Select_Assign_Info(int Index, AccessoryType p_ET)
+    public void Equipment_Select_Assign_Info(int Index, Equipment_Type p_ET)
     {
-        STO_Accessory Temp_ET = All_Manager.instance.Resource_M.Convert_AccessoryType_To_STO_Accessory_Arr(p_ET);
+        STO_Equipment Temp_ET = All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(p_ET);
 
-        STO_Item Temp_Food = All_Manager.instance.Resource_M.Convert_ItemType_To_STO_Item_Arr(ItemType.Food);
+        STO_MISC Temp_Food = All_Manager.instance.Resource_M.Convert_MISC_Type_To_STO_MISC_Arr(MISC_Type.Food);
 
         if (All_Manager.instance.GameMode_M.Current_Player != null)
         {
-            var Player_Accessory_Level = All_Manager.instance.GameMode_M.Current_Player.Convert_Accessory_Level_Player(p_ET);
+            var Player_Equipment_Level = All_Manager.instance.GameMode_M.Current_Player.Convert_Equipment_Level_Player(p_ET);
 
-            if (Player_Accessory_Level >= 5)
+            if (Player_Equipment_Level >= 5)
             {
                 if (All_Manager.instance.UI_M.Select_Item_Icon_Image[Index] == null) Debug.Log(2);
                 All_Manager.instance.UI_M.Select_Item_Icon_Image[Index].sprite = Temp_Food.Sprite_Image;
 
                 if (All_Manager.instance.UI_M.Select_Item_Name_Text[Index] == null) Debug.Log(3);
-                All_Manager.instance.UI_M.Select_Item_Name_Text[Index].text = Temp_Food.Item_Name;
+                All_Manager.instance.UI_M.Select_Item_Name_Text[Index].text = Temp_Food.MISC_Name;
 
                 if (All_Manager.instance.UI_M.Select_Item_Example_Text[Index] == null) Debug.Log(4);
-                All_Manager.instance.UI_M.Select_Item_Example_Text[Index].text = Temp_Food.Item_Text;
+                All_Manager.instance.UI_M.Select_Item_Example_Text[Index].text = Temp_Food.MISC_Text;
             }
 
             else
             {
                 All_Manager.instance.UI_M.Select_Item_Icon_Image[Index].sprite = Temp_ET.Sprite_Image;
-                All_Manager.instance.UI_M.Select_Item_Name_Text[Index].text = Temp_ET.Accessory_Name;
-                All_Manager.instance.UI_M.Select_Item_Example_Text[Index].text = Temp_ET.Accessory_Text;
+                All_Manager.instance.UI_M.Select_Item_Name_Text[Index].text = Temp_ET.Equipment_Name;
+                All_Manager.instance.UI_M.Select_Item_Example_Text[Index].text = Temp_ET.Equipment_Text;
             }
         }
 
 
-        //Select_Item_Button[Index].onClick.AddListener(() => { All_Manager.instance.GameMode_M.Current_Player.Update_Get_Accessory(p_ET); }); 
+        //Select_Item_Button[Index].onClick.AddListener(() => { All_Manager.instance.GameMode_M.Current_Player.Update_Get_Equipment(p_ET); }); 
     }
 
     // 인게임 무기 아이콘 갱신
@@ -400,13 +400,13 @@ public class Player_Level_Up : MonoBehaviour
                 All_Manager.instance.UI_M.Basic_Current_Weapon_Icon_Image[i].gameObject.SetActive(false);
                 All_Manager.instance.UI_M.Player_Info_s_Current_Weapon_Icon_Image[i].gameObject.SetActive(false);
 
-                var Temp_weaponTypeO = All_Manager.instance.Resource_M.STO_Weapons;
+                var Temp_WTO = All_Manager.instance.Resource_M.STO_Weapons;
 
-                for (int j = 0; j < Temp_weaponTypeO.Length; j++)
+                for (int j = 0; j < Temp_WTO.Length; j++)
                 {
-                    var Temp_weaponType = Temp_weaponTypeO[j].weaponType;
+                    var Temp_WT = Temp_WTO[j].WT;
 
-                    var Temp_Weapon_Sprite = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr(Temp_weaponType).Item_Image;
+                    var Temp_Weapon_Sprite = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(Temp_WT).Item_Image;
 
                     if (All_Manager.instance.UI_M.Weapon_Icon_List.Contains(Temp_Weapon_Sprite))
                     {
@@ -432,26 +432,26 @@ public class Player_Level_Up : MonoBehaviour
     }
 
     // 인게임 장신구 아이콘 갱신
-    public void Renew_Current_Accessory_Icon()
+    public void Renew_Current_Equipment_Icon()
     {
         if (All_Manager.instance.GameMode_M.Current_Player.Current_HP <= 0)
         {
-            for (int i = 0; i < All_Manager.instance.UI_M.Basic_Current_Accessory_Icon_Image.Length; i++)
+            for (int i = 0; i < All_Manager.instance.UI_M.Basic_Current_Equipment_Icon_Image.Length; i++)
             {
-                All_Manager.instance.UI_M.Basic_Current_Accessory_Icon_Image[i].gameObject.SetActive(false);
-                All_Manager.instance.UI_M.Player_Info_s_Current_Accessory_Icon_Image[i].gameObject.SetActive(false);
+                All_Manager.instance.UI_M.Basic_Current_Equipment_Icon_Image[i].gameObject.SetActive(false);
+                All_Manager.instance.UI_M.Player_Info_s_Current_Equipment_Icon_Image[i].gameObject.SetActive(false);
 
-                var Temp_ETO = All_Manager.instance.Resource_M.STO_Accessorys;
+                var Temp_ETO = All_Manager.instance.Resource_M.STO_Equipments;
 
                 for (int j = 0; j < Temp_ETO.Length; j++)
                 {
                     var Temp_ET = Temp_ETO[j].ET;
 
-                    var Temp_Accessory_Sprite = All_Manager.instance.Resource_M.Convert_AccessoryType_To_STO_Accessory_Arr(Temp_ET).Sprite_Image;
+                    var Temp_Equipment_Sprite = All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Temp_ET).Sprite_Image;
 
-                    if (All_Manager.instance.UI_M.Accessory_Icon_List.Contains(Temp_Accessory_Sprite))
+                    if (All_Manager.instance.UI_M.Equipment_Icon_List.Contains(Temp_Equipment_Sprite))
                     {
-                        All_Manager.instance.UI_M.Accessory_Icon_List.Remove(Temp_Accessory_Sprite);
+                        All_Manager.instance.UI_M.Equipment_Icon_List.Remove(Temp_Equipment_Sprite);
 
                     }
 
@@ -462,13 +462,13 @@ public class Player_Level_Up : MonoBehaviour
 
         else
         {
-            for (int i = 0; i < All_Manager.instance.UI_M.Accessory_Icon_List.Count; i++)
+            for (int i = 0; i < All_Manager.instance.UI_M.Equipment_Icon_List.Count; i++)
             {
-                All_Manager.instance.UI_M.Basic_Current_Accessory_Icon_Image[i].sprite = All_Manager.instance.UI_M.Accessory_Icon_List[i];
-                All_Manager.instance.UI_M.Basic_Current_Accessory_Icon_Image[i].gameObject.SetActive(true);
+                All_Manager.instance.UI_M.Basic_Current_Equipment_Icon_Image[i].sprite = All_Manager.instance.UI_M.Equipment_Icon_List[i];
+                All_Manager.instance.UI_M.Basic_Current_Equipment_Icon_Image[i].gameObject.SetActive(true);
 
-                All_Manager.instance.UI_M.Player_Info_s_Current_Accessory_Icon_Image[i].sprite = All_Manager.instance.UI_M.Accessory_Icon_List[i];
-                All_Manager.instance.UI_M.Player_Info_s_Current_Accessory_Icon_Image[i].gameObject.SetActive(true);
+                All_Manager.instance.UI_M.Player_Info_s_Current_Equipment_Icon_Image[i].sprite = All_Manager.instance.UI_M.Equipment_Icon_List[i];
+                All_Manager.instance.UI_M.Player_Info_s_Current_Equipment_Icon_Image[i].gameObject.SetActive(true);
             }
 
         }
@@ -477,10 +477,10 @@ public class Player_Level_Up : MonoBehaviour
     public bool Can_Combine_Weapon(Weapon Weapon_A, Weapon Weapon_B)
     {
         var Temp_Player = All_Manager.instance.GameMode_M.Current_Player;
-        var Temp_weaponTypeO_A = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr(Weapon_A.weaponType);
-        var Temp_WLAT_A = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_weaponTypeO_A);
-        var Temp_weaponTypeO_B = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr(Weapon_B.weaponType);
-        var Temp_WLAT_B = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_weaponTypeO_B);
+        var Temp_WTO_A = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(Weapon_A.WT);
+        var Temp_WLAT_A = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_WTO_A);
+        var Temp_WTO_B = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(Weapon_B.WT);
+        var Temp_WLAT_B = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_WTO_B);
 
         return Temp_WLAT_A.Level >= 8 && Temp_WLAT_B.Level >= 8;
     }

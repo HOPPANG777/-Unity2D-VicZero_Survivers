@@ -17,8 +17,8 @@ public class UI_OnGUI : MonoBehaviour
     public void OnGUI()
     {
         // 무기, 장비, 패널 스타일에 대한 옵션을 Enum에서 가져옵니다.
-        All_Manager.instance.UI_M.WP_Options = System.Enum.GetNames(typeof(WeaponType));
-        All_Manager.instance.UI_M.EQ_Options = System.Enum.GetNames(typeof(AccessoryType));
+        All_Manager.instance.UI_M.WP_Options = System.Enum.GetNames(typeof(Weapon_Type));
+        All_Manager.instance.UI_M.EQ_Options = System.Enum.GetNames(typeof(Equipment_Type));
         All_Manager.instance.UI_M.PS_Options = System.Enum.GetNames(typeof(Panel_Style));
 
         if (showGUI != true) return;
@@ -58,7 +58,7 @@ public class UI_OnGUI : MonoBehaviour
         {
             GUILayout.Label("무기 선택:");
             int selectedWeaponIndex = GUILayout.SelectionGrid((int)All_Manager.instance.TEST_WP, All_Manager.instance.UI_M.WP_Options, 1);
-            All_Manager.instance.TEST_WP = (WeaponType)selectedWeaponIndex;
+            All_Manager.instance.TEST_WP = (Weapon_Type)selectedWeaponIndex;
 
             if (GUILayout.Button("무기 테스트"))
             {
@@ -74,24 +74,24 @@ public class UI_OnGUI : MonoBehaviour
 
         // 장비 섹션
         GUILayout.BeginVertical("Box");
-        if (GUILayout.Button(All_Manager.instance.UI_M.Accessory_On ? "접기" : "펼치기"))
+        if (GUILayout.Button(All_Manager.instance.UI_M.Equipment_On ? "접기" : "펼치기"))
         {
-            All_Manager.instance.UI_M.Accessory_On = !All_Manager.instance.UI_M.Accessory_On;
+            All_Manager.instance.UI_M.Equipment_On = !All_Manager.instance.UI_M.Equipment_On;
         }
-        if (All_Manager.instance.UI_M.Accessory_On)
+        if (All_Manager.instance.UI_M.Equipment_On)
         {
             GUILayout.Label("장비 선택:");
-            int selectedAccessoryIndex = GUILayout.SelectionGrid((int)All_Manager.instance.TEST_EQ, All_Manager.instance.UI_M.EQ_Options, 1);
-            All_Manager.instance.TEST_EQ = (AccessoryType)selectedAccessoryIndex;
+            int selectedEquipmentIndex = GUILayout.SelectionGrid((int)All_Manager.instance.TEST_EQ, All_Manager.instance.UI_M.EQ_Options, 1);
+            All_Manager.instance.TEST_EQ = (Equipment_Type)selectedEquipmentIndex;
 
             if (GUILayout.Button("장비 테스트"))
             {
-                Accessory_Test();
+                Equipment_Test();
             }
 
             if (GUILayout.Button("최대 레벨 장비 테스트"))
             {
-                Max_Accessory_Test();
+                Max_Equipment_Test();
             }
         }
         GUILayout.EndVertical();
@@ -123,18 +123,18 @@ public class UI_OnGUI : MonoBehaviour
     }
 
     // 장신구 강화 테스트
-    [ContextMenu("Accessory Test")]
-    public void Accessory_Test()
+    [ContextMenu("Equipment Test")]
+    public void Equipment_Test()
     {
-        All_Manager.instance.UI_M.Player_Level_Up.Accessory_Select_Assign_Button(All_Manager.instance.TEST_EQ);
+        All_Manager.instance.UI_M.Player_Level_Up.Equipment_Select_Assign_Button(All_Manager.instance.TEST_EQ);
     }
 
     // 무기 만렙 강화 테스트
     [ContextMenu("Max Level Weapoon Test")]
     public void Max_Weapon_Test()
     {
-        var Temp_weaponTypeO = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr(All_Manager.instance.TEST_WP);
-        var Temp_WLAT = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_weaponTypeO);
+        var Temp_WTO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(All_Manager.instance.TEST_WP);
+        var Temp_WLAT = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_WTO);
 
         for (int i = Temp_WLAT.Level; i < 8; i++)
         {
@@ -143,14 +143,14 @@ public class UI_OnGUI : MonoBehaviour
     }
 
     // 장신구 만렙 테스트
-    [ContextMenu("Max Level Accessory Test")]
-    public void Max_Accessory_Test()
+    [ContextMenu("Max Level Equipment Test")]
+    public void Max_Equipment_Test()
     {
-        var Temp_EQL = All_Manager.instance.GameMode_M.Current_Player.Convert_Accessory_Level_Player(All_Manager.instance.TEST_EQ);
+        var Temp_EQL = All_Manager.instance.GameMode_M.Current_Player.Convert_Equipment_Level_Player(All_Manager.instance.TEST_EQ);
 
         for (int i = Temp_EQL; i < 5; i++)
         {
-            All_Manager.instance.UI_M.Player_Level_Up.Accessory_Select_Assign_Button(All_Manager.instance.TEST_EQ);
+            All_Manager.instance.UI_M.Player_Level_Up.Equipment_Select_Assign_Button(All_Manager.instance.TEST_EQ);
         }
     }
 

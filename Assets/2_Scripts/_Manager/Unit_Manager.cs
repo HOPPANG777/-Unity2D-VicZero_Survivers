@@ -7,11 +7,11 @@ using UnityEngine;
 
 public class Unit_Manager : MonoBehaviour
 {
-    public UnitFactory Unit_F;
-    public ProjectileFactory Projectile_F;
-    public ItemFactory Item_F;
-    public UIFactory UI_F;
-    public MissionFactory Mission_F;
+    public Unit_Factory Unit_F;
+    public Projectile_Factory Projectile_F;
+    public Misc_Factory Misc_F;
+    public UI_Factory UI_F;
+    public Mission_Factory Mission_F;
 }
 
 #region
@@ -24,17 +24,17 @@ public class Unit_Manager : MonoBehaviour
 //{
 //    GameObject Gem_Go = new GameObject("Gem" + "-" + p_Number.ToString());
 
-//    Gem_Go.AddComponent<Item_Gem>();
+//    Gem_Go.AddComponent<MISC_Gem>();
 
 //    Gem_Go.transform.position = p_TF.transform.position;
 //    Gem_Go.transform.rotation = Quaternion.identity;
 //    Gem_Go.transform.localScale = Vector3.one;
 
 //    // Gem_Go.transform.parent = this.transform;
-//    if (Gem_Go.GetComponent<Item_Gem>())
+//    if (Gem_Go.GetComponent<MISC_Gem>())
 //    {
-//        yield return new WaitUntil(() => Gem_Go.GetComponent<Item_Gem>()._spriteRenderer);
-//        Gem_Go.GetComponent<Item_Gem>()._spriteRenderer.sprite = All_Manager.instance.Resource_M.Convert_ItemType_To_STO_Item_Arr(ItemType.Gem).Sprite_Image;
+//        yield return new WaitUntil(() => Gem_Go.GetComponent<MISC_Gem>().SR);
+//        Gem_Go.GetComponent<MISC_Gem>().SR.sprite = All_Manager.instance.Resource_M.Convert_MISC_Type_To_STO_MISC_Arr(MISC_Type.Gem).Sprite_Image;
 //    }
 
 //    Gem_Go.transform.parent = p_Pool;
@@ -44,8 +44,8 @@ public class Unit_Manager : MonoBehaviour
 
 // public GameObject Player_Go;
 // public GameObject Enemy_Go;
-//50 - 100 êµ¬í•˜ê³ 
-//í™€ì´ë©´ í”Œ ì§ì´ë©´ ë§ˆ
+//50 - 100 ±¸ÇÏ°í
+//È¦ÀÌ¸é ÇÃ Â¦ÀÌ¸é ¸¶
 //int Temp_X = Random.Range(5, 10);
 //Temp_X = ((Temp_X % 2) == 1) ? -Temp_X : Temp_X;
 
@@ -62,18 +62,18 @@ public class Unit_Manager : MonoBehaviour
 //IEnumerator EnemySpawn()
 //{
 //    RandomEnemySpawn();
-//    yield return new WaitForSecond_spriteRendererealtime(0.7f);
+//    yield return new WaitForSecondsRealtime(0.7f);
 //}
 //
 //public void RandomEnemySpawn()
 //{
 //    GameObject Temp_Go = Instantiate(Enemy_Go, null);
 //
-//    //var ë€ í˜•íƒœì— ë§ì¶°ì„œ ë³€ìˆ˜ íƒ€ì…ì„ ìë™ìœ¼ë¡œ ë°›ëŠ”ë‹¤
+//    //var ¶õ ÇüÅÂ¿¡ ¸ÂÃç¼­ º¯¼ö Å¸ÀÔÀ» ÀÚµ¿À¸·Î ¹Ş´Â´Ù
 //    var Player_Pos = All_Manager.instance.GameMode_Manager.Current_Player.transform.position;
 //
-//    //50 - 100 êµ¬í•˜ê³ 
-//    //í™€ì´ë©´ í”Œ ì§ì´ë©´ ë§ˆ
+//    //50 - 100 ±¸ÇÏ°í
+//    //È¦ÀÌ¸é ÇÃ Â¦ÀÌ¸é ¸¶
 //    int Temp_X = Random.Range(5, 10);
 //    Temp_X = ((Temp_X % 2) == 1) ? -Temp_X : Temp_X;
 //
@@ -92,10 +92,10 @@ public class Unit_Manager : MonoBehaviour
 //    StartCoroutine(C_Create_Unit(p_Unit_Name));
 //}
 
-////ìœ ë‹› ìƒì„±í•˜ëŠ” í•¨ìˆ˜
+////À¯´Ö »ı¼ºÇÏ´Â ÇÔ¼ö
 //public IEnumerator C_Create_Unit(Unit_Name p_Unit_Name)
 //{
-//    //í”Œë ˆì´ì–´ ìƒì„±
+//    //ÇÃ·¹ÀÌ¾î »ı¼º
 //    if (p_Unit_Name == Unit_Name.Player)
 //    {
 //        GameObject Temp_Go = Instantiate(Player_Go, null);
@@ -103,27 +103,27 @@ public class Unit_Manager : MonoBehaviour
 //        Temp_Go.transform.rotation = Quaternion.identity;
 //        Temp_Go.transform.localScale = Vector3.one;
 
-//        //ì´ ê²Œì„ì˜¤ë¸Œì íŠ¸ ì´ ì»´í¬ë„ŒíŠ¸ë¥¼ ê°–ê³  ìˆëŠ”ì§€ì˜ bool ê°’
+//        //ÀÌ °ÔÀÓ¿ÀºêÁ§Æ® ÀÌ ÄÄÆ÷³ÍÆ®¸¦ °®°í ÀÖ´ÂÁöÀÇ bool °ª
 //        if (Temp_Go.GetComponent<Player>())
 //        {
-//            //_spriteRendererì´ ìˆì„ë•Œê¹Œì§€ ê¸°ë‹¤ë ¤
-//            yield return new WaitUntil(() => Temp_Go.GetComponent<Player>()._spriteRenderer);
+//            //SRÀÌ ÀÖÀ»¶§±îÁö ±â´Ù·Á
+//            yield return new WaitUntil(() => Temp_Go.GetComponent<Player>().SR);
 //            All_Manager.instance.Resource_M.Unit_Stat(Temp_Go.GetComponent<Player>(), All_Manager.instance.Resource_M.STO_Player);
 
 //            All_Manager.instance.GameMode_M.Current_Player = Temp_Go.GetComponent<Player>();
 //        }
 //    }
 
-//    // ì  ìƒì„±
+//    // Àû »ı¼º
 //    else if (p_Unit_Name == Unit_Name.Enemy)
 //    {
 //        GameObject Temp_Go = Instantiate(Enemy_Go, null);
 
-//        //var ë€ í˜•íƒœì— ë§ì¶°ì„œ ë³€ìˆ˜ íƒ€ì…ì„ ìë™ìœ¼ë¡œ ë°›ëŠ”ë‹¤
+//        //var ¶õ ÇüÅÂ¿¡ ¸ÂÃç¼­ º¯¼ö Å¸ÀÔÀ» ÀÚµ¿À¸·Î ¹Ş´Â´Ù
 //        var Player_Pos = All_Manager.instance.GameMode_M.Current_Player.transform.position;
 
-//        //50 - 100 êµ¬í•˜ê³ 
-//        //í™€ì´ë©´ í”Œ ì§ì´ë©´ ë§ˆ
+//        //50 - 100 ±¸ÇÏ°í
+//        //È¦ÀÌ¸é ÇÃ Â¦ÀÌ¸é ¸¶
 //        int Temp_X = Random.Range(5, 10);
 //        Temp_X = ((Temp_X % 2) == 1) ? -Temp_X : Temp_X;
 
@@ -138,7 +138,7 @@ public class Unit_Manager : MonoBehaviour
 
 //        if (Temp_Go.GetComponent<Enemy>())
 //        {
-//            yield return new WaitUntil(() => Temp_Go.GetComponent<Enemy>()._spriteRenderer);
+//            yield return new WaitUntil(() => Temp_Go.GetComponent<Enemy>().SR);
 //            All_Manager.instance.Resource_M.Unit_Stat(Temp_Go.GetComponent<Enemy>(), All_Manager.instance.Resource_M.STO_Enemy1);
 
 //            All_Manager.instance.GameMode_M.Enemy_List.Add(Temp_Go.GetComponent<Enemy>());
@@ -164,12 +164,12 @@ public class Unit_Manager : MonoBehaviour
 
 //    if (Player_Go.GetComponent<Unit_Player>())
 //    {
-//        //_spriteRendererì´ ìˆì„ë•Œê¹Œì§€ ê¸°ë‹¤ë ¤                                                                 
-//        yield return new WaitUntil(() => Player_Go.GetComponent<Unit_Player>()._spriteRenderer && Player_Go.GetComponent<Unit_Player>()._animator);
+//        //SRÀÌ ÀÖÀ»¶§±îÁö ±â´Ù·Á                                                                 
+//        yield return new WaitUntil(() => Player_Go.GetComponent<Unit_Player>().SR && Player_Go.GetComponent<Unit_Player>().AM);
 //        Player_Go.GetComponent<Unit_Player>().Unit_Stat_Setting(Player_Go.GetComponent<Unit_Player>(), P_Unit);
 
-//        Player_Go.GetComponent<Unit_Player>()._spriteRenderer.drawMode = SpriteDrawMode.Sliced;
-//        Player_Go.GetComponent<Unit_Player>()._spriteRenderer.size = new Vector2((Player_Go.GetComponent<Unit_Player>()._spriteRenderer.size.x * 0.2f), (Player_Go.GetComponent<Unit_Player>()._spriteRenderer.size.y * 0.2f));
+//        Player_Go.GetComponent<Unit_Player>().SR.drawMode = SpriteDrawMode.Sliced;
+//        Player_Go.GetComponent<Unit_Player>().SR.size = new Vector2((Player_Go.GetComponent<Unit_Player>().SR.size.x * 0.2f), (Player_Go.GetComponent<Unit_Player>().SR.size.y * 0.2f));
 
 //        All_Manager.instance.GameMode_M.Current_Player = Player_Go.GetComponent<Unit_Player>();
 //    }
@@ -183,7 +183,7 @@ public class Unit_Manager : MonoBehaviour
 
 //public IEnumerator C_Create_Enemy(STO_Unit E_Unit, Vector3 Player_Pos, int p_Number, Transform p_Pool)
 //{
-//    GameObject Enemy_Go = new GameObject(E_Unit.UnitType.ToString() + "-" + p_Number.ToString());
+//    GameObject Enemy_Go = new GameObject(E_Unit.UT.ToString() + "-" + p_Number.ToString());
 
 //    Enemy_Go.AddComponent<Unit_Enemy>();
 
@@ -193,12 +193,12 @@ public class Unit_Manager : MonoBehaviour
 
 //    if (Enemy_Go.GetComponent<Unit_Enemy>())
 //    {
-//        yield return new WaitUntil(() => Enemy_Go.GetComponent<Unit_Enemy>()._spriteRenderer && Enemy_Go.GetComponent<Unit_Enemy>()._animator);
+//        yield return new WaitUntil(() => Enemy_Go.GetComponent<Unit_Enemy>().SR && Enemy_Go.GetComponent<Unit_Enemy>().AM);
 //        Enemy_Go.GetComponent<Unit_Enemy>().Unit_Stat_Setting(Enemy_Go.GetComponent<Unit_Enemy>(), E_Unit);
-//        Enemy_Go.GetComponent<Unit_Enemy>().UnitType = E_Unit.UnitType;
+//        Enemy_Go.GetComponent<Unit_Enemy>().UT = E_Unit.UT;
 
-//        Enemy_Go.GetComponent<Unit_Enemy>()._spriteRenderer.drawMode = SpriteDrawMode.Sliced;
-//        Enemy_Go.GetComponent<Unit_Enemy>()._spriteRenderer.size = new Vector2((Enemy_Go.GetComponent<Unit_Enemy>()._spriteRenderer.size.x * 4), (Enemy_Go.GetComponent<Unit_Enemy>()._spriteRenderer.size.y * 4));
+//        Enemy_Go.GetComponent<Unit_Enemy>().SR.drawMode = SpriteDrawMode.Sliced;
+//        Enemy_Go.GetComponent<Unit_Enemy>().SR.size = new Vector2((Enemy_Go.GetComponent<Unit_Enemy>().SR.size.x * 4), (Enemy_Go.GetComponent<Unit_Enemy>().SR.size.y * 4));
 
 //        //All_Manager.instance.GameMode_M.Enemy_List.Add(Enemy_Go.GetComponent<Unit_Enemy>());
 //    }
@@ -217,7 +217,7 @@ public class Unit_Manager : MonoBehaviour
 
 //public IEnumerator C_Create_Boss(STO_Unit Boss_Unit, Vector3 Player_Pos)
 //{
-//    GameObject Boss_Go = new GameObject(Boss_Unit.UnitType.ToString() + "-The_Undead");
+//    GameObject Boss_Go = new GameObject(Boss_Unit.UT.ToString() + "-The_Undead");
 
 //    Boss_Go.AddComponent<Unit_Boss>();
 
@@ -227,42 +227,42 @@ public class Unit_Manager : MonoBehaviour
 
 //    if (Boss_Go.GetComponent<Unit_Boss>())
 //    {
-//        yield return new WaitUntil(() => Boss_Go.GetComponent<Unit_Boss>()._spriteRenderer && Boss_Go.GetComponent<Unit_Boss>()._animator);
+//        yield return new WaitUntil(() => Boss_Go.GetComponent<Unit_Boss>().SR && Boss_Go.GetComponent<Unit_Boss>().AM);
 //        Boss_Go.GetComponent<Unit_Boss>().Unit_Stat_Setting(Boss_Go.GetComponent<Unit_Boss>(), Boss_Unit);
-//        Boss_Go.GetComponent<Unit_Boss>().UnitType = Boss_Unit.UnitType;
+//        Boss_Go.GetComponent<Unit_Boss>().UT = Boss_Unit.UT;
 
 //        All_Manager.instance.GameMode_M.Enemy_List.Add(Boss_Go.GetComponent<Unit_Boss>());
 //    }
 //}
 
-//public void Create_Item(STO_Item p_ItemTypeO, Transform p_TF, int p_Number, Transform p_Pool)
+//public void Create_MISC(STO_MISC p_MTO, Transform p_TF, int p_Number, Transform p_Pool)
 //{
-//    StartCoroutine(C_Create_Item(p_ItemTypeO, p_TF, p_Number, p_Pool));
+//    StartCoroutine(C_Create_MISC(p_MTO, p_TF, p_Number, p_Pool));
 //}
 
-//public IEnumerator C_Create_Item(STO_Item p_ItemTypeO, Transform p_TF, int p_Number, Transform p_Pool)
+//public IEnumerator C_Create_MISC(STO_MISC p_MTO, Transform p_TF, int p_Number, Transform p_Pool)
 //{
-//    GameObject Item_Go = new GameObject(p_ItemTypeO.ItemType.ToString() + "-" + p_Number.ToString());
+//    GameObject MISC_Go = new GameObject(p_MTO.MT.ToString() + "-" + p_Number.ToString());
 
-//    Item_Go.AddComponent<Item>();
+//    MISC_Go.AddComponent<MISC>();
 
-//    Item_Go.transform.position = p_TF.transform.position;
-//    Item_Go.transform.rotation = Quaternion.identity;
-//    Item_Go.transform.localScale = Vector3.one;
+//    MISC_Go.transform.position = p_TF.transform.position;
+//    MISC_Go.transform.rotation = Quaternion.identity;
+//    MISC_Go.transform.localScale = Vector3.one;
 
-//    if (Item_Go.GetComponent<Item>())
+//    if (MISC_Go.GetComponent<MISC>())
 //    {
-//        yield return new WaitUntil(() => Item_Go.GetComponent<Item>()._spriteRenderer);
-//        Item_Go.GetComponent<Item>().Item_Setting(Item_Go.GetComponent<Item>(), p_ItemTypeO);
+//        yield return new WaitUntil(() => MISC_Go.GetComponent<MISC>().SR);
+//        MISC_Go.GetComponent<MISC>().MISC_Setting(MISC_Go.GetComponent<MISC>(), p_MTO);
 
-//        Item_Go.GetComponent<Item>()._spriteRenderer.drawMode = SpriteDrawMode.Sliced;
-//        Item_Go.GetComponent<Item>()._spriteRenderer.size = new Vector2((Item_Go.GetComponent<Item>()._spriteRenderer.size.x * 2), (Item_Go.GetComponent<Item>()._spriteRenderer.size.y * 2));
+//        MISC_Go.GetComponent<MISC>().SR.drawMode = SpriteDrawMode.Sliced;
+//        MISC_Go.GetComponent<MISC>().SR.size = new Vector2((MISC_Go.GetComponent<MISC>().SR.size.x * 2), (MISC_Go.GetComponent<MISC>().SR.size.y * 2));
 
-//        Item_Go.GetComponent<Item>().ItemType = p_ItemTypeO.ItemType;
+//        MISC_Go.GetComponent<MISC>().MT = p_MTO.MT;
 //    }
 
-//    Item_Go.transform.parent = p_Pool;
+//    MISC_Go.transform.parent = p_Pool;
 
-//    Item_Go.SetActive(false);
+//    MISC_Go.SetActive(false);
 //}
 #endregion

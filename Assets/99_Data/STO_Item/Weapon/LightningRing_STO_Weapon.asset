@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 217ca39281c79dc4499ffac913c507e0, type: 3}
   m_Name: LightningRing_STO_Weapon
   m_EditorClassIdentifier: 
-  weaponType: 6
+  WT: 6
   WeaponKeywords: 4
   Weapon_Name: "\uBC88\uAC1C"
   Weapon_Text: "\n\uBB34\uC791\uC704\uC758 \uC801\uB4E4\uC5D0\uAC8C\n(\uD654\uBA74\uBC16

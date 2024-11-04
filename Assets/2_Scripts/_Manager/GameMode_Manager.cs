@@ -22,7 +22,7 @@ public class GameMode_Manager : MonoBehaviour
     public Unit_Player Current_Player = null;
     public List<Unit_Enemy> Enemy_List = new List<Unit_Enemy>();
     public List<Mission> missionList = new List<Mission>();
-    public List<Item> Item_List = new List<Item>();
+    public List<MISC> MISC_List = new List<MISC>();
     public Camera Current_Camera = null;
     public List<GameObject> Tilemap_List = new List<GameObject>();
     private List<float> missionSpawnTimes = new List<float> { 120f, 180f, 240f }; // 2��, 3��, 4��(�� ����)
@@ -175,7 +175,7 @@ public class GameMode_Manager : MonoBehaviour
     //���� ���� �Լ�
     public void GameStart()
     {
-        All_Manager.instance.Unit_M.Unit_F.Create_Player(All_Manager.instance.Resource_M.Convert_UnitType_To_STO_Unit_Arr(UnitType.Player));
+        All_Manager.instance.Unit_M.Unit_F.Create_Player(All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr(Unit_Type.Player));
         All_Manager.instance.UI_M.On_Panel(Panel_Style.GameStart);
 
         executeCoroutine = StartCoroutine(CoExecuteGame());
@@ -185,14 +185,14 @@ public class GameMode_Manager : MonoBehaviour
     public void Game_Restart()
     {
         Enemy_List_Remove();
-        Item_List_Remove();
+        MISC_List_Remove();
         Current_Player.Unit_Clear();
         All_Manager.instance.UI_M.Clear_UI();
         All_Manager.instance.UI_M.Off_Panel();
         Game_Time = 0.0f;
         Kill_Count = 0;
 
-        All_Manager.instance.Unit_M.Unit_F.Create_Player(All_Manager.instance.Resource_M.Convert_UnitType_To_STO_Unit_Arr(UnitType.Player));
+        All_Manager.instance.Unit_M.Unit_F.Create_Player(All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr(Unit_Type.Player));
 
         GameStart();
 
@@ -283,14 +283,14 @@ public class GameMode_Manager : MonoBehaviour
         Enemy_List.Clear();
     }
 
-    public void Item_List_Remove()
+    public void MISC_List_Remove()
     {
-        foreach (Item misc in Item_List)
+        foreach (MISC misc in MISC_List)
         {
-            misc.Item_Clear();
+            misc.MISC_Clear();
         }
 
-        Item_List.Clear();
+        MISC_List.Clear();
 
         All_Manager.instance.UI_M.Update_Gem_Count_Image(0);
     }
@@ -300,23 +300,23 @@ public class GameMode_Manager : MonoBehaviour
     {
         Kill_Count++;
 
-        if (p_UE.UnitType == UnitType.Barrel)
+        if (p_UE.UT == Unit_Type.Barrel)
         {
-            All_Manager.instance.Pool_M.Item_Pool_Out(ItemType.Food, p_UE.transform);
+            All_Manager.instance.Pool_M.MISC_Pool_Out(MISC_Type.Food, p_UE.transform);
         }
 
         else
         {
             if (p_UE.Elite == false)
             {
-                All_Manager.instance.Pool_M.Item_Pool_Out(ItemType.Gem, p_UE.transform);
+                All_Manager.instance.Pool_M.MISC_Pool_Out(MISC_Type.Gem, p_UE.transform);
             }
 
             else
             {
-                All_Manager.instance.Pool_M.Item_Pool_Out(ItemType.Gem, p_UE.transform);
+                All_Manager.instance.Pool_M.MISC_Pool_Out(MISC_Type.Gem, p_UE.transform);
 
-                All_Manager.instance.Pool_M.Item_Pool_Out(ItemType.Chest, p_UE.transform);
+                All_Manager.instance.Pool_M.MISC_Pool_Out(MISC_Type.Chest, p_UE.transform);
             }
         }
 
@@ -403,12 +403,12 @@ public class GameMode_Manager : MonoBehaviour
                         {
                             if (p_STO_Wave.Elite == false)
                             {
-                                All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UnitType, Player_Pos);
+                                All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UT, Player_Pos);
                             }
 
                             else
                             {
-                                All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UnitType, Player_Pos, true);
+                                All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UT, Player_Pos, true);
                             }
                         }
 
@@ -438,13 +438,13 @@ public class GameMode_Manager : MonoBehaviour
 
                             if (p_STO_Wave.Elite == false)
                             {
-                                All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UnitType, Enemy_Pos);
+                                All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UT, Enemy_Pos);
                             }
 
                             else
                             {
 
-                                All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UnitType, Enemy_Pos, true);
+                                All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UT, Enemy_Pos, true);
 
                             }
 
@@ -480,12 +480,12 @@ public class GameMode_Manager : MonoBehaviour
                         {
                             if (p_STO_Wave.Elite == false)
                             {
-                                All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UnitType, (Player_Pos + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0)));
+                                All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UT, (Player_Pos + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0)));
                             }
 
                             else
                             {
-                                All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UnitType, (Player_Pos + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0)), true);
+                                All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UT, (Player_Pos + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0)), true);
                             }
                         }
                     }
@@ -514,7 +514,7 @@ public class GameMode_Manager : MonoBehaviour
                         {
                             if (p_STO_Wave.Elite == false)
                             {
-                                All_Manager.instance.Unit_M.Unit_F.Create_Boss(All_Manager.instance.Resource_M.Convert_UnitType_To_STO_Unit_Arr(UnitType.Boss), Player_Pos);
+                                All_Manager.instance.Unit_M.Unit_F.Create_Boss(All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr(Unit_Type.Boss), Player_Pos);
                             }
                         }
 
@@ -551,12 +551,12 @@ public class GameMode_Manager : MonoBehaviour
                         {
                             if (p_STO_Wave.Elite == false)
                             {
-                                All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UnitType, Player_Pos);
+                                All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UT, Player_Pos);
                             }
 
                             else
                             {
-                                All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UnitType, Player_Pos, true);
+                                All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UT, Player_Pos, true);
                             }
                         }
 
@@ -585,12 +585,12 @@ public class GameMode_Manager : MonoBehaviour
 
                             if (p_STO_Wave.Elite == false)
                             {
-                                All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UnitType, Enemy_Pos);
+                                All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UT, Enemy_Pos);
                             }
 
                             else
                             {
-                                All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UnitType, Enemy_Pos, true);
+                                All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UT, Enemy_Pos, true);
                             }
 
                             Angle += Angle_Step;
@@ -623,12 +623,12 @@ public class GameMode_Manager : MonoBehaviour
 
                             if (p_STO_Wave.Elite == false)
                             {
-                                All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UnitType, (Player_Pos + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0)));
+                                All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UT, (Player_Pos + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0)));
                             }
 
                             else
                             {
-                                All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UnitType, (Player_Pos + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0)), true);
+                                All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UT, (Player_Pos + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0)), true);
                             }
 
                         }
@@ -654,7 +654,7 @@ public class GameMode_Manager : MonoBehaviour
                         {
                             if (p_STO_Wave.Elite == false)
                             {
-                                All_Manager.instance.Unit_M.Unit_F.Create_Boss(All_Manager.instance.Resource_M.Convert_UnitType_To_STO_Unit_Arr(UnitType.Boss), Player_Pos);
+                                All_Manager.instance.Unit_M.Unit_F.Create_Boss(All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr(Unit_Type.Boss), Player_Pos);
                             }
                         }
 

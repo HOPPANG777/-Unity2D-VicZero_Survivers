@@ -15,26 +15,56 @@ using UnityEngine.XR;
 using static UnityEngine.UI.CanvasScaler;
 
 [System.Serializable]
+public enum Weapon_Type
+{
+    //None,               // = "����"
+    Axe,                  // �������� �׸��� �������� ����
+    KingBible,            // ����
+    Peachone,             // �켭�� ��ѱ�
+    FireWand,             // ȭ���� �Ѹ���
+    Cross,                // �θ޶�
+    Garlic,               // ���� ��Ÿ���� �ֺ� �о
+    LightningRing,        // �÷��̾� �ֺ����� �������� ����
+    ShadowPinion,         // ��������
+    RuneTracer,           // ����ó�� ȭ�鿡 ������ ƨ��� �� Ʈ���̼�
+    Whip                  // �÷��̾� �������� �����ư��� �����ϴ� ä��
+}
+
+[System.Serializable]
+public enum Equipment_Type
+{
+    //None,                 // = "����"
+    Spinach,              // ������ ���ݷ� 10%���� (�ִ뷹�� : 5)
+    Bracer,               // ������ ����ü �ӵ� 10%���� (�ִ뷹�� : 5)
+    Duplicator,           // ������ ����ü 1���� ���� (�ִ뷹�� : 5)
+    EmptyTome,            // ������ ���� ��Ÿ�� 8%�� ���� (�ִ뷹�� : 5)
+    Wings,                // ������ �̵��ӵ� 10%���� (�ִ뷹�� : 5)
+    Candelabrador,        // ������ ���ݹ��� 10%����   (�ִ뷹�� : 5)
+    Armour,               // ������ ���� 5%���� (�ִ뷹�� : 5)
+    SpellBinder,          // ������ ���ӽð� 10%���� (�ִ뷹�� 5)
+    Attractorb,           // ������ ������ ȹ�� ���� 30% (�ִ뷹�� : 5)
+    HollowHeart           // ������ ü�� 20%���� (�ִ뷹�� : 5)
+}
+
+[System.Serializable]
 public class Weapon_Level_And_Timer
 {
     public int Level = 0;
     public float Timer = 0;
 }
 
-public class Unit_Player : Unit, IWeaponType, IAccessoryType
+public class Unit_Player : Unit
 {
-    [SerializeField] Rigidbody2D _playerRigidBody;
-    public Rigidbody2D PlayerRigidBody { get { return _playerRigidBody; } }
+    public Rigidbody2D rigidBody;
 
-    [SerializeField] public WeaponType WeaponType { get; set; }
-    [SerializeField] public AccessoryType AccessoryType { get; set; }
-
-    //찾아보면서 써보기
+    //ã�ƺ��鼭 �Ẹ��
     public List<Weapon> All_Weapon = new List<Weapon>();
-    public List<STO_Accessory> All_Accessory = new List<STO_Accessory>();
+    public List<STO_Equipment> All_Equipment = new List<STO_Equipment>();
     public Dictionary<WeaponKeyword, int> weaponKeywordCounts = new Dictionary<WeaponKeyword, int>();
 
     public Vector2 InputVec;
+
+    public float W_Dist = 0.0f;
 
     public bool Player_Right = false;
     public bool Player_Left = false;
@@ -43,36 +73,47 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
     public Weapon_Level_And_Timer KingBible_LAT = new Weapon_Level_And_Timer();
     public Weapon_Level_And_Timer Peachone_LAT = new Weapon_Level_And_Timer();
     public Weapon_Level_And_Timer FireWand_LAT = new Weapon_Level_And_Timer();
-    public Weapon_Level_And_Timer Banana_LAT = new Weapon_Level_And_Timer();
-    public Weapon_Level_And_Timer Force_LAT = new Weapon_Level_And_Timer();
+    public Weapon_Level_And_Timer Cross_LAT = new Weapon_Level_And_Timer();
+    public Weapon_Level_And_Timer Garlic_LAT = new Weapon_Level_And_Timer();
     public Weapon_Level_And_Timer LightningRing_LAT = new Weapon_Level_And_Timer();
-    public Weapon_Level_And_Timer ShieldChasing_LAT = new Weapon_Level_And_Timer();
+    public Weapon_Level_And_Timer ShadowPinion_LAT = new Weapon_Level_And_Timer();
     public Weapon_Level_And_Timer RuneTracer_LAT = new Weapon_Level_And_Timer();
-    public Weapon_Level_And_Timer Nunchaku_LAT = new Weapon_Level_And_Timer();
+    public Weapon_Level_And_Timer Whip_LAT = new Weapon_Level_And_Timer();
 
-    public int Bang_Level;
+    public int Spinach_Level;
     public int Bracer_Level;
-    public int Times_Level;
+    public int Duplicator_Level;
     public int EmptyTome_Level;
-    public int Thunder_Level;
-    public int TheFlags_Level;
-    public int MagicHood_Level;
-    public int FloppyDisk_Level;
+    public int Wings_Level;
+    public int Candelabrador_Level;
+    public int Armour_Level;
+    public int SpellBinder_Level;
     public int Attractorb_Level;
-    public int RedAja_Level;
+    public int HollowHeart_Level;
 
     public bool Creating_Weapon = false;
-    public bool Creating_Accessory = false;
+    public bool Creating_Equipment = false;
     public bool Weapon_Trigger = false;
 
-    public bool Accessory_Level_Up = false;
+    public bool Equipment_Level_Up = false;
 
     public override void Start()
     {
         base.Start();
-
-        _playerRigidBody = this.AddComponent<Rigidbody2D>();
-        _playerRigidBody.bodyType = RigidbodyType2D.Kinematic;
+        /*
+        Upgrade_Weapon(Weapon_Type.Axe);                // �ϼ�
+        Upgrade_Weapon(Weapon_Type.KingBible);          // �ϼ� 
+        Upgrade_Weapon(Weapon_Type.Peachone);           // �ϼ�
+        Upgrade_Weapon(Weapon_Type.FireWand);           // �ϼ�
+        Upgrade_Weapon(Weapon_Type.Cross);              // �ϼ�
+        Upgrade_Weapon(Weapon_Type.Garlic);             // �ϼ�
+        Upgrade_Weapon(Weapon_Type.LightningRing);      // �ϼ�
+        Upgrade_Weapon(Weapon_Type.ShadowPinion);       // �ϼ�
+        Upgrade_Weapon(Weapon_Type.RuneTracer);         // �ϼ�
+        Upgrade_Weapon(Weapon_Type.Whip);               // �ϼ�
+        */
+        rigidBody = this.AddComponent<Rigidbody2D>();
+        rigidBody.bodyType = RigidbodyType2D.Kinematic;
 
         All_Manager.instance.Resource_M.Ghost_Effect.Add_Ghost_Target(this.transform);
     }
@@ -141,18 +182,18 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
         }
     }
 
-    public void Create_Weapon(WeaponType p_weaponType)
+    public void Create_Weapon(Weapon_Type p_WT)
     {
-        StartCoroutine(C_Create_Weapon(p_weaponType));
+        StartCoroutine(C_Create_Weapon(p_WT));
     }
 
     #region
     // ���� ����
-    public IEnumerator C_Create_Weapon(WeaponType p_weaponType)
+    public IEnumerator C_Create_Weapon(Weapon_Type p_WT)
     {
         yield return new WaitWhile(() => Creating_Weapon == true);
 
-        var Weapon_STO = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr(p_weaponType);
+        var Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
 
         var Weapon_WLAT = Convert_WLAT_Player(Weapon_STO);
 
@@ -161,17 +202,17 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
         //GameObject Weapon_Go = null;
         GameObject Weapon_Go = null;
 
-        switch (p_weaponType)
+        switch (p_WT)
         {
             // ����
-            case WeaponType.Axe:
+            case Weapon_Type.Axe:
                 {
-                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_weaponType);
+                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
 
                     //Weapon_Go.AddComponent<Weapon_Axe>();
 
                     // Weapon_Go�� �ش� ������ ������Ʈ�� �����ϰ� �ִٸ�.
-                    if (Weapon_Go.GetComponent<WeaponAxe>())
+                    if (Weapon_Go.GetComponent<Weapon_Axe>())
                     {
                         // ��ġ �ʱ�ȭ
                         Weapon_Go.transform.position = this.transform.position;
@@ -179,7 +220,7 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
                         Weapon_Go.transform.localScale = Vector3.one;
 
                         // �� ������ ��������Ʈ�� �ҷ��ö����� ��ٷ���.
-                        yield return new WaitUntil(() => Weapon_Go.GetComponent<WeaponAxe>().WeaponSpriteRenderer);
+                        yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_Axe>().SR);
                         Vector3 One = this.transform.position;
                         Vector3 Two, Three, Four;
 
@@ -199,24 +240,24 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
 
                         // ���� �ʱ�ȭ
                         Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, Axe_LAT.Level);
-                        Weapon_Go.GetComponent<WeaponAxe>().Axe_Init(One, Two, Three, Four);
-                        CheckSynergyEffects(Weapon_Go.GetComponent<WeaponAxe>().WeaponKeyword);
+                        Weapon_Go.GetComponent<Weapon_Axe>().Axe_Init(One, Two, Three, Four);
+                        CheckSynergyEffects(Weapon_Go.GetComponent<Weapon_Axe>().WeaponKeyword);
 
                         // ������ �����ɶ� ���� �ݴ�� ����
                         Weapon_Trigger = !Weapon_Trigger;
 
                         // ���� ������ ȿ����
-                        All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(WeaponType.Axe);
+                        All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.Axe);
                     }
                 }
                 break;
-            case WeaponType.KingBible:
+            case Weapon_Type.KingBible:
                 {
-                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_weaponType);
+                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
 
                     //Weapon_Go.AddComponent<Weapon_KingBible>();
 
-                    if (Weapon_Go.GetComponent<WeaponKingBible>())
+                    if (Weapon_Go.GetComponent<Weapon_KingBible>())
                     {
                         Weapon_Go.transform.position = this.transform.position;
                         Weapon_Go.transform.rotation = Quaternion.identity;
@@ -225,10 +266,10 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
                         //Start()
                         //Update()
 
-                        yield return new WaitUntil(() => Weapon_Go.GetComponent<WeaponKingBible>().WeaponSpriteRenderer);
+                        yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_KingBible>().SR);
 
                         Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, KingBible_LAT.Level);
-                        CheckSynergyEffects(Weapon_Go.GetComponent<WeaponKingBible>().WeaponKeyword);
+                        CheckSynergyEffects(Weapon_Go.GetComponent<Weapon_KingBible>().WeaponKeyword);
 
                         // ���� ���� ������ �ִ� ������ ����
                         int Max = 0;
@@ -236,7 +277,7 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
                         // �÷��̾ ����ϰ� �ִ� ������ ����
                         for (int i = 0; i < All_Weapon.Count; i++)
                         {
-                            if (All_Weapon[i].GetComponent<WeaponKingBible>())
+                            if (All_Weapon[i].GetComponent<Weapon_KingBible>())
                             {
                                 Max++;
                             }
@@ -248,75 +289,75 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
                         //
                         for (int i = 0; i < All_Weapon.Count; i++)
                         {
-                            if (All_Weapon[i].GetComponent<WeaponKingBible>())
+                            if (All_Weapon[i].GetComponent<Weapon_KingBible>())
                             {
-                                All_Weapon[i].GetComponent<WeaponKingBible>().Weapon_Max_KingBible_Count = Max;
+                                All_Weapon[i].GetComponent<Weapon_KingBible>().Weapon_Max_KingBible_Count = Max;
                             }
                         }
 
-                        Weapon_Go.GetComponent<WeaponKingBible>().Weapon_Max_KingBible_Count = Max;
-                        Weapon_Go.GetComponent<WeaponKingBible>().Weapon_Mine_KingBible_Count = Max;
+                        Weapon_Go.GetComponent<Weapon_KingBible>().Weapon_Max_KingBible_Count = Max;
+                        Weapon_Go.GetComponent<Weapon_KingBible>().Weapon_Mine_KingBible_Count = Max;
 
-                        //var Temp_KingBible_Range = Current_Weapon_Range(WeaponType.KingBible, KingBible_LAT);
+                        //var Temp_KingBible_Range = Current_Weapon_Range(Weapon_Type.KingBible, KingBible_LAT);
 
                         //Weapon_Go.GetComponent<Weapon_KingBible>().Weapon_Range = Temp_KingBible_Range;
 
-                        All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(WeaponType.KingBible);
+                        All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.KingBible);
                     }
                 }
                 break;
-            case WeaponType.Peachone:
+            case Weapon_Type.Peachone:
                 {
-                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_weaponType);
+                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
 
                     //Weapon_Go.AddComponent<Weapon_Peachone>();
 
-                    if (Weapon_Go.GetComponent<WeaponPeachone>())
+                    if (Weapon_Go.GetComponent<Weapon_Peachone>())
                     {
                         Weapon_Go.transform.position = All_Manager.instance.UI_M.Peachone_Image.rectTransform.position;
                         Weapon_Go.transform.rotation = Quaternion.identity;
                         Weapon_Go.transform.localScale = Vector3.one;
 
-                        yield return new WaitUntil(() => Weapon_Go.GetComponent<WeaponPeachone>().WeaponSpriteRenderer);
+                        yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_Peachone>().SR);
 
-                        var P_Peachone_UI_Range = Weapon_Go.GetComponent<WeaponPeachone>().Convert_RectTransform_To_Position(All_Manager.instance.UI_M.Peachone_Range_Image.rectTransform);
-                        var P_Peachone_UI = Weapon_Go.GetComponent<WeaponPeachone>().Convert_RectTransform_To_Position(All_Manager.instance.UI_M.Peachone_Image.rectTransform);
+                        var P_Peachone_UI_Range = Weapon_Go.GetComponent<Weapon_Peachone>().Convert_RectTransform_To_Position(All_Manager.instance.UI_M.Peachone_Range_Image.rectTransform);
+                        var P_Peachone_UI = Weapon_Go.GetComponent<Weapon_Peachone>().Convert_RectTransform_To_Position(All_Manager.instance.UI_M.Peachone_Image.rectTransform);
 
                         Vector3 One = All_Manager.instance.UI_M.Peachone_Image.transform.position;
-                        Vector3 Two = Weapon_Go.GetComponent<WeaponPeachone>().Peachone_Point_Setting(All_Manager.instance.UI_M.Peachone_Image.transform.position);
-                        Vector3 Three = Weapon_Go.GetComponent<WeaponPeachone>().Peachone_Point_Setting(P_Peachone_UI_Range);
+                        Vector3 Two = Weapon_Go.GetComponent<Weapon_Peachone>().Peachone_Point_Setting(All_Manager.instance.UI_M.Peachone_Image.transform.position);
+                        Vector3 Three = Weapon_Go.GetComponent<Weapon_Peachone>().Peachone_Point_Setting(P_Peachone_UI_Range);
                         Vector3 Four = P_Peachone_UI_Range;
 
                         Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, Peachone_LAT.Level);
-                        Weapon_Go.GetComponent<WeaponPeachone>().Peachone_Init(One, Two, Three, Four);
-                        CheckSynergyEffects(Weapon_Go.GetComponent<WeaponPeachone>().WeaponKeyword);
-                        All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(WeaponType.Peachone);
+                        Weapon_Go.GetComponent<Weapon_Peachone>().Peachone_Init(One, Two, Three, Four);
+                        CheckSynergyEffects(Weapon_Go.GetComponent<Weapon_Peachone>().WeaponKeyword);
+                        All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.Peachone);
                     }
 
                 }
                 break;
-            case WeaponType.FireWand:
+            case Weapon_Type.FireWand:
                 {
                     var FireWand_Stat = Weapon_STO.Info_s[FireWand_LAT.Level];
 
-                    for (int i = 0; i < Current_Weapon_Count(WeaponType.FireWand, FireWand_LAT); i++)
+                    for (int i = 0; i < Current_Weapon_Count(Weapon_Type.FireWand, FireWand_LAT); i++)
                     {
-                        Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_weaponType);
+                        Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
 
                         //Weapon_Go.AddComponent<Weapon_FireWand>();
 
-                        if (Weapon_Go.GetComponent<WeaponFireWand>())
+                        if (Weapon_Go.GetComponent<Weapon_FireWand>())
                         {
                             Weapon_Go.transform.position = this.transform.position + new Vector3(0, -0.3f, 0);
                             Weapon_Go.transform.rotation = Quaternion.identity;
                             Weapon_Go.transform.localScale = Vector3.one;
 
-                            yield return new WaitUntil(() => Weapon_Go.GetComponent<WeaponFireWand>().WeaponSpriteRenderer);
+                            yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_FireWand>().SR);
 
                             Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, FireWand_LAT.Level);
-                            CheckSynergyEffects(Weapon_Go.GetComponent<WeaponFireWand>().WeaponKeyword);
+                            CheckSynergyEffects(Weapon_Go.GetComponent<Weapon_FireWand>().WeaponKeyword);
 
-                            Vector3 Dir_Vec = new Vector3(Mathf.Cos((Mathf.PI * 2 * i / Current_Weapon_Count(WeaponType.FireWand, FireWand_LAT))), Mathf.Sin((Mathf.PI * i * 2 / Current_Weapon_Count(WeaponType.FireWand, FireWand_LAT)))); //���� �������� ������ ����ü���� ���͸� ����
+                            Vector3 Dir_Vec = new Vector3(Mathf.Cos((Mathf.PI * 2 * i / Current_Weapon_Count(Weapon_Type.FireWand, FireWand_LAT))), Mathf.Sin((Mathf.PI * i * 2 / Current_Weapon_Count(Weapon_Type.FireWand, FireWand_LAT)))); //���� �������� ������ ����ü���� ���͸� ����
 
                             if (All_Manager.instance.GameMode_M.Game_Stop == false)
                             {
@@ -324,49 +365,49 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
                             }
                             else { }
 
-                            Weapon_Go.transform.rotation = Quaternion.Euler(0, 0, (360 * i / (Current_Weapon_Count(WeaponType.FireWand, FireWand_LAT))) + 180); //����ü�� ������ �ڿ������� ȸ������ �־���.
-                            All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(WeaponType.FireWand);
+                            Weapon_Go.transform.rotation = Quaternion.Euler(0, 0, (360 * i / (Current_Weapon_Count(Weapon_Type.FireWand, FireWand_LAT))) + 180); //����ü�� ������ �ڿ������� ȸ������ �־���.
+                            All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.FireWand);
                         }
                     }
                 }
                 break;
-            case WeaponType.Banana:
+            case Weapon_Type.Cross:
                 {
-                    var W_Banana_S = Weapon_STO.Info_s[Banana_LAT.Level];
+                    var W_Cross_S = Weapon_STO.Info_s[Cross_LAT.Level];
 
-                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_weaponType);
+                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
 
-                    //Weapon_Go.AddComponent<Weapon_Banana>();
+                    //Weapon_Go.AddComponent<Weapon_Cross>();
 
-                    if (Weapon_Go.GetComponent<WeaponBanana>())
+                    if (Weapon_Go.GetComponent<Weapon_Cross>())
                     {
                         Weapon_Go.transform.position = this.transform.position;
                         Weapon_Go.transform.rotation = Quaternion.identity;
                         Weapon_Go.transform.localScale = Vector3.one;
 
-                        yield return new WaitUntil(() => Weapon_Go.GetComponent<WeaponBanana>().WeaponSpriteRenderer);
+                        yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_Cross>().SR);
 
                         Vector3 One = this.transform.position;
-                        Vector3 Target = One + new Vector3(Random.Range(-W_Banana_S.Weapon_Range, W_Banana_S.Weapon_Range), Random.Range(-W_Banana_S.Weapon_Range, W_Banana_S.Weapon_Range), 0);
+                        Vector3 Target = One + new Vector3(Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range), Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range), 0);
 
-                        Vector3 Two = One + (Target - One) / 3 + new Vector3(Random.Range(-W_Banana_S.Weapon_Range, W_Banana_S.Weapon_Range) / 2, Random.Range(-W_Banana_S.Weapon_Range, W_Banana_S.Weapon_Range) / 2, 0);
-                        Vector3 Three = Target + (One - Target) / 3 + new Vector3(Random.Range(-W_Banana_S.Weapon_Range, W_Banana_S.Weapon_Range) / 2, Random.Range(-W_Banana_S.Weapon_Range, W_Banana_S.Weapon_Range) / 2, 0);
-                        Vector3 Four = One + ((One - Target) * W_Banana_S.Weapon_Range);
+                        Vector3 Two = One + (Target - One) / 3 + new Vector3(Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2, Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2, 0);
+                        Vector3 Three = Target + (One - Target) / 3 + new Vector3(Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2, Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2, 0);
+                        Vector3 Four = One + ((One - Target) * W_Cross_S.Weapon_Range);
 
-                        Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, Banana_LAT.Level);
-                        Weapon_Go.GetComponent<WeaponBanana>().Banana_Init(One, Two, Three, Four);
-                        CheckSynergyEffects(Weapon_Go.GetComponent<WeaponBanana>().WeaponKeyword);
-                        //Weapon_Go.GetComponent<Weapon_Banana>().Weapon_Application_Accessory();
-                        All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(WeaponType.Banana);
+                        Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, Cross_LAT.Level);
+                        Weapon_Go.GetComponent<Weapon_Cross>().Cross_Init(One, Two, Three, Four);
+                        CheckSynergyEffects(Weapon_Go.GetComponent<Weapon_Cross>().WeaponKeyword);
+                        //Weapon_Go.GetComponent<Weapon_Cross>().Weapon_Application_Equipment();
+                        All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.Cross);
                     }
                 }
                 break;
-            case WeaponType.Force:
+            case Weapon_Type.Garlic:
                 {
-                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_weaponType);
-                    //Weapon_Go.AddComponent<Weapon_Force>();
+                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
+                    //Weapon_Go.AddComponent<Weapon_Garlic>();
 
-                    if (Weapon_Go.GetComponent<WeaponForce>())
+                    if (Weapon_Go.GetComponent<Weapon_Garlic>())
                     {
                         Weapon_Go.transform.position = this.transform.position;
                         Weapon_Go.transform.rotation = Quaternion.identity;
@@ -374,20 +415,20 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
 
                         Weapon_Go.transform.parent = this.transform;
 
-                        yield return new WaitUntil(() => Weapon_Go.GetComponent<WeaponForce>().WeaponSpriteRenderer);
+                        yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_Garlic>().SR);
 
-                        Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, Force_LAT.Level);
-                        CheckSynergyEffects(Weapon_Go.GetComponent<WeaponForce>().WeaponKeyword);
-                        //Weapon_Go.GetComponent<Weapon_Force>().Weapon_Application_Accessory();
-                        //All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(WeaponType.Force);
+                        Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, Garlic_LAT.Level);
+                        CheckSynergyEffects(Weapon_Go.GetComponent<Weapon_Garlic>().WeaponKeyword);
+                        //Weapon_Go.GetComponent<Weapon_Garlic>().Weapon_Application_Equipment();
+                        //All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.Garlic);
                     }
                 }
                 break;
-            case WeaponType.LightningRing:
+            case Weapon_Type.LightningRing:
                 {
                     if (All_Manager.instance != null && All_Manager.instance.GameMode_M != null && All_Manager.instance.GameMode_M.Enemy_List != null && All_Manager.instance.GameMode_M.Enemy_List.Count > 0)
                     {
-                        var Max_Count = Current_Weapon_Count(WeaponType.LightningRing, LightningRing_LAT);
+                        var Max_Count = Current_Weapon_Count(Weapon_Type.LightningRing, LightningRing_LAT);
                         int Count_To_Spawn = Mathf.Min(Max_Count, All_Manager.instance.GameMode_M.Enemy_List.Count); // �ִ� 10�������� �����ϵ��� ����
 
                         List<int> Spawned_Indices = new List<int>(); // �̹� ������ ���� �ε����� ������ ����Ʈ
@@ -412,24 +453,24 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
                                 continue;
                             }
 
-                            Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_weaponType);
+                            Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
                             //Weapon_Go.AddComponent<Weapon_LightningRing>();
 
 
                             // LightningRing�� �������� �ִ��� Ȯ�� �� ó��
-                            if (Weapon_Go.GetComponent<WeaponLightningRing>() != null)
+                            if (Weapon_Go.GetComponent<Weapon_LightningRing>() != null)
                             {
                                 Weapon_Go.transform.position = All_Manager.instance.GameMode_M.Enemy_List[Random_Index].transform.position;
                                 Weapon_Go.transform.rotation = Quaternion.identity;
                                 Weapon_Go.transform.localScale = Vector3.one;
 
-                                yield return new WaitUntil(() => Weapon_Go.GetComponent<WeaponLightningRing>().WeaponSpriteRenderer);
+                                yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_LightningRing>().SR);
 
                                 // Weapon_Init�� ���� �ʿ��� �ʱ�ȭ �۾� ����
                                 Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, LightningRing_LAT.Level);
-                                CheckSynergyEffects(Weapon_Go.GetComponent<WeaponLightningRing>().WeaponKeyword);
-                                //Weapon_Go.GetComponent<Weapon_LightningRing>().Weapon_Application_Accessory();
-                                All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(WeaponType.LightningRing);
+                                CheckSynergyEffects(Weapon_Go.GetComponent<Weapon_LightningRing>().WeaponKeyword);
+                                //Weapon_Go.GetComponent<Weapon_LightningRing>().Weapon_Application_Equipment();
+                                All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.LightningRing);
                             }
                             else
                             {
@@ -443,56 +484,56 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
 
                 }
                 break;
-            case WeaponType.ShieldChasing:
+            case Weapon_Type.ShadowPinion:
                 {
-                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_weaponType);
-                    //Weapon_Go.AddComponent<Weapon_ShieldChasing>();
+                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
+                    //Weapon_Go.AddComponent<Weapon_ShadowPinion>();
 
-                    if (Weapon_Go.GetComponent<WeaponShieldChasing>())
+                    if (Weapon_Go.GetComponent<Weapon_ShadowPinion>())
                     {
                         Weapon_Go.transform.position = this.transform.position + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0);
                         Weapon_Go.transform.rotation = Quaternion.identity;
                         Weapon_Go.transform.localScale = Vector3.one;
 
-                        yield return new WaitUntil(() => Weapon_Go.GetComponent<WeaponShieldChasing>().WeaponSpriteRenderer);
+                        yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_ShadowPinion>().SR);
 
-                        Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, ShieldChasing_LAT.Level);
-                        CheckSynergyEffects(Weapon_Go.GetComponent<WeaponShieldChasing>().WeaponKeyword);
-                        //Weapon_Go.GetComponent<Weapon_ShieldChasing>().Weapon_Application_Accessory();
-                        All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(WeaponType.ShieldChasing);
+                        Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, ShadowPinion_LAT.Level);
+                        CheckSynergyEffects(Weapon_Go.GetComponent<Weapon_ShadowPinion>().WeaponKeyword);
+                        //Weapon_Go.GetComponent<Weapon_ShadowPinion>().Weapon_Application_Equipment();
+                        All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.ShadowPinion);
                     }
                 }
                 break;
-            case WeaponType.RuneTracer:
+            case Weapon_Type.RuneTracer:
                 {
-                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_weaponType);
+                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
                     //Weapon_Go.AddComponent<Weapon_RuneTracer>();
 
-                    if (Weapon_Go.GetComponent<WeaponRuneTracer>())
+                    if (Weapon_Go.GetComponent<Weapon_RuneTracer>())
                     {
                         Weapon_Go.transform.position = this.transform.position;
                         Weapon_Go.transform.rotation = Quaternion.identity;
                         Weapon_Go.transform.localScale = Vector3.one;
 
-                        yield return new WaitUntil(() => Weapon_Go.GetComponent<WeaponRuneTracer>().WeaponSpriteRenderer);
+                        yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_RuneTracer>().SR);
 
                         Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, RuneTracer_LAT.Level);
-                        //Weapon_Go.GetComponent<Weapon_RuneTracer>().Weapon_Application_Accessory();
-                        CheckSynergyEffects(Weapon_Go.GetComponent<WeaponRuneTracer>().WeaponKeyword);
-                        All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(WeaponType.RuneTracer);
+                        //Weapon_Go.GetComponent<Weapon_RuneTracer>().Weapon_Application_Equipment();
+                        CheckSynergyEffects(Weapon_Go.GetComponent<Weapon_RuneTracer>().WeaponKeyword);
+                        All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.RuneTracer);
                     }
                 }
                 break;
-            case WeaponType.Nunchaku:
+            case Weapon_Type.Whip:
                 {
-                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_weaponType);
-                    //Weapon_Go.AddComponent<Weapon_Nunchaku>();
+                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
+                    //Weapon_Go.AddComponent<Weapon_Whip>();
 
                     //Weapon_Go.transform.parent = this.transform;
 
-                    if (Weapon_Go.GetComponent<WeaponNunchaku>())
+                    if (Weapon_Go.GetComponent<Weapon_Whip>())
                     {
-                        yield return new WaitUntil(() => Weapon_Go.GetComponent<WeaponNunchaku>().WeaponSpriteRenderer);
+                        yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_Whip>().SR);
 
                         if (Weapon_Trigger)
                         {
@@ -508,11 +549,11 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
                         }
 
 
-                        Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, Nunchaku_LAT.Level);
-                        CheckSynergyEffects(Weapon_Go.GetComponent<WeaponNunchaku>().WeaponKeyword);
+                        Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, Whip_LAT.Level);
+                        CheckSynergyEffects(Weapon_Go.GetComponent<Weapon_Whip>().WeaponKeyword);
                         Weapon_Trigger = !Weapon_Trigger;
 
-                        All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(WeaponType.Nunchaku);
+                        All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.Whip);
                     }
 
                 }
@@ -543,15 +584,15 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
     }
 
     // ���� ���׷��̵�
-    public void Upgrade_Weapon(WeaponType p_weaponType)
+    public void Upgrade_Weapon(Weapon_Type p_WT)
     {
-        if (p_weaponType == WeaponType.Axe)
+        if (p_WT == Weapon_Type.Axe)
         {
             Axe_LAT.Level++;
 
             for (int i = 0; i < All_Weapon.Count; i++)
             {
-                if (All_Weapon[i].GetComponent<WeaponAxe>())
+                if (All_Weapon[i].GetComponent<Weapon_Axe>())
                 {
                     All_Weapon[i].Upgrade(Axe_LAT.Level);
                 }
@@ -560,41 +601,41 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
             //Debug.Log(Axe_LAT.Level);
         }
 
-        else if (p_weaponType == WeaponType.KingBible)
+        else if (p_WT == Weapon_Type.KingBible)
         {
             KingBible_LAT.Level++;
 
             for (int i = 0; i < All_Weapon.Count; i++)
             {
-                if (All_Weapon[i].GetComponent<WeaponKingBible>())
+                if (All_Weapon[i].GetComponent<Weapon_KingBible>())
                 {
                     All_Weapon[i].Upgrade(KingBible_LAT.Level);
                 }
             }
 
-            Create_Weapon(WeaponType.KingBible);
+            Create_Weapon(Weapon_Type.KingBible);
         }
 
-        else if (p_weaponType == WeaponType.Peachone)
+        else if (p_WT == Weapon_Type.Peachone)
         {
             Peachone_LAT.Level++;
 
             for (int i = 0; i < All_Weapon.Count; i++)
             {
-                if (All_Weapon[i].GetComponent<WeaponPeachone>())
+                if (All_Weapon[i].GetComponent<Weapon_Peachone>())
                 {
                     All_Weapon[i].Upgrade(Peachone_LAT.Level);
                 }
             }
         }
 
-        else if (p_weaponType == WeaponType.FireWand)
+        else if (p_WT == Weapon_Type.FireWand)
         {
             FireWand_LAT.Level++;
 
             for (int i = 0; i < All_Weapon.Count; i++)
             {
-                if (All_Weapon[i].GetComponent<WeaponFireWand>())
+                if (All_Weapon[i].GetComponent<Weapon_FireWand>())
                 {
                     All_Weapon[i].Upgrade(FireWand_LAT.Level);
                 }
@@ -602,42 +643,42 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
 
         }
 
-        else if (p_weaponType == WeaponType.Banana)
+        else if (p_WT == Weapon_Type.Cross)
         {
-            Banana_LAT.Level++;
+            Cross_LAT.Level++;
 
             for (int i = 0; i < All_Weapon.Count; i++)
             {
-                if (All_Weapon[i].GetComponent<WeaponBanana>())
+                if (All_Weapon[i].GetComponent<Weapon_Cross>())
                 {
-                    All_Weapon[i].Upgrade(Banana_LAT.Level);
+                    All_Weapon[i].Upgrade(Cross_LAT.Level);
                 }
             }
 
         }
 
-        else if (p_weaponType == WeaponType.Force)
+        else if (p_WT == Weapon_Type.Garlic)
         {
-            Force_LAT.Level++;
+            Garlic_LAT.Level++;
 
             for (int i = 0; i < All_Weapon.Count; i++)
             {
-                if (All_Weapon[i].GetComponent<WeaponForce>())
+                if (All_Weapon[i].GetComponent<Weapon_Garlic>())
                 {
-                    All_Weapon[i].Upgrade(Force_LAT.Level);
+                    All_Weapon[i].Upgrade(Garlic_LAT.Level);
                 }
             }
 
 
         }
 
-        else if (p_weaponType == WeaponType.LightningRing)
+        else if (p_WT == Weapon_Type.LightningRing)
         {
             LightningRing_LAT.Level++;
 
             for (int i = 0; i < All_Weapon.Count; i++)
             {
-                if (All_Weapon[i].GetComponent<WeaponLightningRing>())
+                if (All_Weapon[i].GetComponent<Weapon_LightningRing>())
                 {
                     All_Weapon[i].Upgrade(LightningRing_LAT.Level);
                 }
@@ -645,27 +686,27 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
 
         }
 
-        else if (p_weaponType == WeaponType.ShieldChasing)
+        else if (p_WT == Weapon_Type.ShadowPinion)
         {
-            ShieldChasing_LAT.Level++;
+            ShadowPinion_LAT.Level++;
 
             for (int i = 0; i < All_Weapon.Count; i++)
             {
-                if (All_Weapon[i].GetComponent<WeaponShieldChasing>())
+                if (All_Weapon[i].GetComponent<Weapon_ShadowPinion>())
                 {
-                    All_Weapon[i].Upgrade(ShieldChasing_LAT.Level);
+                    All_Weapon[i].Upgrade(ShadowPinion_LAT.Level);
                 }
             }
 
         }
 
-        else if (p_weaponType == WeaponType.RuneTracer)
+        else if (p_WT == Weapon_Type.RuneTracer)
         {
             RuneTracer_LAT.Level++;
 
             for (int i = 0; i < All_Weapon.Count; i++)
             {
-                if (All_Weapon[i].GetComponent<WeaponRuneTracer>())
+                if (All_Weapon[i].GetComponent<Weapon_RuneTracer>())
                 {
                     All_Weapon[i].Upgrade(RuneTracer_LAT.Level);
                 }
@@ -673,15 +714,15 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
 
         }
 
-        else if (p_weaponType == WeaponType.Nunchaku)
+        else if (p_WT == Weapon_Type.Whip)
         {
-            Nunchaku_LAT.Level++;
+            Whip_LAT.Level++;
 
             for (int i = 0; i < All_Weapon.Count; i++)
             {
-                if (All_Weapon[i].GetComponent<WeaponNunchaku>())
+                if (All_Weapon[i].GetComponent<Weapon_Whip>())
                 {
-                    All_Weapon[i].Upgrade(Nunchaku_LAT.Level);
+                    All_Weapon[i].Upgrade(Whip_LAT.Level);
                 }
             }
 
@@ -691,7 +732,7 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
     }
 
     // ������ �ִ���
-    public bool Check_Weapon(WeaponType p_PT)
+    public bool Check_Weapon(Weapon_Type p_PT)
     {
         return false;
     }
@@ -701,18 +742,18 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
     {
         if (Axe_LAT.Level > 0)
         {
-            if (Axe_LAT.Timer > Current_Weapon_CoolDown(WeaponType.Axe, Axe_LAT))
+            if (Axe_LAT.Timer > Current_Weapon_CoolDown(Weapon_Type.Axe, Axe_LAT))
             {
                 Axe_LAT.Timer = 0;
 
                 //for (int i = 0; i < STO_Weapon_Temp.Info_s[Axe_LAT.Level].Weapon_Count; i++)
                 //{
-                //    Create_Weapon(WeaponType.Axe);
+                //    Create_Weapon(Weapon_Type.Axe);
                 //}
 
-                for (int i = 0; i < Current_Weapon_Count(WeaponType.Axe, Axe_LAT); i++)
+                for (int i = 0; i < Current_Weapon_Count(Weapon_Type.Axe, Axe_LAT); i++)
                 {
-                    Create_Weapon(WeaponType.Axe);
+                    Create_Weapon(Weapon_Type.Axe);
                 }
             }
 
@@ -721,13 +762,13 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
 
         if (KingBible_LAT.Level > 0)
         {
-            if (KingBible_LAT.Timer > Current_Weapon_CoolDown(WeaponType.KingBible, KingBible_LAT))
+            if (KingBible_LAT.Timer > Current_Weapon_CoolDown(Weapon_Type.KingBible, KingBible_LAT))
             {
                 KingBible_LAT.Timer = 0;
 
-                //for (int i = 0; i < Current_Weapon_Count(WeaponType.KingBible, KingBible_LAT); i++)    // ������ �� ������ ���� ������ �ȳ������� ����, ���� �̰� STO�� ���� ������ ȸ�� ��Ų�� �� �̰� ���ľ� �Ѵ�.
+                //for (int i = 0; i < Current_Weapon_Count(Weapon_Type.KingBible, KingBible_LAT); i++)    // ������ �� ������ ���� ������ �ȳ������� ����, ���� �̰� STO�� ���� ������ ȸ�� ��Ų�� �� �̰� ���ľ� �Ѵ�.
                 //{
-                //    Create_Weapon(WeaponType.KingBible);
+                //    Create_Weapon(Weapon_Type.KingBible);
                 //}
             }
 
@@ -736,14 +777,14 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
 
         if (Peachone_LAT.Level > 0)
         {
-            if (Peachone_LAT.Timer > Current_Weapon_CoolDown(WeaponType.Peachone, Peachone_LAT))
+            if (Peachone_LAT.Timer > Current_Weapon_CoolDown(Weapon_Type.Peachone, Peachone_LAT))
             {
                 Peachone_LAT.Timer = 0;
 
 
-                for (int i = 0; i < Current_Weapon_Count(WeaponType.Peachone, Peachone_LAT); i++)
+                for (int i = 0; i < Current_Weapon_Count(Weapon_Type.Peachone, Peachone_LAT); i++)
                 {
-                    Create_Weapon(WeaponType.Peachone);
+                    Create_Weapon(Weapon_Type.Peachone);
                 }
             }
 
@@ -752,312 +793,312 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
 
         if (FireWand_LAT.Level > 0)
         {
-            if (FireWand_LAT.Timer > Current_Weapon_CoolDown(WeaponType.FireWand, FireWand_LAT))
+            if (FireWand_LAT.Timer > Current_Weapon_CoolDown(Weapon_Type.FireWand, FireWand_LAT))
             {
                 FireWand_LAT.Timer = 0;
 
-                Create_Weapon(WeaponType.FireWand);
+                Create_Weapon(Weapon_Type.FireWand);
                 //Debug.Log("FireWand!");
             }
 
             FireWand_LAT.Timer += Time.deltaTime;
         }
 
-        if (Banana_LAT.Level > 0)
+        if (Cross_LAT.Level > 0)
         {
-            if (Banana_LAT.Timer > Current_Weapon_CoolDown(WeaponType.Banana, Banana_LAT))
+            if (Cross_LAT.Timer > Current_Weapon_CoolDown(Weapon_Type.Cross, Cross_LAT))
             {
-                Banana_LAT.Timer = 0;
+                Cross_LAT.Timer = 0;
 
-                for (int i = 0; i < Current_Weapon_Count(WeaponType.Banana, Banana_LAT); i++)
+                for (int i = 0; i < Current_Weapon_Count(Weapon_Type.Cross, Cross_LAT); i++)
                 {
-                    Create_Weapon(WeaponType.Banana);
+                    Create_Weapon(Weapon_Type.Cross);
                 }
             }
 
-            Banana_LAT.Timer += Time.deltaTime;
+            Cross_LAT.Timer += Time.deltaTime;
         }
 
-        if (Force_LAT.Level > 0)
+        if (Garlic_LAT.Level > 0)
         {
-            var STO_Weapon_Temp = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr(WeaponType.Force);
+            var STO_Weapon_Temp = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(Weapon_Type.Garlic);
 
-            if (Force_LAT.Timer > Current_Weapon_CoolDown(WeaponType.Force, Force_LAT))
+            if (Garlic_LAT.Timer > Current_Weapon_CoolDown(Weapon_Type.Garlic, Garlic_LAT))
             {
-                Force_LAT.Timer = 0;
+                Garlic_LAT.Timer = 0;
 
-                Create_Weapon(WeaponType.Force);
+                Create_Weapon(Weapon_Type.Garlic);
             }
 
-            Force_LAT.Timer += Time.deltaTime;
+            Garlic_LAT.Timer += Time.deltaTime;
         }
 
         if (LightningRing_LAT.Level > 0)
         {
-            if (LightningRing_LAT.Timer > Current_Weapon_CoolDown(WeaponType.LightningRing, LightningRing_LAT))
+            if (LightningRing_LAT.Timer > Current_Weapon_CoolDown(Weapon_Type.LightningRing, LightningRing_LAT))
             {
                 LightningRing_LAT.Timer = 0;
 
-                Create_Weapon(WeaponType.LightningRing);
+                Create_Weapon(Weapon_Type.LightningRing);
             }
 
             LightningRing_LAT.Timer += Time.deltaTime;
         }
 
-        if (ShieldChasing_LAT.Level > 0)
+        if (ShadowPinion_LAT.Level > 0)
         {
-            if (ShieldChasing_LAT.Timer > Current_Weapon_CoolDown(WeaponType.ShieldChasing, ShieldChasing_LAT))
+            if (ShadowPinion_LAT.Timer > Current_Weapon_CoolDown(Weapon_Type.ShadowPinion, ShadowPinion_LAT))
             {
-                ShieldChasing_LAT.Timer = 0;
+                ShadowPinion_LAT.Timer = 0;
 
-                for (int i = 0; i < Current_Weapon_Count(WeaponType.ShieldChasing, ShieldChasing_LAT); i++)
+                for (int i = 0; i < Current_Weapon_Count(Weapon_Type.ShadowPinion, ShadowPinion_LAT); i++)
                 {
-                    Create_Weapon(WeaponType.ShieldChasing);
+                    Create_Weapon(Weapon_Type.ShadowPinion);
                 }
             }
 
-            ShieldChasing_LAT.Timer += Time.deltaTime;
+            ShadowPinion_LAT.Timer += Time.deltaTime;
         }
 
         if (RuneTracer_LAT.Level > 0)
         {
-            if (RuneTracer_LAT.Timer > Current_Weapon_CoolDown(WeaponType.RuneTracer, RuneTracer_LAT))
+            if (RuneTracer_LAT.Timer > Current_Weapon_CoolDown(Weapon_Type.RuneTracer, RuneTracer_LAT))
             {
                 RuneTracer_LAT.Timer = 0;
 
-                for (int i = 0; i < Current_Weapon_Count(WeaponType.RuneTracer, RuneTracer_LAT); i++)
+                for (int i = 0; i < Current_Weapon_Count(Weapon_Type.RuneTracer, RuneTracer_LAT); i++)
                 {
-                    Create_Weapon(WeaponType.RuneTracer);
+                    Create_Weapon(Weapon_Type.RuneTracer);
                 }
             }
 
             RuneTracer_LAT.Timer += Time.deltaTime;
         }
 
-        if (Nunchaku_LAT.Level > 0)
+        if (Whip_LAT.Level > 0)
         {
-            if (Nunchaku_LAT.Timer > Current_Weapon_CoolDown(WeaponType.Nunchaku, Nunchaku_LAT))
+            if (Whip_LAT.Timer > Current_Weapon_CoolDown(Weapon_Type.Whip, Whip_LAT))
             {
-                Nunchaku_LAT.Timer = 0;
+                Whip_LAT.Timer = 0;
 
-                for (int i = 0; i < Current_Weapon_Count(WeaponType.Nunchaku, Nunchaku_LAT); i++)
+                for (int i = 0; i < Current_Weapon_Count(Weapon_Type.Whip, Whip_LAT); i++)
                 {
-                    Create_Weapon(WeaponType.Nunchaku);
+                    Create_Weapon(Weapon_Type.Whip);
                 }
             }
 
-            Nunchaku_LAT.Timer += Time.deltaTime;
+            Whip_LAT.Timer += Time.deltaTime;
         }
 
         //Debug.Log("Weapon_Spawn!");
     }
 
     // ��ű� ����
-    public void Update_Get_Accessory(AccessoryType p_ET)
+    public void Update_Get_Equipment(Equipment_Type p_ET)
     {
-        var Temp = All_Manager.instance.Resource_M.Convert_AccessoryType_To_STO_Accessory_Arr(p_ET);
+        var Temp = All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(p_ET);
 
-        if (p_ET == AccessoryType.RedAja)
+        if (p_ET == Equipment_Type.HollowHeart)
         {
 
-            if (Temp == All_Manager.instance.Resource_M.Convert_AccessoryType_To_STO_Accessory_Arr(AccessoryType.RedAja))
+            if (Temp == All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.HollowHeart))
             {
-                Get_Accessory_Player_Percentage_Stat(this, Temp);
+                Get_Equipment_Player_Percentage_Stat(this, Temp);
             }
 
-            //Get_Accessory_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Accessory_RedAja);
+            //Get_Equipment_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Equipment_HollowHeart);
         }
 
-        else if (p_ET == AccessoryType.Thunder)
+        else if (p_ET == Equipment_Type.Wings)
         {
 
-            if (Temp == All_Manager.instance.Resource_M.Convert_AccessoryType_To_STO_Accessory_Arr(AccessoryType.Thunder))
+            if (Temp == All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.Wings))
             {
-                Get_Accessory_Player_Percentage_Stat(this, Temp);
+                Get_Equipment_Player_Percentage_Stat(this, Temp);
             }
 
-            //Get_Accessory_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Accessory_RedAja);
+            //Get_Equipment_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Equipment_HollowHeart);
         }
 
-        else if (p_ET == AccessoryType.MagicHood)
+        else if (p_ET == Equipment_Type.Armour)
         {
 
-            if (Temp == All_Manager.instance.Resource_M.Convert_AccessoryType_To_STO_Accessory_Arr(AccessoryType.MagicHood))
+            if (Temp == All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.Armour))
             {
-                Get_Accessory_Player_Percentage_Stat(this, Temp);
+                Get_Equipment_Player_Percentage_Stat(this, Temp);
             }
 
-            //Get_Accessory_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Accessory_RedAja);
+            //Get_Equipment_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Equipment_HollowHeart);
         }
 
-        else if (p_ET == AccessoryType.Bang)
+        else if (p_ET == Equipment_Type.Spinach)
         {
 
-            if (Temp == All_Manager.instance.Resource_M.Convert_AccessoryType_To_STO_Accessory_Arr(AccessoryType.Bang))
+            if (Temp == All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.Spinach))
             {
-                Get_Accessory_Player_Percentage_Stat(this, Temp);
+                Get_Equipment_Player_Percentage_Stat(this, Temp);
             }
 
-            //Get_Accessory_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Accessory_RedAja);
+            //Get_Equipment_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Equipment_HollowHeart);
         }
 
-        else if (p_ET == AccessoryType.Bracer)
+        else if (p_ET == Equipment_Type.Bracer)
         {
 
-            if (Temp == All_Manager.instance.Resource_M.Convert_AccessoryType_To_STO_Accessory_Arr(AccessoryType.Bracer))
+            if (Temp == All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.Bracer))
             {
-                Get_Accessory_Player_Percentage_Stat(this, Temp);
+                Get_Equipment_Player_Percentage_Stat(this, Temp);
             }
 
-            //Get_Accessory_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Accessory_RedAja);
+            //Get_Equipment_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Equipment_HollowHeart);
         }
 
-        else if (p_ET == AccessoryType.FloppyDisk)
+        else if (p_ET == Equipment_Type.SpellBinder)
         {
 
-            if (Temp == All_Manager.instance.Resource_M.Convert_AccessoryType_To_STO_Accessory_Arr(AccessoryType.FloppyDisk))
+            if (Temp == All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.SpellBinder))
             {
-                Get_Accessory_Player_Percentage_Stat(this, Temp);
+                Get_Equipment_Player_Percentage_Stat(this, Temp);
             }
 
-            //Get_Accessory_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Accessory_RedAja);
+            //Get_Equipment_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Equipment_HollowHeart);
         }
 
-        else if (p_ET == AccessoryType.TheFlags)
+        else if (p_ET == Equipment_Type.Candelabrador)
         {
 
-            if (Temp == All_Manager.instance.Resource_M.Convert_AccessoryType_To_STO_Accessory_Arr(AccessoryType.TheFlags))
+            if (Temp == All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.Candelabrador))
             {
-                Get_Accessory_Player_Percentage_Stat(this, Temp);
+                Get_Equipment_Player_Percentage_Stat(this, Temp);
             }
 
-            //Get_Accessory_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Accessory_RedAja);
+            //Get_Equipment_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Equipment_HollowHeart);
         }
 
-        else if (p_ET == AccessoryType.EmptyTome)
+        else if (p_ET == Equipment_Type.EmptyTome)
         {
 
-            if (Temp == All_Manager.instance.Resource_M.Convert_AccessoryType_To_STO_Accessory_Arr(AccessoryType.EmptyTome))
+            if (Temp == All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.EmptyTome))
             {
-                Get_Accessory_Player_Percentage_Stat(this, Temp);
+                Get_Equipment_Player_Percentage_Stat(this, Temp);
             }
 
-            //Get_Accessory_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Accessory_RedAja);
+            //Get_Equipment_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Equipment_HollowHeart);
         }
 
-        else if (p_ET == AccessoryType.Times)
+        else if (p_ET == Equipment_Type.Duplicator)
         {
 
-            if (Temp == All_Manager.instance.Resource_M.Convert_AccessoryType_To_STO_Accessory_Arr(AccessoryType.Times))
+            if (Temp == All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.Duplicator))
             {
-                Get_Accessory_Player_Percentage_Stat(this, Temp);
+                Get_Equipment_Player_Percentage_Stat(this, Temp);
             }
 
-            //Get_Accessory_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Accessory_RedAja);
+            //Get_Equipment_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Equipment_HollowHeart);
         }
 
-        else if (p_ET == AccessoryType.Attractorb)
+        else if (p_ET == Equipment_Type.Attractorb)
         {
 
-            if (Temp == All_Manager.instance.Resource_M.Convert_AccessoryType_To_STO_Accessory_Arr(AccessoryType.Attractorb))
+            if (Temp == All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.Attractorb))
             {
-                Get_Accessory_Player_Percentage_Stat(this, Temp);
+                Get_Equipment_Player_Percentage_Stat(this, Temp);
             }
 
-            //Get_Accessory_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Accessory_RedAja);
+            //Get_Equipment_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Equipment_HollowHeart);
         }
 
         //Debug.Log("��ű� ����");
 
         if (Temp != null)
         {
-            All_Accessory.Add(Temp);
+            All_Equipment.Add(Temp);
         }
     }
 
     // ��ű� ���׷��̵�
-    public void Upgrade_Accessory(AccessoryType p_ET)
+    public void Upgrade_Equipment(Equipment_Type p_ET)
     {
-        if (p_ET == AccessoryType.RedAja)
+        if (p_ET == Equipment_Type.HollowHeart)
         {
-            RedAja_Level += 1;
+            HollowHeart_Level += 1;
 
-            Update_Get_Accessory(AccessoryType.RedAja);
+            Update_Get_Equipment(Equipment_Type.HollowHeart);
         }
 
-        else if (p_ET == AccessoryType.Thunder)
+        else if (p_ET == Equipment_Type.Wings)
         {
-            Thunder_Level += 1;
+            Wings_Level += 1;
 
-            Update_Get_Accessory(AccessoryType.Thunder);
+            Update_Get_Equipment(Equipment_Type.Wings);
         }
 
-        else if (p_ET == AccessoryType.MagicHood)
+        else if (p_ET == Equipment_Type.Armour)
         {
-            MagicHood_Level += 1;
+            Armour_Level += 1;
 
-            Update_Get_Accessory(AccessoryType.MagicHood);
+            Update_Get_Equipment(Equipment_Type.Armour);
         }
 
-        else if (p_ET == AccessoryType.Bang)
+        else if (p_ET == Equipment_Type.Spinach)
         {
-            Bang_Level += 1;
+            Spinach_Level += 1;
 
-            Update_Get_Accessory(AccessoryType.Bang);
+            Update_Get_Equipment(Equipment_Type.Spinach);
         }
 
-        else if (p_ET == AccessoryType.Bracer)
+        else if (p_ET == Equipment_Type.Bracer)
         {
             Bracer_Level += 1;
 
-            Update_Get_Accessory(AccessoryType.Bracer);
+            Update_Get_Equipment(Equipment_Type.Bracer);
         }
 
-        else if (p_ET == AccessoryType.FloppyDisk)
+        else if (p_ET == Equipment_Type.SpellBinder)
         {
-            FloppyDisk_Level += 1;
+            SpellBinder_Level += 1;
 
-            Update_Get_Accessory(AccessoryType.FloppyDisk);
+            Update_Get_Equipment(Equipment_Type.SpellBinder);
         }
 
-        else if (p_ET == AccessoryType.TheFlags)
+        else if (p_ET == Equipment_Type.Candelabrador)
         {
-            TheFlags_Level += 1;
+            Candelabrador_Level += 1;
 
-            Update_Get_Accessory(AccessoryType.TheFlags);
+            Update_Get_Equipment(Equipment_Type.Candelabrador);
         }
 
-        else if (p_ET == AccessoryType.EmptyTome)
+        else if (p_ET == Equipment_Type.EmptyTome)
         {
             EmptyTome_Level += 1;
 
-            Update_Get_Accessory(AccessoryType.EmptyTome);
+            Update_Get_Equipment(Equipment_Type.EmptyTome);
         }
 
-        else if (p_ET == AccessoryType.Times)
+        else if (p_ET == Equipment_Type.Duplicator)
         {
-            Times_Level += 1;
+            Duplicator_Level += 1;
 
-            Update_Get_Accessory(AccessoryType.Times);
+            Update_Get_Equipment(Equipment_Type.Duplicator);
         }
 
-        else if (p_ET == AccessoryType.Attractorb)
+        else if (p_ET == Equipment_Type.Attractorb)
         {
             Attractorb_Level += 1;
 
-            Update_Get_Accessory(AccessoryType.Attractorb);
+            Update_Get_Equipment(Equipment_Type.Attractorb);
         }
     }
 
     // �÷��̾� ������ ���ȿ� �ۼ�Ƽ�� ���� ����
-    public void Origin_Stat_Application_Player(AccessoryType p_ET)
+    public void Origin_Stat_Application_Player(Equipment_Type p_ET)
     {
         //
         // this.Origin_Stat.Unit_HP 
 
-        if (p_ET == AccessoryType.Bang)
+        if (p_ET == Equipment_Type.Spinach)
         {
-            if (Bang_Level > 0)
+            if (Spinach_Level > 0)
             {
                 float Unit_Player_Damage = 0;
                 Unit_Player_Damage = this.Percent_Stat.Unit_Weapon_Damage;
@@ -1066,7 +1107,7 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
             }
         }
 
-        else if (p_ET == AccessoryType.Bracer)
+        else if (p_ET == Equipment_Type.Bracer)
         {
             if (Bracer_Level > 0)
             {
@@ -1077,9 +1118,9 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
             }
         }
 
-        else if (p_ET == AccessoryType.Times)
+        else if (p_ET == Equipment_Type.Duplicator)
         {
-            if (Times_Level > 0)
+            if (Duplicator_Level > 0)
             {
                 int Unit_Player_Proj_Count = 0;
                 Unit_Player_Proj_Count = this.Percent_Stat.Unit_Weapon_Proj_Count;
@@ -1088,7 +1129,7 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
             }
         }
 
-        else if (p_ET == AccessoryType.EmptyTome)
+        else if (p_ET == Equipment_Type.EmptyTome)
         {
             if (EmptyTome_Level > 0)
             {
@@ -1099,9 +1140,9 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
             }
         }
 
-        else if (p_ET == AccessoryType.Thunder)
+        else if (p_ET == Equipment_Type.Wings)
         {
-            if (Thunder_Level > 0)
+            if (Wings_Level > 0)
             {
                 float Unit_Player_Speed = 0;
                 Unit_Player_Speed = (this.Origin_Stat.Unit_Speed * this.Percent_Stat.Unit_Speed * 0.01f);
@@ -1110,9 +1151,9 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
             }
         }
 
-        else if (p_ET == AccessoryType.TheFlags)
+        else if (p_ET == Equipment_Type.Candelabrador)
         {
-            if (TheFlags_Level > 0)
+            if (Candelabrador_Level > 0)
             {
                 float Unit_Player_Range = 0;
                 float Unit_Player_Size = 0;
@@ -1124,9 +1165,9 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
             }
         }
 
-        else if (p_ET == AccessoryType.MagicHood)
+        else if (p_ET == Equipment_Type.Armour)
         {
-            if (MagicHood_Level > 0)
+            if (Armour_Level > 0)
             {
                 float Unit_Player_Defense = 0;
                 Unit_Player_Defense = this.Percent_Stat.Unit_Defense;
@@ -1135,9 +1176,9 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
             }
         }
 
-        else if (p_ET == AccessoryType.RedAja)
+        else if (p_ET == Equipment_Type.HollowHeart)
         {
-            if (RedAja_Level > 0)
+            if (HollowHeart_Level > 0)
             {
                 float Unit_Player_HP = 0;
                 Unit_Player_HP = (this.Origin_Stat.Unit_HP * this.Percent_Stat.Unit_HP * 0.01f); // (this.Origin_Stat.Unit_HP * this.Percent_Stat.Unit_HP * 0.01f);
@@ -1150,9 +1191,9 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
             }
         }
 
-        else if (p_ET == AccessoryType.FloppyDisk)
+        else if (p_ET == Equipment_Type.SpellBinder)
         {
-            if (FloppyDisk_Level > 0)
+            if (SpellBinder_Level > 0)
             {
                 float Unit_Player_Duration = 0;
                 Unit_Player_Duration = this.Percent_Stat.Unit_Weapon_Duration;
@@ -1161,7 +1202,7 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
             }
         }
 
-        else if (p_ET == AccessoryType.Attractorb)
+        else if (p_ET == Equipment_Type.Attractorb)
         {
             if (Attractorb_Level > 0)
             {
@@ -1176,9 +1217,9 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
 
 
     // ��ű��� �нú� ���� ����
-    public void Get_Accessory_Player_Percentage_Stat(Unit Player_Unit, STO_Accessory Eq_STO)
+    public void Get_Equipment_Player_Percentage_Stat(Unit Player_Unit, STO_Equipment Eq_STO)
     {
-        var Temp_Accessory_STO = All_Manager.instance.Resource_M.STO_Accessorys;
+        var Temp_Equipment_STO = All_Manager.instance.Resource_M.STO_Equipments;
 
         // Percent_Damage = (1 + Eq_STO.stat / 100f);
         if (Player_Unit == null)
@@ -1193,114 +1234,114 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
             return;
         }
 
-        if (Eq_STO.ET == Temp_Accessory_STO[0].ET)
+        if (Eq_STO.ET == Temp_Equipment_STO[0].ET)
         {
-            Player_Unit.Percent_Stat.Unit_Weapon_Damage += Eq_STO.Accessory_Stat_Sheet.Unit_Weapon_Damage;
+            Player_Unit.Percent_Stat.Unit_Weapon_Damage += Eq_STO.Equipment_Stat_Sheet.Unit_Weapon_Damage;
         }
 
-        else if (Eq_STO.ET == Temp_Accessory_STO[1].ET)
+        else if (Eq_STO.ET == Temp_Equipment_STO[1].ET)
         {
-            Player_Unit.Percent_Stat.Unit_Weapon_Proj_Speed += Eq_STO.Accessory_Stat_Sheet.Unit_Weapon_Proj_Speed;
+            Player_Unit.Percent_Stat.Unit_Weapon_Proj_Speed += Eq_STO.Equipment_Stat_Sheet.Unit_Weapon_Proj_Speed;
         }
 
-        else if (Eq_STO.ET == Temp_Accessory_STO[2].ET)
+        else if (Eq_STO.ET == Temp_Equipment_STO[2].ET)
         {
-            Player_Unit.Percent_Stat.Unit_Weapon_Proj_Count += Eq_STO.Accessory_Stat_Sheet.Unit_Weapon_Proj_Count;
+            Player_Unit.Percent_Stat.Unit_Weapon_Proj_Count += Eq_STO.Equipment_Stat_Sheet.Unit_Weapon_Proj_Count;
         }
 
-        else if (Eq_STO.ET == Temp_Accessory_STO[3].ET)
+        else if (Eq_STO.ET == Temp_Equipment_STO[3].ET)
         {
-            Player_Unit.Percent_Stat.Unit_Weapon_CoolDown += Eq_STO.Accessory_Stat_Sheet.Unit_Weapon_CoolDown;
+            Player_Unit.Percent_Stat.Unit_Weapon_CoolDown += Eq_STO.Equipment_Stat_Sheet.Unit_Weapon_CoolDown;
         }
 
-        else if (Eq_STO.ET == Temp_Accessory_STO[4].ET)
+        else if (Eq_STO.ET == Temp_Equipment_STO[4].ET)
         {
-            Player_Unit.Percent_Stat.Unit_Speed += Eq_STO.Accessory_Stat_Sheet.Unit_Speed;
+            Player_Unit.Percent_Stat.Unit_Speed += Eq_STO.Equipment_Stat_Sheet.Unit_Speed;
         }
 
-        else if (Eq_STO.ET == Temp_Accessory_STO[5].ET)
+        else if (Eq_STO.ET == Temp_Equipment_STO[5].ET)
         {
-            Player_Unit.Percent_Stat.Unit_Weapon_Range += Eq_STO.Accessory_Stat_Sheet.Unit_Weapon_Range;
-            Player_Unit.Percent_Stat.Unit_Weapon_Size += Eq_STO.Accessory_Stat_Sheet.Unit_Weapon_Size;
+            Player_Unit.Percent_Stat.Unit_Weapon_Range += Eq_STO.Equipment_Stat_Sheet.Unit_Weapon_Range;
+            Player_Unit.Percent_Stat.Unit_Weapon_Size += Eq_STO.Equipment_Stat_Sheet.Unit_Weapon_Size;
         }
 
-        else if (Eq_STO.ET == Temp_Accessory_STO[6].ET)
+        else if (Eq_STO.ET == Temp_Equipment_STO[6].ET)
         {
-            Player_Unit.Percent_Stat.Unit_Defense += Eq_STO.Accessory_Stat_Sheet.Unit_Defense;
+            Player_Unit.Percent_Stat.Unit_Defense += Eq_STO.Equipment_Stat_Sheet.Unit_Defense;
         }
 
-        else if (Eq_STO.ET == Temp_Accessory_STO[7].ET)
+        else if (Eq_STO.ET == Temp_Equipment_STO[7].ET)
         {
-            Player_Unit.Percent_Stat.Unit_HP += Eq_STO.Accessory_Stat_Sheet.Unit_HP;
+            Player_Unit.Percent_Stat.Unit_HP += Eq_STO.Equipment_Stat_Sheet.Unit_HP;
         }
 
-        else if (Eq_STO.ET == Temp_Accessory_STO[8].ET)
+        else if (Eq_STO.ET == Temp_Equipment_STO[8].ET)
         {
-            Player_Unit.Percent_Stat.Unit_Weapon_Duration += Eq_STO.Accessory_Stat_Sheet.Unit_Weapon_Duration;
+            Player_Unit.Percent_Stat.Unit_Weapon_Duration += Eq_STO.Equipment_Stat_Sheet.Unit_Weapon_Duration;
         }
 
-        else if (Eq_STO.ET == Temp_Accessory_STO[9].ET)
+        else if (Eq_STO.ET == Temp_Equipment_STO[9].ET)
         {
-            Player_Unit.Percent_Stat.Unit_Get_Gem_Range += Eq_STO.Accessory_Stat_Sheet.Unit_Get_Gem_Range;
+            Player_Unit.Percent_Stat.Unit_Get_Gem_Range += Eq_STO.Equipment_Stat_Sheet.Unit_Get_Gem_Range;
         }
 
     }
 
     // ���� ���� ã�ư��� �ְ�
-    public Weapon_Level_And_Timer Convert_WLAT_Player(STO_Weapon p_weaponTypeO)
+    public Weapon_Level_And_Timer Convert_WLAT_Player(STO_Weapon p_WTO)
     {
         Weapon_Level_And_Timer WLAT = null;
 
-        //var Temp = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr()
+        //var Temp = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr()
 
-        if (p_weaponTypeO == All_Manager.instance.Resource_M.STO_Weapons[0])
+        if (p_WTO == All_Manager.instance.Resource_M.STO_Weapons[0])
         {
             WLAT = Axe_LAT;
         }
 
-        if (p_weaponTypeO == All_Manager.instance.Resource_M.STO_Weapons[1])
+        if (p_WTO == All_Manager.instance.Resource_M.STO_Weapons[1])
         {
             WLAT = KingBible_LAT;
         }
 
-        if (p_weaponTypeO == All_Manager.instance.Resource_M.STO_Weapons[2])
+        if (p_WTO == All_Manager.instance.Resource_M.STO_Weapons[2])
         {
             WLAT = Peachone_LAT;
         }
 
-        if (p_weaponTypeO == All_Manager.instance.Resource_M.STO_Weapons[3])
+        if (p_WTO == All_Manager.instance.Resource_M.STO_Weapons[3])
         {
             WLAT = FireWand_LAT;
         }
 
-        if (p_weaponTypeO == All_Manager.instance.Resource_M.STO_Weapons[4])
+        if (p_WTO == All_Manager.instance.Resource_M.STO_Weapons[4])
         {
-            WLAT = Banana_LAT;
+            WLAT = Cross_LAT;
         }
 
-        if (p_weaponTypeO == All_Manager.instance.Resource_M.STO_Weapons[5])
+        if (p_WTO == All_Manager.instance.Resource_M.STO_Weapons[5])
         {
-            WLAT = Force_LAT;
+            WLAT = Garlic_LAT;
         }
 
-        if (p_weaponTypeO == All_Manager.instance.Resource_M.STO_Weapons[6])
+        if (p_WTO == All_Manager.instance.Resource_M.STO_Weapons[6])
         {
             WLAT = LightningRing_LAT;
         }
 
-        if (p_weaponTypeO == All_Manager.instance.Resource_M.STO_Weapons[7])
+        if (p_WTO == All_Manager.instance.Resource_M.STO_Weapons[7])
         {
-            WLAT = ShieldChasing_LAT;
+            WLAT = ShadowPinion_LAT;
         }
 
-        if (p_weaponTypeO == All_Manager.instance.Resource_M.STO_Weapons[8])
+        if (p_WTO == All_Manager.instance.Resource_M.STO_Weapons[8])
         {
             WLAT = RuneTracer_LAT;
         }
 
-        if (p_weaponTypeO == All_Manager.instance.Resource_M.STO_Weapons[9])
+        if (p_WTO == All_Manager.instance.Resource_M.STO_Weapons[9])
         {
-            WLAT = Nunchaku_LAT;
+            WLAT = Whip_LAT;
         }
 
         return WLAT;
@@ -1308,70 +1349,70 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
     }
 
     // ��ű� ���� ã�ư��� �ְ� // �ٵ� �̰� ���� �̳��̳� ��Ʈ��Ʈ�� ���� �����ϸ� ���ﲨ �����ѵ�
-    public int Convert_Accessory_Level_Player(AccessoryType p_ET)
+    public int Convert_Equipment_Level_Player(Equipment_Type p_ET)
     {
-        var Accessory_Level = 0;
+        var Equipment_Level = 0;
 
-        if (p_ET == AccessoryType.Bang)
+        if (p_ET == Equipment_Type.Spinach)
         {
-            Accessory_Level += Bang_Level;
+            Equipment_Level += Spinach_Level;
         }
 
-        if (p_ET == AccessoryType.Bracer)
+        if (p_ET == Equipment_Type.Bracer)
         {
-            Accessory_Level += Bracer_Level;
+            Equipment_Level += Bracer_Level;
         }
 
-        if (p_ET == AccessoryType.Times)
+        if (p_ET == Equipment_Type.Duplicator)
         {
-            Accessory_Level += Times_Level;
+            Equipment_Level += Duplicator_Level;
         }
 
-        if (p_ET == AccessoryType.EmptyTome)
+        if (p_ET == Equipment_Type.EmptyTome)
         {
-            Accessory_Level += EmptyTome_Level;
+            Equipment_Level += EmptyTome_Level;
         }
 
-        if (p_ET == AccessoryType.Thunder)
+        if (p_ET == Equipment_Type.Wings)
         {
-            Accessory_Level += Thunder_Level;
+            Equipment_Level += Wings_Level;
         }
 
-        if (p_ET == AccessoryType.TheFlags)
+        if (p_ET == Equipment_Type.Candelabrador)
         {
-            Accessory_Level += TheFlags_Level;
+            Equipment_Level += Candelabrador_Level;
         }
 
-        if (p_ET == AccessoryType.MagicHood)
+        if (p_ET == Equipment_Type.Armour)
         {
-            Accessory_Level += MagicHood_Level;
+            Equipment_Level += Armour_Level;
         }
 
-        if (p_ET == AccessoryType.RedAja)
+        if (p_ET == Equipment_Type.HollowHeart)
         {
-            Accessory_Level += RedAja_Level;
+            Equipment_Level += HollowHeart_Level;
         }
 
-        if (p_ET == AccessoryType.FloppyDisk)
+        if (p_ET == Equipment_Type.SpellBinder)
         {
-            Accessory_Level += FloppyDisk_Level;
+            Equipment_Level += SpellBinder_Level;
         }
 
-        if (p_ET == AccessoryType.Attractorb)
+        if (p_ET == Equipment_Type.Attractorb)
         {
-            Accessory_Level += Attractorb_Level;
+            Equipment_Level += Attractorb_Level;
         }
 
-        //Debug.Log("Accessory_Level : " + Accessory_Level);
+        //Debug.Log("Equipment_Level : " + Equipment_Level);
 
-        return Accessory_Level;
+        return Equipment_Level;
     }
 
 
     // ��ű��� �����ϴ� ���� ����ü ����
-    public int Current_Weapon_Count(WeaponType p_weaponType, Weapon_Level_And_Timer p_WLAT)
+    public int Current_Weapon_Count(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
-        var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr(p_weaponType);
+        var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
 
         int Weapon_Count_Value = 0;
         Weapon_Count_Value = this.Origin_Stat.Unit_Weapon_Proj_Count;
@@ -1382,9 +1423,9 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
     }
 
     // ��ű��� ���ҵǴ� ������ ��Ÿ��
-    public float Current_Weapon_CoolDown(WeaponType p_weaponType, Weapon_Level_And_Timer p_WLAT)
+    public float Current_Weapon_CoolDown(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
-        var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr(p_weaponType);
+        var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
 
         float Weapon_CoolDown_Value = 0;
         Weapon_CoolDown_Value = (STO_Weapon_STO.Info_s[p_WLAT.Level].Weapon_CoolDown * this.Origin_Stat.Unit_Weapon_CoolDown * 0.01f);
@@ -1395,9 +1436,9 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
     }
 
     // ��ű��� �����ϴ� ���� ������ ��Ÿ�
-    public float Current_Weapon_Range(WeaponType p_weaponType, Weapon_Level_And_Timer p_WLAT)
+    public float Current_Weapon_Range(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
-        var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr(p_weaponType);
+        var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
 
         float Weapon_Range_Value = 0;
         Weapon_Range_Value = (STO_Weapon_STO.Info_s[p_WLAT.Level].Weapon_Range * this.Origin_Stat.Unit_Weapon_Range * 0.01f);
@@ -1408,9 +1449,9 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
     }
 
     // ��ű��� �����ϴ� ���� ������ ũ��
-    public float Current_Weapon_Size(WeaponType p_weaponType, Weapon_Level_And_Timer p_WLAT)
+    public float Current_Weapon_Size(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
-        var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr(p_weaponType);
+        var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
 
         float Weapon_Size_Value = 0;
         Weapon_Size_Value = (STO_Weapon_STO.Info_s[p_WLAT.Level].Weapon_Size * this.Origin_Stat.Unit_Weapon_Size * 0.01f);
@@ -1421,9 +1462,9 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
     }
 
     //���� ���� ������ ���ݼӵ�.
-    public float Current_Weapon_Speed(WeaponType p_weaponType, Weapon_Level_And_Timer p_WLAT)
+    public float Current_Weapon_Speed(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
-        var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr(p_weaponType);
+        var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
 
         float Weapon_Speed_Value = 0;
         Weapon_Speed_Value = (STO_Weapon_STO.Info_s[p_WLAT.Level].Weapon_Speed * this.Origin_Stat.Unit_Weapon_Proj_Speed * 0.01f);
@@ -1434,9 +1475,9 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
     }
 
     //���� ���� ������ ���ݷ�.
-    public float Current_Weapon_Damage(WeaponType p_weaponType, Weapon_Level_And_Timer p_WLAT)
+    public float Current_Weapon_Damage(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
-        var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr(p_weaponType);
+        var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
 
         float Weapon_Damage_Value = 0;
         Weapon_Damage_Value = (STO_Weapon_STO.Info_s[p_WLAT.Level].Weapon_Damage * this.Origin_Stat.Unit_Weapon_Damage * 0.01f);
@@ -1447,9 +1488,9 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
     }
 
     //���� ���� ������ ���ӽð�.
-    public float Current_Weapon_Duration(WeaponType p_weaponType, Weapon_Level_And_Timer p_WLAT)
+    public float Current_Weapon_Duration(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
-        var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr(p_weaponType);
+        var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
 
         float Weapon_Duration_Value = 0;
         Weapon_Duration_Value = (STO_Weapon_STO.Info_s[p_WLAT.Level].Weapon_Duration * this.Origin_Stat.Unit_Weapon_Duration * 0.01f);
@@ -1545,11 +1586,11 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
 
         if (InputVec.x != 0 || InputVec.y != 0)
         {
-            _unitAnimator.SetBool("Move", true);
+            AM.SetBool("Move", true);
         }
         else
         {
-            _unitAnimator.SetBool("Move", false);
+            AM.SetBool("Move", false);
         }
 
         Vector3 Next_Vec = InputVec.normalized * (this.Origin_Stat.Unit_Speed * Time.deltaTime);
@@ -1560,7 +1601,7 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
         //this.transform.position = this.transform.position + Next_Vec;
         if (InputVec.x != 0)
         {
-            _unitSpriteRenderer.flipX = InputVec.x >= 0;
+            SR.flipX = InputVec.x >= 0;
         }
     }
 
@@ -1601,8 +1642,8 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
         {
             Debug.Log("unit STO가 null임");
         }
-        p_Unit.UnitSpriteRenderer.sprite = p_Un_STO.Sprite_Image;
-        p_Unit.UnitSpriteRenderer.material = p_Un_STO.Elite_Material;
+        p_Unit.SR.sprite = p_Un_STO.Sprite_Image;
+        p_Unit.SR.material = p_Un_STO.Elite_Material;
 
         p_Unit.Origin_Stat.Unit_HP = p_Un_STO.Player_info_s.HP;
         p_Unit.Max_HP = p_Unit.Current_HP = p_Un_STO.Player_info_s.HP;
@@ -1610,18 +1651,18 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
         p_Unit.Origin_Stat.Unit_Defense = p_Un_STO.Player_info_s.Unit_Defense;
         p_Unit.Origin_Stat.Unit_Get_Gem_Range = p_Un_STO.Player_info_s.Unit_Get_Gem_Range;
 
-        p_Unit.UnitBoxCollider2D.size = new Vector2(p_Un_STO.Size_X, p_Un_STO.Size_Y);
-        p_Unit.UnitBoxCollider2D.offset = new Vector2(p_Un_STO.Offset_X, p_Un_STO.Offset_Y);
+        p_Unit.BC.size = new Vector2(p_Un_STO.Size_X, p_Un_STO.Size_Y);
+        p_Unit.BC.offset = new Vector2(p_Un_STO.Offset_X, p_Un_STO.Offset_Y);
 
         if (p_Un_STO.Unit_Animator_Controller != null)
         {
-            p_Unit.UnitAnimator.runtimeAnimatorController = p_Un_STO.Unit_Animator_Controller;
-            p_Unit.UnitAnimator.speed = 1.0f; // �ִϸ��̼� ���
-            p_Unit.UnitAnimator.cullingMode = AnimatorCullingMode.CullCompletely;
+            p_Unit.AM.runtimeAnimatorController = p_Un_STO.Unit_Animator_Controller;
+            p_Unit.AM.speed = 1.0f; // �ִϸ��̼� ���
+            p_Unit.AM.cullingMode = AnimatorCullingMode.CullCompletely;
         }
     }
 
-    public override void Unit_Animation(UnitAnimationState State)
+    public override void Unit_Animation(Unit_Anim_State State)
     {
         base.Unit_Animation(State);
     }
@@ -1630,7 +1671,7 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
 
 #region
 /*
-         var Weapon_STO = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr(p_Weapon.weaponType);
+         var Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_Weapon.WT);
 
         var Weapon_WLAT = Convert_WLAT_Player(Weapon_STO);
 
@@ -1640,14 +1681,14 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
                 break;
             case WeaponKeyword.Bound:
                 {
-                    switch (p_Weapon.weaponType)
+                    switch (p_Weapon.WT)
                     {
-                        case WeaponType.Axe:
+                        case Weapon_Type.Axe:
                             {
                                 if (Axe_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywords);
                             }
                             break;
-                        case WeaponType.RuneTracer:
+                        case Weapon_Type.RuneTracer:
                             {
                                 if (RuneTracer_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywords);
                             }
@@ -1657,14 +1698,14 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
                 break;
             case WeaponKeyword.Phoenix:
                 {
-                    switch (p_Weapon.weaponType)
+                    switch (p_Weapon.WT)
                     {
-                        case WeaponType.Peachone:
+                        case Weapon_Type.Peachone:
                             {
                                 if (Peachone_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywords);
                             }
                             break;
-                        case WeaponType.FireWand:
+                        case Weapon_Type.FireWand:
                             {
                                 if (FireWand_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywords);
                             }
@@ -1674,45 +1715,45 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
                 break;
             case WeaponKeyword.Paladin:
                 {
-                    switch (p_Weapon.weaponType)
+                    switch (p_Weapon.WT)
                     {
-                        case WeaponType.ShieldChasing:
+                        case Weapon_Type.ShadowPinion:
                             {
-                                if (ShieldChasing_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywords);
+                                if (ShadowPinion_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywords);
                             }
                             break;
-                        case WeaponType.Banana:
+                        case Weapon_Type.Cross:
                             {
-                                if (Banana_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywords);
+                                if (Cross_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywords);
                             }
                             break;
                     }
                 }
                 break;
             case WeaponKeyword.Sonic:
-                switch (p_Weapon.weaponType)
+                switch (p_Weapon.WT)
                 {
-                    case WeaponType.LightningRing:
+                    case Weapon_Type.LightningRing:
                         {
                             if (LightningRing_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywords);
                         }
                         break;
-                    case WeaponType.Nunchaku:
+                    case Weapon_Type.Whip:
                         {
-                            if (Nunchaku_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywords);
+                            if (Whip_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywords);
                         }
                         break;
                 }
                 break;
             case WeaponKeyword.Holy:
-                switch (p_Weapon.weaponType)
+                switch (p_Weapon.WT)
                 {
-                    case WeaponType.Force:
+                    case Weapon_Type.Garlic:
                         {
-                            if (Force_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywords);
+                            if (Garlic_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywords);
                         }
                         break;
-                    case WeaponType.KingBible:
+                    case Weapon_Type.KingBible:
                         {
                             if (KingBible_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywords);
                         }
@@ -1728,9 +1769,9 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
 //}
 //if (Gem_Temp == null) return;
 
-//var Temp_Accessory = 
+//var Temp_Equipment = 
 
-//if (p_weaponType == WeaponType.Axe)
+//if (p_WT == Weapon_Type.Axe)
 //{
 //    Axe_LAT.Level++;
 
@@ -1834,7 +1875,7 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
 //{
 //    if (All_Weapon[i] == GetComponent<Weapon_KingBible>())
 //    {
-//        if (All_Weapon[i].GetComponent<Weapon_KingBible>().Weapon_Mine_KingBible_Count < Current_Weapon_Count(WeaponType.KingBible, KingBible_LAT))
+//        if (All_Weapon[i].GetComponent<Weapon_KingBible>().Weapon_Mine_KingBible_Count < Current_Weapon_Count(Weapon_Type.KingBible, KingBible_LAT))
 //        {
 //            All_Weapon[i].GetComponent<Weapon_KingBible>().Weapon_Mine_KingBible_Count++;
 //        }
@@ -1888,12 +1929,12 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
 
 //    Skill_Full += Time.deltaTime;
 //    All_Manager.instance.UI_M.Update_Player_Skill_Image(Skill_Full / Skill_Cool);
-//    Temp_Go = Instantiate(Force_Go, null);
+//    Temp_Go = Instantiate(Garlic_Go, null);
 //    Temp_Go.transform.parent = this.transform;
-//    if (Temp_Go.GetComponent<Force>())
+//    if (Temp_Go.GetComponent<Garlic>())
 //    {
-//        yield return new WaitUntil(() => Temp_Go.GetComponent<Force>()._spriteRenderer);
-//        All_Manager.instance.Resource_M.Weapon_Stat(Temp_Go.GetComponent<Force>(), All_Manager.instance.Resource_M.STO_Force);
+//        yield return new WaitUntil(() => Temp_Go.GetComponent<Garlic>().SR);
+//        All_Manager.instance.Resource_M.Weapon_Stat(Temp_Go.GetComponent<Garlic>(), All_Manager.instance.Resource_M.STO_Garlic);
 //    }
 //}
 //else
@@ -1901,13 +1942,13 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
 //    Skill_Full = 0.0f;
 //}
 
-//switch (p_weaponType)
+//switch (p_WT)
 //{
-//    case WeaponType.None:
+//    case Weapon_Type.None:
 //        {
 //        }
 //        break;
-//    case WeaponType.KingBible:
+//    case Weapon_Type.KingBible:
 //        {
 //            //Temp_Go = Instantiate(Weapon_Go, null);
 //            GameObject Weapon_Go = new GameObject("KingBible");
@@ -1915,7 +1956,7 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
 //            Weapon_Go.transform.parent = this.transform;
 //            if (Weapon_Go.GetComponent<KingBible>())
 //            {
-//                yield return new WaitUntil(() => Weapon_Go.GetComponent<KingBible>()._spriteRenderer);
+//                yield return new WaitUntil(() => Weapon_Go.GetComponent<KingBible>().SR);
 //                All_Manager.instance.Resource_M.Weapon_Stat(Weapon_Go.GetComponent<KingBible>(), All_Manager.instance.Resource_M.STO_KingBible);
 //            }
 //            if (Weapon_Go.GetComponent<Weapon>())
@@ -1924,7 +1965,7 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
 //            }
 //        }
 //        break;
-//    case WeaponType.SpellBook:
+//    case Weapon_Type.SpellBook:
 //        {
 //            //Temp_Go = Instantiate(SpellBook_Go, null);
 //            GameObject SpellBook_Go = new GameObject("SpellBook");
@@ -1932,7 +1973,7 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
 //            SpellBook_Go.transform.parent = this.transform;
 //            if (SpellBook_Go.GetComponent<SpellBook>())
 //            {
-//                yield return new WaitUntil(() => SpellBook_Go.GetComponent<SpellBook>()._spriteRenderer);
+//                yield return new WaitUntil(() => SpellBook_Go.GetComponent<SpellBook>().SR);
 //                All_Manager.instance.Resource_M.Weapon_Stat(SpellBook_Go.GetComponent<SpellBook>(), All_Manager.instance.Resource_M.STO_SpellBook);
 //            }
 //            if (SpellBook_Go.GetComponent<Weapon>())
@@ -1941,7 +1982,7 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
 //            }
 //        }
 //        break;
-//    case WeaponType.FireWand_Launcher:
+//    case Weapon_Type.FireWand_Launcher:
 //        {
 //            //Temp_Go = Instantiate(FireWand_Launcher_Go, null);
 //            GameObject FireWand_Launcher_Go = new GameObject("FireWand_Launcher");
@@ -1949,7 +1990,7 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
 //            FireWand_Launcher_Go.transform.parent = this.transform;
 //            if (FireWand_Launcher_Go.GetComponent<FireWand_Launcher>())
 //            {
-//                yield return new WaitUntil(() => FireWand_Launcher_Go.GetComponent<FireWand_Launcher>()._spriteRenderer);
+//                yield return new WaitUntil(() => FireWand_Launcher_Go.GetComponent<FireWand_Launcher>().SR);
 //                All_Manager.instance.Resource_M.Weapon_Stat(FireWand_Launcher_Go.GetComponent<FireWand_Launcher>(), All_Manager.instance.Resource_M.STO_FireWand_Launcher);
 //            }
 //            if (FireWand_Launcher_Go.GetComponent<Weapon>())
@@ -1958,37 +1999,37 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
 //            }
 //        }
 //        break;
-//    case WeaponType.ShieldChasing_Launcher:
+//    case Weapon_Type.ShadowPinion_Launcher:
 //        {
-//            //Temp_Go = Instantiate(ShieldChasing_Launcher_Go, null);
-//            GameObject ShieldChasing_Launcher_Go = new GameObject("ShieldChasing_Launcher");
-//            ShieldChasing_Launcher_Go.AddComponent<ShieldChasing_Launcher>();
-//            ShieldChasing_Launcher_Go.transform.parent = this.transform;
-//            if (ShieldChasing_Launcher_Go.GetComponent<ShieldChasing_Launcher>())
+//            //Temp_Go = Instantiate(ShadowPinion_Launcher_Go, null);
+//            GameObject ShadowPinion_Launcher_Go = new GameObject("ShadowPinion_Launcher");
+//            ShadowPinion_Launcher_Go.AddComponent<ShadowPinion_Launcher>();
+//            ShadowPinion_Launcher_Go.transform.parent = this.transform;
+//            if (ShadowPinion_Launcher_Go.GetComponent<ShadowPinion_Launcher>())
 //            {
-//                yield return new WaitUntil(() => ShieldChasing_Launcher_Go.GetComponent<ShieldChasing_Launcher>()._spriteRenderer);
-//                All_Manager.instance.Resource_M.Weapon_Stat(ShieldChasing_Launcher_Go.GetComponent<ShieldChasing_Launcher>(), All_Manager.instance.Resource_M.STO_ShieldChasing_Launcher);
+//                yield return new WaitUntil(() => ShadowPinion_Launcher_Go.GetComponent<ShadowPinion_Launcher>().SR);
+//                All_Manager.instance.Resource_M.Weapon_Stat(ShadowPinion_Launcher_Go.GetComponent<ShadowPinion_Launcher>(), All_Manager.instance.Resource_M.STO_ShadowPinion_Launcher);
 //            }
-//            if (ShieldChasing_Launcher_Go.GetComponent<Weapon>())
+//            if (ShadowPinion_Launcher_Go.GetComponent<Weapon>())
 //            {
-//                ShieldChasing_Launcher_Go.GetComponent<Weapon>().Weapon_Init(this);
+//                ShadowPinion_Launcher_Go.GetComponent<Weapon>().Weapon_Init(this);
 //            }
 //        }
 //        break;
-//    case WeaponType.Force:
+//    case Weapon_Type.Garlic:
 //        {
-//            //Temp_Go = Instantiate(Force_Go, null);
-//            GameObject Force_Go = new GameObject("Force");
-//            Force_Go.AddComponent<Force>();
-//            Force_Go.transform.parent = this.transform;
-//            if (Force_Go.GetComponent<Force>())
+//            //Temp_Go = Instantiate(Garlic_Go, null);
+//            GameObject Garlic_Go = new GameObject("Garlic");
+//            Garlic_Go.AddComponent<Garlic>();
+//            Garlic_Go.transform.parent = this.transform;
+//            if (Garlic_Go.GetComponent<Garlic>())
 //            {
-//                yield return new WaitUntil(() => Force_Go.GetComponent<Force>()._spriteRenderer);
-//                All_Manager.instance.Resource_M.Weapon_Stat(Force_Go.GetComponent<Force>(), All_Manager.instance.Resource_M.STO_Force);
+//                yield return new WaitUntil(() => Garlic_Go.GetComponent<Garlic>().SR);
+//                All_Manager.instance.Resource_M.Weapon_Stat(Garlic_Go.GetComponent<Garlic>(), All_Manager.instance.Resource_M.STO_Garlic);
 //            }
-//            if (Force_Go.GetComponent<Weapon>())
+//            if (Garlic_Go.GetComponent<Weapon>())
 //            {
-//                Force_Go.GetComponent<Weapon>().Weapon_Init(this);
+//                Garlic_Go.GetComponent<Weapon>().Weapon_Init(this);
 //            }
 //        }
 //        break;
@@ -1996,7 +2037,7 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
 //        break;
 //}
 
-//public IEnumerator C_Create_Weapon(WeaponType p_PT)
+//public IEnumerator C_Create_Weapon(Weapon_Type p_PT)
 //{
 //    yield return new WaitWhile(() => Creating_Weapon == true);
 
@@ -2006,9 +2047,9 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
 
 //    switch (p_PT)
 //    {
-//        case WeaponType.None:
+//        case Weapon_Type.None:
 //            break;
-//        case WeaponType.KingBible:
+//        case Weapon_Type.KingBible:
 //            {
 //                Weapon_Go = new GameObject("KingBible");
 
@@ -2017,7 +2058,7 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
 //                Weapon_Go.transform.parent = this.transform;
 //                if (Weapon_Go.GetComponent<Weapon_KingBible>())
 //                {
-//                    yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_KingBible>()._spriteRenderer);
+//                    yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_KingBible>().SR);
 //                    Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, All_Manager.instance.Resource_M.STO_KingBible, KingBible_LAT.Level);
 
 //                    int Create_KingBible_Count = 1;
@@ -2034,20 +2075,20 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
 //                }
 //            }
 //            break;
-//        case WeaponType.Force:
+//        case Weapon_Type.Garlic:
 //            {
-//                Weapon_Go = new GameObject("Force");
+//                Weapon_Go = new GameObject("Garlic");
 
-//                Weapon_Go.AddComponent<Weapon_Force>();
+//                Weapon_Go.AddComponent<Weapon_Garlic>();
 
-//                if (Weapon_Go.GetComponent<Weapon_Force>())
+//                if (Weapon_Go.GetComponent<Weapon_Garlic>())
 //                {
-//                    yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_Force>()._spriteRenderer);
-//                    Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, All_Manager.instance.Resource_M.STO_Force, Force_LAT.Level);
+//                    yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_Garlic>().SR);
+//                    Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, All_Manager.instance.Resource_M.STO_Garlic, Garlic_LAT.Level);
 //                }
 //            }
 //            break;
-//        case WeaponType.LightningRing:
+//        case Weapon_Type.LightningRing:
 //            {
 //                if (All_Manager.instance.GameMode_M.Enemy_List.Count > 10)
 //                {
@@ -2063,7 +2104,7 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
 
 //                        if (Weapon_Go.GetComponent<Weapon_LightningRing>())
 //                        {
-//                            yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_LightningRing>()._spriteRenderer);
+//                            yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_LightningRing>().SR);
 //                            Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, All_Manager.instance.Resource_M.STO_LightningRing, LightningRing_LAT.Level);
 //                        }
 
@@ -2082,7 +2123,7 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
 
 //                        if (Weapon_Go.GetComponent<Weapon_LightningRing>())
 //                        {
-//                            yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_LightningRing>()._spriteRenderer);
+//                            yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_LightningRing>().SR);
 //                            Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, All_Manager.instance.Resource_M.STO_LightningRing, LightningRing_LAT.Level);
 //                        }
 
@@ -2092,7 +2133,7 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
 
 //            }
 //            break;
-//        case WeaponType.FireWand:
+//        case Weapon_Type.FireWand:
 //            {
 //                Weapon_Go = new GameObject("FireWand");
 
@@ -2100,25 +2141,25 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
 
 //                if (Weapon_Go.GetComponent<Weapon_FireWand>())
 //                {
-//                    yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_FireWand>()._spriteRenderer);
+//                    yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_FireWand>().SR);
 //                    Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, All_Manager.instance.Resource_M.STO_FireWand, FireWand_LAT.Level);
 //                }
 //            }
 //            break;
-//        case WeaponType.ShieldChasing:
+//        case Weapon_Type.ShadowPinion:
 //            {
-//                Weapon_Go = new GameObject("ShieldChasing");
+//                Weapon_Go = new GameObject("ShadowPinion");
 
-//                Weapon_Go.AddComponent<Weapon_ShieldChasing>();
+//                Weapon_Go.AddComponent<Weapon_ShadowPinion>();
 
-//                if (Weapon_Go.GetComponent<Weapon_ShieldChasing>())
+//                if (Weapon_Go.GetComponent<Weapon_ShadowPinion>())
 //                {
-//                    yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_ShieldChasing>()._spriteRenderer);
-//                    Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, All_Manager.instance.Resource_M.STO_ShieldChasing, ShieldChasing_LAT.Level);
+//                    yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_ShadowPinion>().SR);
+//                    Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, All_Manager.instance.Resource_M.STO_ShadowPinion, ShadowPinion_LAT.Level);
 //                }
 //            }
 //            break;
-//        case WeaponType.Axe:
+//        case Weapon_Type.Axe:
 //            {
 //                Weapon_Go = new GameObject("Axe");
 
@@ -2128,7 +2169,7 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
 
 //                if (Weapon_Go.GetComponent<Axe>())
 //                {
-//                    yield return new WaitUntil(() => Weapon_Go.GetComponent<Axe>()._spriteRenderer);
+//                    yield return new WaitUntil(() => Weapon_Go.GetComponent<Axe>().SR);
 //                    Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, All_Manager.instance.Resource_M.STO_Axe, Axe_LAT.Level);
 //                    Vector3 One = this.transform.position;
 //                    Vector3 Two = One + new Vector3(0, 5, 0); // ��
@@ -2165,7 +2206,7 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
 
 //        if (Weapon_Go.GetComponent<Weapon_LightningRing>())
 //        {
-//            yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_LightningRing>()._spriteRenderer);
+//            yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_LightningRing>().SR);
 //            Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, All_Manager.instance.Resource_M.STO_LightningRing, LightningRing_LAT.Level);
 //        }
 
@@ -2185,7 +2226,7 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
 
 //        if (Weapon_Go.GetComponent<Weapon_LightningRing>())
 //        {
-//            yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_LightningRing>()._spriteRenderer);
+//            yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_LightningRing>().SR);
 //            Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, All_Manager.instance.Resource_M.STO_LightningRing, LightningRing_LAT.Level);
 //        }
 
@@ -2193,108 +2234,108 @@ public class Unit_Player : Unit, IWeaponType, IAccessoryType
 //    }
 //}
 
-//public void Get_Accessory(AccessoryType p_ET)
+//public void Get_Equipment(Equipment_Type p_ET)
 //{
-//    StartCoroutine(C_Get_Accessory(p_ET));
+//    StartCoroutine(C_Get_Equipment(p_ET));
 //}
 
-//public IEnumerator C_Get_Accessory(AccessoryType p_ET)
+//public IEnumerator C_Get_Equipment(Equipment_Type p_ET)
 //{
 //    // ���� Temp�� ���̿��� �߻��ϴ� �����ΰ����� ���δ�.
 //    // �ϴ� �� ���� ����
 //    // ���� �ϴ� �ٽ� �ѹ�
-//    yield return new WaitWhile(() => Creating_Accessory == true);
+//    yield return new WaitWhile(() => Creating_Equipment == true);
 
-//    var Temp = All_Manager.instance.Resource_M.Convert_AccessoryType_To_STO_Accessory(p_ET);
+//    var Temp = All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment(p_ET);
 
-//    Creating_Accessory = true;
+//    Creating_Equipment = true;
 
-//    if (p_ET == AccessoryType.None)
+//    if (p_ET == Equipment_Type.None)
 //    {
 
 //    }
 
-//    if (p_ET == AccessoryType.RedAja)
+//    if (p_ET == Equipment_Type.HollowHeart)
 //    {
-//        yield return new WaitUntil(() => (Temp = All_Manager.instance.Resource_M.STO_Accessory_RedAja));
-//        if (Temp == All_Manager.instance.Resource_M.STO_Accessory_RedAja)
+//        yield return new WaitUntil(() => (Temp = All_Manager.instance.Resource_M.STO_Equipment_HollowHeart));
+//        if (Temp == All_Manager.instance.Resource_M.STO_Equipment_HollowHeart)
 //        {
-//            RedAja_Level++;
+//            HollowHeart_Level++;
 
-//            Get_Accessory_Player_Percentage_Stat(this, Temp);
+//            Get_Equipment_Player_Percentage_Stat(this, Temp);
 //            Debug.Log(Temp);
 //            Debug.Log("��ű� ����");
 //        }
 //    }
 
-//    if (p_ET == AccessoryType.Thunder)
+//    if (p_ET == Equipment_Type.Wings)
 //    {
-//        Thunder_Level++;
+//        Wings_Level++;
 
-//        Get_Accessory_Player_Percentage_Stat(this, Temp);
+//        Get_Equipment_Player_Percentage_Stat(this, Temp);
 //    }
 
-//    if (p_ET == AccessoryType.MagicHood)
+//    if (p_ET == Equipment_Type.Armour)
 //    {
-//        MagicHood_Level++;
+//        Armour_Level++;
 
-//        Get_Accessory_Player_Percentage_Stat(this, Temp);
+//        Get_Equipment_Player_Percentage_Stat(this, Temp);
 //    }
 
-//    if (p_ET == AccessoryType.Bang)
+//    if (p_ET == Equipment_Type.Spinach)
 //    {
-//        Bang_Level++;
+//        Spinach_Level++;
 
-//        Get_Accessory_Player_Percentage_Stat(this, Temp);
+//        Get_Equipment_Player_Percentage_Stat(this, Temp);
 //    }
 
-//    if (p_ET == AccessoryType.Bracer)
+//    if (p_ET == Equipment_Type.Bracer)
 //    {
 //        Bracer_Level++;
 
-//        Get_Accessory_Player_Percentage_Stat(this, Temp);
+//        Get_Equipment_Player_Percentage_Stat(this, Temp);
 //    }
 
-//    if (p_ET == AccessoryType.FloppyDisk)
+//    if (p_ET == Equipment_Type.SpellBinder)
 //    {
-//        FloppyDisk_Level++;
+//        SpellBinder_Level++;
 
-//        Get_Accessory_Player_Percentage_Stat(this, Temp);
+//        Get_Equipment_Player_Percentage_Stat(this, Temp);
 //    }
 
-//    if (p_ET == AccessoryType.TheFlags)
+//    if (p_ET == Equipment_Type.Candelabrador)
 //    {
-//        TheFlags_Level++;
+//        Candelabrador_Level++;
 
-//        Get_Accessory_Player_Percentage_Stat(this, Temp);
+//        Get_Equipment_Player_Percentage_Stat(this, Temp);
 //    }
 
-//    if (p_ET == AccessoryType.EmptyTome)
+//    if (p_ET == Equipment_Type.EmptyTome)
 //    {
 //        EmptyTome_Level++;
 
-//        Get_Accessory_Player_Percentage_Stat(this, Temp);
+//        Get_Equipment_Player_Percentage_Stat(this, Temp);
 //    }
 
-//    if (p_ET == AccessoryType.Times)
+//    if (p_ET == Equipment_Type.Duplicator)
 //    {
-//        Times_Level++;
+//        Duplicator_Level++;
 
-//        Get_Accessory_Player_Percentage_Stat(this, Temp);
+//        Get_Equipment_Player_Percentage_Stat(this, Temp);
 //    }
 
-//    if (p_ET == AccessoryType.Attractorb)
+//    if (p_ET == Equipment_Type.Attractorb)
 //    {
 //        Attractorb_Level++;
 
-//        Get_Accessory_Player_Percentage_Stat(this, Temp);
+//        Get_Equipment_Player_Percentage_Stat(this, Temp);
 //    }
 
 //    if (Temp != null)
 //    {
-//        All_Accessory.Add(Temp);
+//        All_Equipment.Add(Temp);
 //    }
 
-//    Creating_Accessory = false;
+//    Creating_Equipment = false;
 //}
 #endregion

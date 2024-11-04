@@ -71,7 +71,7 @@ public class UI_Manager : MonoBehaviour
 
     [Header("아이템 아이콘")]
     public List<Sprite> Weapon_Icon_List = new List<Sprite>();      // 획득한 무기의 아이콘 저장
-    public List<Sprite> Accessory_Icon_List = new List<Sprite>();   // 획득한 장신구의 아이콘 저장
+    public List<Sprite> Equipment_Icon_List = new List<Sprite>();   // 획득한 장신구의 아이콘 저장
 
     [Header("아이템 이넘")]
     public int Select_First_Item_Number;    // 첫 번째 버튼에서 나올 아이템 
@@ -89,15 +89,15 @@ public class UI_Manager : MonoBehaviour
     [Header("플레이어 정보창")]
     // 인게임 플레이 화면의 현재 무기와 장신구 아이콘
     public UnityEngine.UI.Image[] Basic_Current_Weapon_Icon_Image;
-    public UnityEngine.UI.Image[] Basic_Current_Accessory_Icon_Image;
+    public UnityEngine.UI.Image[] Basic_Current_Equipment_Icon_Image;
 
     // 인게임 UI로 띄워주는 무기 레벨
     public Text[] Weapon_Level_Text;
-    public Text[] Accessory_Level_Text;
+    public Text[] Equipment_Level_Text;
 
     // 플레이어 정보창 현재 무기와 장신구 아이콘
     public UnityEngine.UI.Image[] Player_Info_s_Current_Weapon_Icon_Image;
-    public UnityEngine.UI.Image[] Player_Info_s_Current_Accessory_Icon_Image;
+    public UnityEngine.UI.Image[] Player_Info_s_Current_Equipment_Icon_Image;
 
     // 플레이어 정보창 스탯
     public Text[] Player_Info_s_Pase_One_Text;
@@ -148,7 +148,7 @@ public class UI_Manager : MonoBehaviour
     public string[] PS_Options;
 
     public bool Weapon_On = false;
-    public bool Accessory_On = false;
+    public bool Equipment_On = false;
     public bool PanelStyle_On = false;
 
     // 패널 상태 변수들
@@ -305,9 +305,9 @@ public class UI_Manager : MonoBehaviour
     }
 
     // 장신구 레벨 카운트 갱신
-    public void Update_Accessory_Level_Count_Text(int Index, int p_Accessory_Level_Count)
+    public void Update_Equipment_Level_Count_Text(int Index, int p_Equipment_Level_Count)
     {
-        Accessory_Level_Text[Index].text = "Lv. " + p_Accessory_Level_Count;
+        Equipment_Level_Text[Index].text = "Lv. " + p_Equipment_Level_Count;
     }
 
     // 게임 시간 경과 갱신
@@ -421,7 +421,7 @@ public class UI_Manager : MonoBehaviour
     {
         Renew_Player_Info_Stat();
         Player_Level_Up.Renew_Current_Weapon_Icon();
-        Player_Level_Up.Renew_Current_Accessory_Icon();
+        Player_Level_Up.Renew_Current_Equipment_Icon();
     }
 
     public void Renew_Player_Info_Stat()

@@ -21,7 +21,7 @@ public struct Weapon_Information
 
 public class STO_Weapon : ScriptableObject
 {
-    public WeaponType weaponType;
+    public Weapon_Type WT;
     public WeaponKeyword WeaponKeywords;
 
     public string Weapon_Name;

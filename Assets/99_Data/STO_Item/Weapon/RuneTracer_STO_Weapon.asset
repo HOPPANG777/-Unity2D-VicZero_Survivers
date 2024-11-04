@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 217ca39281c79dc4499ffac913c507e0, type: 3}
   m_Name: RuneTracer_STO_Weapon
   m_EditorClassIdentifier: 
-  weaponType: 8
+  WT: 8
   WeaponKeywords: 1
   Weapon_Name: "\uB8EC\uD2B8\uB808\uC774\uC11C"
   Weapon_Text: "\n\uB79C\uB364\uD55C \uBC29\uD5A5\uC73C\uB85C \uBC1C\uC0AC\uB418\uC5B4\n\uC801\uC744

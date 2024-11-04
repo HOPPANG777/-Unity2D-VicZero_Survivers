@@ -3,17 +3,17 @@ using UnityEngine;
 
 public class FollowMission : Mission
 {
-    // ë°œíŒì„ ì«’ì•„ê°€ëŠ” ë™ì•ˆ íë¥´ëŠ” ì‹œê°„
+    // ¹ßÆÇÀ» ¦i¾Æ°¡´Â µ¿¾È Èå¸£´Â ½Ã°£
     [SerializeField] private float _missionFollowTimer = 0.0f;
     public float MissionFollowTimer { get { return _missionFollowTimer; } }
 
-    // ë°œíŒì„ ì«’ì•„ê°€ì•¼í•˜ëŠ” ì‹œê°„
+    // ¹ßÆÇÀ» ¦i¾Æ°¡¾ßÇÏ´Â ½Ã°£
     [SerializeField] private float _missionClearTime = 15.0f;
     public float MissionClearTime { get { return _missionClearTime; } }
 
-    [SerializeField] private float _speed = 2f; // ë°œíŒì˜ ì´ë™ ì†ë„
-    [SerializeField] private Vector2 minBounds; // ëœë¤ ëª©í‘œ ìœ„ì¹˜ì˜ ìµœì†Œ ê²½ê³„ (ì˜ˆ: ì™¼ìª½ ì•„ë˜)
-    [SerializeField] private Vector2 maxBounds; // ëœë¤ ëª©í‘œ ìœ„ì¹˜ì˜ ìµœëŒ€ ê²½ê³„ (ì˜ˆ: ì˜¤ë¥¸ìª½ ìœ„)
+    [SerializeField] private float _speed = 2f;  // ¹ßÆÇÀÇ ÀÌµ¿ ¼Óµµ
+    [SerializeField] private Vector2 minBounds; // ·£´ı ¸ñÇ¥ À§Ä¡ÀÇ ÃÖ¼Ò °æ°è (¿¹: ¿ŞÂÊ ¾Æ·¡)
+    [SerializeField] private Vector2 maxBounds; // ·£´ı ¸ñÇ¥ À§Ä¡ÀÇ ÃÖ´ë °æ°è (¿¹: ¿À¸¥ÂÊ À§)
 
     private Vector3 targetPosition;
 
@@ -42,25 +42,25 @@ public class FollowMission : Mission
         base.CheckPlayerCollision();
     }
 
-    // ë°œíŒì„ ë”°ë¼ë‹¤ë‹ˆëŠ” ë¯¸ì…˜ì´ë‹¤
+    // ¹ßÆÇÀ» µû¶ó´Ù´Ï´Â ¹Ì¼ÇÀÌ´Ù
     private void FollowOnMission()
     {
-        // ë°œíŒì„ ë°Ÿê³ 
+        // ¹ßÆÇÀ» ¹â°í
         if (_isMissionPrograce != true) return;
 
         if (_isMissionPrograce == true)
         {
             _missionFollowTimer += Time.deltaTime;
-            // ì›€ì§ì´ëŠ” ë°œíŒì„ ë”°ë¼ë‹¤ë‹ˆë©´
+            // ¿òÁ÷ÀÌ´Â ¹ßÆÇÀ» µû¶ó´Ù´Ï¸é
             if (_missionFollowTimer > _missionClearTime)
             {
-                // ë¯¸ì…˜ í´ë¦¬ì–´
+                // ¹Ì¼Ç Å¬¸®¾î
                 _isMissionClear = true;
             }
         }
         else
         {
-            // ë¯¸ì…˜ ë„ì¤‘ ë°œíŒì—ì„œ ë²—ì–´ë‚˜ë©´ ë¯¸ì…˜ ì´ˆê¸°í™”
+            // ¹Ì¼Ç µµÁß ¹ßÆÇ¿¡¼­ ¹ş¾î³ª¸é ¹Ì¼Ç ÃÊ±âÈ­
             _missionFollowTimer = 0f;
         }
 
@@ -78,7 +78,7 @@ public class FollowMission : Mission
     {
         Vector3 direction = targetPosition - transform.position;
 
-        if (direction.magnitude < 0.1f) // ëª©í‘œ ìœ„ì¹˜ì— ê±°ì˜ ë„ë‹¬í•˜ë©´ ìƒˆë¡œìš´ ëª©í‘œ ì„¤ì •
+        if (direction.magnitude < 0.1f) // ¸ñÇ¥ À§Ä¡¿¡ °ÅÀÇ µµ´ŞÇÏ¸é »õ·Î¿î ¸ñÇ¥ ¼³Á¤
         {
             SetNewTargetPosition();
         }
@@ -90,12 +90,12 @@ public class FollowMission : Mission
 
     protected override void MissionReward()
     {
-        // ë¯¸ì…˜ì´ í´ë¦¬ì–´ ë˜ë©´
+        // ¹Ì¼ÇÀÌ Å¬¸®¾î µÇ¸é
         if (_isMissionClear == true)
         {
-            // Reward(ë³´ë¬¼ìƒì)ë¥¼ ë–¨êµ° í›„ ë¯¸ì…˜(ë°œíŒ) ì‚­ì œ 
-            All_Manager.instance.Pool_M.Item_Pool_Out(ItemType.Chest, this.gameObject.transform);  // ë³´ë¬¼ìƒì ë“œë
-            RemoveMission();  // ë°œíŒ ì‚­ì œ
+            // Reward(º¸¹°»óÀÚ)¸¦ ¶³±º ÈÄ ¹Ì¼Ç(¹ßÆÇ) »èÁ¦ 
+            All_Manager.instance.Pool_M.MISC_Pool_Out(MISC_Type.Chest, this.gameObject.transform);  // º¸¹°»óÀÚ µå¶ø
+            RemoveMission();  // ¹ßÆÇ »èÁ¦
         }
     }
 
@@ -104,11 +104,11 @@ public class FollowMission : Mission
         Destroy(this.gameObject);
     }
 
-    public override void MissionSetting(Mission p_Mission, STO_Mission p_ItemTypeO)
+    public override void MissionSetting(Mission p_Mission, STO_Mission p_MTO)
     {
-        p_Mission.MissionType = p_ItemTypeO.missionType;
-        p_Mission.SpriteRenderer.sprite = p_ItemTypeO.Sprite;
-        p_Mission.SpriteRenderer.material = p_ItemTypeO.Material;
+        p_Mission.MissionType = p_MTO.missionType;
+        p_Mission.SpriteRenderer.sprite = p_MTO.Sprite;
+        p_Mission.SpriteRenderer.material = p_MTO.Material;
         p_Mission.SpriteRenderer.sortingOrder = -1;
     }
 

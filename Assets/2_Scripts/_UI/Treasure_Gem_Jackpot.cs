@@ -93,7 +93,7 @@ public class Treasure_Gem_Jackpot : MonoBehaviour
 
 #region
 //public Rigidbody2D RB;
-//public BoxCollider2D _boxCollider2D;
+//public BoxCollider2D BC;
 
 //public Vector3[] Gem_Vector = new Vector3[4];
 
