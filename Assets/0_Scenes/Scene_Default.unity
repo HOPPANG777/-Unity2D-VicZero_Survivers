@@ -8561,39 +8561,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2503191326534019746, guid: a0cbd2013a96de142a005d31bd723d2d,
         type: 3}
-      propertyPath: CurrentCamera
-      value: 
-      objectReference: {fileID: 1180168647}
-    - target: {fileID: 2503191326534019746, guid: a0cbd2013a96de142a005d31bd723d2d,
-        type: 3}
       propertyPath: Current_Camera
       value: 
       objectReference: {fileID: 1180168647}
-    - target: {fileID: 2503191326534019746, guid: a0cbd2013a96de142a005d31bd723d2d,
-        type: 3}
-      propertyPath: TilemapList.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2503191326534019746, guid: a0cbd2013a96de142a005d31bd723d2d,
-        type: 3}
-      propertyPath: 'TilemapList.Array.data[0]'
-      value: 
-      objectReference: {fileID: 276310573}
-    - target: {fileID: 2503191326534019746, guid: a0cbd2013a96de142a005d31bd723d2d,
-        type: 3}
-      propertyPath: 'TilemapList.Array.data[1]'
-      value: 
-      objectReference: {fileID: 1449786650}
-    - target: {fileID: 2503191326534019746, guid: a0cbd2013a96de142a005d31bd723d2d,
-        type: 3}
-      propertyPath: 'TilemapList.Array.data[2]'
-      value: 
-      objectReference: {fileID: 787751396}
-    - target: {fileID: 2503191326534019746, guid: a0cbd2013a96de142a005d31bd723d2d,
-        type: 3}
-      propertyPath: 'TilemapList.Array.data[3]'
-      value: 
-      objectReference: {fileID: 2003114184}
     - target: {fileID: 2503191326534019746, guid: a0cbd2013a96de142a005d31bd723d2d,
         type: 3}
       propertyPath: 'Tilemap_List.Array.data[0]'
@@ -8669,11 +8639,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: All_Manager
       objectReference: {fileID: 0}
-    - target: {fileID: 4804284174133600952, guid: a0cbd2013a96de142a005d31bd723d2d,
-        type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 1180168647}
     - target: {fileID: 4804284174763224210, guid: a0cbd2013a96de142a005d31bd723d2d,
         type: 3}
       propertyPath: Item_F
@@ -12897,15 +12862,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebf2ea59ed32e747a40b68fb8e9a562, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GemBezierVec:
+  Gem_Bezier_Vec:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
-  GemTimer: 0
-  GemTimerPower: 1
-  GemTrigger: 0
-  GemSpd: 0.1
+  Gem_Timer: 0
+  Gem_Timer_Power: 1
+  Gem_Trigger: 0
+  Gem_Spd: 0.1
 --- !u!4 &863708297
 Transform:
   m_ObjectHideFlags: 0

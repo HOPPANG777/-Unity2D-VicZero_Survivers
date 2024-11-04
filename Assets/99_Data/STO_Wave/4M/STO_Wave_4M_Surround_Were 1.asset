@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: STO_Wave_4M_Surround_Were 1
   m_EditorClassIdentifier: 
   WST: 1
-  WaveTime: 280
-  KillCount: 0
-  SpawnTime: 1
-  SpawnCount: 30
-  STOEnemy: {fileID: 11400000, guid: 985794303fa17d54b86745d628b7d5d7, type: 2}
+  Wave_Time: 240
+  Kill_Count: 0
+  Spawn_Time: 1
+  Spawn_Count: 30
+  STO_Enemy: {fileID: 11400000, guid: 985794303fa17d54b86745d628b7d5d7, type: 2}
   Elite: 0

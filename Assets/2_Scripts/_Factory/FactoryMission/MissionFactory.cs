@@ -11,11 +11,11 @@ public class MissionFactory : MonoBehaviour
 
     public IEnumerator CCreateMission(MissionData pMission, Vector3 pPosition)
     {
-        switch (pMission.MissionType)
+        switch (pMission.missionType)
         {
             case MissionType.SURVIVE:
                 {
-                    GameObject MissionGo = new GameObject(pMission.MissionType.ToString());
+                    GameObject MissionGo = new GameObject(pMission.missionType.ToString());
 
                     MissionGo.AddComponent<SurviversMission>();
 
@@ -31,7 +31,7 @@ public class MissionFactory : MonoBehaviour
                         MissionGo.GetComponent<Mission>().SpriteRenderer.drawMode = SpriteDrawMode.Sliced;
                         MissionGo.GetComponent<Mission>().SpriteRenderer.size = new Vector2(2, 2);
 
-                        MissionGo.GetComponent<SurviversMission>().MissionType = pMission.MissionType;
+                        MissionGo.GetComponent<SurviversMission>().MissionType = pMission.missionType;
 
                         AllManager.instance.GameModeM.missionList.Add(MissionGo.GetComponent<SurviversMission>());
                     }
@@ -39,7 +39,7 @@ public class MissionFactory : MonoBehaviour
                 break;
             case MissionType.DEFEND:
                 {
-                    GameObject MissionGo = new GameObject(pMission.MissionType.ToString());
+                    GameObject MissionGo = new GameObject(pMission.missionType.ToString());
 
                     MissionGo.AddComponent<DefendMission>();
 
@@ -55,7 +55,7 @@ public class MissionFactory : MonoBehaviour
                         MissionGo.GetComponent<Mission>().SpriteRenderer.drawMode = SpriteDrawMode.Sliced;
                         MissionGo.GetComponent<Mission>().SpriteRenderer.size = new Vector2(2, 2);
 
-                        MissionGo.GetComponent<DefendMission>().MissionType = pMission.MissionType;
+                        MissionGo.GetComponent<DefendMission>().MissionType = pMission.missionType;
 
                         AllManager.instance.GameModeM.missionList.Add(MissionGo.GetComponent<DefendMission>());
                     }
@@ -63,7 +63,7 @@ public class MissionFactory : MonoBehaviour
                 break;
             case MissionType.FOLLOW:
                 {
-                    GameObject MissionGo = new GameObject(pMission.MissionType.ToString());
+                    GameObject MissionGo = new GameObject(pMission.missionType.ToString());
 
                     MissionGo.AddComponent<FollowMission>();
 
@@ -79,7 +79,7 @@ public class MissionFactory : MonoBehaviour
                         MissionGo.GetComponent<Mission>().SpriteRenderer.drawMode = SpriteDrawMode.Sliced;
                         MissionGo.GetComponent<Mission>().SpriteRenderer.size = new Vector2(2, 2);
 
-                        MissionGo.GetComponent<FollowMission>().MissionType = pMission.MissionType;
+                        MissionGo.GetComponent<FollowMission>().MissionType = pMission.missionType;
 
                         AllManager.instance.GameModeM.missionList.Add(MissionGo.GetComponent<FollowMission>());
                     }

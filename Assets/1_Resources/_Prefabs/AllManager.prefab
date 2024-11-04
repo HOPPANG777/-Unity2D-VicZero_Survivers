@@ -88,15 +88,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daaf7404a7f26b54eb7ed7d7343722ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GemBezierVec:
+  Gem_Bezier_Vec:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
-  GemTimer: 0
-  GemTimerPower: 1
-  GemTrigger: 0
-  GemSpd: 0.1
+  Gem_Timer: 0
+  Gem_Timer_Power: 1
+  Gem_Trigger: 0
+  Gem_Spd: 0.1
 --- !u!1 &79621145506399851
 GameObject:
   m_ObjectHideFlags: 0
@@ -141,9 +141,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b987868f8121bc4e8c01260b08561d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GhostDuration: 0.1
-  SpawnInterval: 2
-  GhostColor: {r: 0, g: 0, b: 0, a: 0}
+  Ghost_Duration: 0.15
+  Spawn_Interval: 0.1
+  Ghost_Color: {r: 1, g: 1, b: 1, a: 0.5}
 --- !u!1 &304885884694295378
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,7 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0
 --- !u!1 &453838928502442327
 GameObject:
   m_ObjectHideFlags: 0
@@ -427,15 +427,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daaf7404a7f26b54eb7ed7d7343722ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GemBezierVec:
+  Gem_Bezier_Vec:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
-  GemTimer: 0
-  GemTimerPower: 1
-  GemTrigger: 0
-  GemSpd: 0.1
+  Gem_Timer: 0
+  Gem_Timer_Power: 1
+  Gem_Trigger: 0
+  Gem_Spd: 0.1
 --- !u!1 &690364803421099464
 GameObject:
   m_ObjectHideFlags: 0
@@ -603,7 +603,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0
 --- !u!1 &774602352231565104
 GameObject:
   m_ObjectHideFlags: 0
@@ -771,7 +771,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0
 --- !u!1 &792649431069249910
 GameObject:
   m_ObjectHideFlags: 0
@@ -860,15 +860,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daaf7404a7f26b54eb7ed7d7343722ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GemBezierVec:
+  Gem_Bezier_Vec:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
-  GemTimer: 0
-  GemTimerPower: 1
-  GemTrigger: 0
-  GemSpd: 0.1
+  Gem_Timer: 0
+  Gem_Timer_Power: 1
+  Gem_Trigger: 0
+  Gem_Spd: 0.1
 --- !u!1 &934551375038354584
 GameObject:
   m_ObjectHideFlags: 0
@@ -1032,15 +1032,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daaf7404a7f26b54eb7ed7d7343722ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GemBezierVec:
+  Gem_Bezier_Vec:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
-  GemTimer: 0
-  GemTimerPower: 1
-  GemTrigger: 0
-  GemSpd: 0.1
+  Gem_Timer: 0
+  Gem_Timer_Power: 1
+  Gem_Trigger: 0
+  Gem_Spd: 0.1
 --- !u!1 &1390629854137610029
 GameObject:
   m_ObjectHideFlags: 0
@@ -1129,7 +1129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0
 --- !u!1 &1433630479104487151
 GameObject:
   m_ObjectHideFlags: 0
@@ -1365,7 +1365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0
 --- !u!1 &1663946941311452367
 GameObject:
   m_ObjectHideFlags: 0
@@ -1454,7 +1454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0
 --- !u!1 &1687177607470508383
 GameObject:
   m_ObjectHideFlags: 0
@@ -1889,7 +1889,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0
 --- !u!1 &2138248714220658633
 GameObject:
   m_ObjectHideFlags: 0
@@ -1978,7 +1978,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0
 --- !u!1 &2318715829343443520
 GameObject:
   m_ObjectHideFlags: 0
@@ -2067,7 +2067,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0
 --- !u!1 &2359393275192412597
 GameObject:
   m_ObjectHideFlags: 0
@@ -2314,15 +2314,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daaf7404a7f26b54eb7ed7d7343722ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GemBezierVec:
+  Gem_Bezier_Vec:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
-  GemTimer: 0
-  GemTimerPower: 1
-  GemTrigger: 0
-  GemSpd: 0.1
+  Gem_Timer: 0
+  Gem_Timer_Power: 1
+  Gem_Trigger: 0
+  Gem_Spd: 0.1
 --- !u!1 &2456324546618996996
 GameObject:
   m_ObjectHideFlags: 0
@@ -2411,15 +2411,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daaf7404a7f26b54eb7ed7d7343722ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GemBezierVec:
+  Gem_Bezier_Vec:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
-  GemTimer: 0
-  GemTimerPower: 1
-  GemTrigger: 0
-  GemSpd: 0.1
+  Gem_Timer: 0
+  Gem_Timer_Power: 1
+  Gem_Trigger: 0
+  Gem_Spd: 0.1
 --- !u!1 &2504814214453559765
 GameObject:
   m_ObjectHideFlags: 0
@@ -2508,7 +2508,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0
 --- !u!1 &2522042258622420158
 GameObject:
   m_ObjectHideFlags: 0
@@ -2597,7 +2597,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0
 --- !u!1 &2527584482917178756
 GameObject:
   m_ObjectHideFlags: 0
@@ -2686,15 +2686,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daaf7404a7f26b54eb7ed7d7343722ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GemBezierVec:
+  Gem_Bezier_Vec:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
-  GemTimer: 0
-  GemTimerPower: 1
-  GemTrigger: 0
-  GemSpd: 0.1
+  Gem_Timer: 0
+  Gem_Timer_Power: 1
+  Gem_Trigger: 0
+  Gem_Spd: 0.1
 --- !u!1 &2566227493349932211
 GameObject:
   m_ObjectHideFlags: 0
@@ -2827,15 +2827,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daaf7404a7f26b54eb7ed7d7343722ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GemBezierVec:
+  Gem_Bezier_Vec:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
-  GemTimer: 0
-  GemTimerPower: 1
-  GemTrigger: 0
-  GemSpd: 0.1
+  Gem_Timer: 0
+  Gem_Timer_Power: 1
+  Gem_Trigger: 0
+  Gem_Spd: 0.1
 --- !u!1 &2954912775526561012
 GameObject:
   m_ObjectHideFlags: 0
@@ -3448,7 +3448,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0
 --- !u!1 &3299116712643271703
 GameObject:
   m_ObjectHideFlags: 0
@@ -3572,8 +3572,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8499938822972709633}
-        m_TargetAssemblyTypeName: TreasureBoxController, Assembly-CSharp
-        m_MethodName: TreasureClose
+        m_TargetAssemblyTypeName: Treasure_Box, Assembly-CSharp
+        m_MethodName: Treasure_Close
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3584,8 +3584,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 5957474556425668119}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: UIClickAudioPlay
+        m_TargetAssemblyTypeName: Audio_Manager, Assembly-CSharp
+        m_MethodName: UI_Click_Audio_Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3698,7 +3698,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0
 --- !u!1 &3413892662431398092
 GameObject:
   m_ObjectHideFlags: 0
@@ -3869,7 +3869,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0
 --- !u!1 &3634029945180401174
 GameObject:
   m_ObjectHideFlags: 0
@@ -4033,15 +4033,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daaf7404a7f26b54eb7ed7d7343722ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GemBezierVec:
+  Gem_Bezier_Vec:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
-  GemTimer: 0
-  GemTimerPower: 1
-  GemTrigger: 0
-  GemSpd: 0.1
+  Gem_Timer: 0
+  Gem_Timer_Power: 1
+  Gem_Trigger: 0
+  Gem_Spd: 0.1
 --- !u!1 &3664043946082812427
 GameObject:
   m_ObjectHideFlags: 0
@@ -4219,15 +4219,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daaf7404a7f26b54eb7ed7d7343722ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GemBezierVec:
+  Gem_Bezier_Vec:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
-  GemTimer: 0
-  GemTimerPower: 1
-  GemTrigger: 0
-  GemSpd: 0.1
+  Gem_Timer: 0
+  Gem_Timer_Power: 1
+  Gem_Trigger: 0
+  Gem_Spd: 0.1
 --- !u!1 &3705690298120154111
 GameObject:
   m_ObjectHideFlags: 0
@@ -4359,7 +4359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0
 --- !u!1 &3969925883269915070
 GameObject:
   m_ObjectHideFlags: 0
@@ -4612,7 +4612,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0
 --- !u!1 &4309166141623338690
 GameObject:
   m_ObjectHideFlags: 0
@@ -4701,15 +4701,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daaf7404a7f26b54eb7ed7d7343722ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GemBezierVec:
+  Gem_Bezier_Vec:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
-  GemTimer: 0
-  GemTimerPower: 1
-  GemTrigger: 0
-  GemSpd: 0.1
+  Gem_Timer: 0
+  Gem_Timer_Power: 1
+  Gem_Trigger: 0
+  Gem_Spd: 0.1
 --- !u!1 &4336364321729749956
 GameObject:
   m_ObjectHideFlags: 0
@@ -4798,7 +4798,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0
 --- !u!1 &4647107375167990019
 GameObject:
   m_ObjectHideFlags: 0
@@ -4962,7 +4962,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0
 --- !u!1 &4707220931171453044
 GameObject:
   m_ObjectHideFlags: 0
@@ -5051,7 +5051,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0
 --- !u!1 &4737228616697548383
 GameObject:
   m_ObjectHideFlags: 0
@@ -5140,15 +5140,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daaf7404a7f26b54eb7ed7d7343722ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GemBezierVec:
+  Gem_Bezier_Vec:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
-  GemTimer: 0
-  GemTimerPower: 1
-  GemTrigger: 0
-  GemSpd: 0.1
+  Gem_Timer: 0
+  Gem_Timer_Power: 1
+  Gem_Trigger: 0
+  Gem_Spd: 0.1
 --- !u!1 &4804284173888389026
 GameObject:
   m_ObjectHideFlags: 0
@@ -5919,17 +5919,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d05bcbbf7844a98488d0cc1c4f1fcaef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UIM: {fileID: 4804284174502789122}
-  UnitM: {fileID: 4804284174763224210}
-  GameModeM: {fileID: 2503191326534019746}
-  PoolM: {fileID: 4804284175453765339}
-  ResourceM: {fileID: 4804284174803483581}
-  AudioM: {fileID: 5957474556425668119}
-  SynergyM: {fileID: 1470498400370209956}
+  UI_M: {fileID: 4804284174502789122}
+  Unit_M: {fileID: 4804284174763224210}
+  GameMode_M: {fileID: 2503191326534019746}
+  Pool_M: {fileID: 4804284175453765339}
+  Resource_M: {fileID: 4804284174803483581}
+  Audio_M: {fileID: 5957474556425668119}
+  Synergy_M: {fileID: 1470498400370209956}
   inputManager: {fileID: 647447307507227719}
-  TESTWP: 0
-  TESTEQ: 0
-  TESTPS: 0
+  TEST_WP: 0
+  TEST_EQ: 0
+  TEST_PS: 0
 --- !u!1 &4804284174002663768
 GameObject:
   m_ObjectHideFlags: 0
@@ -9196,68 +9196,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e80dda6006ae6824db09404e13f23aa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  KillCountText: {fileID: 4804284174414644627}
-  TimeCountText: {fileID: 4804284175580263818}
-  PlayerLevelCountText: {fileID: 4804284175356384608}
-  GemCountImage: {fileID: 4804284174819295783}
-  PlayerHPbarImage: {fileID: 4804284174491577897}
-  PeachoneRangeImage: {fileID: 4804284175419072542}
-  PeachoneImage: {fileID: 4804284175620811470}
-  ForceImage: {fileID: 7213188661889909159}
-  WaveText: {fileID: 6800509771882351599}
-  GameStateText: {fileID: 1192769944805162772}
-  PanelStyleText: {fileID: 7458339555872894223}
-  GamePoolReadyText: {fileID: 7591724798707149181}
-  MissionText: {fileID: 6925825672768548568}
-  BasicPanel: {fileID: 4804284174599531382}
-  IngameSinkPanel: {fileID: 4804284174133600964}
-  PlayerInformationPanel: {fileID: 4804284174059946177}
-  PausePanel: {fileID: 4804284174770416516}
-  SelectItemPanel: {fileID: 4804284174550254003}
-  GameOverPanel: {fileID: 4804284174483110642}
-  GameStartPanel: {fileID: 4804284175986551025}
-  GameTitlePanel: {fileID: 4804284175799493644}
-  GameClearPanel: {fileID: 6588594315391215549}
-  GameEndPanel: {fileID: 6167708233781573673}
-  TreasureChestPanel: {fileID: 1433630479104487151}
-  IngameDebugLog: {fileID: 453838928502442327}
-  StartWeaponButton:
+  Kill_Count_Text: {fileID: 4804284174414644627}
+  Time_Count_Text: {fileID: 4804284175580263818}
+  Player_Level_Count_Text: {fileID: 4804284175356384608}
+  Gem_Count_Image: {fileID: 4804284174819295783}
+  Player_HPbar_Image: {fileID: 4804284174491577897}
+  Peachone_Range_Image: {fileID: 4804284175419072542}
+  Peachone_Image: {fileID: 4804284175620811470}
+  Force_Image: {fileID: 7213188661889909159}
+  Wave_Text: {fileID: 6800509771882351599}
+  Game_State_Text: {fileID: 1192769944805162772}
+  Panel_Style_Text: {fileID: 7458339555872894223}
+  Game_Pool_Ready_Text: {fileID: 7591724798707149181}
+  Mission_Text: {fileID: 6925825672768548568}
+  Basic_Panel: {fileID: 4804284174599531382}
+  Ingame_Sink_Panel: {fileID: 4804284174133600964}
+  Player_Information_Panel: {fileID: 4804284174059946177}
+  Pause_Panel: {fileID: 4804284174770416516}
+  Select_Item_Panel: {fileID: 4804284174550254003}
+  Game_Over_Panel: {fileID: 4804284174483110642}
+  Game_Start_Panel: {fileID: 4804284175986551025}
+  Game_Title_Panel: {fileID: 4804284175799493644}
+  Game_Clear_Panel: {fileID: 6588594315391215549}
+  Game_End_Panel: {fileID: 6167708233781573673}
+  Treasure_Chest_Panel: {fileID: 1433630479104487151}
+  Ingame_Debug_Log: {fileID: 453838928502442327}
+  Start_Weapon_Button:
   - {fileID: 4804284175727256242}
   - {fileID: 4804284175039849765}
-  StartWeaponIconImage:
+  Start_Weapon_Icon_Image:
   - {fileID: 4804284175690767565}
   - {fileID: 4804284175197134792}
-  StartWeaponNameText:
+  Start_Weapon_Name_Text:
   - {fileID: 4804284175363145462}
   - {fileID: 4804284175178651237}
-  StartWeaponExampleText:
+  Start_Weapon_Example_Text:
   - {fileID: 4804284175599879817}
   - {fileID: 4804284175508842970}
-  StartLodingText: {fileID: 7076501322849624558}
-  StartFirstWeaponNumber: 0
-  StartSecondWeaponNumber: 0
-  WeaponIconList: []
-  AccessoryIconList: []
-  SelectFirstItemNumber: 0
-  SelectSecondItemNumber: 0
-  SelectThirdItemNumber: 0
-  SelectItemButton:
+  Start_Loding_Text: {fileID: 7076501322849624558}
+  Start_First_Weapon_Number: 0
+  Start_Second_Weapon_Number: 0
+  Weapon_Icon_List: []
+  Accessory_Icon_List: []
+  Select_First_Item_Number: 0
+  Select_Second_Item_Number: 0
+  Select_Third_Item_Number: 0
+  Select_Item_Button:
   - {fileID: 4804284175530765345}
   - {fileID: 4804284174726574741}
   - {fileID: 4804284174639915123}
-  SelectItemIconImage:
+  Select_Item_Icon_Image:
   - {fileID: 4804284174947076944}
   - {fileID: 4804284176015466333}
   - {fileID: 4804284174580868891}
-  SelectItemNameText:
+  Select_Item_Name_Text:
   - {fileID: 4804284175034114924}
   - {fileID: 4804284175400251863}
   - {fileID: 4804284176012574983}
-  SelectItemExampleText:
+  Select_Item_Example_Text:
   - {fileID: 4804284175310311812}
   - {fileID: 4804284175957715111}
   - {fileID: 4804284174492473340}
-  BasicCurrentWeaponIconImage:
+  Basic_Current_Weapon_Icon_Image:
   - {fileID: 4804284174674611357}
   - {fileID: 4804284175669068950}
   - {fileID: 4804284174929358487}
@@ -9268,18 +9268,8 @@ MonoBehaviour:
   - {fileID: 4804284175626100560}
   - {fileID: 4804284175216559222}
   - {fileID: 4804284173888389024}
-  BasicCurrentAccessoryIconImage:
-  - {fileID: 4804284173903334784}
-  - {fileID: 4804284175733195063}
-  - {fileID: 4804284175663510432}
-  - {fileID: 4804284175282691974}
-  - {fileID: 4804284174729113530}
-  - {fileID: 4804284174767744192}
-  - {fileID: 4804284174940308201}
-  - {fileID: 4804284174024637585}
-  - {fileID: 4804284175034199865}
-  - {fileID: 4804284175915400490}
-  WeaponLevelText:
+  Basic_Current_Accessory_Icon_Image: []
+  Weapon_Level_Text:
   - {fileID: 4804284174191611951}
   - {fileID: 4804284173964236634}
   - {fileID: 4804284175321066323}
@@ -9290,93 +9280,73 @@ MonoBehaviour:
   - {fileID: 4804284174976279077}
   - {fileID: 4804284173943133312}
   - {fileID: 4804284175771940552}
-  AccessoryLevelText:
-  - {fileID: 4804284174722127985}
-  - {fileID: 4804284174017412240}
-  - {fileID: 4804284174580089396}
-  - {fileID: 4804284175353323317}
-  - {fileID: 4804284173953928956}
-  - {fileID: 4804284175965385981}
-  - {fileID: 4804284175963758168}
-  - {fileID: 4804284174736673726}
-  - {fileID: 4804284175648287131}
-  - {fileID: 4804284174672082601}
-  PlayerInfosCurrentWeaponIconImage:
-  - {fileID: 4804284174674611357}
-  - {fileID: 4804284175669068950}
-  - {fileID: 4804284174929358487}
-  - {fileID: 4804284175575435045}
-  - {fileID: 4804284174843665236}
-  - {fileID: 4804284174852954435}
-  - {fileID: 4804284175418902422}
-  - {fileID: 4804284175626100560}
-  - {fileID: 4804284175216559222}
-  - {fileID: 4804284173888389024}
-  PlayerInfosCurrentAccessoryIconImage:
-  - {fileID: 4804284173903334784}
-  - {fileID: 4804284175733195063}
-  - {fileID: 4804284175663510432}
-  - {fileID: 4804284175282691974}
-  - {fileID: 4804284174729113530}
-  - {fileID: 4804284174767744192}
-  - {fileID: 4804284174940308201}
-  - {fileID: 4804284174024637585}
-  - {fileID: 4804284175034199865}
-  - {fileID: 4804284175915400490}
-  PlayerInfosPaseOneText:
+  Accessory_Level_Text: []
+  Player_Info_s_Current_Weapon_Icon_Image:
+  - {fileID: 4804284174642062733}
+  - {fileID: 4804284175389888112}
+  - {fileID: 4804284175319164119}
+  - {fileID: 4804284175654754802}
+  - {fileID: 4804284174674612240}
+  - {fileID: 4804284174233671664}
+  - {fileID: 4804284175421397242}
+  - {fileID: 4804284175523597985}
+  - {fileID: 4804284174510468953}
+  - {fileID: 4804284174969652638}
+  Player_Info_s_Current_Accessory_Icon_Image: []
+  Player_Info_s_Pase_One_Text:
   - {fileID: 4804284175549973359}
   - {fileID: 4804284174813474969}
   - {fileID: 4804284173916116534}
   - {fileID: 4804284175725700373}
   - {fileID: 4804284175899975557}
-  PlayerInfosPaseTwoText:
+  Player_Info_s_Pase_Two_Text:
   - {fileID: 4804284174911867452}
   - {fileID: 4804284174483593359}
   - {fileID: 4804284175102325988}
   - {fileID: 4804284174324497081}
   - {fileID: 4804284174659692662}
-  WPeachoneDeg: 0
-  WPeachoneRangeDeg: 0
+  W_Peachone_Deg: 0
+  W_Peachone_Range_Deg: 0
   isLevelUp: 0
   Speed: 1
-  CurrentBlue: 0
+  Current_Blue: 0
   Blinking: 0
-  TreasureItemImage01: {fileID: 3969925883269915070}
-  TreasureItemImage02: {fileID: 9040645725054455488}
-  TreasureGemImageList: {fileID: 5972957131058686081}
-  TreasureReelImage: {fileID: 4206545828451020990}
-  TreasureItemMask: {fileID: 5642641575101674527}
-  TreasureSelectItemImage: {fileID: 7331924948144522513}
-  TreasureFoundText: {fileID: 1384885857967629751}
-  TreasureGotGem: {fileID: 0}
-  TreasureGemParent: {fileID: 0}
-  TreasureChestImage: {fileID: 7287913041734344323}
-  CloseChest: {fileID: -962249426, guid: fa1ffc854ddd3214eae3ea6a9ea37a67, type: 3}
-  OpenChest: {fileID: 92702572, guid: fa1ffc854ddd3214eae3ea6a9ea37a67, type: 3}
-  TreasureOpenButton: {fileID: 7785082521223694202}
-  TreasureCloseButton: {fileID: 3960069401841834119}
-  WPOptions: []
-  EQOptions: []
-  PSOptions: []
-  WeaponOn: 0
-  AccessoryOn: 0
-  PanelStyleOn: 0
-  HelpOn: 0
-  ConfigurationOn: 0
-  WindowOptionsOn: 0
-  WidgetsOn: 0
-  LayoutScrollingOn: 0
-  PopupsModalOn: 0
-  TablesColumnsOn: 0
-  InputsFocusOn: 0
+  Treasure_Item_Image_01: {fileID: 3969925883269915070}
+  Treasure_Item_Image_02: {fileID: 9040645725054455488}
+  Treasure_Gem_Image_List: {fileID: 5972957131058686081}
+  Treasure_Reel_Image: {fileID: 4206545828451020990}
+  Treasure_Item_Mask: {fileID: 5642641575101674527}
+  Treasure_Select_Item_Image: {fileID: 7331924948144522513}
+  Treasure_Found_Text: {fileID: 1384885857967629751}
+  Treasure_Got_Gem: {fileID: 0}
+  Treasure_Gem_Parent: {fileID: 0}
+  Treasure_Chest_Image: {fileID: 7287913041734344323}
+  Close_Chest: {fileID: -962249426, guid: fa1ffc854ddd3214eae3ea6a9ea37a67, type: 3}
+  Open_Chest: {fileID: 92702572, guid: fa1ffc854ddd3214eae3ea6a9ea37a67, type: 3}
+  Treasure_Open_Button: {fileID: 7785082521223694202}
+  Treasure_Close_Button: {fileID: 3960069401841834119}
+  WP_Options: []
+  EQ_Options: []
+  PS_Options: []
+  Weapon_On: 0
+  Accessory_On: 0
+  PanelStyle_On: 0
+  Help_On: 0
+  Configuration_On: 0
+  WindowOptions_On: 0
+  Widgets_On: 0
+  LayoutScrolling_On: 0
+  PopupsModal_On: 0
+  TablesColumns_On: 0
+  InputsFocus_On: 0
   WantCaptureMouse: 1
   WantCaptureKeyboard: 0
   NavActive: 0
-  PlayerLevelUp: {fileID: 7948640752647043908}
-  TreasureBox: {fileID: 8499938822972709633}
-  UIOnGUI: {fileID: 8354280651884545918}
-  UIPeachone: {fileID: 4999160390789079736}
-  UIForce: {fileID: 4891716009944892478}
+  Player_Level_Up: {fileID: 7948640752647043908}
+  Treasure_Box: {fileID: 8499938822972709633}
+  UI_OnGUI: {fileID: 8354280651884545918}
+  UI_Peachone: {fileID: 4999160390789079736}
+  UI_Force: {fileID: 4891716009944892478}
 --- !u!1 &4804284174505357842
 GameObject:
   m_ObjectHideFlags: 0
@@ -10623,8 +10593,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7948640752647043908}
-        m_TargetAssemblyTypeName: PlayerLevelUpController, Assembly-CSharp
-        m_MethodName: ClickSelectItemButton
+        m_TargetAssemblyTypeName: Player_Level_Up, Assembly-CSharp
+        m_MethodName: Click_Select_Item_Button
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10635,8 +10605,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 5957474556425668119}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: UIClickAudioPlay
+        m_TargetAssemblyTypeName: Audio_Manager, Assembly-CSharp
+        m_MethodName: UI_Click_Audio_Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11295,8 +11265,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2503191326534019746}
-        m_TargetAssemblyTypeName: GameModeManager, Assembly-CSharp
-        m_MethodName: ButtonGamePause
+        m_TargetAssemblyTypeName: GameMode_Manager, Assembly-CSharp
+        m_MethodName: Button_Game_Pause
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11307,8 +11277,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 5957474556425668119}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: UIClickAudioPlay
+        m_TargetAssemblyTypeName: Audio_Manager, Assembly-CSharp
+        m_MethodName: UI_Click_Audio_Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11554,8 +11524,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7948640752647043908}
-        m_TargetAssemblyTypeName: PlayerLevelUpController, Assembly-CSharp
-        m_MethodName: ClickSelectItemButton
+        m_TargetAssemblyTypeName: Player_Level_Up, Assembly-CSharp
+        m_MethodName: Click_Select_Item_Button
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11566,8 +11536,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 5957474556425668119}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: UIClickAudioPlay
+        m_TargetAssemblyTypeName: Audio_Manager, Assembly-CSharp
+        m_MethodName: UI_Click_Audio_Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11813,11 +11783,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4cab84e7dc54404db76877c09001825, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UnitF: {fileID: 5352030031290050003}
-  ProjectileF: {fileID: 1773877647299485795}
-  ItemF: {fileID: 7984276281292347379}
-  UIF: {fileID: 4233770642693485166}
-  MissionF: {fileID: 6385055919191446121}
+  Unit_F: {fileID: 5352030031290050003}
+  Projectile_F: {fileID: 1773877647299485795}
+  Item_F: {fileID: 7984276281292347379}
+  UI_F: {fileID: 4233770642693485166}
+  Mission_F: {fileID: 6385055919191446121}
 --- !u!1 &4804284174764696381
 GameObject:
   m_ObjectHideFlags: 0
@@ -12382,30 +12352,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51dbc32ec4fdcb241a38a503c6c6f71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UnitDatas:
+  STO_Units:
   - {fileID: 11400000, guid: c17b6f176924d844187a9122c7e92817, type: 2}
-  - {fileID: 11400000, guid: 513c0e54d46a9464f9580043547751fb, type: 2}
   - {fileID: 11400000, guid: e8e35d902247f794eb6ccfdc3c67f631, type: 2}
+  - {fileID: 11400000, guid: 513c0e54d46a9464f9580043547751fb, type: 2}
+  - {fileID: 11400000, guid: 409c17b017b081f47842ddd11212fa67, type: 2}
   - {fileID: 11400000, guid: 3994c23db972a2843bd0ce87c363bfcb, type: 2}
   - {fileID: 11400000, guid: fde445e79feeea245b3957b0a68f4988, type: 2}
-  - {fileID: 11400000, guid: d77808833d3ba814394fd5cbb6e9866a, type: 2}
   - {fileID: 11400000, guid: 9c3c456a198cc4b4ca77dc83165cb0c1, type: 2}
+  - {fileID: 11400000, guid: d77808833d3ba814394fd5cbb6e9866a, type: 2}
   - {fileID: 11400000, guid: 9e4369f8bf5a10f49897e4f1f3d6e456, type: 2}
-  - {fileID: 11400000, guid: 409c17b017b081f47842ddd11212fa67, type: 2}
   - {fileID: 11400000, guid: ed403524fabf84643ac689ec97229bb1, type: 2}
   - {fileID: 11400000, guid: 985794303fa17d54b86745d628b7d5d7, type: 2}
-  WeaponDatas:
+  STO_Weapons:
   - {fileID: 11400000, guid: 194e911e033c8634b87175de48c1ffc3, type: 2}
-  - {fileID: 11400000, guid: f31095aa710b0f14eafd7c7d3f63e420, type: 2}
-  - {fileID: 11400000, guid: 1ddebb8b73839394d950eacee950cf8d, type: 2}
-  - {fileID: 11400000, guid: 1a51459c606964e4f9e1cf368bbb2fee, type: 2}
   - {fileID: 11400000, guid: d5a85baeffec97b42949702a4d91203b, type: 2}
-  - {fileID: 11400000, guid: c675246aa4ca7d7498330279cfb5863b, type: 2}
-  - {fileID: 11400000, guid: 3e2c2e2da1e86c54d83fec6383765104, type: 2}
   - {fileID: 11400000, guid: 9f7a76bb7ea58b14ea6b88a6428e02ac, type: 2}
-  - {fileID: 11400000, guid: 2c4eb00972c920d44b01351ffa1e9185, type: 2}
+  - {fileID: 11400000, guid: 1ddebb8b73839394d950eacee950cf8d, type: 2}
+  - {fileID: 11400000, guid: f31095aa710b0f14eafd7c7d3f63e420, type: 2}
+  - {fileID: 11400000, guid: 1a51459c606964e4f9e1cf368bbb2fee, type: 2}
+  - {fileID: 11400000, guid: c675246aa4ca7d7498330279cfb5863b, type: 2}
   - {fileID: 11400000, guid: c597d0264c02d674999239e9d1c4f2b1, type: 2}
-  WaveDatas:
+  - {fileID: 11400000, guid: 2c4eb00972c920d44b01351ffa1e9185, type: 2}
+  - {fileID: 11400000, guid: 3e2c2e2da1e86c54d83fec6383765104, type: 2}
+  STO_Waves:
   - {fileID: 11400000, guid: 0313d29034297294aab8061eb4d53bd9, type: 2}
   - {fileID: 11400000, guid: ca70f3280770abe45883a9850aea785e, type: 2}
   - {fileID: 11400000, guid: 809e0d041bc110c429238849945314e0, type: 2}
@@ -12422,21 +12392,21 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 94d69359a07907643a3ffecbfb9549c1, type: 2}
   - {fileID: 11400000, guid: e5a462580b4e98f479f6c931197cadbc, type: 2}
   - {fileID: 11400000, guid: 05ae0b7592e8e5243b15fe968eb0e96b, type: 2}
-  - {fileID: 11400000, guid: cee5cca3cc7dc2641bb182631b9d8c52, type: 2}
   - {fileID: 11400000, guid: 7112dfad03eba5c46807898b5c27237b, type: 2}
+  - {fileID: 11400000, guid: cee5cca3cc7dc2641bb182631b9d8c52, type: 2}
   - {fileID: 11400000, guid: dcdf2664bb378f8489742691ea9238a9, type: 2}
   - {fileID: 11400000, guid: ce1dbb3361a970d4c8745a0843497f8d, type: 2}
-  - {fileID: 11400000, guid: 09cc4421fb82949498cd58dfcb9131f5, type: 2}
-  - {fileID: 11400000, guid: 1d7a5fd7468a2a246af764fa51ccc022, type: 2}
-  - {fileID: 11400000, guid: 63a2b5f089f822f4c94ae65f02e00296, type: 2}
   - {fileID: 11400000, guid: 4f50ff620fe476342ac2b9a960818d78, type: 2}
   - {fileID: 11400000, guid: 885beb52d5625c444ac693fb3b95fa8e, type: 2}
   - {fileID: 11400000, guid: 41730043d6fcfad458099b0c2715998d, type: 2}
+  - {fileID: 11400000, guid: 09cc4421fb82949498cd58dfcb9131f5, type: 2}
+  - {fileID: 11400000, guid: 1d7a5fd7468a2a246af764fa51ccc022, type: 2}
+  - {fileID: 11400000, guid: 63a2b5f089f822f4c94ae65f02e00296, type: 2}
   - {fileID: 11400000, guid: 441b3bdf5f8944349840e494a7b195f3, type: 2}
   - {fileID: 11400000, guid: 28334e79af7baeb4ba8b3482d682d70a, type: 2}
   - {fileID: 11400000, guid: f8604906487ad824bb7175f933627d87, type: 2}
-  - {fileID: 11400000, guid: 2fd4aa50b23033a4fbe4478a7687bfca, type: 2}
   - {fileID: 11400000, guid: fe407ba63ec85484596587ee36b3603d, type: 2}
+  - {fileID: 11400000, guid: 2fd4aa50b23033a4fbe4478a7687bfca, type: 2}
   - {fileID: 11400000, guid: 42d77339588d01941b4e2c5f3f23474c, type: 2}
   - {fileID: 11400000, guid: 71c7ee04d2c4e4b4490ef4ae01b737c6, type: 2}
   - {fileID: 11400000, guid: 0a650a8058839f14c8e34f27fe975559, type: 2}
@@ -12461,12 +12431,17 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d92b430d67108c746817d250d290fe2a, type: 2}
   - {fileID: 11400000, guid: 57d95a7a038865d488ee42a2df97e209, type: 2}
   - {fileID: 11400000, guid: 935c5587a0300054a97d79ab264b2bd6, type: 2}
-  ItemDatas:
+  STO_Item_s:
   - {fileID: 11400000, guid: c380d8b1652d39341987f7beb9385ea8, type: 2}
   - {fileID: 11400000, guid: edaab3100acf0f0469bf2ff6ceb08e6b, type: 2}
   - {fileID: 11400000, guid: b9d011e2a3e835d4caadaa29887d5aed, type: 2}
-  VFXDatas: []
-  AccessoryDatas:
+  STO_VFXs:
+  - {fileID: 11400000, guid: 8b0f03e934b21bf45b7512400b1c4848, type: 2}
+  - {fileID: 11400000, guid: 7a2f84d0b58b94c48bc5d4e2d441d391, type: 2}
+  - {fileID: 11400000, guid: ad57b49b5097c134b88495cc6739566d, type: 2}
+  - {fileID: 11400000, guid: 80352f9f96de7144790a271719a4d298, type: 2}
+  - {fileID: 11400000, guid: 0ea58fe43ce4a1443850a98124f0e799, type: 2}
+  STO_Accessorys:
   - {fileID: 11400000, guid: 8c283ba984948fc49be20c1cf10ee81c, type: 2}
   - {fileID: 11400000, guid: ab514a82103aa7a4f9139877164c27c1, type: 2}
   - {fileID: 11400000, guid: dd145da24c80ab84da9b02382601201b, type: 2}
@@ -12477,11 +12452,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 69e44f33faa9e34409c31c59e3f53c80, type: 2}
   - {fileID: 11400000, guid: 1f47358149d92d543899f03d2f2bac07, type: 2}
   - {fileID: 11400000, guid: 1e4317ce329cbe94d8d44b9e9e4a22f2, type: 2}
-  MissionDatas:
+  STO_Missions:
   - {fileID: 11400000, guid: 52dfcf2f27a2fb648b3e354b28f2ea3d, type: 2}
   - {fileID: 11400000, guid: 630e8d0935707474d8f89969f8ca9e3c, type: 2}
   - {fileID: 11400000, guid: 730ba52aeaadb184ab25a709d722d621, type: 2}
-  GhostEffect: {fileID: 851581785488917680}
+  Ghost_Effect: {fileID: 851581785488917680}
 --- !u!1 &4804284174813474971
 GameObject:
   m_ObjectHideFlags: 0
@@ -12852,8 +12827,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4804284174502789122}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: OffPanel
+        m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+        m_MethodName: Off_Panel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12864,8 +12839,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 5957474556425668119}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: UIClickAudioPlay
+        m_TargetAssemblyTypeName: Audio_Manager, Assembly-CSharp
+        m_MethodName: UI_Click_Audio_Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -14571,8 +14546,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7948640752647043908}
-        m_TargetAssemblyTypeName: PlayerLevelUpController, Assembly-CSharp
-        m_MethodName: ClickStartWeaponSelect
+        m_TargetAssemblyTypeName: Player_Level_Up, Assembly-CSharp
+        m_MethodName: Click_Start_Weapon_Select
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -14583,8 +14558,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 5957474556425668119}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: UIClickAudioPlay
+        m_TargetAssemblyTypeName: Audio_Manager, Assembly-CSharp
+        m_MethodName: UI_Click_Audio_Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -15543,8 +15518,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2503191326534019746}
-        m_TargetAssemblyTypeName: GameModeManager, Assembly-CSharp
-        m_MethodName: GameExit
+        m_TargetAssemblyTypeName: GameMode_Manager, Assembly-CSharp
+        m_MethodName: Game_Exit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -15555,8 +15530,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 5957474556425668119}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: UIClickAudioPlay
+        m_TargetAssemblyTypeName: Audio_Manager, Assembly-CSharp
+        m_MethodName: UI_Click_Audio_Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -15795,8 +15770,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4804284174502789122}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: StartSelect
+        m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+        m_MethodName: Start_Select
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -15807,8 +15782,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 5957474556425668119}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: UIClickAudioPlay
+        m_TargetAssemblyTypeName: Audio_Manager, Assembly-CSharp
+        m_MethodName: UI_Click_Audio_Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -17082,7 +17057,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Ready: 0
-  DamageEffect: {fileID: 4372744659461893025}
+  Damage_Effect: {fileID: 4372744659461893025}
 --- !u!1 &4804284175492697016
 GameObject:
   m_ObjectHideFlags: 0
@@ -17628,8 +17603,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7948640752647043908}
-        m_TargetAssemblyTypeName: PlayerLevelUpController, Assembly-CSharp
-        m_MethodName: ClickSelectItemButton
+        m_TargetAssemblyTypeName: Player_Level_Up, Assembly-CSharp
+        m_MethodName: Click_Select_Item_Button
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -17640,8 +17615,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 5957474556425668119}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: UIClickAudioPlay
+        m_TargetAssemblyTypeName: Audio_Manager, Assembly-CSharp
+        m_MethodName: UI_Click_Audio_Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -18142,7 +18117,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -993227291, guid: b4b25c1c19fb3e8418ab35ea90835d58, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -19242,8 +19217,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2503191326534019746}
-        m_TargetAssemblyTypeName: GameModeManager, Assembly-CSharp
-        m_MethodName: GameExit
+        m_TargetAssemblyTypeName: GameMode_Manager, Assembly-CSharp
+        m_MethodName: Game_Exit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -19254,8 +19229,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 5957474556425668119}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: UIClickAudioPlay
+        m_TargetAssemblyTypeName: Audio_Manager, Assembly-CSharp
+        m_MethodName: UI_Click_Audio_Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -19543,8 +19518,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7948640752647043908}
-        m_TargetAssemblyTypeName: PlayerLevelUpController, Assembly-CSharp
-        m_MethodName: ClickStartWeaponSelect
+        m_TargetAssemblyTypeName: Player_Level_Up, Assembly-CSharp
+        m_MethodName: Click_Start_Weapon_Select
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -19555,8 +19530,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 5957474556425668119}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: UIClickAudioPlay
+        m_TargetAssemblyTypeName: Audio_Manager, Assembly-CSharp
+        m_MethodName: UI_Click_Audio_Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -19808,27 +19783,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ad86f467a15cad49aeae28b6aa13aec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GMState: 0
-  CurrentPlayer: {fileID: 0}
-  EnemyList: []
+  GM_State: 0
+  Current_Player: {fileID: 0}
+  Enemy_List: []
   missionList: []
-  ItemList: []
-  CurrentCamera: {fileID: 0}
-  TilemapList: []
-  KillCount: 0
-  GemCount: 0
-  CurrentGem: 0
-  MaxGem: 5
-  BaseMaxGem: 5
-  PlayerLevelCount: 0
-  GameTime: 0
-  UseWaveDataList: []
-  GameStop: 0
-  FollowSpeed: 4
-  FixedCameraZ: -10
-  TilemapSize: 40
-  TilemapBoundaryOffset: 1
-  TilemapOverlapOffset: 0.1
+  Item_List: []
+  Current_Camera: {fileID: 0}
+  Tilemap_List:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  Kill_Count: 0
+  Gem_Count: 0
+  Current_Gem: 0
+  Max_Gem: 5
+  Base_Max_Gem: 5
+  Player_Level_Count: 0
+  Game_Time: 0
+  Use_STO_Wave_List: []
+  Game_Stop: 0
+  Follow_Speed: 4
+  Fixed_Camera_Z: -10
+  Tilemap_Size: 40
+  Tilemap_Boundary_Offset: 1
+  Tilemap_Overlap_Offset: 0.1
 --- !u!1 &4804284175762077152
 GameObject:
   m_ObjectHideFlags: 0
@@ -21324,19 +21303,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 103a679b04d4cfa4dbedd86740ebc87e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureStop: 0
-  TreasureOpenChset: 0
-  TreasureGemVecPos:
+  Treasure_Stop: 0
+  Treasure_Open_Chset: 0
+  Treasure_Gem_Vec_Pos:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
-  TreasureGemTimer: 0
-  TreasureGemTimerPower: 1
-  TreasureTimer: 0
-  TreasureItemNumber: 0
-  MaskRouletteTime: 0
-  MaskRoulettePos: 0
+  Treasure_Gem_Timer: 0
+  Treasure_Gem_Timer_Power: 1
+  Treasure_Timer: 0
+  Treasure_Item_Number: 0
+  Mask_Roulette_Time: 0
+  Mask_Roulette_Pos: 0
 --- !u!1 &4954489411738544700
 GameObject:
   m_ObjectHideFlags: 0
@@ -21425,15 +21404,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daaf7404a7f26b54eb7ed7d7343722ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GemBezierVec:
+  Gem_Bezier_Vec:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
-  GemTimer: 0
-  GemTimerPower: 1
-  GemTrigger: 0
-  GemSpd: 0.1
+  Gem_Timer: 0
+  Gem_Timer_Power: 1
+  Gem_Trigger: 0
+  Gem_Spd: 0.1
 --- !u!1 &4985388216600580626
 GameObject:
   m_ObjectHideFlags: 0
@@ -21522,7 +21501,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0
 --- !u!1 &5036082885724888703
 GameObject:
   m_ObjectHideFlags: 0
@@ -21611,15 +21590,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daaf7404a7f26b54eb7ed7d7343722ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GemBezierVec:
+  Gem_Bezier_Vec:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
-  GemTimer: 0
-  GemTimerPower: 1
-  GemTrigger: 0
-  GemSpd: 0.1
+  Gem_Timer: 0
+  Gem_Timer_Power: 1
+  Gem_Trigger: 0
+  Gem_Spd: 0.1
 --- !u!1 &5049004547488441338
 GameObject:
   m_ObjectHideFlags: 0
@@ -21742,8 +21721,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2503191326534019746}
-        m_TargetAssemblyTypeName: GameModeManager, Assembly-CSharp
-        m_MethodName: GameRestart
+        m_TargetAssemblyTypeName: GameMode_Manager, Assembly-CSharp
+        m_MethodName: Game_Restart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -21754,8 +21733,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 5957474556425668119}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: UIClickAudioPlay
+        m_TargetAssemblyTypeName: Audio_Manager, Assembly-CSharp
+        m_MethodName: UI_Click_Audio_Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -21962,8 +21941,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2503191326534019746}
-        m_TargetAssemblyTypeName: GameModeManager, Assembly-CSharp
-        m_MethodName: GameExit
+        m_TargetAssemblyTypeName: GameMode_Manager, Assembly-CSharp
+        m_MethodName: Game_Exit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -21974,8 +21953,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 5957474556425668119}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: UIClickAudioPlay
+        m_TargetAssemblyTypeName: Audio_Manager, Assembly-CSharp
+        m_MethodName: UI_Click_Audio_Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -22073,15 +22052,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daaf7404a7f26b54eb7ed7d7343722ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GemBezierVec:
+  Gem_Bezier_Vec:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
-  GemTimer: 0
-  GemTimerPower: 1
-  GemTrigger: 0
-  GemSpd: 0.1
+  Gem_Timer: 0
+  Gem_Timer_Power: 1
+  Gem_Trigger: 0
+  Gem_Spd: 0.1
 --- !u!1 &5299747367587906580
 GameObject:
   m_ObjectHideFlags: 0
@@ -22126,8 +22105,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80aa9bfa32658604faee0515f71607c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bossPrefab: {fileID: 0}
-  playerPrefab: {fileID: 0}
+  _bossPrefab: {fileID: 0}
+  _playerPrefab: {fileID: 0}
 --- !u!1 &5311195329443853166
 GameObject:
   m_ObjectHideFlags: 0
@@ -22295,15 +22274,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daaf7404a7f26b54eb7ed7d7343722ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GemBezierVec:
+  Gem_Bezier_Vec:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
-  GemTimer: 0
-  GemTimerPower: 1
-  GemTrigger: 0
-  GemSpd: 0.1
+  Gem_Timer: 0
+  Gem_Timer_Power: 1
+  Gem_Trigger: 0
+  Gem_Spd: 0.1
 --- !u!1 &5587972835484433976
 GameObject:
   m_ObjectHideFlags: 0
@@ -22392,7 +22371,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0
 --- !u!1 &5616836148736805269
 GameObject:
   m_ObjectHideFlags: 0
@@ -22460,7 +22439,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9f1c57ad6bbb6da428eb3c01ad49462d, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -27392,8 +27371,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2503191326534019746}
-        m_TargetAssemblyTypeName: GameModeManager, Assembly-CSharp
-        m_MethodName: GameExit
+        m_TargetAssemblyTypeName: GameMode_Manager, Assembly-CSharp
+        m_MethodName: Game_Exit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -27404,8 +27383,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 5957474556425668119}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: UIClickAudioPlay
+        m_TargetAssemblyTypeName: Audio_Manager, Assembly-CSharp
+        m_MethodName: UI_Click_Audio_Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -27503,7 +27482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0
 --- !u!1 &5815788249428578226
 GameObject:
   m_ObjectHideFlags: 0
@@ -27592,7 +27571,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0
 --- !u!1 &5929273394726924930
 GameObject:
   m_ObjectHideFlags: 0
@@ -27641,11 +27620,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d6de710a9fb232488d08f07db4612f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BackgroundAS: {fileID: 8599191182289561041}
-  UIClickAS: {fileID: 3847564060821154986}
-  LevelUpAS: {fileID: 8431334017362823130}
-  TreasureChestAS: {fileID: 741696833756178492}
-  EffectAudioList: []
+  Background_AS: {fileID: 8599191182289561041}
+  UI_Click_AS: {fileID: 3847564060821154986}
+  Level_Up_AS: {fileID: 8431334017362823130}
+  Treasure_Chest_AS: {fileID: 741696833756178492}
+  Effect_Audio_List: []
 --- !u!1 &5948058708942213185
 GameObject:
   m_ObjectHideFlags: 0
@@ -27734,7 +27713,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0
 --- !u!1 &5972957131058686081
 GameObject:
   m_ObjectHideFlags: 0
@@ -27878,15 +27857,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daaf7404a7f26b54eb7ed7d7343722ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GemBezierVec:
+  Gem_Bezier_Vec:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
-  GemTimer: 0
-  GemTimerPower: 1
-  GemTrigger: 0
-  GemSpd: 0.1
+  Gem_Timer: 0
+  Gem_Timer_Power: 1
+  Gem_Trigger: 0
+  Gem_Spd: 0.1
 --- !u!1 &6167708233781573673
 GameObject:
   m_ObjectHideFlags: 0
@@ -28276,7 +28255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0
 --- !u!1 &6588594315391215549
 GameObject:
   m_ObjectHideFlags: 0
@@ -28785,8 +28764,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8499938822972709633}
-        m_TargetAssemblyTypeName: TreasureBoxController, Assembly-CSharp
-        m_MethodName: TreasureOpen
+        m_TargetAssemblyTypeName: Treasure_Box, Assembly-CSharp
+        m_MethodName: Treasure_Open
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -28797,8 +28776,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 5957474556425668119}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: UIClickAudioPlay
+        m_TargetAssemblyTypeName: Audio_Manager, Assembly-CSharp
+        m_MethodName: UI_Click_Audio_Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -28896,15 +28875,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daaf7404a7f26b54eb7ed7d7343722ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GemBezierVec:
+  Gem_Bezier_Vec:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
-  GemTimer: 0
-  GemTimerPower: 1
-  GemTrigger: 0
-  GemSpd: 0.1
+  Gem_Timer: 0
+  Gem_Timer_Power: 1
+  Gem_Trigger: 0
+  Gem_Spd: 0.1
 --- !u!1 &7025914756035438934
 GameObject:
   m_ObjectHideFlags: 0
@@ -28993,7 +28972,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0
 --- !u!1 &7045839983170623237
 GameObject:
   m_ObjectHideFlags: 0
@@ -29082,7 +29061,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0
 --- !u!1 &7055300448989339871
 GameObject:
   m_ObjectHideFlags: 0
@@ -29171,7 +29150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0
 --- !u!1 &7074656160988342113
 GameObject:
   m_ObjectHideFlags: 0
@@ -29467,7 +29446,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0
 --- !u!1 &7366113739292436721
 GameObject:
   m_ObjectHideFlags: 0
@@ -29710,7 +29689,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0
 --- !u!1 &7524569739739314907
 GameObject:
   m_ObjectHideFlags: 0
@@ -29876,7 +29855,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0
 --- !u!1 &7769972772445793688
 GameObject:
   m_ObjectHideFlags: 0
@@ -30044,7 +30023,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0
 --- !u!1 &7948341030416274705
 GameObject:
   m_ObjectHideFlags: 0
@@ -30133,7 +30112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0
 --- !u!1 &8010854878342414915
 GameObject:
   m_ObjectHideFlags: 0
@@ -30222,7 +30201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0
 --- !u!1 &8107590801951851083
 GameObject:
   m_ObjectHideFlags: 0
@@ -30311,7 +30290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0
 --- !u!1 &8235388840112243545
 GameObject:
   m_ObjectHideFlags: 0
@@ -30400,15 +30379,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daaf7404a7f26b54eb7ed7d7343722ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GemBezierVec:
+  Gem_Bezier_Vec:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
-  GemTimer: 0
-  GemTimerPower: 1
-  GemTrigger: 0
-  GemSpd: 0.1
+  Gem_Timer: 0
+  Gem_Timer_Power: 1
+  Gem_Trigger: 0
+  Gem_Spd: 0.1
 --- !u!1 &8267973089843358061
 GameObject:
   m_ObjectHideFlags: 0
@@ -30497,15 +30476,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daaf7404a7f26b54eb7ed7d7343722ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GemBezierVec:
+  Gem_Bezier_Vec:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
-  GemTimer: 0
-  GemTimerPower: 1
-  GemTrigger: 0
-  GemSpd: 0.1
+  Gem_Timer: 0
+  Gem_Timer_Power: 1
+  Gem_Trigger: 0
+  Gem_Spd: 0.1
 --- !u!1 &8325779384328400790
 GameObject:
   m_ObjectHideFlags: 0
@@ -30594,7 +30573,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0
 --- !u!1 &8406875119321592532
 GameObject:
   m_ObjectHideFlags: 0
@@ -30882,7 +30861,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0
 --- !u!1 &8855360477791427083
 GameObject:
   m_ObjectHideFlags: 0
@@ -31125,7 +31104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0
 --- !u!1 &9040645725054455488
 GameObject:
   m_ObjectHideFlags: 0
@@ -31296,7 +31275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0
 --- !u!1 &9092196775686098807
 GameObject:
   m_ObjectHideFlags: 0
@@ -31429,4 +31408,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa54dc4cfc1681344a634b8368475657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TreasureNum: 0
+  Treasure_Num: 0

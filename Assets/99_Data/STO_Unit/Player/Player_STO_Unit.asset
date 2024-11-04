@@ -12,30 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 926065fd38a5ed04a9cccdf9878daf80, type: 3}
   m_Name: Player_STO_Unit
   m_EditorClassIdentifier: 
-  UnitType: 0
-  SizeX: 0
-  SizeY: 0
-  OffsetX: 0
-  OffsetY: 0
-  spriteRendererSizeX: 0
-  spriteRendererSizeY: 0
-  Playerinfos:
+  UT: 0
+  Size_X: 0.4
+  Size_Y: 0.5
+  Offset_X: 0
+  Offset_Y: -0.15
+  SR_Size_X: 1.5
+  SR_Size_Y: 1.5
+  Player_info_s:
     HP: 400
-    UnitSpeed: 2
-    UnitDefense: 5
-    UnitWeaponDamage: 0
-    UnitWeaponProjSpeed: 0
-    UnitWeaponDuration: 0
-    UnitWeaponRange: 0
-    UnitWeaponCoolDown: 0
-    UnitWeaponProjNum: 0
-    UnitGetGemRange: 10
-  UnitEnemyHP: 0
-  UnitEnemySpeed: 0
-  UnitEnemyDamage: 0
-  SpriteImage: {fileID: 21300000, guid: f544e2216f7cfe64380b0a454b44fac0, type: 3}
-  EliteMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  DeathAudioClip: {fileID: 8300000, guid: 8fcf1a6ec75a82a45a76edb139715c0f, type: 3}
-  HittedAudioClip: {fileID: 8300000, guid: 9be37dfc2cbd2e14682c3de5281a7d2c, type: 3}
-  UnitAnimatorController: {fileID: 9100000, guid: 0c55218a3f17c4c48a38b0546ba9ec0f,
+    Unit_Speed: 2
+    Unit_Defense: 0
+    Unit_Weapon_Damage: 0
+    Unit_Weapon_Proj_Speed: 0
+    Unit_Weapon_Duration: 0
+    Unit_Weapon_Range: 0
+    Unit_Weapon_CoolDown: 0
+    Unit_Weapon_Proj_Num: 0
+    Unit_Get_Gem_Range: 1
+  Unit_Enemy_HP: 0
+  Unit_Enemy_Speed: 0
+  Unit_Enemy_Damage: 0
+  Sprite_Image: {fileID: 21300000, guid: f544e2216f7cfe64380b0a454b44fac0, type: 3}
+  Elite_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  Death_Audio_Clip: {fileID: 8300000, guid: 1ece410ba499eff4a8d28a980410ea74, type: 3}
+  Hitted_Audio_Clip: {fileID: 8300000, guid: 552ae3b7106f7da4fac65ea6a09e78f0, type: 3}
+  Unit_Animator_Controller: {fileID: 9100000, guid: 0c55218a3f17c4c48a38b0546ba9ec0f,
     type: 2}

@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: STO_Wave_3M_Orc 1
   m_EditorClassIdentifier: 
   WST: 0
-  WaveTime: 180
-  KillCount: 0
-  SpawnTime: 10
-  SpawnCount: 5
-  STOEnemy: {fileID: 11400000, guid: 9c3c456a198cc4b4ca77dc83165cb0c1, type: 2}
+  Wave_Time: 190
+  Kill_Count: 0
+  Spawn_Time: 10
+  Spawn_Count: 10
+  STO_Enemy: {fileID: 11400000, guid: 9c3c456a198cc4b4ca77dc83165cb0c1, type: 2}
   Elite: 0

@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Barrel_STO_Wave_6
   m_EditorClassIdentifier: 
   WST: 0
-  WaveTime: 90
-  KillCount: 0
-  SpawnTime: 1
-  SpawnCount: 1
-  STOEnemy: {fileID: 11400000, guid: 513c0e54d46a9464f9580043547751fb, type: 2}
+  Wave_Time: 180
+  Kill_Count: 0
+  Spawn_Time: 1
+  Spawn_Count: 1
+  STO_Enemy: {fileID: 11400000, guid: 513c0e54d46a9464f9580043547751fb, type: 2}
   Elite: 0

@@ -14,108 +14,109 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponType: 6
   WeaponKeywords: 4
-  WeaponName: "\uCC9C\uB465"
-  WeaponText: "\n(\uD654\uBA74 \uBC16 \uC801 \uD3EC\uD568)\n\uBB34\uC791\uC704 \uC801\uC5D0\uAC8C
-    \uCC9C\uB465\uC744\n\uB0B4\uB824\uAF42\uB294\uB2E4."
-  Infos:
-  - WeaponDamage: 0
-    WeaponSpeed: 0
-    WeaponRange: 0
-    WeaponTime: 0
-    WeaponPen: 0
-    WeaponCoolDown: 0
-    WeaponDuration: 0
-    WeaponKnock: 0
-    WeaponCount: 0
-    WeaponSize: 0
-  - WeaponDamage: 55
-    WeaponSpeed: 1
-    WeaponRange: 1
-    WeaponTime: 0
-    WeaponPen: 0
-    WeaponCoolDown: 3
-    WeaponDuration: 2
-    WeaponKnock: 0.5
-    WeaponCount: 1
-    WeaponSize: 1
-  - WeaponDamage: 55
-    WeaponSpeed: 1
-    WeaponRange: 1
-    WeaponTime: 0
-    WeaponPen: 0
-    WeaponCoolDown: 3
-    WeaponDuration: 2
-    WeaponKnock: 0.5
-    WeaponCount: 2
-    WeaponSize: 1
-  - WeaponDamage: 65
-    WeaponSpeed: 1
-    WeaponRange: 1
-    WeaponTime: 0
-    WeaponPen: 0
-    WeaponCoolDown: 3
-    WeaponDuration: 2
-    WeaponKnock: 0.5
-    WeaponCount: 2
-    WeaponSize: 1
-  - WeaponDamage: 65
-    WeaponSpeed: 1
-    WeaponRange: 1
-    WeaponTime: 0
-    WeaponPen: 0
-    WeaponCoolDown: 3
-    WeaponDuration: 2
-    WeaponKnock: 0.5
-    WeaponCount: 2
-    WeaponSize: 1
-  - WeaponDamage: 65
-    WeaponSpeed: 1
-    WeaponRange: 1
-    WeaponTime: 0
-    WeaponPen: 0
-    WeaponCoolDown: 3
-    WeaponDuration: 2
-    WeaponKnock: 0.5
-    WeaponCount: 3
-    WeaponSize: 1
-  - WeaponDamage: 65
-    WeaponSpeed: 1
-    WeaponRange: 1
-    WeaponTime: 0
-    WeaponPen: 0
-    WeaponCoolDown: 3
-    WeaponDuration: 2
-    WeaponKnock: 0.5
-    WeaponCount: 3
-    WeaponSize: 1
-  - WeaponDamage: 65
-    WeaponSpeed: 1
-    WeaponRange: 1
-    WeaponTime: 0
-    WeaponPen: 0
-    WeaponCoolDown: 3
-    WeaponDuration: 2
-    WeaponKnock: 0.5
-    WeaponCount: 3
-    WeaponSize: 1
-  - WeaponDamage: 75
-    WeaponSpeed: 1
-    WeaponRange: 1
-    WeaponTime: 0
-    WeaponPen: 0
-    WeaponCoolDown: 3
-    WeaponDuration: 2
-    WeaponKnock: 0.5
-    WeaponCount: 4
-    WeaponSize: 1
-  SizeX: 0
-  SizeY: 0
-  OffsetX: 0
-  OffsetY: 0
+  Weapon_Name: "\uBC88\uAC1C"
+  Weapon_Text: "\n\uBB34\uC791\uC704\uC758 \uC801\uB4E4\uC5D0\uAC8C\n(\uD654\uBA74\uBC16
+    \uC801 \uD3EC\uD568)\n\uBC88\uAC1C\uB97C \uB0B4\uB9B0\uB2E4."
+  Info_s:
+  - Weapon_Damage: 0
+    Weapon_Speed: 0
+    Weapon_Range: 0
+    Weapon_Time: 0
+    Weapon_Pen: 0
+    Weapon_CoolDown: 0
+    Weapon_Duration: 0
+    Weapon_Knock: 0
+    Weapon_Count: 0
+    Weapon_Size: 0
+  - Weapon_Damage: 50
+    Weapon_Speed: 1
+    Weapon_Range: 1
+    Weapon_Time: 0
+    Weapon_Pen: 0
+    Weapon_CoolDown: 4
+    Weapon_Duration: 2
+    Weapon_Knock: 0.5
+    Weapon_Count: 2
+    Weapon_Size: 2
+  - Weapon_Damage: 55
+    Weapon_Speed: 1
+    Weapon_Range: 1
+    Weapon_Time: 0
+    Weapon_Pen: 0
+    Weapon_CoolDown: 4
+    Weapon_Duration: 2
+    Weapon_Knock: 0.5
+    Weapon_Count: 2
+    Weapon_Size: 2
+  - Weapon_Damage: 55
+    Weapon_Speed: 1
+    Weapon_Range: 1
+    Weapon_Time: 0
+    Weapon_Pen: 0
+    Weapon_CoolDown: 4
+    Weapon_Duration: 2
+    Weapon_Knock: 0.5
+    Weapon_Count: 4
+    Weapon_Size: 2
+  - Weapon_Damage: 70
+    Weapon_Speed: 1
+    Weapon_Range: 1
+    Weapon_Time: 0
+    Weapon_Pen: 0
+    Weapon_CoolDown: 4
+    Weapon_Duration: 2
+    Weapon_Knock: 0.5
+    Weapon_Count: 4
+    Weapon_Size: 2
+  - Weapon_Damage: 70
+    Weapon_Speed: 1
+    Weapon_Range: 1
+    Weapon_Time: 0
+    Weapon_Pen: 0
+    Weapon_CoolDown: 4
+    Weapon_Duration: 2
+    Weapon_Knock: 0.5
+    Weapon_Count: 4
+    Weapon_Size: 2
+  - Weapon_Damage: 70
+    Weapon_Speed: 1
+    Weapon_Range: 1
+    Weapon_Time: 0
+    Weapon_Pen: 0
+    Weapon_CoolDown: 4
+    Weapon_Duration: 2
+    Weapon_Knock: 0.5
+    Weapon_Count: 5
+    Weapon_Size: 2
+  - Weapon_Damage: 80
+    Weapon_Speed: 1
+    Weapon_Range: 1
+    Weapon_Time: 0
+    Weapon_Pen: 0
+    Weapon_CoolDown: 4
+    Weapon_Duration: 2
+    Weapon_Knock: 0.5
+    Weapon_Count: 5
+    Weapon_Size: 2
+  - Weapon_Damage: 80
+    Weapon_Speed: 1
+    Weapon_Range: 1
+    Weapon_Time: 0
+    Weapon_Pen: 0
+    Weapon_CoolDown: 4
+    Weapon_Duration: 2
+    Weapon_Knock: 0.5
+    Weapon_Count: 6
+    Weapon_Size: 2
+  Size_X: 0.5
+  Size_Y: 0.7
+  Offset_X: 0
+  Offset_Y: -0.44
   Forever: 1
-  SpriteImage: {fileID: -788092463, guid: 016c2619b40e6054bb4ae246e25631e3, type: 3}
-  ItemImage: {fileID: 21300000, guid: 7d882f6a39d97084a9d65b34a8f326ea, type: 3}
-  SpriteMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  AttackingAudioClip: {fileID: 8300000, guid: f4b1873cdddc32147ac0ada8d2a3df2e, type: 3}
-  WeaponAnimatorController: {fileID: 9100000, guid: 75d8413f294846f4e913be81fa0e79fe,
+  Sprite_Image: {fileID: -788092463, guid: 016c2619b40e6054bb4ae246e25631e3, type: 3}
+  Item_Image: {fileID: 21300000, guid: 8ade9d606c178454fb4c966c16f5f4ae, type: 3}
+  Sprite_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  Attacking_Audio_Clip: {fileID: 8300000, guid: af1980c7ff23d4346863ae7222bf7c7d,
+    type: 3}
+  Weapon_Animator_Controller: {fileID: 9100000, guid: 75d8413f294846f4e913be81fa0e79fe,
     type: 2}

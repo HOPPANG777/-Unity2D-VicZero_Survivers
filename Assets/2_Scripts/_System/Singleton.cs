@@ -2,31 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// ì˜¤ë¸Œì íŠ¸ì— í•´ë‹¹ ì»´í¬ë„ŒíŠ¸ë¥¼ ë³µìˆ˜ê°œ ë¶™ì¼ ìˆ˜ ì—†ê²Œ í•˜ëŠ” ì–´íŠ¸ë¦¬ë·°íŠ¸
-[DisallowMultipleComponent]  // ì¤‘ë³µ ì»´í¬ë„ŒíŠ¸ ì¶”ê°€ ë°©ì§€
+// ¿ÀºêÁ§Æ®¿¡ ÇØ´ç ÄÄÆ÷³ÍÆ®¸¦ º¹¼ö°³ ºÙÀÏ ¼ö ¾ø°Ô ÇÏ´Â ¾îÆ®¸®ºäÆ®
+[DisallowMultipleComponent]  // Áßº¹ ÄÄÆ÷³ÍÆ® Ãß°¡ ¹æÁö
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
-    private static T _instance;
+    private static T instance;
     public static T instance
     {
         get
         {
-            if (_instance == null)
+            if (instance == null)
             {
                 GameObject singletonObject = new GameObject();
-                _instance = singletonObject.AddComponent<T>();
-                Debug.Log("singleton Manager has been created " + _instance.name);
+                instance = singletonObject.AddComponent<T>();
+                Debug.Log("singleton Manager has been created " + instance.name);
             }
-            return _instance;
+            return instance;
         }
     }
     protected virtual void Awake()
     {
-        if (_instance == null)
+        if (instance == null)
         {
-            _instance = this as T;
+            instance = this as T;
             DontDestroyOnLoad(gameObject);
-            Debug.Log("singleton Manager has been created " + _instance.name);
+            Debug.Log("singleton Manager has been created " + instance.name);
         }
         else
             Destroy(gameObject);
@@ -35,15 +35,15 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
     private void OnDestroy()
     {
-        Debug.Log(_instance.name + " íŒŒê´´ë¨");
+        Debug.Log(instance.name + " ÆÄ±«µÊ");
     }
 
 }
 
 
 #region
-//// ì˜¤ë¸Œì íŠ¸ì— í•´ë‹¹ ì»´í¬ë„ŒíŠ¸ë¥¼ ë³µìˆ˜ê°œ ë¶™ì¼ ìˆ˜ ì—†ê²Œ í•˜ëŠ” ì–´íŠ¸ë¦¬ë·°íŠ¸
-//[DisallowMultipleComponent]  // ì¤‘ë³µ ì»´í¬ë„ŒíŠ¸ ì¶”ê°€ ë°©ì§€
+//// ¿ÀºêÁ§Æ®¿¡ ÇØ´ç ÄÄÆ÷³ÍÆ®¸¦ º¹¼ö°³ ºÙÀÏ ¼ö ¾ø°Ô ÇÏ´Â ¾îÆ®¸®ºäÆ®
+//[DisallowMultipleComponent]  // Áßº¹ ÄÄÆ÷³ÍÆ® Ãß°¡ ¹æÁö
 //public abstract class SingletonBase<T> : MonoBehaviour where T : MonoBehaviour
 //{
 //    private static T Instance;
@@ -93,30 +93,30 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 //{
 //    private static T instance;
 //    private static bool isApplicationQuit = false;
-//    private static readonly object lockObj = new object();  // ìŠ¤ë ˆë“œ ì•ˆì „ì„± ì¶”ê°€
+//    private static readonly object lockObj = new object();  // ½º·¹µå ¾ÈÀü¼º Ãß°¡
 
 //    public static T Instance
 //    {
 //        get
 //        {
-//            // ì• í”Œë¦¬ì¼€ì´ì…˜ ì¢…ë£Œ í›„ì—ëŠ” nullì„ ë°˜í™˜
+//            // ¾ÖÇÃ¸®ÄÉÀÌ¼Ç Á¾·á ÈÄ¿¡´Â nullÀ» ¹İÈ¯
 //            if (isApplicationQuit)
 //                return null;
 
-//            lock (lockObj)  // ìŠ¤ë ˆë“œ ì•ˆì „ì„± í™•ë³´ë¥¼ ìœ„í•œ lock ì‚¬ìš©
+//            lock (lockObj)  // ½º·¹µå ¾ÈÀü¼º È®º¸¸¦ À§ÇÑ lock »ç¿ë
 //            {
 //                if (instance == null)
 //                {
 //                    T[] foundInstances = FindObjectsOfType<T>();
 
-//                    // 1. ì¸ìŠ¤í„´ìŠ¤ê°€ ì´ë¯¸ ì¡´ì¬í•  ê²½ìš° ì²« ë²ˆì§¸ë¡œ ì°¾ì€ ì¸ìŠ¤í„´ìŠ¤ ì‚¬ìš©
+//                    // 1. ÀÎ½ºÅÏ½º°¡ ÀÌ¹Ì Á¸ÀçÇÒ °æ¿ì Ã¹ ¹øÂ°·Î Ã£Àº ÀÎ½ºÅÏ½º »ç¿ë
 //                    if (foundInstances.Length > 0)
 //                    {
 //                        instance = foundInstances[0];
 //                        DontDestroyOnLoad(instance.gameObject);
 //                    }
 
-//                    // 2. ì¤‘ë³µëœ ì¸ìŠ¤í„´ìŠ¤ê°€ ìˆìœ¼ë©´ ë‚˜ë¨¸ì§€ ì‚­ì œ
+//                    // 2. Áßº¹µÈ ÀÎ½ºÅÏ½º°¡ ÀÖÀ¸¸é ³ª¸ÓÁö »èÁ¦
 //                    if (foundInstances.Length > 1)
 //                    {
 //                        for (int i = 1; i < foundInstances.Length; i++)
@@ -125,7 +125,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 //                        }
 //                    }
 
-//                    // 3. ì¸ìŠ¤í„´ìŠ¤ê°€ ì•„ì§ ì—†ì„ ê²½ìš° ìƒˆë¡œ ìƒì„±
+//                    // 3. ÀÎ½ºÅÏ½º°¡ ¾ÆÁ÷ ¾øÀ» °æ¿ì »õ·Î »ı¼º
 //                    if (instance == null)
 //                    {
 //                        GameObject newSingleton = new GameObject(typeof(T).Name);
@@ -140,7 +140,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
 //    protected virtual void Awake()
 //    {
-//        // ì¤‘ë³µëœ ì‹±ê¸€í†¤ ì¸ìŠ¤í„´ìŠ¤ê°€ ìˆìœ¼ë©´ íŒŒê´´
+//        // Áßº¹µÈ ½Ì±ÛÅæ ÀÎ½ºÅÏ½º°¡ ÀÖÀ¸¸é ÆÄ±«
 //        if (instance == null)
 //        {
 //            instance = this as T;
@@ -148,7 +148,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 //        }
 //        else if (instance != this)
 //        {
-//            Destroy(gameObject);  // ì¤‘ë³µ ì¸ìŠ¤í„´ìŠ¤ íŒŒê´´
+//            Destroy(gameObject);  // Áßº¹ ÀÎ½ºÅÏ½º ÆÄ±«
 //        }
 //    }
 

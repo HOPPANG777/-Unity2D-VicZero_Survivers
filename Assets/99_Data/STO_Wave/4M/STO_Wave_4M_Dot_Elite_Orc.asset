@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: STO_Wave_4M_Dot_Elite_Orc
   m_EditorClassIdentifier: 
   WST: 2
-  WaveTime: 260
-  KillCount: 0
-  SpawnTime: 10
-  SpawnCount: 25
-  STOEnemy: {fileID: 11400000, guid: d77808833d3ba814394fd5cbb6e9866a, type: 2}
+  Wave_Time: 250
+  Kill_Count: 0
+  Spawn_Time: 5
+  Spawn_Count: 30
+  STO_Enemy: {fileID: 11400000, guid: d77808833d3ba814394fd5cbb6e9866a, type: 2}
   Elite: 0

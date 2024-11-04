@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: STO_Wave_5M_Werewolf
   m_EditorClassIdentifier: 
   WST: 0
-  WaveTime: 340
-  KillCount: 0
-  SpawnTime: 20
-  SpawnCount: 5
-  STOEnemy: {fileID: 11400000, guid: 985794303fa17d54b86745d628b7d5d7, type: 2}
+  Wave_Time: 300
+  Kill_Count: 0
+  Spawn_Time: 1
+  Spawn_Count: 1
+  STO_Enemy: {fileID: 11400000, guid: 985794303fa17d54b86745d628b7d5d7, type: 2}
   Elite: 1

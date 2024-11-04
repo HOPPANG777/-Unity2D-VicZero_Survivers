@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: STO_Wave_0M_Slime 2
   m_EditorClassIdentifier: 
   WST: 0
-  WaveTime: 30
-  KillCount: 0
-  SpawnTime: 30
-  SpawnCount: 5
-  STOEnemy: {fileID: 11400000, guid: 9e4369f8bf5a10f49897e4f1f3d6e456, type: 2}
+  Wave_Time: 30
+  Kill_Count: 0
+  Spawn_Time: 10
+  Spawn_Count: 5
+  STO_Enemy: {fileID: 11400000, guid: 9e4369f8bf5a10f49897e4f1f3d6e456, type: 2}
   Elite: 0
