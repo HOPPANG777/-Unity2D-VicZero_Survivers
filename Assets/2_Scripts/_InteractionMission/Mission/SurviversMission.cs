@@ -54,7 +54,7 @@ public class SurviversMission : Mission
         if (_isMissionClear == true)
         {
             // Reward(보물상자)를 떨군 후 미션(발판) 삭제 
-            All_Manager.instance.Pool_M.MISC_Pool_Out(MISC_Type.Chest, this.gameObject.transform);  // 보물상자 드랍
+            All_Manager.instance.Pool_M.Item_Pool_Out(ItemType.Chest, this.gameObject.transform);  // 보물상자 드랍
             RemoveMission();  // 발판 삭제
         }
     }
@@ -64,11 +64,11 @@ public class SurviversMission : Mission
         Destroy(this.gameObject);
     }
 
-    public override void MissionSetting(Mission p_Mission, STO_Mission p_MTO)
+    public override void MissionSetting(Mission p_Mission, STO_Mission p_ItemTypeO)
     {
-        p_Mission.MissionType = p_MTO.missionType;
-        p_Mission.SpriteRenderer.sprite = p_MTO.Sprite;
-        p_Mission.SpriteRenderer.material = p_MTO.Material;
+        p_Mission.MissionType = p_ItemTypeO.missionType;
+        p_Mission.SpriteRenderer.sprite = p_ItemTypeO.Sprite;
+        p_Mission.SpriteRenderer.material = p_ItemTypeO.Material;
         p_Mission.SpriteRenderer.sortingOrder = -1;
     }
 

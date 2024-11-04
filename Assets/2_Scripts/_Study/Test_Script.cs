@@ -94,7 +94,7 @@ public class Test_Script : MonoBehaviour
 //    {
 //        if (Dir.magnitude > Dis)
 //        {
-//            if (this.UT != Unit_Type.Boss)
+//            if (this.UnitType != UnitType.Boss)
 //            {
 //                //this.gameObject.SetActive(false);
 
@@ -108,9 +108,9 @@ public class Test_Script : MonoBehaviour
 
 //        else if (Dir.magnitude <= Dis)
 //        {
-//            if (this.UT != Unit_Type.Boss)
+//            if (this.UnitType != UnitType.Boss)
 //            {
-//                Unit_Enemy_Speed = (All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr(this.UT).Unit_Enemy_Speed * 1.5f);
+//                Unit_Enemy_Speed = (All_Manager.instance.Resource_M.Convert_UnitType_To_STO_Unit_Arr(this.UnitType).Unit_Enemy_Speed * 1.5f);
 //            }
 //        }
 //    }
@@ -127,10 +127,10 @@ public class Test_Script : MonoBehaviour
 //        Vector2 Dir = Weapon.transform.position - Enemy_List[i].transform.position;
 //        float Dis = Dir.magnitude;
 
-//        var Temp_WTO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(WT);
-//        var Temp_WALT = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_WTO);
+//        var Temp_weaponTypeO = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr(weaponType);
+//        var Temp_WALT = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_weaponTypeO);
 
-//        float Min_Distance = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Range(WT, Temp_WALT);
+//        float Min_Distance = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Range(weaponType, Temp_WALT);
 
 //        if (Dis < Min_Distance)
 //        {
@@ -182,7 +182,7 @@ public class Test_Script : MonoBehaviour
 
 //            Unit_Player Temp = Player.transform.GetComponent<Unit_Player>();
 
-//            if (this.UT == Unit_Type.Barrel)
+//            if (this.UnitType == UnitType.Barrel)
 //            {
 
 //            }
@@ -203,7 +203,7 @@ public class Test_Script : MonoBehaviour
 //    var Enemy_List = All_Manager.instance.GameMode_M.Enemy_List;
 //    Camera Temp_Camera = All_Manager.instance.GameMode_M.Current_Camera;
 
-//    if (this.UT == Unit_Type.Barrel)
+//    if (this.UnitType == UnitType.Barrel)
 //    {
 
 //    }
@@ -474,7 +474,7 @@ public class Test_Script : MonoBehaviour
 
 /////////////////////////////////////////////////////////////////////////////////////
 
-//[SerializeField] public GameObject ShadowPinion;
+//[SerializeField] public GameObject ShieldChasing;
 //[SerializeField] public GameObject target;
 
 //[SerializeField] public float spd;
@@ -482,18 +482,18 @@ public class Test_Script : MonoBehaviour
 
 //public void Shot()
 //{
-//    StartCoroutine(CreateShadowPinion());
+//    StartCoroutine(CreateShieldChasing());
 //}
 
-//IEnumerator CreateShadowPinion()
+//IEnumerator CreateShieldChasing()
 //{
 //    int _shot = shot;
 //    while (_shot > 0)
 //    {
 //        _shot--;
-//        GameObject FireWand = Instantiate(ShadowPinion, transform);
-//        FireWand.GetComponent<BezierShadowPinion>().master = gameObject;
-//        FireWand.GetComponent<BezierShadowPinion>().enemy = target;
+//        GameObject FireWand = Instantiate(ShieldChasing, transform);
+//        FireWand.GetComponent<BezierShieldChasing>().master = gameObject;
+//        FireWand.GetComponent<BezierShieldChasing>().enemy = target;
 
 //        yield return new WaitForSeconds(0.1f);
 //    }
@@ -517,7 +517,7 @@ public class Test_Script : MonoBehaviour
 
 //public Vector3 direction = new Vector3(1, 1, 0); // Initial direction
 //public float speed = 5.0f;
-//public ParticleSystem Garlic;
+//public ParticleSystem Force;
 
 //void Update()
 //{

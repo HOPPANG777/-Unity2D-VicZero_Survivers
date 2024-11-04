@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 217ca39281c79dc4499ffac913c507e0, type: 3}
   m_Name: FireWand_STO_Weapon
   m_EditorClassIdentifier: 
-  WT: 3
+  weaponType: 3
   WeaponKeywords: 2
   Weapon_Name: "\uD654\uC5FC\uAD6C"
   Weapon_Text: "\n\uD50C\uB808\uC774\uC5B4\uC758 \uC8FC\uBCC0\uC73C\uB85C\n\uBC1C\uC0AC\uB418\uB294

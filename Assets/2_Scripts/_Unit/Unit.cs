@@ -21,36 +21,16 @@ public struct Unit_Stat_Sheet
     public float Unit_Weapon_Size;
 }
 
-[System.Serializable]
-public enum Unit_Type
+public abstract class Unit : MonoBehaviour, IUnitType, IUnitAnimationState
 {
-    Player,
-    Boss,
-    Barrel,
-    Skeleton,
-    Archer,
-    Knight,
-    OrcElite,
-    Orc,
-    Werebear,
-    Slime,
-    Werewolf
-}
+    [SerializeField] protected SpriteRenderer _unitSpriteRenderer;
+    public SpriteRenderer UnitSpriteRenderer { get { return _unitSpriteRenderer; } set { _unitSpriteRenderer = value; } }
 
-[System.Serializable]
-public enum Unit_Anim_State
-{
-    Idle,
-    Walk,
-    Death
-}
+    [SerializeField] protected BoxCollider2D _unitBoxCollider2D;
+    public BoxCollider2D UnitBoxCollider2D { get { return _unitBoxCollider2D; } set { _unitBoxCollider2D = value; } }
 
-
-public abstract class Unit : MonoBehaviour
-{
-    public SpriteRenderer SR;
-    public BoxCollider2D BC;
-    public Animator AM;
+    [SerializeField] protected Animator _unitAnimator;
+    public Animator UnitAnimator { get { return _unitAnimator; } set { _unitAnimator = value; } } 
 
     public bool isDead = false;
     public bool isAlive = false;
@@ -61,11 +41,8 @@ public abstract class Unit : MonoBehaviour
     public Unit_Stat_Sheet Origin_Stat;
     public Unit_Stat_Sheet Percent_Stat;
 
-    //�ۼ������� ����.Unit_Get_Gem_Range = 10.0f;
-    //void PLUS_��ű�(�Ű����� ��ű� �̸�, ���� �̳�);
-    //�׸��� �ۼ������� ������ ���� ��ű��� ������ ���ȿ� ���ϱ�
-
-    public Unit_Type UT;
+    [SerializeField] public UnitType UnitType { get; set; }
+    [SerializeField] public UnitAnimationState UnitAnimationState { get; set; }
 
     public float Unit_Enemy_HP = 0f;
     public float Unit_Enemy_Speed = 0f;
@@ -75,26 +52,26 @@ public abstract class Unit : MonoBehaviour
     public float Current_HP = 0f;
 
     public float Knock_Timer = 0f;
-    //public float SR_GB = 0f;
+    //public float _spriteRenderer_GB = 0f;
     public float Hit_Time = 0.0f;
 
     public float Dead_Effect = 0.0f;
 
     protected bool isKnock = false;
-    private Vector3 knockDirection; // �˹� ����
-    private float knockStrength; // �˹� ����
-    private float knockTimer; // �˹� ���� �ð� Ÿ�̸�
+    private Vector3 knockDirection; 
+    private float knockStrength;    
+    private float knockTimer;       
     private float knockDuration;
 
     void Awake()
     {
         // Awake를 생성자 대용으로 사용하셈. Start는 생성되자마자 호출되지 않음.
-        SR = this.AddComponent<SpriteRenderer>();
+        _unitSpriteRenderer = this.AddComponent<SpriteRenderer>();
 
-        BC = this.AddComponent<BoxCollider2D>();
-        BC.isTrigger = true;
+        _unitBoxCollider2D = this.AddComponent<BoxCollider2D>();
+        _unitBoxCollider2D.isTrigger = true;
 
-        AM = this.AddComponent<Animator>();
+        _unitAnimator = this.AddComponent<Animator>();
     }
 
     public virtual void Start()
@@ -125,9 +102,9 @@ public abstract class Unit : MonoBehaviour
 
     private void Update_Sprite_Renderer()
     {
-        SR.color = new Color(1, 1 - Hit_Time, 1 - Hit_Time, 1 - Dead_Effect);
-        SR.material.SetFloat("_Red_Value", 1 - Hit_Time);
-        SR.material.SetFloat("_Alpha", 1 - Dead_Effect);
+        _unitSpriteRenderer.color = new Color(1, 1 - Hit_Time, 1 - Hit_Time, 1 - Dead_Effect);
+        _unitSpriteRenderer.material.SetFloat("_Red_Value", 1 - Hit_Time);
+        _unitSpriteRenderer.material.SetFloat("_Alpha", 1 - Dead_Effect);
     }
 
     private void Perform_Knockback()
@@ -170,12 +147,12 @@ public abstract class Unit : MonoBehaviour
 
             var Temp_Defense = 100f / (100f + this.Origin_Stat.Unit_Defense) * p_Damage_Value;
 
-            All_Manager.instance.Audio_M.Unit_Hitted_Effect_Audio_Play(this.UT);
+            All_Manager.instance.Audio_M.Unit_Hitted_Effect_Audio_Play(this.UnitType);
 
             Current_HP -= (Temp_Defense);
 
-            var Temp_Shader_Alpha = this.SR.material.GetFloat("_Alpha");
-            var Temp_Color_Alpha = this.SR.color.a;
+            var Temp_Shader_Alpha = this._unitSpriteRenderer.material.GetFloat("_Alpha");
+            var Temp_Color_Alpha = this._unitSpriteRenderer.color.a;
 
             isHit = false;
             
@@ -213,13 +190,13 @@ public abstract class Unit : MonoBehaviour
         if (isDead) return;
 
         isDead = true;
-        AM.SetBool("Move", false);
-        AM.SetBool("Death", true);
+        _unitAnimator.SetBool("Move", false);
+        _unitAnimator.SetBool("Death", true);
 
-        //SR_GB = 0f;
+        //_spriteRenderer_GB = 0f;
         Hit_Time = 0.0f;
 
-        All_Manager.instance.Audio_M.Unit_Death_Effect_Audio_Play(UT);
+        All_Manager.instance.Audio_M.Unit_Death_Effect_Audio_Play(UnitType);
 
         Death_Animation_End();
     }
@@ -247,14 +224,6 @@ public abstract class Unit : MonoBehaviour
     {
         if (!isKnock)
         {
-            //for (int i = 0; i < 100; i++)
-            //{
-            //    this.transform.position = this.transform.position + ((Knock_Dir.normalized * Knock_Power) * (100 - i) * 0.01f * Time.deltaTime);
-            //}
-
-            //isKnock = true;
-            //Knock_Timer = Knock_Duration;
-
             this.knockDirection = Knock_Dir.normalized;
             this.knockStrength = Knock_Power;
             this.knockTimer = 0.0f;
@@ -265,31 +234,31 @@ public abstract class Unit : MonoBehaviour
 
     public abstract void Unit_Stat_Setting(Unit p_Unit, STO_Unit Un_STO);
 
-    public virtual void Unit_Animation(Unit_Anim_State State)
+    public virtual void Unit_Animation(UnitAnimationState State)
     {
 
         switch (State)
         {
-            case Unit_Anim_State.Idle:
+            case UnitAnimationState.Idle:
                 {
                     Debug.Log("Idle �ٲ�");
-                    AM.SetBool("Idle", true);
-                    AM.SetBool("Move", false);
-                    AM.SetBool("Death", false);
+                    _unitAnimator.SetBool("Idle", true);
+                    _unitAnimator.SetBool("Move", false);
+                    _unitAnimator.SetBool("Death", false);
                 }
                 break;
-            case Unit_Anim_State.Walk:
+            case UnitAnimationState.Walk:
                 {
                     Debug.Log("Walk �ٲ�");
-                    AM.SetBool("Idle", false);
-                    AM.SetBool("Move", true);
+                    _unitAnimator.SetBool("Idle", false);
+                    _unitAnimator.SetBool("Move", true);
                 }
                 break;
-            case Unit_Anim_State.Death:
+            case UnitAnimationState.Death:
                 {
                     Debug.Log("Death �ٲ�");
-                    AM.SetBool("Idle", false);
-                    AM.SetBool("Death", true);
+                    _unitAnimator.SetBool("Idle", false);
+                    _unitAnimator.SetBool("Death", true);
                 }
                 break;
         }
@@ -322,13 +291,13 @@ public abstract class Unit : MonoBehaviour
 //        this.isKnock = true;
 //    }
 //}
-//public void Knock_Back(Vector3 Knock_Dir, float Knock_Garlic, float Knock_Duration)
+//public void Knock_Back(Vector3 Knock_Dir, float Knock_Force, float Knock_Duration)
 //{
 //    if (!isKnock)
 //    {
 //        for (int i = 0; i < 100; i++)
 //        {
-//            this.transform.position = this.transform.position + ((Knock_Dir.normalized * Knock_Garlic) * (100 - i) * 0.01f * Time.deltaTime);
+//            this.transform.position = this.transform.position + ((Knock_Dir.normalized * Knock_Force) * (100 - i) * 0.01f * Time.deltaTime);
 //        }
 
 //        isKnock = true;
@@ -341,7 +310,7 @@ public abstract class Unit : MonoBehaviour
 //{
 //    for (int i = 0; i < Knock_Count; i++)
 //    {
-//        this.transform.position = this.transform.position + (Knock_Dir.normalized * Knock_Garlic * (Knock_Count - i) * 0.05f);
+//        this.transform.position = this.transform.position + (Knock_Dir.normalized * Knock_Force * (Knock_Count - i) * 0.05f);
 
 //    }
 
@@ -351,18 +320,18 @@ public abstract class Unit : MonoBehaviour
 
 //for (int i = 0; i < Knock_Count; i++)
 //{
-//    this.transform.position = this.transform.position + (Knock_Dir.normalized * Knock_Garlic * (Knock_Count - i) * Knock_Duration);
+//    this.transform.position = this.transform.position + (Knock_Dir.normalized * Knock_Force * (Knock_Count - i) * Knock_Duration);
 //}
 
 //    public virtual void Update()
 //{
 //    if (All_Manager.instance.GameMode_M.Game_Stop == true) return;
 
-//    SR.color = new Color(1, 1 - SR_GB, 1 - SR_GB, 1 - Dead_Effect);
+//    _spriteRenderer.color = new Color(1, 1 - _spriteRenderer_GB, 1 - _spriteRenderer_GB, 1 - Dead_Effect);
 
-//    SR.material.SetFloat("_Red_Value", 1 - SR_GB);
+//    _spriteRenderer.material.SetFloat("_Red_Value", 1 - _spriteRenderer_GB);
 
-//    SR.material.SetFloat("_Alpha", 1 - Dead_Effect);
+//    _spriteRenderer.material.SetFloat("_Alpha", 1 - Dead_Effect);
 
 //    //if (isKnock == true)
 //    //{
@@ -397,9 +366,9 @@ public abstract class Unit : MonoBehaviour
 
 //    if (isHit_C == true)
 //    {
-//        SR_GB -= Time.deltaTime;
+//        _spriteRenderer_GB -= Time.deltaTime;
 
-//        if (SR_GB < 0)
+//        if (_spriteRenderer_GB < 0)
 //        {
 //            isHit_C = false;
 //        }

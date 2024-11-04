@@ -2,17 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IUnitType : MonoBehaviour
+public interface IUnitType 
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    UnitType UnitType { get; set; }
+}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+public enum UnitType
+{
+    Player,
+    Boss,
+    Barrel,
+    Skeleton,
+    Archer,
+    Knight,
+    OrcElite,
+    Orc,
+    Werebear,
+    Slime,
+    Werewolf
 }

@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IWeaponType : MonoBehaviour
+public interface IWeaponType
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    WeaponType WeaponType { get; set; }
+}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+public enum WeaponType
+{
+    Axe,
+    KingBible,
+    Peachone,
+    FireWand,
+    Banana,
+    Force,
+    LightningRing,
+    ShieldChasing,
+    RuneTracer,
+    Nunchaku
 }

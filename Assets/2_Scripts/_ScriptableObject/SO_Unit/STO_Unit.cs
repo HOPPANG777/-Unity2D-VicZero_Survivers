@@ -22,16 +22,16 @@ public struct Unit_Information
 
 public class STO_Unit : ScriptableObject
 {
-    // ÇÁ¸®ÆÕÀÌ ¾Æ´Ï¶ó ±×³É ÇÁ¸®ÆÕ ¾øÀÌ °ÔÀÓ ¿ÀºêÁ§Æ®¸¦ ±øÀ¸·Î »ı¼ºÇÒ¼ö ÀÖ´Ù.
+    // í”„ë¦¬íŒ¹ì´ ì•„ë‹ˆë¼ ê·¸ëƒ¥ í”„ë¦¬íŒ¹ ì—†ì´ ê²Œì„ ì˜¤ë¸Œì íŠ¸ë¥¼ ê¹¡ìœ¼ë¡œ ìƒì„±í• ìˆ˜ ìˆë‹¤.
     
-    // STO´Â Å¬¸³º¸µå, ¿øÇÑ´Â °ÔÀÓ¿ÀºêÁ§Æ®¿¡ STO¿¡ ÀÔ·ÂµÈ µ¥ÀÌÅÍ¸¦ ºÙ¿©³Ö±â ÇÏ´Â°Å
-    // STO´Â ºÙ¿©³Ö±â¸¸ ÇØ¾ßÇÑ´Ù.
+    // STOëŠ” í´ë¦½ë³´ë“œ, ì›í•œëŠ” ê²Œì„ì˜¤ë¸Œì íŠ¸ì— STOì— ì…ë ¥ëœ ë°ì´í„°ë¥¼ ë¶™ì—¬ë„£ê¸° í•˜ëŠ”ê±°
+    // STOëŠ” ë¶™ì—¬ë„£ê¸°ë§Œ í•´ì•¼í•œë‹¤.
     // 
 
-    // ¿Í ¾¾ ³­ STO¾ø¾úÀ¸¸é ½ÃÃ¼¿´À»²¨¾ß
-    // ½ºÅ©¸³Æ® ÇÏ³ª¿¡ ½ºÅÈ ´Ù ¹ÚÀ»²¨ »ı°¢Çß¾úÀ¸¸é ¾î¿ì.
+    // ì™€ ì”¨ ë‚œ STOì—†ì—ˆìœ¼ë©´ ì‹œì²´ì˜€ì„êº¼ì•¼
+    // ìŠ¤í¬ë¦½íŠ¸ í•˜ë‚˜ì— ìŠ¤íƒ¯ ë‹¤ ë°•ì„êº¼ ìƒê°í–ˆì—ˆìœ¼ë©´ ì–´ìš°.
 
-    public Unit_Type UT;
+    public UnitType UnitType;
 
     public float Size_X;
     public float Size_Y;
@@ -39,8 +39,8 @@ public class STO_Unit : ScriptableObject
     public float Offset_X;
     public float Offset_Y;
 
-    public float SR_Size_X;
-    public float SR_Size_Y;
+    public float _spriteRenderer_Size_X;
+    public float _spriteRenderer_Size_Y;
 
     public Unit_Information Player_info_s;
 

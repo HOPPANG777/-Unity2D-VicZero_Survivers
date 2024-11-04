@@ -20,14 +20,14 @@ public class VFX_Force_Area : VFX
             PS = CreateForceParticleSystem();
         }
 
-        // ParticleSystemRenderer º≥¡§
-        var PSR = PS.GetComponent<ParticleSystemRenderer>();
-        if (PSR == null)
+        // ParticleSystemRenderer ÏÑ§Ï†ï
+        var P_spriteRenderer = PS.GetComponent<ParticleSystemRenderer>();
+        if (P_spriteRenderer == null)
         {
-            PSR = PS.gameObject.AddComponent<ParticleSystemRenderer>();
+            P_spriteRenderer = PS.gameObject.AddComponent<ParticleSystemRenderer>();
         }
 
-        // ∏ﬁ¿Œ ∏µ‚ º≥¡§
+        // Î©îÏù∏ Î™®Îìà ÏÑ§Ï†ï
         var main = PS.main;
         main.prewarm = true;
         main.startLifetime = 2.0f;
@@ -35,43 +35,43 @@ public class VFX_Force_Area : VFX
         main.startSize = 1.6f;
         main.startColor = new Color(1, 1, 1, 1.0f);
 
-        // Emission ∏µ‚ º≥¡§
+        // Emission Î™®Îìà ÏÑ§Ï†ï
         var emission = PS.emission;
         emission.rateOverTime = 0.5f;
 
-        // Shape ∏µ‚ º≥¡§
+        // Shape Î™®Îìà ÏÑ§Ï†ï
         var shape = PS.shape;
         shape.enabled = false;
 
-        // Color over Lifetime º≥¡§
+        // Color over Lifetime ÏÑ§Ï†ï
         var colorOverLifetime = PS.colorOverLifetime;
         colorOverLifetime.enabled = true;
-        Gradient Garlic_Grad = new Gradient();
-        Garlic_Grad.SetKeys(
+        Gradient Force_Grad = new Gradient();
+        Force_Grad.SetKeys(
             new GradientColorKey[] { new GradientColorKey(Color.blue, 0.0f), new GradientColorKey(Color.red, 1.0f) },
             new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 0.0f), new GradientAlphaKey(0.0f, 1.0f), new GradientAlphaKey(0.5f, 0.5f) }
         );
-        colorOverLifetime.color = new ParticleSystem.MinMaxGradient(Garlic_Grad);
+        colorOverLifetime.color = new ParticleSystem.MinMaxGradient(Force_Grad);
 
-        // Rotation over Lifetime º≥¡§
+        // Rotation over Lifetime ÏÑ§Ï†ï
         var rotationOverLifetime = PS.rotationOverLifetime;
         rotationOverLifetime.enabled = true;
         rotationOverLifetime.z = new ParticleSystem.MinMaxCurve(100.0f);
 
-        // Texture Sheet Animation º≥¡§
+        // Texture Sheet Animation ÏÑ§Ï†ï
         var textureSheetAnimation = PS.textureSheetAnimation;
         textureSheetAnimation.enabled = true;
         textureSheetAnimation.mode = ParticleSystemAnimationMode.Sprites;
-        textureSheetAnimation.AddSprite(All_Manager.instance.Resource_M.Convert_VFX_Type_To_STO_VFX_Arr(VFX_Type.Garlic_Area).Sprite_Image);
+        textureSheetAnimation.AddSprite(All_Manager.instance.Resource_M.Convert_VFX_Type_To_STO_VFX_Arr(VFX_Type.Force_Area).Sprite_Image);
         textureSheetAnimation.timeMode = ParticleSystemAnimationTimeMode.Lifetime;
 
-        // Material º≥¡§
-        if (PSR != null)
+        // Material ÏÑ§Ï†ï
+        if (P_spriteRenderer != null)
         {
-            PSR.material = All_Manager.instance.Resource_M.Convert_VFX_Type_To_STO_VFX_Arr(VFX_Type.Garlic_Area).VFX_Material;
+            P_spriteRenderer.material = All_Manager.instance.Resource_M.Convert_VFX_Type_To_STO_VFX_Arr(VFX_Type.Force_Area).VFX_Material;
         }
 
-        // ∆ƒ∆º≈¨ Ω√Ω∫≈€ ¿Áª˝
+        // ÌååÌã∞ÌÅ¥ ÏãúÏä§ÌÖú Ïû¨ÏÉù
         PS.Play();
     }
 
@@ -82,7 +82,7 @@ public class VFX_Force_Area : VFX
         particleObject.transform.localPosition = Vector3.zero;
         ParticleSystem particleSystem = particleObject.AddComponent<ParticleSystem>();
 
-        // ±‚∫ª º≥¡§ √ﬂ∞°
+        // Í∏∞Î≥∏ ÏÑ§Ï†ï Ï∂îÍ∞Ä
         var main = particleSystem.main;
         main.loop = false;
         main.duration = 2.0f;

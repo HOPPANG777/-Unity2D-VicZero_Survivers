@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 public class Pool_Manager : MonoBehaviour
 {
     public bool Ready = false;
-    public Damage_Effect_Controller Damage_Effect;
+    public DamageEffectController Damage_Effect;
 
     private void Start()
     {
@@ -18,52 +18,52 @@ public class Pool_Manager : MonoBehaviour
     {
         Ready = false;
 
-        // i ∞° 2¿Œ ¿Ã¿Ø¥¬ «√∑π¿ÃæÓ∞° 0, ∫∏Ω∫∞° 1 ¿Ã±‚ ∂ßπÆø°
-        for (int i = 2; i < System.Enum.GetValues(typeof(Unit_Type)).Length; i++)
+        // i Í∞Ä 2Ïù∏ Ïù¥Ïú†Îäî ÌîåÎ†àÏù¥Ïñ¥Í∞Ä 0, Î≥¥Ïä§Í∞Ä 1 Ïù¥Í∏∞ ÎïåÎ¨∏Ïóê
+        for (int i = 2; i < System.Enum.GetValues(typeof(UnitType)).Length; i++)
         {
-            var Temp_UT = (Unit_Type)i;
+            var Temp_UnitType = (UnitType)i;
 
-            GameObject Enemy_Pool = new GameObject(Temp_UT.ToString() + "-Pool");
+            GameObject Enemy_Pool = new GameObject(Temp_UnitType.ToString() + "-Pool");
             Enemy_Pool.transform.parent = this.transform;
 
             yield return new WaitWhile(() => Enemy_Pool == null);
 
-            //50 ¿∫ ¡ª æ∆ΩΩæ∆ΩΩ
+            //50 ÏùÄ Ï¢Ä ÏïÑÏä¨ÏïÑÏä¨
             int Enemy_Number = 300;
 
             for (int k = 0; k < Enemy_Number; k++)
             {
-                All_Manager.instance.Unit_M.Unit_F.Create_Enemy(All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr(Temp_UT), 
+                All_Manager.instance.Unit_M.Unit_F.Create_Enemy(All_Manager.instance.Resource_M.Convert_UnitType_To_STO_Unit_Arr(Temp_UnitType), 
                     Vector3.zero, (k + 1), Enemy_Pool.transform);
             }
 
             yield return new WaitWhile(() => Enemy_Pool.transform.childCount != Enemy_Number);
         }
 
-        for (int j = 0; j < System.Enum.GetValues(typeof(MISC_Type)).Length; j++)
+        for (int j = 0; j < System.Enum.GetValues(typeof(ItemType)).Length; j++)
         {
-            var Temp_MT = (MISC_Type)j;
+            var Temp_ItemType = (ItemType)j;
 
-            GameObject MISC_Pool = new GameObject(Temp_MT.ToString() + "-Pool");
-            MISC_Pool.transform.parent = this.transform;
+            GameObject Item_Pool = new GameObject(Temp_ItemType.ToString() + "-Pool");
+            Item_Pool.transform.parent = this.transform;
 
-            yield return new WaitWhile(() => MISC_Pool == null);
+            yield return new WaitWhile(() => Item_Pool == null);
 
-            int MISC_Number = 1200;
+            int Item_Number = 1200;
 
-            for (int k = 0; k < MISC_Number; k++)
+            for (int k = 0; k < Item_Number; k++)
             {
-                All_Manager.instance.Unit_M.Misc_F.Create_MISC(All_Manager.instance.Resource_M.Convert_MISC_Type_To_STO_MISC_Arr(Temp_MT), this.transform, (k + 1), MISC_Pool.transform);
+                All_Manager.instance.Unit_M.Item_F.Create_Item(All_Manager.instance.Resource_M.Convert_ItemType_To_STO_Item_Arr(Temp_ItemType), this.transform, (k + 1), Item_Pool.transform);
             }
 
-            yield return new WaitWhile(() => MISC_Pool.transform.childCount != MISC_Number);
+            yield return new WaitWhile(() => Item_Pool.transform.childCount != Item_Number);
         }
 
-        for (int h = 0; h < System.Enum.GetValues(typeof(Weapon_Type)).Length; h++)
+        for (int h = 0; h < System.Enum.GetValues(typeof(WeaponType)).Length; h++)
         {
-            var Temp_WT = (Weapon_Type)h;
+            var Temp_weaponType = (WeaponType)h;
 
-            GameObject Weapon_Pool = new GameObject(Temp_WT.ToString() + "-Pool");
+            GameObject Weapon_Pool = new GameObject(Temp_weaponType.ToString() + "-Pool");
             Weapon_Pool.transform.parent = this.transform;
 
             yield return new WaitWhile(() => Weapon_Pool == null);
@@ -72,23 +72,23 @@ public class Pool_Manager : MonoBehaviour
 
             for (int k = 0; k < Weapon_Number; k++)
             {
-                All_Manager.instance.Unit_M.Projectile_F.Create_Projectile(All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(Temp_WT), this.transform, (k + 1), Weapon_Pool.transform);
+                All_Manager.instance.Unit_M.Projectile_F.Create_Projectile(All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr(Temp_weaponType), this.transform, (k + 1), Weapon_Pool.transform);
             }
 
             yield return new WaitWhile(() => Weapon_Pool.transform.childCount != Weapon_Number);
         }
 
         {
-            Damage_Effect.Damage_Effect_Pool();
+            Damage_Effect.DamageEffectPool();
         }
 
         Ready = true;
     }
 
-    // ø¿∫Í¡ß∆Æ «Æø° ¥ŸΩ√ ¡˝æÓ≥÷±‚
+    // Ïò§Î∏åÏ†ùÌä∏ ÌíÄÏóê Îã§Ïãú ÏßëÏñ¥ÎÑ£Í∏∞
     public void Enemy_Pool_In(Unit_Enemy p_UE)
     {
-        var Target_Pool = this.transform.Find(p_UE.UT.ToString() + "-Pool");
+        var Target_Pool = this.transform.Find(p_UE.UnitType.ToString() + "-Pool");
 
         p_UE.transform.parent = Target_Pool;
 
@@ -100,19 +100,17 @@ public class Pool_Manager : MonoBehaviour
 
         p_UE.isDeathAnim = false;
 
-        p_UE.AM.SetBool("Death", false);
+        p_UE.UnitAnimator.SetBool("Death", false);
 
-        p_UE.SR.material.SetFloat("_Outline", 0.0f);
+        p_UE.UnitSpriteRenderer.material.SetFloat("_Outline", 0.0f);
 
-        p_UE.SR.material.SetFloat("_Red_Value", 1.0f);
+        p_UE.UnitSpriteRenderer.material.SetFloat("_Red_Value", 1.0f);
 
-        p_UE.SR.material.SetFloat("_Alpha", 1.0f);
+        p_UE.UnitSpriteRenderer.material.SetFloat("_Alpha", 1.0f);
 
-        p_UE.GetComponent<Unit_Enemy>().SR.drawMode = SpriteDrawMode.Sliced;
+        p_UE.GetComponent<Unit_Enemy>().UnitSpriteRenderer.drawMode = SpriteDrawMode.Sliced;
 
-        p_UE.GetComponent<Unit_Enemy>().SR.size = new Vector2(1, 1);
-
-        //p_UE.SR_GB = 0.0f;
+        p_UE.GetComponent<Unit_Enemy>().UnitSpriteRenderer.size = new Vector2(1, 1);
 
         p_UE.Dead_Effect = 0.0f;
 
@@ -120,13 +118,13 @@ public class Pool_Manager : MonoBehaviour
 
         p_UE.Temp_Time = 1.0f;
 
-        p_UE.Unit_Stat_Setting(p_UE, All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr(p_UE.UT));
+        p_UE.Unit_Stat_Setting(p_UE, All_Manager.instance.Resource_M.Convert_UnitType_To_STO_Unit_Arr(p_UE.UnitType));
     }
 
-    // ø¿∫Í¡ß∆Æ «Æø°º≠ ≤®≥ª±‚
-    public void Enemy_Pool_Out(Unit_Type p_UT, Vector3 p_Position, bool p_Elite = false)
+    // Ïò§Î∏åÏ†ùÌä∏ ÌíÄÏóêÏÑú Í∫ºÎÇ¥Í∏∞
+    public void Enemy_Pool_Out(UnitType p_UnitType, Vector3 p_Position, bool p_Elite = false)
     {
-        var Target_Pool = this.transform.Find(p_UT.ToString() + "-Pool");
+        var Target_Pool = this.transform.Find(p_UnitType.ToString() + "-Pool");
 
         var Unit_Go = Target_Pool.GetChild(0).gameObject;
 
@@ -138,50 +136,50 @@ public class Pool_Manager : MonoBehaviour
 
         Unit_Go.SetActive(true);
 
-        Unit_Go.GetComponent<Unit_Enemy>().SR.drawMode = SpriteDrawMode.Sliced;
+        Unit_Go.GetComponent<Unit_Enemy>().UnitSpriteRenderer.drawMode = SpriteDrawMode.Sliced;
 
-        Unit_Go.GetComponent<Unit_Enemy>().SR.size = new Vector2((Unit_Go.GetComponent<Unit_Enemy>().SR.size.x * 4), (Unit_Go.GetComponent<Unit_Enemy>().SR.size.y * 4));
+        Unit_Go.GetComponent<Unit_Enemy>().UnitSpriteRenderer.size = new Vector2((Unit_Go.GetComponent<Unit_Enemy>().UnitSpriteRenderer.size.x * 4), (Unit_Go.GetComponent<Unit_Enemy>().UnitSpriteRenderer.size.y * 4));
 
-        Unit_Go.GetComponent<Unit_Enemy>().Elite_Outline_Set(p_UT);
+        Unit_Go.GetComponent<Unit_Enemy>().Elite_Outline_Set(p_UnitType);
         
         Unit_Go.layer = 7;
 
         All_Manager.instance.GameMode_M.Enemy_List.Add(Unit_Go.GetComponent<Unit_Enemy>());
     }
 
-    public void MISC_Pool_In(MISC p_MISC)
+    public void Item_Pool_In(Item p_Item)
     {
-        var Target_Pool = this.transform.Find(p_MISC.MT.ToString() + "-Pool");
+        var Target_Pool = this.transform.Find(p_Item.ItemType.ToString() + "-Pool");
 
-        p_MISC.transform.localScale = Vector3.one;
+        p_Item.transform.localScale = Vector3.one;
 
-        p_MISC.transform.parent = Target_Pool;
+        p_Item.transform.parent = Target_Pool;
     }
 
-    public void MISC_Pool_Out(MISC_Type p_MT, Transform p_TF)
+    public void Item_Pool_Out(ItemType p_ItemType, Transform p_TF)
     {
-        var Target_Pool = this.transform.Find(p_MT.ToString() + "-Pool");
+        var Target_Pool = this.transform.Find(p_ItemType.ToString() + "-Pool");
 
-        var MISC_Go = Target_Pool.GetChild(0).gameObject;
+        var Item_Go = Target_Pool.GetChild(0).gameObject;
 
-        MISC_Go.GetComponent<MISC>().SR.drawMode = SpriteDrawMode.Sliced;
+        Item_Go.GetComponent<Item>().ItemSpriteRenderer.drawMode = SpriteDrawMode.Sliced;
 
-        MISC_Go.GetComponent<MISC>().SR.size = new Vector2((0.7f), (0.7f));
+        Item_Go.GetComponent<Item>().ItemSpriteRenderer.size = new Vector2((0.7f), (0.7f));
 
-        MISC_Go.transform.parent = null;
+        Item_Go.transform.parent = null;
 
-        MISC_Go.transform.position = p_TF.transform.position;
+        Item_Go.transform.position = p_TF.transform.position;
 
-        MISC_Go.SetActive(true);
+        Item_Go.SetActive(true);
 
-        MISC_Go.layer = 8;
+        Item_Go.layer = 8;
 
-        All_Manager.instance.GameMode_M.MISC_List.Add(MISC_Go.GetComponent<MISC>());
+        All_Manager.instance.GameMode_M.Item_List.Add(Item_Go.GetComponent<Item>());
     }
 
     public void Weapon_Pool_In(Weapon p_Weapon)
     {
-        var Target_Pool = this.transform.Find(p_Weapon.WT.ToString() + "-Pool");
+        var Target_Pool = this.transform.Find(p_Weapon.weaponType.ToString() + "-Pool");
 
         p_Weapon.transform.parent = Target_Pool;
 
@@ -199,18 +197,12 @@ public class Pool_Manager : MonoBehaviour
 
         p_Weapon.Weapon_Time = 0;
 
-        //p_Weapon.GetComponent<Weapon>().SR.drawMode = SpriteDrawMode.Sliced;
-
-        //p_Weapon.GetComponent<Weapon>().SR.size = new Vector2(1, 1);
-
-        //Debug.Log("Weapon Pool");
-
         p_Weapon.gameObject.SetActive(false);
     }
 
-    public GameObject Weapon_Pool_Out(Weapon_Type p_WT)
+    public GameObject Weapon_Pool_Out(WeaponType p_weaponType)
     {
-        var Target_Pool = this.transform.Find(p_WT.ToString() + "-Pool");
+        var Target_Pool = this.transform.Find(p_weaponType.ToString() + "-Pool");
 
         var Weapon_Go = Target_Pool.GetChild(0).gameObject;
 
@@ -221,14 +213,13 @@ public class Pool_Manager : MonoBehaviour
         Weapon_Go.layer = 10;
 
         return Weapon_Go;
-        //All_Manager.instance.GameMode_M.All_L.Add(Weapon_Go.GetComponent<Weapon>());
     }
 
 
 }
 
 #region
-// « ø‰Ω√ ªı∑ŒøÓ ∏ÛΩ∫≈Õ ª˝º∫ (Optional)
+// ÌïÑÏöîÏãú ÏÉàÎ°úÏö¥ Î™¨Ïä§ÌÑ∞ ÏÉùÏÑ± (Optional)
 //GameObject New_Enemy = Instantiate(Pools[i][0]);
 //New_Enemy.SetActive(true);
 //Pools[i].Add(New_Enemy);
@@ -247,9 +238,9 @@ public class Pool_Manager : MonoBehaviour
 
 //public GameObject GetPool(int Index)
 //{
-//    this.transform.Find(Unit_Type.Enemy.ToString()).GetChild(0); // = Enemy
+//    this.transform.Find(UnitType.Enemy.ToString()).GetChild(0); // = Enemy
 
-//    this.transform.Find(Unit_Type.Golem.ToString()).GetChild(0);
+//    this.transform.Find(UnitType.Golem.ToString()).GetChild(0);
 
 //    this.transform.Find("Enemy1").GetChild(0);
 

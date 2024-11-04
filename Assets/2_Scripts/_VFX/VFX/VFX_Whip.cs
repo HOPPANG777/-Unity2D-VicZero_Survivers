@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VFX_Whip : MonoBehaviour
+public class VFX_Nunchaku : MonoBehaviour
 {
 
 }

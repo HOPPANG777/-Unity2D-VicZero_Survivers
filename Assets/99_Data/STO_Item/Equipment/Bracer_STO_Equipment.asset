@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Bracer_STO_Equipment
   m_EditorClassIdentifier: 
   ET: 1
-  Equipment_Name: "\uD314\uBCF4\uD638\uAD6C"
-  Equipment_Text: "\uACF5\uACA9 \uC18D\uB3C4\uB97C \uC62C\uB824\uC900\uB2E4."
+  Accessory_Name: "\uD314\uBCF4\uD638\uAD6C"
+  Accessory_Text: "\uACF5\uACA9\uC18D\uB3C4\uAC00 \uB298\uC5B4\uB09C\uB2E4."
   Sprite_Image: {fileID: 21300000, guid: b99c208019537564695b5da3fea47de1, type: 3}
-  Equipment_Stat_Sheet:
+  Accessory_Stat_Sheet:
     Unit_HP: 0
     Unit_Speed: 0
     Unit_Defense: 0
@@ -27,3 +27,4 @@ MonoBehaviour:
     Unit_Weapon_CoolDown: 0
     Unit_Weapon_Proj_Count: 0
     Unit_Get_Gem_Range: 0
+    Unit_Weapon_Size: 0

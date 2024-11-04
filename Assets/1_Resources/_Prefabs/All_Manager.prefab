@@ -1244,7 +1244,7 @@ GameObject:
   - component: {fileID: 6682325084093738365}
   - component: {fileID: 7984276281292347379}
   m_Layer: 0
-  m_Name: Misc_Factory
+  m_Name: Item_Factory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9237,7 +9237,7 @@ MonoBehaviour:
   Start_First_Weapon_Number: 0
   Start_Second_Weapon_Number: 0
   Weapon_Icon_List: []
-  Equipment_Icon_List: []
+  Accessory_Icon_List: []
   Select_First_Item_Number: 0
   Select_Second_Item_Number: 0
   Select_Third_Item_Number: 0
@@ -9268,17 +9268,7 @@ MonoBehaviour:
   - {fileID: 4804284175626100560}
   - {fileID: 4804284175216559222}
   - {fileID: 4804284173888389024}
-  Basic_Current_Equipment_Icon_Image:
-  - {fileID: 4804284173903334784}
-  - {fileID: 4804284175733195063}
-  - {fileID: 4804284175663510432}
-  - {fileID: 4804284175282691974}
-  - {fileID: 4804284174729113530}
-  - {fileID: 4804284174767744192}
-  - {fileID: 4804284174940308201}
-  - {fileID: 4804284174024637585}
-  - {fileID: 4804284175034199865}
-  - {fileID: 4804284175915400490}
+  Basic_Current_Accessory_Icon_Image: []
   Weapon_Level_Text:
   - {fileID: 4804284174191611951}
   - {fileID: 4804284173964236634}
@@ -9290,17 +9280,7 @@ MonoBehaviour:
   - {fileID: 4804284174976279077}
   - {fileID: 4804284173943133312}
   - {fileID: 4804284175771940552}
-  Equipment_Level_Text:
-  - {fileID: 4804284174722127985}
-  - {fileID: 4804284174017412240}
-  - {fileID: 4804284174580089396}
-  - {fileID: 4804284175353323317}
-  - {fileID: 4804284173953928956}
-  - {fileID: 4804284175965385981}
-  - {fileID: 4804284175963758168}
-  - {fileID: 4804284174736673726}
-  - {fileID: 4804284175648287131}
-  - {fileID: 4804284174672082601}
+  Accessory_Level_Text: []
   Player_Info_s_Current_Weapon_Icon_Image:
   - {fileID: 4804284174642062733}
   - {fileID: 4804284175389888112}
@@ -9312,17 +9292,7 @@ MonoBehaviour:
   - {fileID: 4804284175523597985}
   - {fileID: 4804284174510468953}
   - {fileID: 4804284174969652638}
-  Player_Info_s_Current_Equipment_Icon_Image:
-  - {fileID: 4804284175688597012}
-  - {fileID: 4804284174308866002}
-  - {fileID: 4804284174309937863}
-  - {fileID: 4804284175985123766}
-  - {fileID: 4804284174985842462}
-  - {fileID: 4804284174613392825}
-  - {fileID: 4804284174002663774}
-  - {fileID: 4804284174966337897}
-  - {fileID: 4804284174206143948}
-  - {fileID: 4804284174025179485}
+  Player_Info_s_Current_Accessory_Icon_Image: []
   Player_Info_s_Pase_One_Text:
   - {fileID: 4804284175549973359}
   - {fileID: 4804284174813474969}
@@ -9359,7 +9329,7 @@ MonoBehaviour:
   EQ_Options: []
   PS_Options: []
   Weapon_On: 0
-  Equipment_On: 0
+  Accessory_On: 0
   PanelStyle_On: 0
   Help_On: 0
   Configuration_On: 0
@@ -11815,7 +11785,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Unit_F: {fileID: 5352030031290050003}
   Projectile_F: {fileID: 1773877647299485795}
-  Misc_F: {fileID: 7984276281292347379}
+  Item_F: {fileID: 7984276281292347379}
   UI_F: {fileID: 4233770642693485166}
   Mission_F: {fileID: 6385055919191446121}
 --- !u!1 &4804284174764696381
@@ -12461,27 +12431,27 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d92b430d67108c746817d250d290fe2a, type: 2}
   - {fileID: 11400000, guid: 57d95a7a038865d488ee42a2df97e209, type: 2}
   - {fileID: 11400000, guid: 935c5587a0300054a97d79ab264b2bd6, type: 2}
-  STO_MISC_s:
-  - {fileID: 11400000, guid: b9d011e2a3e835d4caadaa29887d5aed, type: 2}
+  STO_Item_s:
   - {fileID: 11400000, guid: c380d8b1652d39341987f7beb9385ea8, type: 2}
   - {fileID: 11400000, guid: edaab3100acf0f0469bf2ff6ceb08e6b, type: 2}
+  - {fileID: 11400000, guid: b9d011e2a3e835d4caadaa29887d5aed, type: 2}
   STO_VFXs:
   - {fileID: 11400000, guid: 8b0f03e934b21bf45b7512400b1c4848, type: 2}
   - {fileID: 11400000, guid: 7a2f84d0b58b94c48bc5d4e2d441d391, type: 2}
   - {fileID: 11400000, guid: ad57b49b5097c134b88495cc6739566d, type: 2}
   - {fileID: 11400000, guid: 80352f9f96de7144790a271719a4d298, type: 2}
   - {fileID: 11400000, guid: 0ea58fe43ce4a1443850a98124f0e799, type: 2}
-  STO_Equipments:
+  STO_Accessorys:
+  - {fileID: 11400000, guid: 8c283ba984948fc49be20c1cf10ee81c, type: 2}
   - {fileID: 11400000, guid: ab514a82103aa7a4f9139877164c27c1, type: 2}
   - {fileID: 11400000, guid: dd145da24c80ab84da9b02382601201b, type: 2}
-  - {fileID: 11400000, guid: 1e4317ce329cbe94d8d44b9e9e4a22f2, type: 2}
   - {fileID: 11400000, guid: 1cf1045517b9b3e49b8b6f723a8315b8, type: 2}
-  - {fileID: 11400000, guid: 1f47358149d92d543899f03d2f2bac07, type: 2}
-  - {fileID: 11400000, guid: 69e44f33faa9e34409c31c59e3f53c80, type: 2}
+  - {fileID: 11400000, guid: ab49a806051dca94187f6d2c8573920d, type: 2}
   - {fileID: 11400000, guid: c4b9a1b0bbb158545a4d244fa738bde9, type: 2}
   - {fileID: 11400000, guid: d789773f900026d438097f141c8ee104, type: 2}
-  - {fileID: 11400000, guid: ab49a806051dca94187f6d2c8573920d, type: 2}
-  - {fileID: 11400000, guid: 8c283ba984948fc49be20c1cf10ee81c, type: 2}
+  - {fileID: 11400000, guid: 69e44f33faa9e34409c31c59e3f53c80, type: 2}
+  - {fileID: 11400000, guid: 1f47358149d92d543899f03d2f2bac07, type: 2}
+  - {fileID: 11400000, guid: 1e4317ce329cbe94d8d44b9e9e4a22f2, type: 2}
   STO_Missions:
   - {fileID: 11400000, guid: 52dfcf2f27a2fb648b3e354b28f2ea3d, type: 2}
   - {fileID: 11400000, guid: 630e8d0935707474d8f89969f8ca9e3c, type: 2}
@@ -19817,7 +19787,7 @@ MonoBehaviour:
   Current_Player: {fileID: 0}
   Enemy_List: []
   missionList: []
-  MISC_List: []
+  Item_List: []
   Current_Camera: {fileID: 0}
   Tilemap_List:
   - {fileID: 0}

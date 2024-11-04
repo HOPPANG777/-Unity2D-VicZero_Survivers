@@ -36,7 +36,7 @@ public class Unit_Boss : Unit_Enemy
     {
         base.Start();
         Current_State = BossState.Move;
-        SR.material.SetFloat("_Outline", 0.0f);
+        _unitSpriteRenderer.material.SetFloat("_Outline", 0.0f);
     }
 
     public override void Update()
@@ -189,12 +189,12 @@ public class Unit_Boss : Unit_Enemy
 
                 if (All_Manager.instance.GameMode_M.Current_Player.transform.position.x < this.transform.position.x)
                 {
-                    SR.flipX = false;
+                    _unitSpriteRenderer.flipX = false;
                 }
 
                 else
                 {
-                    SR.flipX = true;
+                    _unitSpriteRenderer.flipX = true;
                 }
             }
 
@@ -209,11 +209,11 @@ public class Unit_Boss : Unit_Enemy
         // ���� �߿��� ���� ��ȯ�� ���� �ʴ´�.
         if (Dir.x < 0)
         {
-            SR.flipX = false;
+            _unitSpriteRenderer.flipX = false;
         }
         else
         {
-            SR.flipX = true;
+            _unitSpriteRenderer.flipX = true;
         }
     }
 
@@ -254,7 +254,7 @@ public class Unit_Boss : Unit_Enemy
     //    base.OnTriggerStay2D(collision);
     //}
 
-    public override void Unit_Animation(Unit_Anim_State State)
+    public override void Unit_Animation(UnitAnimationState State)
     {
         base.Unit_Animation(State);
     }

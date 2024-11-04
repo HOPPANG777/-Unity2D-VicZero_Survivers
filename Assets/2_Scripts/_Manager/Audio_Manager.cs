@@ -13,15 +13,15 @@ public class Audio_Manager : MonoBehaviour
 
     void Start()
     {
-        for (int i = 0; i < System.Enum.GetValues(typeof(Weapon_Type)).Length; i++)
+        for (int i = 0; i < System.Enum.GetValues(typeof(WeaponType)).Length; i++)
         {
-            GameObject Go = new GameObject(((Weapon_Type)i).ToString() + "-AS");
+            GameObject Go = new GameObject(((WeaponType)i).ToString() + "-AS");
 
             Go.transform.parent = this.transform;
             AudioSource audioSource = Go.AddComponent<AudioSource>();
 
 
-            audioSource.clip = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr((Weapon_Type)i).Attacking_Audio_Clip;
+            audioSource.clip = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr((WeaponType)i).Attacking_Audio_Clip;
 
             audioSource.playOnAwake = false;
             audioSource.rolloffMode = AudioRolloffMode.Linear;
@@ -30,10 +30,10 @@ public class Audio_Manager : MonoBehaviour
             Effect_Audio_List.Add(audioSource);
         }
 
-        for (int i = 0; i < System.Enum.GetValues(typeof(Unit_Type)).Length; i++)
+        for (int i = 0; i < System.Enum.GetValues(typeof(UnitType)).Length; i++)
         {
-            GameObject Hitted_Go = new GameObject("Hitted-" + ((Unit_Type)i).ToString() + "-AS");
-            GameObject Death_Go = new GameObject("Death-" + ((Unit_Type)i).ToString() + "-AS");
+            GameObject Hitted_Go = new GameObject("Hitted-" + ((UnitType)i).ToString() + "-AS");
+            GameObject Death_Go = new GameObject("Death-" + ((UnitType)i).ToString() + "-AS");
 
             Hitted_Go.transform.parent = this.transform;
             Death_Go.transform.parent = this.transform;
@@ -41,8 +41,8 @@ public class Audio_Manager : MonoBehaviour
             AudioSource hittedSound = Hitted_Go.AddComponent<AudioSource>();
             AudioSource deathSound = Death_Go.AddComponent<AudioSource>();
 
-            hittedSound.clip = All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr((Unit_Type)i).Hitted_Audio_Clip;
-            deathSound.clip = All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr((Unit_Type)i).Death_Audio_Clip;
+            hittedSound.clip = All_Manager.instance.Resource_M.Convert_UnitType_To_STO_Unit_Arr((UnitType)i).Hitted_Audio_Clip;
+            deathSound.clip = All_Manager.instance.Resource_M.Convert_UnitType_To_STO_Unit_Arr((UnitType)i).Death_Audio_Clip;
 
             hittedSound.playOnAwake = false;
             hittedSound.rolloffMode = AudioRolloffMode.Linear;
@@ -56,15 +56,15 @@ public class Audio_Manager : MonoBehaviour
             Effect_Audio_List.Add(deathSound);
         }
 
-        for (int i = 0; i < System.Enum.GetValues(typeof(MISC_Type)).Length; i++)
+        for (int i = 0; i < System.Enum.GetValues(typeof(ItemType)).Length; i++)
         {
-            GameObject Go = new GameObject(((MISC_Type)i).ToString() + "-AS");
+            GameObject Go = new GameObject(((ItemType)i).ToString() + "-AS");
 
             Go.transform.parent = this.transform;
 
             AudioSource audioSource = Go.AddComponent<AudioSource>();
 
-            audioSource.clip = All_Manager.instance.Resource_M.Convert_MISC_Type_To_STO_MISC_Arr((MISC_Type)i).Get_MISC_Audio_Clip;
+            audioSource.clip = All_Manager.instance.Resource_M.Convert_ItemType_To_STO_Item_Arr((ItemType)i).Get_Item_Audio_Clip;
 
             audioSource.playOnAwake = false;
             audioSource.rolloffMode = AudioRolloffMode.Linear;
@@ -74,7 +74,7 @@ public class Audio_Manager : MonoBehaviour
         }
     }
 
-    public void Weapon_Attacking_Effect_Audio_Play(Weapon_Type p_WT)
+    public void Weapon_Attacking_Effect_Audio_Play(WeaponType p_weaponType)
     {
         int Playing_Audio_Count = 0;
 
@@ -87,7 +87,7 @@ public class Audio_Manager : MonoBehaviour
         {
             for (int i = 0; i < Effect_Audio_List.Count; i++)
             {
-                if (Effect_Audio_List[i].gameObject.name.Contains(p_WT.ToString()))
+                if (Effect_Audio_List[i].gameObject.name.Contains(p_weaponType.ToString()))
                 {
                     Effect_Audio_List[i].Play();
                     break;
@@ -96,7 +96,7 @@ public class Audio_Manager : MonoBehaviour
         }
     }
 
-    public void Unit_Hitted_Effect_Audio_Play(Unit_Type p_UT)
+    public void Unit_Hitted_Effect_Audio_Play(UnitType p_UnitType)
     {
         int Playing_Audio_Count = 0;
 
@@ -109,7 +109,7 @@ public class Audio_Manager : MonoBehaviour
         {
             for (int i = 0; i < Effect_Audio_List.Count; i++)
             {
-                if (Effect_Audio_List[i].gameObject.name.Contains("Hitted-" + p_UT.ToString()))
+                if (Effect_Audio_List[i].gameObject.name.Contains("Hitted-" + p_UnitType.ToString()))
                 {
                     Effect_Audio_List[i].Play();
                     break;
@@ -118,7 +118,7 @@ public class Audio_Manager : MonoBehaviour
         }
     }
 
-    public void Unit_Death_Effect_Audio_Play(Unit_Type p_UT)
+    public void Unit_Death_Effect_Audio_Play(UnitType p_UnitType)
     {
         int Playing_Audio_Count = 0;
 
@@ -131,7 +131,7 @@ public class Audio_Manager : MonoBehaviour
         {
             for (int i = 0; i < Effect_Audio_List.Count; i++)
             {
-                if (Effect_Audio_List[i].gameObject.name.Contains("Death-" + p_UT.ToString()))
+                if (Effect_Audio_List[i].gameObject.name.Contains("Death-" + p_UnitType.ToString()))
                 {
                     Effect_Audio_List[i].Play();
                     break;
@@ -140,7 +140,7 @@ public class Audio_Manager : MonoBehaviour
         }
     }
 
-    public void MISC_Get_Effect_Audio_Play(MISC_Type p_MT)
+    public void Item_Get_Effect_Audio_Play(ItemType p_ItemType)
     {
         int Playing_Audio_Count = 0;
 
@@ -153,7 +153,7 @@ public class Audio_Manager : MonoBehaviour
         {
             for (int i = 0; i < Effect_Audio_List.Count; i++)
             {
-                if (Effect_Audio_List[i].gameObject.name.Contains(p_MT.ToString()))
+                if (Effect_Audio_List[i].gameObject.name.Contains(p_ItemType.ToString()))
                 {
                     Effect_Audio_List[i].Play();
                     break;

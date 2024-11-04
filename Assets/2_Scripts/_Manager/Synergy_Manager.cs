@@ -102,21 +102,21 @@ public class Synergy_Manager : Singleton<Synergy_Manager>
     //            }
     //            break;
     //        case WeaponKeyword.Paladin:
-    //            // ShadowPinion과 Cross 조합 시너지: 사거리 증가
+    //            // ShieldChasing과 Banana 조합 시너지: 사거리 증가
     //            foreach (var weapon in keywordWeapons[keyword])
     //            {
     //                weapon.Weapon_Range *= 1.5f;
     //            }
     //            break;
     //        case WeaponKeyword.Sonic:
-    //            // LightningRing과 Whip 조합 시너지: 공격 속도 증가
+    //            // LightningRing과 Nunchaku 조합 시너지: 공격 속도 증가
     //            foreach (var weapon in keywordWeapons[keyword])
     //            {
     //                weapon.Weapon_CoolDown *= 0.5f;
     //            }
     //            break;
     //        case WeaponKeyword.Holy:
-    //            // Garlic과 KingBible 조합 시너지: 크기 증가
+    //            // Force과 KingBible 조합 시너지: 크기 증가
     //            foreach (var weapon in keywordWeapons[keyword])
     //            {
     //                weapon.Weapon_Size *= 1.5f;

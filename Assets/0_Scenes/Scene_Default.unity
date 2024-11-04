@@ -8554,6 +8554,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1481110615733224237, guid: a0cbd2013a96de142a005d31bd723d2d,
+        type: 3}
+      propertyPath: m_Name
+      value: Item_Factory
+      objectReference: {fileID: 0}
     - target: {fileID: 2503191326534019746, guid: a0cbd2013a96de142a005d31bd723d2d,
         type: 3}
       propertyPath: Current_Camera
@@ -8634,6 +8639,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: All_Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 4804284174763224210, guid: a0cbd2013a96de142a005d31bd723d2d,
+        type: 3}
+      propertyPath: Item_F
+      value: 
+      objectReference: {fileID: 1470048944}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -25522,6 +25532,18 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &1470048944 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7984276281292347379, guid: a0cbd2013a96de142a005d31bd723d2d,
+    type: 3}
+  m_PrefabInstance: {fileID: 657884834}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b81bc1dde3a1f344adbbf84cca8c8e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1607404906
 GameObject:
   m_ObjectHideFlags: 0

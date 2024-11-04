@@ -11,7 +11,7 @@ using static UnityEngine.UI.CanvasScaler;
 
 public class Unit_Enemy : Unit
 {
-    //public Unit_Type UT;
+    //public UnitType UnitType;
 
     Dictionary<Vector2Int, List<Unit_Enemy>> gridCells = new Dictionary<Vector2Int, List<Unit_Enemy>>();
 
@@ -79,7 +79,7 @@ public class Unit_Enemy : Unit
     {
         base.Hitted(p_Damage_Value);
         string Damage_Text = p_Damage_Value.ToString();
-        All_Manager.instance.Pool_M.Damage_Effect.Show_Damage_Effect(transform.position, Damage_Text);
+        All_Manager.instance.Pool_M.Damage_Effect.ShowDamageEffect(transform.position, Damage_Text);
     }
 
     protected override IEnumerator CheckDeadWithDelay()
@@ -95,7 +95,7 @@ public class Unit_Enemy : Unit
     public override void Die()
     {
         base.Die();
-        if (this.UT != Unit_Type.Boss || this.UT != Unit_Type.Barrel)
+        if (this.UnitType != UnitType.Boss || this.UnitType != UnitType.Barrel)
         {
             All_Manager.instance.GameMode_M.Enemy_Down(this);
         }
@@ -114,8 +114,8 @@ public class Unit_Enemy : Unit
     protected override void Return_Pool()
     {
         base.Return_Pool();
-        if (this.UT == Unit_Type.Boss) return;
-        if (this.UT == Unit_Type.Barrel)
+        if (this.UnitType == UnitType.Boss) return;
+        if (this.UnitType == UnitType.Barrel)
         {
             All_Manager.instance.GameMode_M.Enemy_Down(this);
         }
@@ -141,25 +141,25 @@ public class Unit_Enemy : Unit
 
         this.transform.position = this.transform.position + (dir.normalized * (UnityEngine.Random.Range(Unit_Enemy_Speed, Unit_Enemy_Speed) * Time.deltaTime));
 
-        if (this.UT == Unit_Type.Barrel) return;
+        if (this.UnitType == UnitType.Barrel) return;
 
         if (All_Manager.instance.GameMode_M.Enemy_List.Contains(this) || gameObject.GetComponent<Animator>())
         {
-            AM.SetBool("Move", true);
+            _unitAnimator.SetBool("Move", true);
         }
         else
         {
-            AM.SetBool("Move", false);
+            _unitAnimator.SetBool("Move", false);
         }
 
         if (All_Manager.instance.GameMode_M.Current_Player.transform.position.x < this.transform.position.x && isDead == false)
         {
-            SR.flipX = true;
+            _unitSpriteRenderer.flipX = true;
         }
 
         else
         {
-            SR.flipX = false;
+            _unitSpriteRenderer.flipX = false;
         }
 
 
@@ -188,7 +188,7 @@ public class Unit_Enemy : Unit
                 {
                     Unit_Player Temp = Player.GetComponent<Unit_Player>();
 
-                    if (this.UT != Unit_Type.Barrel) // 불필요한 빈 조건문 제거
+                    if (this.UnitType != UnitType.Barrel) // 불필요한 빈 조건문 제거
                     {
                         Temp.Hitted(Unit_Enemy_Damage);
                     }
@@ -205,7 +205,7 @@ public class Unit_Enemy : Unit
         var Temp_Player = All_Manager.instance.GameMode_M.Current_Player;
         Camera Temp_Camera = All_Manager.instance.GameMode_M.Current_Camera;
 
-        if (this.UT == Unit_Type.Barrel)
+        if (this.UnitType == UnitType.Barrel)
         {
             return;
         }
@@ -283,25 +283,25 @@ public class Unit_Enemy : Unit
     }
 
 
-    public void Elite_Outline_Set(Unit_Type p_UT)
+    public void Elite_Outline_Set(UnitType p_UnitType)
     {
         //float Set_Elite = 0.05f;
         float Set_Not_Elite = 0.0f;
 
         if (Elite == false)
         {
-            SR.material.SetFloat("_Outline", Set_Not_Elite);
+            _unitSpriteRenderer.material.SetFloat("_Outline", Set_Not_Elite);
         }
 
         else
         {
-            SR.material.SetFloat("_Outline", Set_Not_Elite);
-            Elite_HP_Setting(p_UT);
+            _unitSpriteRenderer.material.SetFloat("_Outline", Set_Not_Elite);
+            Elite_HP_Setting(p_UnitType);
         }
 
     }
 
-    public void Elite_HP_Setting(Unit_Type p_UT)
+    public void Elite_HP_Setting(UnitType p_UnitType)
     {
         if (Elite == false)
         {
@@ -321,22 +321,22 @@ public class Unit_Enemy : Unit
     // 유닛 에너미 스탯 조정
     public override void Unit_Stat_Setting(Unit p_Unit, STO_Unit p_Un_STO)
     {
-        p_Unit.SR.sprite = p_Un_STO.Sprite_Image;
-        p_Unit.SR.material = p_Un_STO.Elite_Material;
+        p_Unit.UnitSpriteRenderer.sprite = p_Un_STO.Sprite_Image;
+        p_Unit.UnitSpriteRenderer.material = p_Un_STO.Elite_Material;
 
         p_Unit.Max_HP = p_Unit.Current_HP = p_Un_STO.Unit_Enemy_HP;
         p_Unit.Unit_Enemy_HP = p_Un_STO.Unit_Enemy_HP;
         p_Unit.Unit_Enemy_Damage = p_Un_STO.Unit_Enemy_Damage;
         p_Unit.Unit_Enemy_Speed = (p_Un_STO.Unit_Enemy_Speed * 1.5f);
 
-        p_Unit.BC.size = new Vector2(p_Un_STO.Size_X, p_Un_STO.Size_Y);
-        p_Unit.BC.offset = new Vector2(p_Un_STO.Offset_X, p_Un_STO.Offset_Y);
+        p_Unit.UnitBoxCollider2D.size = new Vector2(p_Un_STO.Size_X, p_Un_STO.Size_Y);
+        p_Unit.UnitBoxCollider2D.offset = new Vector2(p_Un_STO.Offset_X, p_Un_STO.Offset_Y);
 
         if (p_Un_STO.Unit_Animator_Controller != null)
         {
-            p_Unit.AM.runtimeAnimatorController = p_Un_STO.Unit_Animator_Controller;
-            p_Unit.AM.speed = 1.0f; // 애니메이션 재생
-            p_Unit.AM.cullingMode = AnimatorCullingMode.CullCompletely;
+            p_Unit.UnitAnimator.runtimeAnimatorController = p_Un_STO.Unit_Animator_Controller;
+            p_Unit.UnitAnimator.speed = 1.0f; // 애니메이션 재생
+            p_Unit.UnitAnimator.cullingMode = AnimatorCullingMode.CullCompletely;
         }
     }
 
@@ -361,7 +361,7 @@ public class Unit_Enemy : Unit
 
         if (distance > distanceThreshold && !isSpeedBoosted)
         {
-            if (this.UT != Unit_Type.Boss)
+            if (this.UnitType != UnitType.Boss)
             {
                 Unit_Enemy_Speed *= 10.0f;
                 isSpeedBoosted = true; // 속도 부스터 상태 설정
@@ -369,22 +369,23 @@ public class Unit_Enemy : Unit
         }
         else if (distance <= distanceThreshold && isSpeedBoosted)
         {
-            if (this.UT != Unit_Type.Boss)
+            if (this.UnitType != UnitType.Boss)
             {
-                Unit_Enemy_Speed = All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr(this.UT).Unit_Enemy_Speed * 1.5f;
+                Unit_Enemy_Speed = All_Manager.instance.Resource_M.Convert_UnitType_To_STO_Unit_Arr(this.UnitType).Unit_Enemy_Speed * 1.5f;
                 isSpeedBoosted = false; // 속도 부스터 해제
             }
         }
 
     }
 
-    public override void Unit_Animation(Unit_Anim_State State)
+    public override void Unit_Animation(UnitAnimationState State)
     {
         base.Unit_Animation(State);
     }
 
 }
 
+#region
 //var target = All_Manager.instance.GameMode_M.Current_Player.transform;
 
 //방향 바꾸고
@@ -401,7 +402,7 @@ public class Unit_Enemy : Unit
 
 //            Unit_Player Temp = collision.transform.GetComponent<Unit_Player>();
 
-//            if (this.UT == Unit_Type.Barrel)
+//            if (this.UnitType == UnitType.Barrel)
 //            {
 
 //            }
@@ -415,3 +416,4 @@ public class Unit_Enemy : Unit
 //        }
 //    }
 //}
+#endregion

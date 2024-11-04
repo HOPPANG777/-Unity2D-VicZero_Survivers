@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class DefendMission : Mission
 {
-    // ¹ßÆÇ¿¡ ¼­ÀÖ´Â µ¿¾È Á×¿©¾ßÇÏ´Â Àû ¼ö
+    // ë°œíŒì— ì„œìˆëŠ” ë™ì•ˆ ì£½ì—¬ì•¼í•˜ëŠ” ì  ìˆ˜
     [SerializeField] private int _missionClearKill = 100;
     public int MissionClearKill { get { return _missionClearKill; } }
 
@@ -32,16 +32,16 @@ public class DefendMission : Mission
         base.CheckPlayerCollision();
     }
 
-    // ¼öºñ -> ¸ó½ºÅÍ 100¸¶¸® Á×ÀÌ±â
+    // ìˆ˜ë¹„ -> ëª¬ìŠ¤í„° 100ë§ˆë¦¬ ì£½ì´ê¸°
     private void DefendOnMission()
     {
-        // ¹ßÆÇÀ» ¹â°í
+        // ë°œíŒì„ ë°Ÿê³ 
         if (_isMissionPrograce != true) return;
 
-        // Á×ÀÎ ÀûÀÇ ¼ö°¡ ¹Ì¼Ç Å¬¸®¾î Á¶°Ç¼öº¸´Ù ¸¹À¸¸é
+        // ì£½ì¸ ì ì˜ ìˆ˜ê°€ ë¯¸ì…˜ í´ë¦¬ì–´ ì¡°ê±´ìˆ˜ë³´ë‹¤ ë§ìœ¼ë©´
         if (All_Manager.instance.GameMode_M.Kill_Count > _killCount)
         {
-            // ¹Ì¼Ç Å¬¸®¾î
+            // ë¯¸ì…˜ í´ë¦¬ì–´
             _isMissionClear = true;
         }
     }
@@ -49,12 +49,12 @@ public class DefendMission : Mission
 
     protected override void MissionReward()
     {
-        // ¹Ì¼ÇÀÌ Å¬¸®¾î µÇ¸é
+        // ë¯¸ì…˜ì´ í´ë¦¬ì–´ ë˜ë©´
         if (_isMissionClear == true)
         {
-            // Reward(º¸¹°»óÀÚ)¸¦ ¶³±º ÈÄ ¹Ì¼Ç(¹ßÆÇ) »èÁ¦ 
-            All_Manager.instance.Pool_M.MISC_Pool_Out(MISC_Type.Chest, this.gameObject.transform);  // º¸¹°»óÀÚ µå¶ø
-            RemoveMission();  // ¹ßÆÇ »èÁ¦
+            // Reward(ë³´ë¬¼ìƒì)ë¥¼ ë–¨êµ° í›„ ë¯¸ì…˜(ë°œíŒ) ì‚­ì œ 
+            All_Manager.instance.Pool_M.Item_Pool_Out(ItemType.Chest, this.gameObject.transform);  // ë³´ë¬¼ìƒì ë“œë
+            RemoveMission();  // ë°œíŒ ì‚­ì œ
         }
     }
 
@@ -63,11 +63,11 @@ public class DefendMission : Mission
         Destroy(this.gameObject);
     }
 
-    public override void MissionSetting(Mission p_Mission, STO_Mission p_MTO)
+    public override void MissionSetting(Mission p_Mission, STO_Mission p_ItemTypeO)
     {
-        p_Mission.MissionType = p_MTO.missionType;
-        p_Mission.SpriteRenderer.sprite = p_MTO.Sprite;
-        p_Mission.SpriteRenderer.material = p_MTO.Material;
+        p_Mission.MissionType = p_ItemTypeO.missionType;
+        p_Mission.SpriteRenderer.sprite = p_ItemTypeO.Sprite;
+        p_Mission.SpriteRenderer.material = p_ItemTypeO.Material;
         p_Mission.SpriteRenderer.sortingOrder = -1;
     }
 

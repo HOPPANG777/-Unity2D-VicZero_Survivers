@@ -166,142 +166,142 @@ public class Treasure_Box : MonoBehaviour
     {
         if (Item_Num == 0)
         {
-            All_Manager.instance.UI_M.Player_Level_Up.Weapon_Select_Assign_Button(Weapon_Type.Axe);
+            All_Manager.instance.UI_M.Player_Level_Up.Weapon_Select_Assign_Button(WeaponType.Axe);
             All_Manager.instance.UI_M.Treasure_Select_Item_Image.gameObject.SetActive(true);
-            All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(Weapon_Type.Axe).Item_Image;
+            All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr(WeaponType.Axe).Item_Image;
         }
 
         if (Item_Num == 1)
         {
-            All_Manager.instance.UI_M.Player_Level_Up.Weapon_Select_Assign_Button(Weapon_Type.KingBible);
+            All_Manager.instance.UI_M.Player_Level_Up.Weapon_Select_Assign_Button(WeaponType.KingBible);
             All_Manager.instance.UI_M.Treasure_Select_Item_Image.gameObject.SetActive(true);
-            All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(Weapon_Type.KingBible).Item_Image;
+            All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr(WeaponType.KingBible).Item_Image;
         }
 
         if (Item_Num == 2)
         {
-            All_Manager.instance.UI_M.Player_Level_Up.Weapon_Select_Assign_Button(Weapon_Type.Peachone);
+            All_Manager.instance.UI_M.Player_Level_Up.Weapon_Select_Assign_Button(WeaponType.Peachone);
             All_Manager.instance.UI_M.Treasure_Select_Item_Image.gameObject.SetActive(true);
-            All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(Weapon_Type.Peachone).Item_Image;
+            All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr(WeaponType.Peachone).Item_Image;
         }
 
         if (Item_Num == 3)
         {
-            All_Manager.instance.UI_M.Player_Level_Up.Weapon_Select_Assign_Button(Weapon_Type.FireWand);
+            All_Manager.instance.UI_M.Player_Level_Up.Weapon_Select_Assign_Button(WeaponType.FireWand);
             All_Manager.instance.UI_M.Treasure_Select_Item_Image.gameObject.SetActive(true);
-            All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(Weapon_Type.FireWand).Item_Image;
+            All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr(WeaponType.FireWand).Item_Image;
         }
 
         if (Item_Num == 4)
         {
-            All_Manager.instance.UI_M.Player_Level_Up.Weapon_Select_Assign_Button(Weapon_Type.Cross);
+            All_Manager.instance.UI_M.Player_Level_Up.Weapon_Select_Assign_Button(WeaponType.Banana);
             All_Manager.instance.UI_M.Treasure_Select_Item_Image.gameObject.SetActive(true);
-            All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(Weapon_Type.Cross).Item_Image;
+            All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr(WeaponType.Banana).Item_Image;
         }
 
         if (Item_Num == 5)
         {
-            All_Manager.instance.UI_M.Player_Level_Up.Weapon_Select_Assign_Button(Weapon_Type.Garlic);
+            All_Manager.instance.UI_M.Player_Level_Up.Weapon_Select_Assign_Button(WeaponType.Force);
             All_Manager.instance.UI_M.Treasure_Select_Item_Image.gameObject.SetActive(true);
-            All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(Weapon_Type.Garlic).Item_Image;
+            All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr(WeaponType.Force).Item_Image;
         }
 
         if (Item_Num == 6)
         {
-            All_Manager.instance.UI_M.Player_Level_Up.Weapon_Select_Assign_Button(Weapon_Type.LightningRing);
+            All_Manager.instance.UI_M.Player_Level_Up.Weapon_Select_Assign_Button(WeaponType.LightningRing);
             All_Manager.instance.UI_M.Treasure_Select_Item_Image.gameObject.SetActive(true);
-            All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(Weapon_Type.LightningRing).Item_Image;
+            All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr(WeaponType.LightningRing).Item_Image;
         }
 
         if (Item_Num == 7)
         {
-            All_Manager.instance.UI_M.Player_Level_Up.Weapon_Select_Assign_Button(Weapon_Type.ShadowPinion);
+            All_Manager.instance.UI_M.Player_Level_Up.Weapon_Select_Assign_Button(WeaponType.ShieldChasing);
             All_Manager.instance.UI_M.Treasure_Select_Item_Image.gameObject.SetActive(true);
-            All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(Weapon_Type.ShadowPinion).Item_Image;
+            All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr(WeaponType.ShieldChasing).Item_Image;
         }
 
         if (Item_Num == 8)
         {
-            All_Manager.instance.UI_M.Player_Level_Up.Weapon_Select_Assign_Button(Weapon_Type.RuneTracer);
+            All_Manager.instance.UI_M.Player_Level_Up.Weapon_Select_Assign_Button(WeaponType.RuneTracer);
             All_Manager.instance.UI_M.Treasure_Select_Item_Image.gameObject.SetActive(true);
-            All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(Weapon_Type.RuneTracer).Item_Image;
+            All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr(WeaponType.RuneTracer).Item_Image;
         }
 
         if (Item_Num == 9)
         {
-            All_Manager.instance.UI_M.Player_Level_Up.Weapon_Select_Assign_Button(Weapon_Type.Whip);
+            All_Manager.instance.UI_M.Player_Level_Up.Weapon_Select_Assign_Button(WeaponType.Nunchaku);
            All_Manager.instance.UI_M.Treasure_Select_Item_Image.gameObject.SetActive(true);
-           All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(Weapon_Type.Whip).Item_Image;
+           All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr(WeaponType.Nunchaku).Item_Image;
         }
 
         if (Item_Num == 10)
         {
-            All_Manager.instance.UI_M.Player_Level_Up.Equipment_Select_Assign_Button(Equipment_Type.Spinach);
+            All_Manager.instance.UI_M.Player_Level_Up.Accessory_Select_Assign_Button(AccessoryType.Bang);
             All_Manager.instance.UI_M.Treasure_Select_Item_Image.gameObject.SetActive(true);
-            All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.Spinach).Sprite_Image;
+            All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_AccessoryType_To_STO_Accessory_Arr(AccessoryType.Bang).Sprite_Image;
         }
 
         if (Item_Num == 11)
         {
-            All_Manager.instance.UI_M.Player_Level_Up.Equipment_Select_Assign_Button(Equipment_Type.Bracer);
+            All_Manager.instance.UI_M.Player_Level_Up.Accessory_Select_Assign_Button(AccessoryType.Bracer);
             All_Manager.instance.UI_M.Treasure_Select_Item_Image.gameObject.SetActive(true);
-            All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.Bracer).Sprite_Image;
+            All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_AccessoryType_To_STO_Accessory_Arr(AccessoryType.Bracer).Sprite_Image;
         }
 
         if (Item_Num == 12)
         {
-            All_Manager.instance.UI_M.Player_Level_Up.Equipment_Select_Assign_Button(Equipment_Type.Duplicator);
+            All_Manager.instance.UI_M.Player_Level_Up.Accessory_Select_Assign_Button(AccessoryType.Times);
             All_Manager.instance.UI_M.Treasure_Select_Item_Image.gameObject.SetActive(true);
-            All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.Duplicator).Sprite_Image;
+            All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_AccessoryType_To_STO_Accessory_Arr(AccessoryType.Times).Sprite_Image;
         }
 
         if (Item_Num == 13)
         {
-            All_Manager.instance.UI_M.Player_Level_Up.Equipment_Select_Assign_Button(Equipment_Type.EmptyTome);
+            All_Manager.instance.UI_M.Player_Level_Up.Accessory_Select_Assign_Button(AccessoryType.EmptyTome);
             All_Manager.instance.UI_M.Treasure_Select_Item_Image.gameObject.SetActive(true);
-            All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.EmptyTome).Sprite_Image;
+            All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_AccessoryType_To_STO_Accessory_Arr(AccessoryType.EmptyTome).Sprite_Image;
         }
 
         if (Item_Num == 14)
         {
-            All_Manager.instance.UI_M.Player_Level_Up.Equipment_Select_Assign_Button(Equipment_Type.Wings);
+            All_Manager.instance.UI_M.Player_Level_Up.Accessory_Select_Assign_Button(AccessoryType.Thunder);
             All_Manager.instance.UI_M.Treasure_Select_Item_Image.gameObject.SetActive(true);
-            All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.Wings).Sprite_Image;
+            All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_AccessoryType_To_STO_Accessory_Arr(AccessoryType.Thunder).Sprite_Image;
         }
 
         if (Item_Num == 15)
         {
-            All_Manager.instance.UI_M.Player_Level_Up.Equipment_Select_Assign_Button(Equipment_Type.Candelabrador);
+            All_Manager.instance.UI_M.Player_Level_Up.Accessory_Select_Assign_Button(AccessoryType.TheFlags);
             All_Manager.instance.UI_M.Treasure_Select_Item_Image.gameObject.SetActive(true);
-            All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.Candelabrador).Sprite_Image;
+            All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_AccessoryType_To_STO_Accessory_Arr(AccessoryType.TheFlags).Sprite_Image;
         }
 
         if (Item_Num == 16)
         {
-            All_Manager.instance.UI_M.Player_Level_Up.Equipment_Select_Assign_Button(Equipment_Type.Armour);
+            All_Manager.instance.UI_M.Player_Level_Up.Accessory_Select_Assign_Button(AccessoryType.MagicHood);
             All_Manager.instance.UI_M.Treasure_Select_Item_Image.gameObject.SetActive(true);
-            All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.Armour).Sprite_Image;
+            All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_AccessoryType_To_STO_Accessory_Arr(AccessoryType.MagicHood).Sprite_Image;
         }
 
         if (Item_Num == 17)
         {
-            All_Manager.instance.UI_M.Player_Level_Up.Equipment_Select_Assign_Button(Equipment_Type.HollowHeart);
+            All_Manager.instance.UI_M.Player_Level_Up.Accessory_Select_Assign_Button(AccessoryType.RedAja);
             All_Manager.instance.UI_M.Treasure_Select_Item_Image.gameObject.SetActive(true);
-            All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.HollowHeart).Sprite_Image;
+            All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_AccessoryType_To_STO_Accessory_Arr(AccessoryType.RedAja).Sprite_Image;
         }
 
         if (Item_Num == 18)
         {
-            All_Manager.instance.UI_M.Player_Level_Up.Equipment_Select_Assign_Button(Equipment_Type.SpellBinder);
+            All_Manager.instance.UI_M.Player_Level_Up.Accessory_Select_Assign_Button(AccessoryType.FloppyDisk);
             All_Manager.instance.UI_M.Treasure_Select_Item_Image.gameObject.SetActive(true);
-            All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.SpellBinder).Sprite_Image;
+            All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_AccessoryType_To_STO_Accessory_Arr(AccessoryType.FloppyDisk).Sprite_Image;
         }
 
         if (Item_Num == 19)
         {
-            All_Manager.instance.UI_M.Player_Level_Up.Equipment_Select_Assign_Button(Equipment_Type.Attractorb);
+            All_Manager.instance.UI_M.Player_Level_Up.Accessory_Select_Assign_Button(AccessoryType.Attractorb);
             All_Manager.instance.UI_M.Treasure_Select_Item_Image.gameObject.SetActive(true);
-            All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.Attractorb).Sprite_Image;
+            All_Manager.instance.UI_M.Treasure_Select_Item_Image.sprite = All_Manager.instance.Resource_M.Convert_AccessoryType_To_STO_Accessory_Arr(AccessoryType.Attractorb).Sprite_Image;
         }
     }
 
