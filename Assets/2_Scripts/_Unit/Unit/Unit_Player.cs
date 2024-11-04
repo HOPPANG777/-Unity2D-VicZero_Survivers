@@ -188,7 +188,6 @@ public class Unit_Player : Unit
     }
 
     #region
-    // ���� ����
     public IEnumerator C_Create_Weapon(Weapon_Type p_WT)
     {
         yield return new WaitWhile(() => Creating_Weapon == true);
@@ -204,49 +203,39 @@ public class Unit_Player : Unit
 
         switch (p_WT)
         {
-            // ����
             case Weapon_Type.Axe:
                 {
                     Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
 
-                    //Weapon_Go.AddComponent<Weapon_Axe>();
-
-                    // Weapon_Go�� �ش� ������ ������Ʈ�� �����ϰ� �ִٸ�.
                     if (Weapon_Go.GetComponent<Weapon_Axe>())
                     {
-                        // ��ġ �ʱ�ȭ
                         Weapon_Go.transform.position = this.transform.position;
                         Weapon_Go.transform.rotation = Quaternion.identity;
                         Weapon_Go.transform.localScale = Vector3.one;
 
-                        // �� ������ ��������Ʈ�� �ҷ��ö����� ��ٷ���.
                         yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_Axe>().SR);
                         Vector3 One = this.transform.position;
                         Vector3 Two, Three, Four;
 
-                        // ���� ���⿡ ����
                         if (Weapon_Trigger)
                         {
                             Two = One + new Vector3(0, 5, 0);
-                            Three = Two + new Vector3(Random.Range(1, 5), 0, 0);        // ������
-                            Four = One + new Vector3(Random.Range(1, 5), -10, 0);       // ������ �Ʒ�
+                            Three = Two + new Vector3(Random.Range(1, 5), 0, 0);       
+                            Four = One + new Vector3(Random.Range(1, 5), -10, 0);      
                         }
                         else
                         {
                             Two = One + new Vector3(0, 5, 0);
-                            Three = Two + new Vector3(Random.Range(-5, -1), 0, 0);      // ����
-                            Four = One + new Vector3(Random.Range(-5, -1), -10, 0);     // ���� �Ʒ�
+                            Three = Two + new Vector3(Random.Range(-5, -1), 0, 0);      
+                            Four = One + new Vector3(Random.Range(-5, -1), -10, 0);     
                         }
 
-                        // ���� �ʱ�ȭ
                         Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, Axe_LAT.Level);
                         Weapon_Go.GetComponent<Weapon_Axe>().Axe_Init(One, Two, Three, Four);
                         CheckSynergyEffects(Weapon_Go.GetComponent<Weapon_Axe>().WeaponKeyword);
 
-                        // ������ �����ɶ� ���� �ݴ�� ����
                         Weapon_Trigger = !Weapon_Trigger;
 
-                        // ���� ������ ȿ����
                         All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.Axe);
                     }
                 }
@@ -456,7 +445,6 @@ public class Unit_Player : Unit
                             Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
                             //Weapon_Go.AddComponent<Weapon_LightningRing>();
 
-
                             // LightningRing�� �������� �ִ��� Ȯ�� �� ó��
                             if (Weapon_Go.GetComponent<Weapon_LightningRing>() != null)
                             {
@@ -487,7 +475,6 @@ public class Unit_Player : Unit
             case Weapon_Type.ShadowPinion:
                 {
                     Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
-                    //Weapon_Go.AddComponent<Weapon_ShadowPinion>();
 
                     if (Weapon_Go.GetComponent<Weapon_ShadowPinion>())
                     {
@@ -499,7 +486,6 @@ public class Unit_Player : Unit
 
                         Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, ShadowPinion_LAT.Level);
                         CheckSynergyEffects(Weapon_Go.GetComponent<Weapon_ShadowPinion>().WeaponKeyword);
-                        //Weapon_Go.GetComponent<Weapon_ShadowPinion>().Weapon_Application_Equipment();
                         All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.ShadowPinion);
                     }
                 }
@@ -507,7 +493,6 @@ public class Unit_Player : Unit
             case Weapon_Type.RuneTracer:
                 {
                     Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
-                    //Weapon_Go.AddComponent<Weapon_RuneTracer>();
 
                     if (Weapon_Go.GetComponent<Weapon_RuneTracer>())
                     {
@@ -518,7 +503,6 @@ public class Unit_Player : Unit
                         yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_RuneTracer>().SR);
 
                         Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, RuneTracer_LAT.Level);
-                        //Weapon_Go.GetComponent<Weapon_RuneTracer>().Weapon_Application_Equipment();
                         CheckSynergyEffects(Weapon_Go.GetComponent<Weapon_RuneTracer>().WeaponKeyword);
                         All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.RuneTracer);
                     }
@@ -527,9 +511,6 @@ public class Unit_Player : Unit
             case Weapon_Type.Whip:
                 {
                     Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
-                    //Weapon_Go.AddComponent<Weapon_Whip>();
-
-                    //Weapon_Go.transform.parent = this.transform;
 
                     if (Weapon_Go.GetComponent<Weapon_Whip>())
                     {
