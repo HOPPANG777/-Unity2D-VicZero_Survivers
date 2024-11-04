@@ -1531,8 +1531,8 @@ public class Unit_Player : Unit
                 {
                     if (weapon.WeaponKeyword == keyword)
                     {
-                        var Temp = All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.Spinach);
-                        Get_Equipment_Player_Percentage_Stat(this, Temp);
+                        weapon.Weapon_Speed *= 1.5f;
+                        Debug.Log("바운드");
                     }
                 }
                 break;
