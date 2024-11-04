@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -9,6 +9,11 @@ public class Weapon_Peachone : Weapon
 
     [SerializeField] public float Pos_A = 3f;
     [SerializeField] public float Pos_B = 2f;
+
+    public override void Awake()
+    {
+        base.Awake();
+    }
 
     public override void Start()
     {

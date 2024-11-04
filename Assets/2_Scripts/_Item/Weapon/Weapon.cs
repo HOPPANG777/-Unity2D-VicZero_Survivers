@@ -48,7 +48,7 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
 
     public bool IsKeywordCounted { get; set; } = false;
 
-    public virtual void Start()
+    public virtual void Awake()
     {
         SR = this.AddComponent<SpriteRenderer>();
 
@@ -62,6 +62,11 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
         TR.enabled = false;
 
         AM = this.AddComponent<Animator>();
+    }
+
+    public virtual void Start()
+    {
+
     }
 
     public void Weapon_Init(Unit p_User, STO_Weapon p_WP, int p_Level)
@@ -90,10 +95,10 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
 
     }
 
-    // ¾÷±×·¹ÀÌµå
+    // ì—…ê·¸ë ˆì´ë“œ
     public abstract void Upgrade(int p_Level);
 
-    // ¹«±â ÆÄ±« Å¸ÀÌ¸Ó
+    // ë¬´ê¸° íŒŒê´´ íƒ€ì´ë¨¸
     public void Weapon_Timer()
     {
         if (Weapon_Time > Weapon_Duration)
@@ -106,7 +111,7 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
         Weapon_Time += Time.deltaTime;
     }
 
-    // º£Áö¾î °î¼±À» ¾²´Â ¹«±âµéÀ» À§ÇÑ Å¸ÀÌ¸Ó
+    // ë² ì§€ì–´ ê³¡ì„ ì„ ì“°ëŠ” ë¬´ê¸°ë“¤ì„ ìœ„í•œ íƒ€ì´ë¨¸
     public void Weapon_Accumulate()
     {
         if (W_Accumulate < 1.0f)
@@ -124,26 +129,26 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
         var Enemy_List = All_Manager.instance.GameMode_M.Enemy_List;
         var Weapon = this;
 
-        // ¹«±â À§Ä¡¸¦ º¯¼ö·Î ÀúÀåÇÏ¿© ¹İº¹ »ç¿ë
+        // ë¬´ê¸° ìœ„ì¹˜ë¥¼ ë³€ìˆ˜ë¡œ ì €ì¥í•˜ì—¬ ë°˜ë³µ ì‚¬ìš©
         Vector2 Weapon_Position = Weapon.transform.position;
 
-        // ¹«±â Å¸ÀÔ¿¡ µû¸¥ STO ¹× ¹«±â ¹üÀ§ °ü·Ã º¯¼ö ¹Ì¸® °è»ê
+        // ë¬´ê¸° íƒ€ì…ì— ë”°ë¥¸ STO ë° ë¬´ê¸° ë²”ìœ„ ê´€ë ¨ ë³€ìˆ˜ ë¯¸ë¦¬ ê³„ì‚°
         var Temp_WTO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(WT);
         var Temp_WALT = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_WTO);
         float Min_Distance = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Size(WT, Temp_WALT) * 0.5f;
 
-        // Min_Distance¸¦ Á¦°öÇÏ¿© ·çÆ® °è»ê ¹æÁö (¼º´É ÃÖÀûÈ­)
+        // Min_Distanceë¥¼ ì œê³±í•˜ì—¬ ë£¨íŠ¸ ê³„ì‚° ë°©ì§€ (ì„±ëŠ¥ ìµœì í™”)
         float Min_Distance_Sqr = (Min_Distance * Min_Distance);
 
-        // ¹«±â¿¡ ÀÇÇÑ ÀûÀÇ Å¸°İ Ã³¸® ¿©ºÎ¸¦ ÀúÀåÇÒ ¸®½ºÆ®
+        // ë¬´ê¸°ì— ì˜í•œ ì ì˜ íƒ€ê²© ì²˜ë¦¬ ì—¬ë¶€ë¥¼ ì €ì¥í•  ë¦¬ìŠ¤íŠ¸
         List<Unit_Enemy> enemiesHit = new List<Unit_Enemy>();
 
         for (int i = 0; i < Enemy_List.Count; i++)
         {
-            // ¹«±â¿Í Àû °£ÀÇ °Å¸® °è»ê
+            // ë¬´ê¸°ì™€ ì  ê°„ì˜ ê±°ë¦¬ ê³„ì‚°
             Vector2 Dir = Weapon_Position - (Vector2)Enemy_List[i].transform.position;
 
-            // °Å¸®ÀÇ Á¦°öÀ» °è»êÇÏ¿© ºñ±³ (·çÆ® °è»ê ¹æÁö)
+            // ê±°ë¦¬ì˜ ì œê³±ì„ ê³„ì‚°í•˜ì—¬ ë¹„êµ (ë£¨íŠ¸ ê³„ì‚° ë°©ì§€)
             float Dis_Sqr = Dir.sqrMagnitude;
 
             if (Dis_Sqr < Min_Distance_Sqr)
@@ -152,18 +157,18 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
 
                 if (!enemiesHit.Contains(Temp_Enemy))
                 {
-                    // Àû¿¡°Ô ÇÇÇØ ÀÔÈ÷±â
+                    // ì ì—ê²Œ í”¼í•´ ì…íˆê¸°
                     Collision_Count++;
                     Temp_Enemy.Hitted(Weapon_Damage);
-                    enemiesHit.Add(Temp_Enemy); // ÇØ´ç ÀûÀÌ ÀÌ¹Ì Å¸°İ Ã³¸®µÇ¾úÀ½À» ±â·Ï
+                    enemiesHit.Add(Temp_Enemy); // í•´ë‹¹ ì ì´ ì´ë¯¸ íƒ€ê²© ì²˜ë¦¬ë˜ì—ˆìŒì„ ê¸°ë¡
 
-                    // ¹«±â°¡ ¿µ±¸ÀûÀÎ °ÍÀÌ ¾Æ´Ñ °æ¿ì¸¸ Ãæµ¹ È½¼ö ¹× ¹«±â ÆÄ±« ·ÎÁ÷ Ã³¸®
+                    // ë¬´ê¸°ê°€ ì˜êµ¬ì ì¸ ê²ƒì´ ì•„ë‹Œ ê²½ìš°ë§Œ ì¶©ëŒ íšŸìˆ˜ ë° ë¬´ê¸° íŒŒê´´ ë¡œì§ ì²˜ë¦¬
                     if (Forever == false)
                     {
                         if (Collision_Count >= Weapon_Pen)
                         {
                             Destroy_Weapon();
-                            return; // ¹«±â¸¦ ÆÄ±«ÇÏ°í ÇÔ¼ö Á¾·á
+                            return; // ë¬´ê¸°ë¥¼ íŒŒê´´í•˜ê³  í•¨ìˆ˜ ì¢…ë£Œ
                         }
                     }
                 }
@@ -171,18 +176,18 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
         }
     }
 
-    // ¹«±â ³Ë¹é
+    // ë¬´ê¸° ë„‰ë°±
     public void Weapon_KnockBack_Weapon()
     {
-        // ¸ğµç Àû À¯´ÖÀ» °¡Á®¿Í Ãæµ¹ °Ë»ç
+        // ëª¨ë“  ì  ìœ ë‹›ì„ ê°€ì ¸ì™€ ì¶©ëŒ ê²€ì‚¬
         var Enemy_List = All_Manager.instance.GameMode_M.Enemy_List;
         var Temp_Player = All_Manager.instance.GameMode_M.Current_Player;
         var Temp_WTO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(WT);
         var Temp_WLAT = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_WTO);
 
-        // ³Ë¹é ¹üÀ§ ¼³Á¤
-        float KnockBack_Range = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Size(WT, Temp_WLAT) * 0.5f; // ³Ë¹é ¹üÀ§ (ÇÊ¿ä¿¡ µû¶ó Á¶Á¤ °¡´É)
-        float KnockBack_Range_Sqr = (KnockBack_Range * KnockBack_Range); // °Å¸® ºñ±³ ÃÖÀûÈ­ (·çÆ® °è»ê ¹æÁö)
+        // ë„‰ë°± ë²”ìœ„ ì„¤ì •
+        float KnockBack_Range = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Size(WT, Temp_WLAT) * 0.5f; // ë„‰ë°± ë²”ìœ„ (í•„ìš”ì— ë”°ë¼ ì¡°ì • ê°€ëŠ¥)
+        float KnockBack_Range_Sqr = (KnockBack_Range * KnockBack_Range); // ê±°ë¦¬ ë¹„êµ ìµœì í™” (ë£¨íŠ¸ ê³„ì‚° ë°©ì§€)
 
         for (int i = 0; i < Enemy_List.Count; i++)
         {
@@ -190,14 +195,14 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
 
             if (Enemy == this || Enemy.UT == Unit_Type.Barrel)
             {
-                continue; // ÀÚ±â ÀÚ½ÅÀÌ°Å³ª Æ¯Á¤ Å¸ÀÔÀº °Ç³Ê¶Ü
+                continue; // ìê¸° ìì‹ ì´ê±°ë‚˜ íŠ¹ì • íƒ€ì…ì€ ê±´ë„ˆëœ€
             }
 
-            // Àû°ú ¹«±â °£ÀÇ °Å¸® °è»ê
+            // ì ê³¼ ë¬´ê¸° ê°„ì˜ ê±°ë¦¬ ê³„ì‚°
             Vector3 Dir = this.transform.position - Enemy.transform.position;
             float Dis_Sqr = Dir.sqrMagnitude;
 
-            // ³Ë¹é ¹üÀ§ ³»ÀÇ Àû¿¡ ´ëÇØ¼­¸¸ ³Ë¹é Àû¿ë
+            // ë„‰ë°± ë²”ìœ„ ë‚´ì˜ ì ì— ëŒ€í•´ì„œë§Œ ë„‰ë°± ì ìš©
             if (Dis_Sqr <= KnockBack_Range_Sqr)
             {
                 Vector3 direction = (Enemy.transform.position - this.transform.position).normalized;
@@ -206,10 +211,10 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
         }
     }
 
-    // ¹«±â ±âº» ½ºÅÈ Á¶Á¤
+    // ë¬´ê¸° ê¸°ë³¸ ìŠ¤íƒ¯ ì¡°ì •
     public void Weapon_Stat(int p_Level, Weapon weapon, STO_Weapon weapon_STO)
     {
-        //Debug.Log("½ºÇÁ¶óÀÌÆ® »ğÀÔ");
+        //Debug.Log("ìŠ¤í”„ë¼ì´íŠ¸ ì‚½ì…");
 
         weapon.SR.sprite = weapon_STO.Sprite_Image;
         weapon.WT = weapon_STO.WT;
@@ -243,7 +248,7 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
         weapon.GetComponent<Weapon>().SR.size = new Vector2((Temp_Weapon_Size), (Temp_Weapon_Size));
         weapon.BC.size = new Vector2((SR.size.x * 0.5f), (SR.size.y * 0.5f));
 
-        // ¼³Á¤µÈ Å°¿öµå¸¦ Synergy_Manager¿¡ µî·ÏÇÑ´Ù.
+        // ì„¤ì •ëœ í‚¤ì›Œë“œë¥¼ Synergy_Managerì— ë“±ë¡í•œë‹¤.
         Synergy_Manager.instance.RegisterWeaponKeyword(weapon.WeaponKeyword, weapon);
     }
 
@@ -270,22 +275,22 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
 
     public void Weapon_Trail()
     {
-        // Trail Renderer ¼³Á¤
-        TR.time = 1.0f; // ²¿¸®°¡ Áö¼ÓµÇ´Â ½Ã°£
-        TR.startWidth = 0.05f; // ²¿¸®ÀÇ ½ÃÀÛ ³Êºñ
-        TR.endWidth = 0.01f; // ²¿¸®ÀÇ ³¡ ³Êºñ
+        // Trail Renderer ì„¤ì •
+        TR.time = 1.0f; // ê¼¬ë¦¬ê°€ ì§€ì†ë˜ëŠ” ì‹œê°„
+        TR.startWidth = 0.05f; // ê¼¬ë¦¬ì˜ ì‹œì‘ ë„ˆë¹„
+        TR.endWidth = 0.01f; // ê¼¬ë¦¬ì˜ ë ë„ˆë¹„
 
-        // ÀçÁú ¼³Á¤
+        // ì¬ì§ˆ ì„¤ì •
         TR.material = new Material(Shader.Find("Sprites/Default"));
-        TR.startColor = Color.white; // ²¿¸®ÀÇ ½ÃÀÛ »ö»ó
-        TR.endColor = Color.white; // ²¿¸®ÀÇ ³¡ »ö»ó
+        TR.startColor = Color.white; // ê¼¬ë¦¬ì˜ ì‹œì‘ ìƒ‰ìƒ
+        TR.endColor = Color.white; // ê¼¬ë¦¬ì˜ ë ìƒ‰ìƒ
 
-        // Ãß°¡ ¼³Á¤ (ÇÊ¿ä¿¡ µû¶ó º¯°æ °¡´É)
-        TR.minVertexDistance = 0.1f; // ÃÖ¼Ò ²ÀÁşÁ¡ °£ °Å¸®
+        // ì¶”ê°€ ì„¤ì • (í•„ìš”ì— ë”°ë¼ ë³€ê²½ ê°€ëŠ¥)
+        TR.minVertexDistance = 0.1f; // ìµœì†Œ ê¼­ì§“ì  ê°„ ê±°ë¦¬
         TR.widthCurve = new AnimationCurve(
             new Keyframe(0, 0.2f),
             new Keyframe(0.5f, 0.0f)
-        ); // ³Êºñ º¯È­ °î¼±
+        ); // ë„ˆë¹„ ë³€í™” ê³¡ì„ 
         TR.colorGradient = new Gradient()
         {
             colorKeys = new GradientColorKey[]
@@ -298,14 +303,14 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
                 new GradientAlphaKey(1.0f, 0.0f),
                 new GradientAlphaKey(0.0f, 1.0f)
             }
-        }; // »ö»ó º¯È­ ±×¶óµğ¾ğÆ®
+        }; // ìƒ‰ìƒ ë³€í™” ê·¸ë¼ë””ì–¸íŠ¸
 
     }
 
-    // ¹«±â ÆÄ±« ÇÔ¼ö
+    // ë¬´ê¸° íŒŒê´´ í•¨ìˆ˜
     public void Destroy_Weapon()
     {
-        // ¸¸¾à ÀÌ MineÀ¸·Î ¾ÈµÈ´Ù¸é ´Ù Current_Player·Î ÅëÇÕÇØ¾ß ÇÑ´Ù.
+        // ë§Œì•½ ì´ Mineìœ¼ë¡œ ì•ˆëœë‹¤ë©´ ë‹¤ Current_Playerë¡œ í†µí•©í•´ì•¼ í•œë‹¤.
         //if (All_Manager.instance.GameMode_M.Current_Player == null)
         //{
         //    Destroy(this.gameObject);
@@ -313,7 +318,7 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
 
         //Debug.Log("Weapon Destroy");
 
-        // ¸¸¾à MineÀÌ null ÀÌ¶ó¸é
+        // ë§Œì•½ Mineì´ null ì´ë¼ë©´
         if (All_Manager.instance.GameMode_M.Current_Player == null)
         {
             //Destroy(this.gameObject);
@@ -322,7 +327,7 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
             Synergy_Manager.instance.UnregisterWeaponKeyword(WeaponKeyword, this);
         }
 
-        // MineÀÌ nullÀÌ ¾Æ´Ï¶ó¸é
+        // Mineì´ nullì´ ì•„ë‹ˆë¼ë©´
         else
         {
             if (All_Manager.instance.GameMode_M.Current_Player.All_Weapon.Contains(this))
@@ -344,10 +349,10 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
 
 
 #region
-// ¹«±â°¡ Àû°ú Ãæµ¹ÇßÀ»¶§ // ÇÇ°İÃ³¸®
+// ë¬´ê¸°ê°€ ì ê³¼ ì¶©ëŒí–ˆì„ë•Œ // í”¼ê²©ì²˜ë¦¬
 //public virtual void OnTriggerStay2D(Collider2D collision)
 //{
-//    //Ãæµ¹Ã¼°¡ ÀÌ ÄÄÆ÷³ÍÆ®¸¦ °¡Áö°í ÀÖ´Â°¡?
+//    //ì¶©ëŒì²´ê°€ ì´ ì»´í¬ë„ŒíŠ¸ë¥¼ ê°€ì§€ê³  ìˆëŠ”ê°€?
 //    if (collision.transform.GetComponent<Unit_Enemy>())
 //    {
 //        //collision.transform.GetComponent<Unit_Enemy>().Hitted(Weapon_Damage);
@@ -418,14 +423,14 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
 //    }
 //}
 /*
-µµ³¢°°Àº°Ç º¸Åë °üÅë·ÂÀ» Áö´Ï°í ÀÖ´Ù ·éÆ®·¹ÀÌ¼­µµ ¸¶Âù°¡Áö
-µû¶ó¼­ Weapon_PenÀ» Ãß°¡Çß´Âµ¥ 
-À¯´ÖÀÌ³ª ¿şÆù¿¡ Ãæµ¹ÇÒ¶§¸¶´Ù PenÀ» °¨¼Ò½ÃÅ°°Å³ª È¤Àº º¯¼öÇÏ³ª ¸¸µé¾î¼­ 
-ÇÏ³ª¾¿ Áõ°¡½ÃÅ°°í º¯¼öÀÇ °ªÀÌ Penº¸´Ù Å©°Å³ª °°´Ù¸é 
-±×¶§ Forever¸¦ false·Î ¸¸µé¸é µÈ´Ù.
+ë„ë¼ê°™ì€ê±´ ë³´í†µ ê´€í†µë ¥ì„ ì§€ë‹ˆê³  ìˆë‹¤ ë£¬íŠ¸ë ˆì´ì„œë„ ë§ˆì°¬ê°€ì§€
+ë”°ë¼ì„œ Weapon_Penì„ ì¶”ê°€í–ˆëŠ”ë° 
+ìœ ë‹›ì´ë‚˜ ì›¨í°ì— ì¶©ëŒí• ë•Œë§ˆë‹¤ Penì„ ê°ì†Œì‹œí‚¤ê±°ë‚˜ í˜¹ì€ ë³€ìˆ˜í•˜ë‚˜ ë§Œë“¤ì–´ì„œ 
+í•˜ë‚˜ì”© ì¦ê°€ì‹œí‚¤ê³  ë³€ìˆ˜ì˜ ê°’ì´ Penë³´ë‹¤ í¬ê±°ë‚˜ ê°™ë‹¤ë©´ 
+ê·¸ë•Œ Foreverë¥¼ falseë¡œ ë§Œë“¤ë©´ ëœë‹¤.
 */
 
-// ¹«±â ½ºÅÈ °¡ÁßÄ¡
+// ë¬´ê¸° ìŠ¤íƒ¯ ê°€ì¤‘ì¹˜
 //float Weapon_CoolDown_Value = 0;
 //Weapon_CoolDown_Value = Mine.Origin_Stat.Unit_Weapon_CoolDown + (Mine.Origin_Stat.Unit_Weapon_CoolDown * Mine.Percent_Stat.Unit_Weapon_CoolDown * 0.01f);
 
@@ -439,7 +444,7 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
 
 //    All_Manager.instance.GameMode_M.Current_Player.Weapon_Public_Count = Temp_Count + Weapon_Count_Value;
 //}
-// ¹«±â ¿À¸®Áø ½ºÅÈ¿¡ ÆÛ¼¾Æ¼Áö ½ºÅÈ Àû¿ë
+// ë¬´ê¸° ì˜¤ë¦¬ì§„ ìŠ¤íƒ¯ì— í¼ì„¼í‹°ì§€ ìŠ¤íƒ¯ ì ìš©
 //public void Weapon_Application_Equipment()
 //{
 //    float Weapon_Damage_Value = 0;

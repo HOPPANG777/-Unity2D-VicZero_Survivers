@@ -9,6 +9,11 @@ public class Weapon_RuneTracer : Weapon
     public Vector3 Dir;
     private Camera mainCamera;
 
+    public override void Awake()
+    {
+        base.Awake();
+    }
+
     public override void Start()
     {
         base.Start();
@@ -137,7 +142,7 @@ public class Weapon_RuneTracer : Weapon
 //    RaycastHit2D[] hit2D = Physics2D.RaycastAll(collider.transform.position, colliderRB.velocity);
 //    //second one is being used because first one is self, could probably ignore self-layer and get as Physics2D.Raycast() instead
 //    Vector2 contactPoint = hit2D[1].point;
-//    //Get normal of contact point by creating a line from the contact point to the closest collider point and rotating 90¡Æ
+//    //Get normal of contact point by creating a line from the contact point to the closest collider point and rotating 90Â°
 //    Vector2 normal = Vector2.Perpendicular(contactPoint - GetClosestPoint(collider.transform.position)).normalized;
 //    //reflect the current velocity at the edge normal
 //    colliderRB.velocity = Vector2.Reflect(colliderRB.velocity, normal);

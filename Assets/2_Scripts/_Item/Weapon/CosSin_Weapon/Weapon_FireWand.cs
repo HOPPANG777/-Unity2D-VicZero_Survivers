@@ -7,6 +7,11 @@ public class Weapon_FireWand : Weapon
 {
     private Camera mainCamera;
 
+    public override void Awake()
+    {
+        base.Awake();
+    }
+
     public override void Start()
     {
         base.Start();
@@ -56,7 +61,7 @@ public class Weapon_FireWand : Weapon
 }
 
 #region
-//public void FireWand_Init()   // ¾È¾²´Â°Å
+//public void FireWand_Init()   // ì•ˆì“°ëŠ”ê±°
 //{
 //    if (All_Manager.instance.GameMode_M.Game_Stop == false)
 //    {
@@ -76,7 +81,7 @@ public class Weapon_FireWand : Weapon
 
 //        for (int i = 0; i < Temp_Count; i++)
 //        {
-//            // GameObject boltObj = Instantiate(boltPrefebs, player.transform.position + new Vector3(0, 0.3f), Quaternion.Euler(0, 0, (360 * i / (FireWand_Count - 1)) + 180)); //Åõ»çÃ¼ÀÇ °¢µµ°¡ ÀÚ¿¬½º·´°Ô È¸Àü°ªÀ» ³Ö¾ú´Ù.
+//            // GameObject boltObj = Instantiate(boltPrefebs, player.transform.position + new Vector3(0, 0.3f), Quaternion.Euler(0, 0, (360 * i / (FireWand_Count - 1)) + 180)); //íˆ¬ì‚¬ì²´ì˜ ê°ë„ê°€ ìì—°ìŠ¤ëŸ½ê²Œ íšŒì „ê°’ì„ ë„£ì—ˆë‹¤.
 //            GameObject FireWand_Go = new GameObject("FireWand");
 
 //            FireWand_Go.AddComponent<Weapon_FireWand>();
@@ -86,7 +91,7 @@ public class Weapon_FireWand : Weapon
 //            FireWand_Go.transform.rotation = Quaternion.identity;
 //            FireWand_Go.transform.localScale = Vector3.one;
 
-//            Vector3 dirVec = new Vector3(Mathf.Cos((Mathf.PI) * 2 * i / (Temp_Count - 1)), Mathf.Sin((Mathf.PI) * i * 2 / (Temp_Count - 1))); //¿øÀ» ±âÁØÀ¸·Î °¢°¢ÀÇ Åõ»çÃ¼¸¶´Ù º¤ÅÍ¸¦ Á¤¸®
+//            Vector3 dirVec = new Vector3(Mathf.Cos((Mathf.PI) * 2 * i / (Temp_Count - 1)), Mathf.Sin((Mathf.PI) * i * 2 / (Temp_Count - 1))); //ì›ì„ ê¸°ì¤€ìœ¼ë¡œ ê°ê°ì˜ íˆ¬ì‚¬ì²´ë§ˆë‹¤ ë²¡í„°ë¥¼ ì •ë¦¬
 //            FireWand_Go.transform.position = FireWand_Go.transform.position + (dirVec.normalized * Weapon_Speed * Time.deltaTime);
 
 //            //this.transform.position = this.transform.position + (-this.transform.right * Weapon_Speed * Time.deltaTime);
@@ -123,7 +128,7 @@ public class Weapon_FireWand : Weapon
 
 //for (int i = 0; i < Weapon_Level; i++)
 //{
-//    Åõ»çÃ¼ÀÇ °¢µµ°¡ ÀÚ¿¬½º·´°Ô È¸Àü°ªÀ» ³Ö¾ú´Ù.
+//    íˆ¬ì‚¬ì²´ì˜ ê°ë„ê°€ ìì—°ìŠ¤ëŸ½ê²Œ íšŒì „ê°’ì„ ë„£ì—ˆë‹¤.
 //    GameObject clone = Instantiate(FireWand_Go, this.transform.position + new Vector3(0, 0.3f), Quaternion.Euler(0, 0, (360 * i / (Weapon_Level - 1)) + 180));
 
 //    GameObject clone = new GameObject("FireWand");
@@ -143,7 +148,7 @@ public class Weapon_FireWand : Weapon
 //        All_Manager.instance.Resource_M.Weapon_Stat(clone.GetComponent<FireWand>(), All_Manager.instance.Resource_M.STO_FireWand);
 //        Debug.Log("1");
 //    }
-//    ¿øÀ» ±âÁØÀ¸·Î °¢°¢ÀÇ Åõ»çÃ¼¸¶´Ù º¤ÅÍ¸¦ Á¤¸®
+//    ì›ì„ ê¸°ì¤€ìœ¼ë¡œ ê°ê°ì˜ íˆ¬ì‚¬ì²´ë§ˆë‹¤ ë²¡í„°ë¥¼ ì •ë¦¬
 //    clone.GetComponent<Rigidbody2D>().AddGarlic(dirVec * Weapon_Speed * Time.deltaTime);
 //}
 

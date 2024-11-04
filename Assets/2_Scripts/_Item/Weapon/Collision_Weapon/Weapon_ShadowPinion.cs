@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Weapon_ShadowPinion : Weapon
 {
-    public Vector3 Dir; // ¹æÇâÀ» float¿¡¼­ Vector3·Î º¯°æ
+    public Vector3 Dir; // ë°©í–¥ì„ floatì—ì„œ Vector3ë¡œ ë³€ê²½
     public float RotateSpeed = 200f;
 
     public Unit_Enemy ShadowPinion_target;
@@ -13,13 +13,18 @@ public class Weapon_ShadowPinion : Weapon
 
     public Vector2 BoxSize;
 
-    private bool initialLaunch = true; // ÃÊ±â ¹ß»ç ¿©ºÎ È®ÀÎ¿ë º¯¼ö
+    private bool initialLaunch = true; // ì´ˆê¸° ë°œì‚¬ ì—¬ë¶€ í™•ì¸ìš© ë³€ìˆ˜
+
+    public override void Awake()
+    {
+        base.Awake();
+    }
 
     public override void Start()
     {
         base.Start();
-        Start_Dir = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0).normalized; // ÃÊ±â ¹«ÀÛÀ§ ¹æÇâ ¼³Á¤
-        Dir = Start_Dir; // ÃÊ±â ¹æÇâÀ» Dir·Î ¼³Á¤
+        Start_Dir = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0).normalized; // ì´ˆê¸° ë¬´ì‘ìœ„ ë°©í–¥ ì„¤ì •
+        Dir = Start_Dir; // ì´ˆê¸° ë°©í–¥ì„ Dirë¡œ ì„¤ì •
     }
 
     public override void Update()
@@ -33,30 +38,30 @@ public class Weapon_ShadowPinion : Weapon
         }
     }
 
-    // À¯µµÅº ÀÛµ¿ ·ÎÁ÷
+    // ìœ ë„íƒ„ ì‘ë™ ë¡œì§
     public void ShadowPinion_Attack()
     {
-        // À¯µµÅºÀÇ ÃÊ±â ¹ß»ç ¹æÇâ À¯Áö
+        // ìœ ë„íƒ„ì˜ ì´ˆê¸° ë°œì‚¬ ë°©í–¥ ìœ ì§€
         if (initialLaunch)
         {
             this.transform.position += Dir * Weapon_Speed * Time.deltaTime;
 
-            // ÀÏÁ¤ ½Ã°£ ÈÄ ÃÊ±â ¹ß»ç »óÅÂ ÇØÁ¦
-            if (Vector3.Distance(this.transform.position, Start_Dir) > 1.0f) // ¹«±â°¡ ÀÏÁ¤ °Å¸® ÀÌµ¿ÇÏ¸é
+            // ì¼ì • ì‹œê°„ í›„ ì´ˆê¸° ë°œì‚¬ ìƒíƒœ í•´ì œ
+            if (Vector3.Distance(this.transform.position, Start_Dir) > 1.0f) // ë¬´ê¸°ê°€ ì¼ì • ê±°ë¦¬ ì´ë™í•˜ë©´
             {
                 initialLaunch = false;
             }
-            return; // ÃÊ±â ¹ß»ç ÁßÀÏ ¶§´Â Å¸°ÙÀ» Ã£Áö ¾ÊÀ½
+            return; // ì´ˆê¸° ë°œì‚¬ ì¤‘ì¼ ë•ŒëŠ” íƒ€ê²Ÿì„ ì°¾ì§€ ì•ŠìŒ
         }
 
-        // Å¸°Ù Å½Áö ¹üÀ§ ¼³Á¤
+        // íƒ€ê²Ÿ íƒì§€ ë²”ìœ„ ì„¤ì •
         BoxSize = new Vector2(Weapon_Range, Weapon_Range);
         Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(this.transform.position, BoxSize, 0);
 
-        float minDistance = 10000f; // ÇöÀç±îÁö Å½ÁöµÈ ÃÖ¼Ò °Å¸®
-        ShadowPinion_target = null; // ÃÊ±âÈ­
+        float minDistance = 10000f; // í˜„ì¬ê¹Œì§€ íƒì§€ëœ ìµœì†Œ ê±°ë¦¬
+        ShadowPinion_target = null; // ì´ˆê¸°í™”
 
-        // ÁÖº¯ Àû Å½»ö
+        // ì£¼ë³€ ì  íƒìƒ‰
         for (int i = 0; i < collider2Ds.Length; i++)
         {
             if (collider2Ds[i].gameObject.GetComponent<Unit_Enemy>())
@@ -72,15 +77,15 @@ public class Weapon_ShadowPinion : Weapon
             }
         }
 
-        // Å¸°ÙÀÌ ÀÖ´Â °æ¿ì Å¸°ÙÀ» ÇâÇØ ¹æÇâ ¼³Á¤
+        // íƒ€ê²Ÿì´ ìˆëŠ” ê²½ìš° íƒ€ê²Ÿì„ í–¥í•´ ë°©í–¥ ì„¤ì •
         if (ShadowPinion_target != null)
         {
-            Dir = (ShadowPinion_target.transform.position - this.transform.position).normalized; // ¹æÇâ ¼³Á¤
-            float angle = Mathf.Atan2(Dir.y, Dir.x) * Mathf.Rad2Deg; // °¢µµ °è»ê
-            this.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward); // È¸Àü
+            Dir = (ShadowPinion_target.transform.position - this.transform.position).normalized; // ë°©í–¥ ì„¤ì •
+            float angle = Mathf.Atan2(Dir.y, Dir.x) * Mathf.Rad2Deg; // ê°ë„ ê³„ì‚°
+            this.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward); // íšŒì „
         }
 
-        // ¼³Á¤µÈ ¹æÇâÀ¸·Î ÀÌµ¿
+        // ì„¤ì •ëœ ë°©í–¥ìœ¼ë¡œ ì´ë™
         this.transform.position += Dir * Weapon_Speed * Time.deltaTime;
     }
 
@@ -142,24 +147,24 @@ public class Weapon_ShadowPinion : Weapon
 //}
 
 
-//// À¯µµÇÔÁ¤ ÀÛµ¿ ·ÎÁ÷
+//// ìœ ë„í•¨ì • ì‘ë™ ë¡œì§
 //public void ShadowPinion_Attack()
 //{
 //    BoxSize = new Vector2(Weapon_Range, Weapon_Range);
 
-//    Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(this.transform.position, BoxSize, 0); // ÀÌ°Ô ±× À¯µµÇÔÁ¤ ÁÖº¯¿¡¼­ ¹Ú½º »çÀÌÁî ¸¸Å­ Å½Áö
+//    Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(this.transform.position, BoxSize, 0); // ì´ê²Œ ê·¸ ìœ ë„í•¨ì • ì£¼ë³€ì—ì„œ ë°•ìŠ¤ ì‚¬ì´ì¦ˆ ë§Œí¼ íƒì§€
 
-//    float Dis = 10000; //»ó´ë¿Í ³ªÀÇ °Å¸®
+//    float Dis = 10000; //ìƒëŒ€ì™€ ë‚˜ì˜ ê±°ë¦¬
 
 //    //Debug.Log(collider2Ds.Length);
 
 //    Vector3 Dir = new Vector3();
 
-//    // C#¶§ ³ª¿Â for¹® ¾÷±×·¹ÀÌµå ¹öÀü
-//    // ¹è¿­¿¡ ¸ÂÃç ¿ä¼Ò¸¶´Ù Á¢±Ù °¡´É
-//    // ±Ùµ¥ for¹®¿¡ ºñÇØ »ó´çÈ÷ ºÒ¾ÈÁ¤ÇÑ ±â´É
-//    // ±×·¡¼­ ³ª¿Ã¶§µµ Àú°Å ¾²¸é ¾ÈµÊ! ÀÌ¶ó¸ç ¹İ¹ßÇß´Ù.
-//    // ¾ÆÁ÷±îÁø ¸ÖÂÄÇÔ!
+//    // C#ë•Œ ë‚˜ì˜¨ forë¬¸ ì—…ê·¸ë ˆì´ë“œ ë²„ì „
+//    // ë°°ì—´ì— ë§ì¶° ìš”ì†Œë§ˆë‹¤ ì ‘ê·¼ ê°€ëŠ¥
+//    // ê·¼ë° forë¬¸ì— ë¹„í•´ ìƒë‹¹íˆ ë¶ˆì•ˆì •í•œ ê¸°ëŠ¥
+//    // ê·¸ë˜ì„œ ë‚˜ì˜¬ë•Œë„ ì €ê±° ì“°ë©´ ì•ˆë¨! ì´ë¼ë©° ë°˜ë°œí–ˆë‹¤.
+//    // ì•„ì§ê¹Œì§„ ë©€ì©¡í•¨!
 //    foreach (UnityEngine.Collider2D collider in collider2Ds)
 //    {
 //        if (collider.gameObject.GetComponent<Unit_Enemy>())
@@ -176,10 +181,10 @@ public class Weapon_ShadowPinion : Weapon
 
 //    if (ShadowPinion_target != null)
 //    {
-//        //¹æÇâ ¹Ù²Ù°í
-//        Dir = (ShadowPinion_target.transform.position - this.transform.position).normalized; // ¹æÇâ
-//        float angle = Mathf.Atan2(Dir.y, Dir.x) * Mathf.Rad2Deg;    // °¢µµ
-//        this.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);    // È¸Àü
+//        //ë°©í–¥ ë°”ê¾¸ê³ 
+//        Dir = (ShadowPinion_target.transform.position - this.transform.position).normalized; // ë°©í–¥
+//        float angle = Mathf.Atan2(Dir.y, Dir.x) * Mathf.Rad2Deg;    // ê°ë„
+//        this.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);    // íšŒì „
 //    }
 
 //    else
@@ -190,7 +195,7 @@ public class Weapon_ShadowPinion : Weapon
 //        //this.transform.rotation = Quaternion.Euler(Random.Range(0,))
 //    }
 
-//    // ±× ¹æÇâÀ» ÇâÇØ¼­ ¾ÕÀ¸·Î
+//    // ê·¸ ë°©í–¥ì„ í–¥í•´ì„œ ì•ìœ¼ë¡œ
 //    this.transform.position = this.transform.position + (Dir * Weapon_Speed * Time.deltaTime);
 //}
 

@@ -10,6 +10,11 @@ public class Weapon_KingBible : Weapon
 
     public float b_Deg = 0.0f;
 
+    public override void Awake()
+    {
+        base.Awake();
+    }
+
     public override void Start()
     {
         base.Start();
@@ -37,7 +42,7 @@ public class Weapon_KingBible : Weapon
 
     public void KingBible_Attack()
     {
-        if (Mine == null) return;  // ÄÚ·çÆ¾ ¸»°í ÇØ°áÃ¥ÀÌ ÀÖ¾ú³×? // MineÀÌ nullÀÌ¸é ¹İÈ¯.
+        if (Mine == null) return;  // ì½”ë£¨í‹´ ë§ê³  í•´ê²°ì±…ì´ ìˆì—ˆë„¤? // Mineì´ nullì´ë©´ ë°˜í™˜.
 
         b_Deg = Time.time * Weapon_Speed;
 
@@ -77,13 +82,13 @@ Weapon_Count_Value = this.Origin_Stat.Unit_Weapon_Proj_Count + this.Percent_Stat
 int Temp_Count = STO_Weapon_Temp.Info_s[p_WLAT.Level].Weapon_Count + Weapon_Count_Value;
 for (int i = 0; i < Temp; i++)
 {
-float Temp = 6.28 / ÇöÀç ¹ÙÀÌºí °¹¼ö
+float Temp = 6.28 / í˜„ì¬ ë°”ì´ë¸” ê°¯ìˆ˜
 float Plus = Temp * Weapon_KingBible_Count;
 var rad = Mathf.Deg2Rad * (Weapon_Time Plus) + Plus;
 var KingBible_Road = 6.28f / Weapon_KingBible_Count;
 var KingBible_Plus = KingBible_Road * Weapon_KingBible_Count;
 var rad = Mathf.Deg2Rad * (Weapon_Time + KingBible_Plus); 
-Debug.Log("Weapon_Mine_KingBible_Count : " + Weapon_Mine_KingBible_Count);  // ¿©±â¼­ ¹®Á¦°¡ ¹ß»ıÇÑ´Ù. Áï ÇÃ·¹ÀÌ¾î¿¡¼­ ¹ÙÀÌºíÀÇ Max, Mine Ä«¿îÆ® Áõ°¡°¡ ¾È¸ÔÈù´Ù´Â ¼Ò¸®´Ù.
+Debug.Log("Weapon_Mine_KingBible_Count : " + Weapon_Mine_KingBible_Count);  // ì—¬ê¸°ì„œ ë¬¸ì œê°€ ë°œìƒí•œë‹¤. ì¦‰ í”Œë ˆì´ì–´ì—ì„œ ë°”ì´ë¸”ì˜ Max, Mine ì¹´ìš´íŠ¸ ì¦ê°€ê°€ ì•ˆë¨¹íŒë‹¤ëŠ” ì†Œë¦¬ë‹¤.
 Debug.Log("Weapon_Max_KingBible_Count : " + Weapon_Max_KingBible_Count);
 var rad = Mathf.Deg2Rad * (b_Deg + (Weapon_Mine_KingBible_Count * (360f / Temp)));
 Debug.Log(b_Deg);
@@ -100,43 +105,43 @@ if(All_Manager.instance.GameMode_M.Current_Player.All_Weapon[i].GetComponent<thi
 All_Manager.instance.GameMode_M.Current_Player.All_Weapon[i].transform.position = Mine.transform.position + new Vector3(x, y, 0);
 */
 /*
- // º¯¼öµé
+ // ë³€ìˆ˜ë“¤
 {
-    int count = 5;              // °øÈ¸ÀüÇÒ °´Ã¼ °³¼ö
-    float distance = 300.0f;    // Áß½É¿¡¼­ ºÎÅÍÀÇ °Å¸®
-    vector<Rect*> others;       // °øÈ¸ÀüÇÒ °´Ã¼
-    vector<float> radians;      // °øÈ¸ÀüÇÒ °´Ã¼µéÀÇ °¢µµ °ª
+    int count = 5;              // ê³µíšŒì „í•  ê°ì²´ ê°œìˆ˜
+    float distance = 300.0f;    // ì¤‘ì‹¬ì—ì„œ ë¶€í„°ì˜ ê±°ë¦¬
+    vector<Rect*> others;       // ê³µíšŒì „í•  ê°ì²´
+    vector<float> radians;      // ê³µíšŒì „í•  ê°ì²´ë“¤ì˜ ê°ë„ ê°’
 }
 
-// »ı¼º
+// ìƒì„±
 {
     for (int i = 0; i < count; i++)
     {
-        // °´Ã¼´Â ÀÏ´Ü ¾Æ¹«·¸°Ô³ª »ı¼ºÇØµµ µÊ
+        // ê°ì²´ëŠ” ì¼ë‹¨ ì•„ë¬´ë ‡ê²Œë‚˜ ìƒì„±í•´ë„ ë¨
         others.push_back(new Rect({ -5000, -5000,0 }, { 100,100,1 }));
 
-        // °¢µµµéÀº 360µµ / °´Ã¼ °³¼ö * °´Ã¼ ¹øÈ£ ¼øÀ¸·Î
+        // ê°ë„ë“¤ì€ 360ë„ / ê°ì²´ ê°œìˆ˜ * ê°ì²´ ë²ˆí˜¸ ìˆœìœ¼ë¡œ
         radians.push_back((360.0f / count) * i);
     }
 }
 
-// ¾÷µ¥ÀÌÆ®
+// ì—…ë°ì´íŠ¸
 {
     for (int i = 0; i < count; i++)
     {
-        // °¢µµ 360³Ñ¾î°¡´Â°Å ¹æÁö
+        // ê°ë„ 360ë„˜ì–´ê°€ëŠ”ê±° ë°©ì§€
         if (radians[i] >= 360.0f) radians[i] = 0.0f;
-        radians[i] += 2.0f; // È¸Àü°ª // Ä¿Áö¸é »¡¸® µ¼
+        radians[i] += 2.0f; // íšŒì „ê°’ // ì»¤ì§€ë©´ ë¹¨ë¦¬ ë”
 
-        // °¢µµ °ªÀ» ¶óµğ¾È °ªÀ¸·Î º¯È¯ (°¢µµ°ª * 3.14(ÆÄÀÌ°ª) / 180 ÇÏ¸é µÊ)
+        // ê°ë„ ê°’ì„ ë¼ë””ì•ˆ ê°’ìœ¼ë¡œ ë³€í™˜ (ê°ë„ê°’ * 3.14(íŒŒì´ê°’) / 180 í•˜ë©´ ë¨)
         float radian = D3DXToRadian(radians[i]);
 
-        // xÁÂÇ¥ = Áß½É À§Ä¡ x °ª + Áß½É¿¡¼­ÀÇ °Å¸® * cos(¶óµğ¾È°ª)
+        // xì¢Œí‘œ = ì¤‘ì‹¬ ìœ„ì¹˜ x ê°’ + ì¤‘ì‹¬ì—ì„œì˜ ê±°ë¦¬ * cos(ë¼ë””ì•ˆê°’)
         float x = player->GetPosition().x + distance * cos(radian);
-        // yÁÂÇ¥ = Áß½É À§Ä¡ y °ª + Áß½É¿¡¼­ÀÇ °Å¸® * sin(¶óµğ¾È°ª)
+        // yì¢Œí‘œ = ì¤‘ì‹¬ ìœ„ì¹˜ y ê°’ + ì¤‘ì‹¬ì—ì„œì˜ ê±°ë¦¬ * sin(ë¼ë””ì•ˆê°’)
         float y = player->GetPosition().y + distance * sin(radian);
 
-        // °´Ã¼ ÁÂÇ¥ ÁöÁ¤
+        // ê°ì²´ ì¢Œí‘œ ì§€ì •
         others[i]->SetPosition({ x,y,player->GetPosition().z });
     }
 }
@@ -151,7 +156,7 @@ All_Manager.instance.GameMode_M.Current_Player.All_Weapon[i].transform.position 
 //        float x = range * Mathf.Sin(rad);
 //        float y = range * Mathf.Cos(rad);
 //        this.transform.localPosition = target.position + new Vector3(x, y);
-//        this.transform.rotation = Quaternion.Euler(0, 0, (time + (i * (360 / level))) * -1); //°¡¿îµ¥¸¦ ¹Ù¶óº¸°Ô °¢µµ Á¶Àı
+//        this.transform.rotation = Quaternion.Euler(0, 0, (time + (i * (360 / level))) * -1); //ê°€ìš´ë°ë¥¼ ë°”ë¼ë³´ê²Œ ê°ë„ ì¡°ì ˆ
 //    }
 //}
 //else
@@ -159,7 +164,7 @@ All_Manager.instance.GameMode_M.Current_Player.All_Weapon[i].transform.position 
 //    time = 0;
 //}
 
-//if (Mine == null)   // ÄÚ·çÆ¾ ¸»°í ÇØ°áÃ¥ÀÌ ÀÖ¾ú³×? // MineÀÌ nullÀÌ¸é ²¨Á®.
+//if (Mine == null)   // ì½”ë£¨í‹´ ë§ê³  í•´ê²°ì±…ì´ ìˆì—ˆë„¤? // Mineì´ nullì´ë©´ êº¼ì ¸.
 //    return;
 
 //Weapon_Time += Time.deltaTime * Weapon_Speed;
@@ -168,8 +173,8 @@ All_Manager.instance.GameMode_M.Current_Player.All_Weapon[i].transform.position 
 //    float x = Weapon_Range * Mathf.Cos(Weapon_Time);
 //    float y = Weapon_Range * Mathf.Sin(Weapon_Time);
 //    this.transform.position = Mine.transform.position + new Vector3(x, y, 0);
-//    // ¿À·ù ÀÌÀ¯ MineÀÌ »ı¼ºµÇ±â Àü¿¡ ºÒ·¯¿Í¼­
-//    // ÇØ°áÃ¥ ³»°¡ ¾Æ´Â°Ç ÄÚ·çÆ¾ 
+//    // ì˜¤ë¥˜ ì´ìœ  Mineì´ ìƒì„±ë˜ê¸° ì „ì— ë¶ˆëŸ¬ì™€ì„œ
+//    // í•´ê²°ì±… ë‚´ê°€ ì•„ëŠ”ê±´ ì½”ë£¨í‹´ 
 //}
 //else
 //{
@@ -179,7 +184,7 @@ All_Manager.instance.GameMode_M.Current_Player.All_Weapon[i].transform.position 
 //Weapon_Time += Time.deltaTime * Weapon_Speed;
 //if (Weapon_Time < 360)
 //{
-//    if (Mine == null)   // ÄÚ·çÆ¾ ¸»°í ÇØ°áÃ¥ÀÌ ÀÖ¾ú³×? // MineÀÌ nullÀÌ¸é ²¨Á®.
+//    if (Mine == null)   // ì½”ë£¨í‹´ ë§ê³  í•´ê²°ì±…ì´ ìˆì—ˆë„¤? // Mineì´ nullì´ë©´ êº¼ì ¸.
 //        return;
 
 //    var All_Weapon_Count = All_Manager.instance.GameMode_M.Current_Player.All_Weapon.Count;
@@ -205,7 +210,7 @@ All_Manager.instance.GameMode_M.Current_Player.All_Weapon[i].transform.position 
 //}
 //public void KingBible_Attack()
 //{
-//    if (Mine == null) return;  // ÄÚ·çÆ¾ ¸»°í ÇØ°áÃ¥ÀÌ ÀÖ¾ú³×? // MineÀÌ nullÀÌ¸é ²¨Á®.
+//    if (Mine == null) return;  // ì½”ë£¨í‹´ ë§ê³  í•´ê²°ì±…ì´ ìˆì—ˆë„¤? // Mineì´ nullì´ë©´ êº¼ì ¸.
 
 //    Weapon_Time += Time.deltaTime * Weapon_Speed;
 //    if (Weapon_Time < 360)
@@ -218,9 +223,9 @@ All_Manager.instance.GameMode_M.Current_Player.All_Weapon[i].transform.position 
 //            this.transform.position = Mine.transform.position + new Vector3(x, y, 0);
 //            //this.transform.rotation = Quaternion.Euler(0, 0, (Weapon_Time + (i * (360 / Weapon_KingBible_Count))) * -1);
 //        }
-//        // this°¡ ¾Æ´Ï¶ó All_WeaponÀÇ ¸®½ºÆ®¿¡ ÀÖ´Â KingBibleÀÇ °´Ã¼ÀÇ Æ÷Áö¼Ç°ú È¸Àü°ªÀ» »ç¿ëÇØ¾ß ÇÑ´Ù.
-//        // this·Î ÇÏ´Ï±î ±×³É ÀÛµ¿ÀÌ ¾ÈµÈ´Ù.
-//        // ÇØ°á ³»°¡ Àß¸øÇÏ°í ÀÖ¾ú´Ù Player¿¡¼­ int·Î KingBible_Count¸¦ ¸¸µé¾î¼­ ÇØ°á ±Ùµ¥ ¶Ç´Ù¸¥ ¹®Á¦´Â ½ÇÇàÇÏ¸é °£°İÀÌ ÀÌ»óÇÏ°Ô µÈ´Ù
+//        // thisê°€ ì•„ë‹ˆë¼ All_Weaponì˜ ë¦¬ìŠ¤íŠ¸ì— ìˆëŠ” KingBibleì˜ ê°ì²´ì˜ í¬ì§€ì…˜ê³¼ íšŒì „ê°’ì„ ì‚¬ìš©í•´ì•¼ í•œë‹¤.
+//        // thisë¡œ í•˜ë‹ˆê¹Œ ê·¸ëƒ¥ ì‘ë™ì´ ì•ˆëœë‹¤.
+//        // í•´ê²° ë‚´ê°€ ì˜ëª»í•˜ê³  ìˆì—ˆë‹¤ Playerì—ì„œ intë¡œ KingBible_Countë¥¼ ë§Œë“¤ì–´ì„œ í•´ê²° ê·¼ë° ë˜ë‹¤ë¥¸ ë¬¸ì œëŠ” ì‹¤í–‰í•˜ë©´ ê°„ê²©ì´ ì´ìƒí•˜ê²Œ ëœë‹¤
 //    }
 //    else
 //    {
@@ -229,7 +234,7 @@ All_Manager.instance.GameMode_M.Current_Player.All_Weapon[i].transform.position 
 //}
 
 /*
-             //float Temp = 6.28 / ÇöÀç ¹ÙÀÌºí °¹¼ö
+             //float Temp = 6.28 / í˜„ì¬ ë°”ì´ë¸” ê°¯ìˆ˜
             //float Plus = Temp * Weapon_KingBible_Count;
             //var rad = Mathf.Deg2Rad * (Weapon_Time Plus) + Plus;
             var rad = Mathf.Deg2Rad * (i * (360 / Weapon_KingBible_Count) * Weapon_Time);
@@ -238,8 +243,8 @@ All_Manager.instance.GameMode_M.Current_Player.All_Weapon[i].transform.position 
             this.transform.position = Mine.transform.position + new Vector3(x, y, 0);
             //this.transform.rotation = Quaternion.Euler(0, 0, (Weapon_Time + (i * (360 / Weapon_KingBible_Count))) * -1);
 
-            // this°¡ ¾Æ´Ï¶ó All_WeaponÀÇ ¸®½ºÆ®¿¡ ÀÖ´Â KingBibleÀÇ °´Ã¼ÀÇ Æ÷Áö¼Ç°ú È¸Àü°ªÀ» »ç¿ëÇØ¾ß ÇÑ´Ù.
-            // this·Î ÇÏ´Ï±î ±×³É ÀÛµ¿ÀÌ ¾ÈµÈ´Ù.
-            // ÇØ°á ³»°¡ Àß¸øÇÏ°í ÀÖ¾ú´Ù Player¿¡¼­ int·Î KingBible_Count¸¦ ¸¸µé¾î¼­ ÇØ°á ±Ùµ¥ ¶Ç´Ù¸¥ ¹®Á¦´Â ½ÇÇàÇÏ¸é °£°İÀÌ ÀÌ»óÇÏ°Ô µÈ´Ù
+            // thisê°€ ì•„ë‹ˆë¼ All_Weaponì˜ ë¦¬ìŠ¤íŠ¸ì— ìˆëŠ” KingBibleì˜ ê°ì²´ì˜ í¬ì§€ì…˜ê³¼ íšŒì „ê°’ì„ ì‚¬ìš©í•´ì•¼ í•œë‹¤.
+            // thisë¡œ í•˜ë‹ˆê¹Œ ê·¸ëƒ¥ ì‘ë™ì´ ì•ˆëœë‹¤.
+            // í•´ê²° ë‚´ê°€ ì˜ëª»í•˜ê³  ìˆì—ˆë‹¤ Playerì—ì„œ intë¡œ KingBible_Countë¥¼ ë§Œë“¤ì–´ì„œ í•´ê²° ê·¼ë° ë˜ë‹¤ë¥¸ ë¬¸ì œëŠ” ì‹¤í–‰í•˜ë©´ ê°„ê²©ì´ ì´ìƒí•˜ê²Œ ëœë‹¤
  */
 #endregion

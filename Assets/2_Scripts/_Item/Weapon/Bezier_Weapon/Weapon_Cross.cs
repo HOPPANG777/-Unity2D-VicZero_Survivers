@@ -17,6 +17,11 @@ public class Weapon_Cross : Weapon
 
     public float Rotation_Speed = 360f;
 
+    public override void Awake()
+    {
+        base.Awake();
+    }
+
     public override void Start()
     {
         base.Start();
@@ -45,7 +50,7 @@ public class Weapon_Cross : Weapon
 
     }
 
-    // ºÎ¸Ş¶û º£Áö¾î °î¼± ÇÒ´ç
+    // ë¶€ë©”ë‘ ë² ì§€ì–´ ê³¡ì„  í• ë‹¹
     public void Cross_Init(Vector3 p_One_Vector, Vector3 p_Two_Vector, Vector3 p_Three_Vector, Vector3 p_Four_Vector)
     {
         W_Cross_Point[0] = p_One_Vector;
@@ -54,7 +59,7 @@ public class Weapon_Cross : Weapon
         W_Cross_Point[3] = p_Four_Vector;
     }
 
-    // ºÎ¸Ş¶û ÀÛµ¿ ·ÎÁ÷
+    // ë¶€ë©”ë‘ ì‘ë™ ë¡œì§
     public void Cross_Attack()
     {
         this.Weapon_Accumulate();
@@ -96,45 +101,45 @@ public class Weapon_Cross : Weapon
 
 #region
 /*
-Å©·Î½º´Â ÀÌ°Íµµ ¿¢½º¶û ¶È°°´Ù ±Ùµ¥ ÀÌÁ¦ º£Áö¾î °î¼±À» 
-ÀÌ»óÇÏ°Ô ÇØ¾ß ÇÒ°ÍÀÌ´Ù.
-ºÎ¸Ş¶ûÀÌ±â ¶§¹®¿¡
-º£Áö¾î °î¼±À» ±×¸®´Â ÆĞÅÏÀÌ P1°ú P4°¡ ÇÃ·¹ÀÌ¾îÀÇ À§Ä¡¿Í µ¿ÀÏÇÏ°Å³ª ºñ½ÁÇØ¾ßÇÑ´Ù.
-±×¸®°í ºÎ¸Ş¶ûÀº ÇÃ·¹ÀÌ¾î°¡ ÀÌµ¿ÇÏ´Â À§Ä¡¸¦ µû¶ó¼­ Á¤È®ÇÏ°Ô ¿Ã ÇÊ¿ä°¡ ¾ø±â ¶§¹®¿¡
-ÇÃ·¹ÀÌ¾î°¡ ºÎ¸Ş¶ûÀ» ¹ß»çÇÑ À§Ä¡¿¡ ´Ù½Ã µ¹¾Æ¿Í¾ß ÇÑ´Ù.
+í¬ë¡œìŠ¤ëŠ” ì´ê²ƒë„ ì—‘ìŠ¤ë‘ ë˜‘ê°™ë‹¤ ê·¼ë° ì´ì œ ë² ì§€ì–´ ê³¡ì„ ì„ 
+ì´ìƒí•˜ê²Œ í•´ì•¼ í• ê²ƒì´ë‹¤.
+ë¶€ë©”ë‘ì´ê¸° ë•Œë¬¸ì—
+ë² ì§€ì–´ ê³¡ì„ ì„ ê·¸ë¦¬ëŠ” íŒ¨í„´ì´ P1ê³¼ P4ê°€ í”Œë ˆì´ì–´ì˜ ìœ„ì¹˜ì™€ ë™ì¼í•˜ê±°ë‚˜ ë¹„ìŠ·í•´ì•¼í•œë‹¤.
+ê·¸ë¦¬ê³  ë¶€ë©”ë‘ì€ í”Œë ˆì´ì–´ê°€ ì´ë™í•˜ëŠ” ìœ„ì¹˜ë¥¼ ë”°ë¼ì„œ ì •í™•í•˜ê²Œ ì˜¬ í•„ìš”ê°€ ì—†ê¸° ë•Œë¬¸ì—
+í”Œë ˆì´ì–´ê°€ ë¶€ë©”ë‘ì„ ë°œì‚¬í•œ ìœ„ì¹˜ì— ë‹¤ì‹œ ëŒì•„ì™€ì•¼ í•œë‹¤.
 
-ÇŞ°¥¸°´Ù¸é ¹ìÆÄÀÌ¾î ¼­¹ÙÀÌ¹öÀÇ ½ÊÀÚ°¡¸¦ ´Ù½Ã º¸¸é µÈ´Ù.
+í–‡ê°ˆë¦°ë‹¤ë©´ ë±€íŒŒì´ì–´ ì„œë°”ì´ë²„ì˜ ì‹­ìê°€ë¥¼ ë‹¤ì‹œ ë³´ë©´ ëœë‹¤.
 
-// ÃÊ±â À§Ä¡ ¼³Á¤
+// ì´ˆê¸° ìœ„ì¹˜ ì„¤ì •
 Vector3 One = this.transform.position;
-Vector3 Two = One + new Vector3(0, 5, 0);       // À§
-Vector3 Three = Two + new Vector3(5, 0, 0);     // ¿À¸¥ÂÊ
-Vector3 Four = One + new Vector3(5, -10, 0);    // ¿À¸¥ÂÊ ¾Æ·¡
+Vector3 Two = One + new Vector3(0, 5, 0);       // ìœ„
+Vector3 Three = Two + new Vector3(5, 0, 0);     // ì˜¤ë¥¸ìª½
+Vector3 Four = One + new Vector3(5, -10, 0);    // ì˜¤ë¥¸ìª½ ì•„ë˜
 
-// ÄÚ·çÆ¾ ³»¿¡¼­ À§Ä¡¿¡ µû¶ó ¹İ´ëÆíÀ¸·Î ¼³Á¤
+// ì½”ë£¨í‹´ ë‚´ì—ì„œ ìœ„ì¹˜ì— ë”°ë¼ ë°˜ëŒ€í¸ìœ¼ë¡œ ì„¤ì •
 Vector3 oppositeThree = Three;
 Vector3 oppositeFour = Four;
 
-// ¿¹½Ã·Î x ÁÂÇ¥°¡ 0º¸´Ù ÀÛÀ¸¸é ¹İ´ëÆíÀ¸·Î ¼³Á¤
+// ì˜ˆì‹œë¡œ x ì¢Œí‘œê°€ 0ë³´ë‹¤ ì‘ìœ¼ë©´ ë°˜ëŒ€í¸ìœ¼ë¡œ ì„¤ì •
 if (this.transform.position.x < 0)
 {
-    oppositeThree = Two + new Vector3(-5, 0, 0);     // ¹İ´ëÆí ¿À¸¥ÂÊ
-    oppositeFour = One + new Vector3(-5, -10, 0);    // ¹İ´ëÆí ¿À¸¥ÂÊ ¾Æ·¡
+    oppositeThree = Two + new Vector3(-5, 0, 0);     // ë°˜ëŒ€í¸ ì˜¤ë¥¸ìª½
+    oppositeFour = One + new Vector3(-5, -10, 0);    // ë°˜ëŒ€í¸ ì˜¤ë¥¸ìª½ ì•„ë˜
 } 
 
 Weapon_Go.GetComponent<Weapon_Axe>().Axe_Init(One, Two, oppositeThree, oppositeFour);
 
-ÇØ´ç ÄÚµå·Î µµ³¢¸¦ »ı¼ºÇßÀ»¶§ ÇÃ·¹ÀÌ¾î À§·Î ¼Ú¾Æ¿Ã¶ú´Ù°¡
-if¹®À¸·Î ÀÎÇØ 
-P3¿Í P2°¡ ¹İ´ëÂÊÀ¸·Î º¯°æµÇ¾î 
+í•´ë‹¹ ì½”ë“œë¡œ ë„ë¼ë¥¼ ìƒì„±í–ˆì„ë•Œ í”Œë ˆì´ì–´ ìœ„ë¡œ ì†Ÿì•„ì˜¬ëë‹¤ê°€
+ifë¬¸ìœ¼ë¡œ ì¸í•´ 
+P3ì™€ P2ê°€ ë°˜ëŒ€ìª½ìœ¼ë¡œ ë³€ê²½ë˜ì–´ 
 
-ºÎ¸Ş¶û Ã³·³ ÈÖ°Ô µÈ´Ù
+ë¶€ë©”ë‘ ì²˜ëŸ¼ íœ˜ê²Œ ëœë‹¤
 
-ÀÌ°É Á»´õ °İÇÏ°Ô ÇÏ°í
-¼ÒÈ¯µÉ¶§ ¸¶´Ù ½Ã°è¹æÇâ È¤Àº ÀûÀÌ ÀÖ´Â ¹æÇâÀ¸·Î 
-¼ÒÈ¯À» ÇÏ¸é ÇØ°á µÉ°ÍÀÌ´Ù.
+ì´ê±¸ ì¢€ë” ê²©í•˜ê²Œ í•˜ê³ 
+ì†Œí™˜ë ë•Œ ë§ˆë‹¤ ì‹œê³„ë°©í–¥ í˜¹ì€ ì ì´ ìˆëŠ” ë°©í–¥ìœ¼ë¡œ 
+ì†Œí™˜ì„ í•˜ë©´ í•´ê²° ë ê²ƒì´ë‹¤.
 
-º£Áö¾î °î¼±À¸·Î ÇÏÁö ¸»°í ´Ù¸£°Ô ÇÑ¹ø ÇØº¸ÀÚ
+ë² ì§€ì–´ ê³¡ì„ ìœ¼ë¡œ í•˜ì§€ ë§ê³  ë‹¤ë¥´ê²Œ í•œë²ˆ í•´ë³´ì
 */
 
 /*
@@ -142,21 +147,21 @@ P3¿Í P2°¡ ¹İ´ëÂÊÀ¸·Î º¯°æµÇ¾î
 
 public class Boomerang : MonoBehaviour
 {
-    public Transform player; // ÇÃ·¹ÀÌ¾î ¿ÀºêÁ§Æ®
-    public float speed = 5f; // ºÎ¸Ş¶û ÀÌµ¿ ¼Óµµ
-    private Vector3 startPoint; // ¹ß»ç ½ÃÀÛÁ¡
-    private Vector3 endPoint; // ¹ß»ç ³¡Á¡
-    private Vector3 controlPoint1; // Á¦¾îÁ¡ 1
-    private Vector3 controlPoint2; // Á¦¾îÁ¡ 2
-    private bool returning = false; // ºÎ¸Ş¶ûÀÌ ¹İ´ëÆíÀ¸·Î µ¹¾Æ°¡´Â ÁßÀÎÁö ¿©ºÎ
+    public Transform player; // í”Œë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸
+    public float speed = 5f; // ë¶€ë©”ë‘ ì´ë™ ì†ë„
+    private Vector3 startPoint; // ë°œì‚¬ ì‹œì‘ì 
+    private Vector3 endPoint; // ë°œì‚¬ ëì 
+    private Vector3 controlPoint1; // ì œì–´ì  1
+    private Vector3 controlPoint2; // ì œì–´ì  2
+    private bool returning = false; // ë¶€ë©”ë‘ì´ ë°˜ëŒ€í¸ìœ¼ë¡œ ëŒì•„ê°€ëŠ” ì¤‘ì¸ì§€ ì—¬ë¶€
 
     void Start()
     {
-        startPoint = transform.position; // ½ÃÀÛÁ¡Àº ºÎ¸Ş¶ûÀÇ ÇöÀç À§Ä¡
+        startPoint = transform.position; // ì‹œì‘ì ì€ ë¶€ë©”ë‘ì˜ í˜„ì¬ ìœ„ì¹˜
         Vector3 direction = (player.position - startPoint).normalized;
-        endPoint = startPoint + direction * 10f; // ¹ß»ç ³¡Á¡ ¼³Á¤ (ÀÓÀÇÀÇ °Å¸®)
-        controlPoint1 = startPoint + direction * 3f; // Á¦¾îÁ¡ 1 ¼³Á¤
-        controlPoint2 = endPoint - direction * 3f; // Á¦¾îÁ¡ 2 ¼³Á¤
+        endPoint = startPoint + direction * 10f; // ë°œì‚¬ ëì  ì„¤ì • (ì„ì˜ì˜ ê±°ë¦¬)
+        controlPoint1 = startPoint + direction * 3f; // ì œì–´ì  1 ì„¤ì •
+        controlPoint2 = endPoint - direction * 3f; // ì œì–´ì  2 ì„¤ì •
     }
 
     void Update()
@@ -164,7 +169,7 @@ public class Boomerang : MonoBehaviour
         float step = speed * Time.deltaTime;
         if (!returning)
         {
-            // ÇÃ·¹ÀÌ¾î ÂÊÀ¸·Î ¹ß»ç Áß
+            // í”Œë ˆì´ì–´ ìª½ìœ¼ë¡œ ë°œì‚¬ ì¤‘
             transform.position = Vector3.Lerp(startPoint, endPoint, step);
             if (Vector3.Distance(transform.position, endPoint) < 0.1f)
             {
@@ -173,18 +178,18 @@ public class Boomerang : MonoBehaviour
         }
         else
         {
-            // ¹İ´ëÆíÀ¸·Î µ¹¾Æ°¡´Â Áß
+            // ë°˜ëŒ€í¸ìœ¼ë¡œ ëŒì•„ê°€ëŠ” ì¤‘
             transform.position = Bezier(startPoint, controlPoint1, controlPoint2, step);
             if (Vector3.Distance(transform.position, startPoint) < 0.1f)
             {
-                Destroy(gameObject); // µ¹¾Æ¿Â ÈÄ ºÎ¸Ş¶û ÆÄ±«
+                Destroy(gameObject); // ëŒì•„ì˜¨ í›„ ë¶€ë©”ë‘ íŒŒê´´
             }
         }
     }
 
     Vector3 Bezier(Vector3 start, Vector3 control1, Vector3 control2, float t)
     {
-        // º£Áö¾î °î¼± °è»ê ÇÔ¼ö
+        // ë² ì§€ì–´ ê³¡ì„  ê³„ì‚° í•¨ìˆ˜
         return Mathf.Pow(1 - t, 3) * start +
                3 * Mathf.Pow(1 - t, 2) * t * control1 +
                3 * (1 - t) * Mathf.Pow(t, 2) * control2 +
@@ -199,60 +204,60 @@ public class Boomerang : MonoBehaviour
 
 public class Boomerang : MonoBehaviour
 {
-    public Transform target; // ÇÃ·¹ÀÌ¾î³ª ¸ñÇ¥ ÁöÁ¡ÀÇ Transform
+    public Transform target; // í”Œë ˆì´ì–´ë‚˜ ëª©í‘œ ì§€ì ì˜ Transform
 
-    public float flightSpeed = 5f; // ºÎ¸Ş¶ûÀÇ ºñÇà ¼Óµµ
-    public float returnSpeed = 10f; // µÇµ¹¾Æ¿À´Â ¼Óµµ
+    public float flightSpeed = 5f; // ë¶€ë©”ë‘ì˜ ë¹„í–‰ ì†ë„
+    public float returnSpeed = 10f; // ë˜ëŒì•„ì˜¤ëŠ” ì†ë„
 
-    private Vector3[] path; // º£Áö¾î °î¼±À» µû¶ó°¥ °æ·Î
+    private Vector3[] path; // ë² ì§€ì–´ ê³¡ì„ ì„ ë”°ë¼ê°ˆ ê²½ë¡œ
 
-    private bool isReturning = false; // µÇµ¹¾Æ°¡´Â ÁßÀÎÁö ¿©ºÎ
+    private bool isReturning = false; // ë˜ëŒì•„ê°€ëŠ” ì¤‘ì¸ì§€ ì—¬ë¶€
 
     void Start() {
-        // ¹ß»çµÉ ¶§ÀÇ °æ·Î ¼³Á¤ (½Ã°è ¹æÇâÀ¸·Î ¹ß»ç)
+        // ë°œì‚¬ë  ë•Œì˜ ê²½ë¡œ ì„¤ì • (ì‹œê³„ ë°©í–¥ìœ¼ë¡œ ë°œì‚¬)
         path = new Vector3[] {
-            transform.position, // ÇöÀç À§Ä¡
-            transform.position + Vector3.up * 5f, // À§·Î ¹ß»ç
-            transform.position + Vector3.up * 5f + Vector3.right * 5f, // ¿À¸¥ÂÊ À§·Î ¹ß»ç
-            transform.position + Vector3.right * 5f - Vector3.up * 10f // ¿À¸¥ÂÊ ¾Æ·¡·Î ¹ß»ç
+            transform.position, // í˜„ì¬ ìœ„ì¹˜
+            transform.position + Vector3.up * 5f, // ìœ„ë¡œ ë°œì‚¬
+            transform.position + Vector3.up * 5f + Vector3.right * 5f, // ì˜¤ë¥¸ìª½ ìœ„ë¡œ ë°œì‚¬
+            transform.position + Vector3.right * 5f - Vector3.up * 10f // ì˜¤ë¥¸ìª½ ì•„ë˜ë¡œ ë°œì‚¬
         };
 
-        // ¸¸¾à ÃÊ±â À§Ä¡°¡ x ÁÂÇ¥°¡ 0º¸´Ù ÀÛ´Ù¸é, ¹İ´ëÆíÀ¸·Î ¼³Á¤
+        // ë§Œì•½ ì´ˆê¸° ìœ„ì¹˜ê°€ x ì¢Œí‘œê°€ 0ë³´ë‹¤ ì‘ë‹¤ë©´, ë°˜ëŒ€í¸ìœ¼ë¡œ ì„¤ì •
         if (transform.position.x < 0) {
-            path[2] = transform.position + Vector3.up * 5f - Vector3.right * 5f; // ¹İ´ëÆí ¿À¸¥ÂÊ À§·Î ¹ß»ç
-            path[3] = transform.position - Vector3.up * 10f - Vector3.right * 5f; // ¹İ´ëÆí ¿À¸¥ÂÊ ¾Æ·¡·Î ¹ß»ç
+            path[2] = transform.position + Vector3.up * 5f - Vector3.right * 5f; // ë°˜ëŒ€í¸ ì˜¤ë¥¸ìª½ ìœ„ë¡œ ë°œì‚¬
+            path[3] = transform.position - Vector3.up * 10f - Vector3.right * 5f; // ë°˜ëŒ€í¸ ì˜¤ë¥¸ìª½ ì•„ë˜ë¡œ ë°œì‚¬
         }
     }
 
     void Update() {
         if (!isReturning) {
-            // ºñÇà ÁßÀÎ °æ¿ì
+            // ë¹„í–‰ ì¤‘ì¸ ê²½ìš°
             MoveAlongBezierCurve();
         } else {
-            // µÇµ¹¾Æ°¡´Â ÁßÀÎ °æ¿ì
+            // ë˜ëŒì•„ê°€ëŠ” ì¤‘ì¸ ê²½ìš°
             MoveTowardsPlayer();
         }
     }
 
     void MoveAlongBezierCurve() {
-        // ºñÇà ¼Óµµ¿¡ µû¶ó ½Ã°£ °æ°ú¸¦ °è»êÇÏ¿© º£Áö¾î °î¼±À» µû¶ó ÀÌµ¿
+        // ë¹„í–‰ ì†ë„ì— ë”°ë¼ ì‹œê°„ ê²½ê³¼ë¥¼ ê³„ì‚°í•˜ì—¬ ë² ì§€ì–´ ê³¡ì„ ì„ ë”°ë¼ ì´ë™
         float flightTime = Time.deltaTime * flightSpeed;
         Vector3 newPosition = BezierUtils.CalculateBezierPoint(path, flightTime);
 
         transform.position = newPosition;
 
-        // ¸¸¾à µµÂøÁ¡¿¡ µµ´ŞÇß´Ù¸é, µÇµ¹¾Æ°¡´Â »óÅÂ·Î ÀüÈ¯
+        // ë§Œì•½ ë„ì°©ì ì— ë„ë‹¬í–ˆë‹¤ë©´, ë˜ëŒì•„ê°€ëŠ” ìƒíƒœë¡œ ì „í™˜
         if (flightTime >= 1f) {
             isReturning = true;
         }
     }
 
     void MoveTowardsPlayer() {
-        // ÇÃ·¹ÀÌ¾î ÂÊÀ¸·Î Á÷ÁøÇÏ¸ç µÇµ¹¾Æ°¡±â
+        // í”Œë ˆì´ì–´ ìª½ìœ¼ë¡œ ì§ì§„í•˜ë©° ë˜ëŒì•„ê°€ê¸°
         Vector3 moveDirection = (target.position - transform.position).normalized;
         transform.position += moveDirection * returnSpeed * Time.deltaTime;
 
-        // ÇÃ·¹ÀÌ¾î¸¦ Åë°úÇÑ ÈÄ º£Áö¾î °î¼±ÀÌ ³¡³ª¸é °´Ã¼¸¦ ÆÄ±«
+        // í”Œë ˆì´ì–´ë¥¼ í†µê³¼í•œ í›„ ë² ì§€ì–´ ê³¡ì„ ì´ ëë‚˜ë©´ ê°ì²´ë¥¼ íŒŒê´´
         if (Vector3.Distance(transform.position, target.position) <= 0.1f) {
             Destroy(gameObject);
         }

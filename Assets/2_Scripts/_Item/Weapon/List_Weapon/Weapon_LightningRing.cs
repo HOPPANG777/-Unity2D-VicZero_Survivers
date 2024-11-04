@@ -11,6 +11,11 @@ public class Weapon_LightningRing : Weapon
 
     public int Enemy_Count = 0;
 
+    public override void Awake()
+    {
+        base.Awake();
+    }
+
     public override void Start()
     {
         base.Start();
@@ -180,9 +185,9 @@ public class Weapon_LightningRing : Weapon
 
 
 //    int Max_Count = All_Manager.instance.Resource_M.STO_LightningRing.Info_s[LightningRing_LAT.Level].Weapon_Count;
-//    int Count_To_Spawn = Mathf.Min(Max_Count, All_Manager.instance.GameMode_M.Enemy_List.Count); // ÃÖ´ë 10°³±îÁö¸¸ »ı¼ºÇÏµµ·Ï Á¦ÇÑ
+//    int Count_To_Spawn = Mathf.Min(Max_Count, All_Manager.instance.GameMode_M.Enemy_List.Count); // ìµœëŒ€ 10ê°œê¹Œì§€ë§Œ ìƒì„±í•˜ë„ë¡ ì œí•œ
 
-//    List<int> Spawned_Indices = new List<int>(); // ÀÌ¹Ì »ı¼ºµÈ ÀûÀÇ ÀÎµ¦½º¸¦ ÀúÀåÇÒ ¸®½ºÆ®
+//    List<int> Spawned_Indices = new List<int>(); // ì´ë¯¸ ìƒì„±ëœ ì ì˜ ì¸ë±ìŠ¤ë¥¼ ì €ì¥í•  ë¦¬ìŠ¤íŠ¸
 
 //    if (All_Manager.instance.GameMode_M.Enemy_List.Count > Max_Count)
 //    {
@@ -190,7 +195,7 @@ public class Weapon_LightningRing : Weapon
 //        {
 //            int Random_Index = Random.Range(0, All_Manager.instance.GameMode_M.Enemy_List.Count);
 
-//            // ÁßÃ¸ ¹æÁö: ÀÌ¹Ì »ı¼ºµÈ Àû À§Ä¡¿¡ LightningRingÀÌ ÀÖÀ¸¸é °Ç³Ê¶Ü
+//            // ì¤‘ì²© ë°©ì§€: ì´ë¯¸ ìƒì„±ëœ ì  ìœ„ì¹˜ì— LightningRingì´ ìˆìœ¼ë©´ ê±´ë„ˆëœ€
 //            if (Spawned_Indices.Contains(Random_Index))
 //            {
 //                continue;
@@ -210,16 +215,16 @@ public class Weapon_LightningRing : Weapon
 //                Weapon_Go.transform.rotation = Quaternion.identity;
 //                Weapon_Go.transform.localScale = Vector3.one;
 
-//                // LightningRingÀÌ µ¥¹ÌÁö¸¦ ÁÖ´ÂÁö È®ÀÎ ÈÄ Ã³¸®
+//                // LightningRingì´ ë°ë¯¸ì§€ë¥¼ ì£¼ëŠ”ì§€ í™•ì¸ í›„ ì²˜ë¦¬
 //                if (Weapon_Go.GetComponent<Weapon_LightningRing>())
 //                {
 //                    yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_LightningRing>().SR);
-//                    // Weapon_InitÀ» ÅëÇØ ÇÊ¿äÇÑ ÃÊ±âÈ­ ÀÛ¾÷ ¼öÇà
+//                    // Weapon_Initì„ í†µí•´ í•„ìš”í•œ ì´ˆê¸°í™” ì‘ì—… ìˆ˜í–‰
 //                    Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, All_Manager.instance.Resource_M.STO_LightningRing, LightningRing_LAT.Level);
 //                }
 
 //            }
-//            Destroy(Weapon_Go, 2.5f); // ÀÏÁ¤ ½Ã°£ ÈÄ »èÁ¦
+//            Destroy(Weapon_Go, 2.5f); // ì¼ì • ì‹œê°„ í›„ ì‚­ì œ
 //        }
 //    }
 
@@ -229,7 +234,7 @@ public class Weapon_LightningRing : Weapon
 //        {
 //            int Random_Index = Random.Range(0, All_Manager.instance.GameMode_M.Enemy_List.Count);
 
-//            // ÁßÃ¸ ¹æÁö: ÀÌ¹Ì »ı¼ºµÈ Àû À§Ä¡¿¡ LightningRingÀÌ ÀÖÀ¸¸é °Ç³Ê¶Ü
+//            // ì¤‘ì²© ë°©ì§€: ì´ë¯¸ ìƒì„±ëœ ì  ìœ„ì¹˜ì— LightningRingì´ ìˆìœ¼ë©´ ê±´ë„ˆëœ€
 //            if (Spawned_Indices.Contains(Random_Index))
 //            {
 //                continue;
@@ -249,17 +254,17 @@ public class Weapon_LightningRing : Weapon
 //                Weapon_Go.transform.rotation = Quaternion.identity;
 //                Weapon_Go.transform.localScale = Vector3.one;
 
-//                // LightningRingÀÌ µ¥¹ÌÁö¸¦ ÁÖ´ÂÁö È®ÀÎ ÈÄ Ã³¸®
+//                // LightningRingì´ ë°ë¯¸ì§€ë¥¼ ì£¼ëŠ”ì§€ í™•ì¸ í›„ ì²˜ë¦¬
 //                if (Weapon_Go.GetComponent<Weapon_LightningRing>())
 //                {
 //                    yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_LightningRing>().SR);
-//                    // Weapon_InitÀ» ÅëÇØ ÇÊ¿äÇÑ ÃÊ±âÈ­ ÀÛ¾÷ ¼öÇà
+//                    // Weapon_Initì„ í†µí•´ í•„ìš”í•œ ì´ˆê¸°í™” ì‘ì—… ìˆ˜í–‰
 //                    Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, All_Manager.instance.Resource_M.STO_LightningRing, LightningRing_LAT.Level);
 //                }
 
 //            }
 
-//            Destroy(Weapon_Go, 2.5f); // ÀÏÁ¤ ½Ã°£ ÈÄ »èÁ¦
+//            Destroy(Weapon_Go, 2.5f); // ì¼ì • ì‹œê°„ í›„ ì‚­ì œ
 //        }
 //    }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 /*
 TODO
-- bullets ÃÊ±âÈ­ÇØ¼­ »ç¿ëÇÒ FireBullet³Ö¾îÁÖ±â
+- bullets ì´ˆê¸°í™”í•´ì„œ ì‚¬ìš©í•  FireBulletë„£ì–´ì£¼ê¸°
  */
 
 public class Phoenix : Weapon
@@ -15,6 +15,11 @@ public class Phoenix : Weapon
     int bulletCount;
     float shootGapValue;
     public const float shootGap = 0.1f;
+
+    public override void Awake()
+    {
+        base.Awake();
+    }
 
     public override void Start()
     {

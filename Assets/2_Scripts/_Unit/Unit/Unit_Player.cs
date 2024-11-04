@@ -1093,9 +1093,6 @@ public class Unit_Player : Unit
     // �÷��̾� ������ ���ȿ� �ۼ�Ƽ�� ���� ����
     public void Origin_Stat_Application_Player(Equipment_Type p_ET)
     {
-        //
-        // this.Origin_Stat.Unit_HP 
-
         if (p_ET == Equipment_Type.Spinach)
         {
             if (Spinach_Level > 0)
@@ -1221,7 +1218,6 @@ public class Unit_Player : Unit
     {
         var Temp_Equipment_STO = All_Manager.instance.Resource_M.STO_Equipments;
 
-        // Percent_Damage = (1 + Eq_STO.stat / 100f);
         if (Player_Unit == null)
         {
             Debug.Log("Unit NULL");
@@ -1230,7 +1226,6 @@ public class Unit_Player : Unit
 
         if (Eq_STO == null) //
         {
-            //Debug.Log("EQ_STO NULL");
             return;
         }
 
@@ -1594,11 +1589,9 @@ public class Unit_Player : Unit
         }
 
         Vector3 Next_Vec = InputVec.normalized * (this.Origin_Stat.Unit_Speed * Time.deltaTime);
-        //RB.MovePosition(RB.position + Next_Vec);
 
         this.transform.position = this.transform.position + Next_Vec;
 
-        //this.transform.position = this.transform.position + Next_Vec;
         if (InputVec.x != 0)
         {
             SR.flipX = InputVec.x >= 0;
@@ -1627,7 +1620,6 @@ public class Unit_Player : Unit
     // �� ȹ�� �Լ�
     public void Get_Gem(float p_Get_Gem_Current_Count)
     {
-        //All_Manager.instance.UI_M.Update_Gem_Count_Image(p_Get_Gem_Current_Count);
         All_Manager.instance.GameMode_M.Add_Gem(p_Get_Gem_Current_Count);
     }
 

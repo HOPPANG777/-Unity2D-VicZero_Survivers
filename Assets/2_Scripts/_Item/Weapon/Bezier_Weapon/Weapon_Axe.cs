@@ -17,6 +17,11 @@ public class Weapon_Axe : Weapon
 
     public float Rotation_Speed = 360f;
 
+    public override void Awake()
+    {
+        base.Awake();
+    }
+
     public override void Start()
     {
         base.Start();
@@ -70,7 +75,7 @@ public class Weapon_Axe : Weapon
         base.Weapon_To_Enemy_Collision();
     }
 
-    // º£Áö¾î °î¼±
+    // ë² ì§€ì–´ ê³¡ì„ 
     public Vector3 Axe_Bezier(Vector3 P_1, Vector3 P_2, Vector3 P_3, Vector3 P_4, float Value)
     {
         Vector3 A = Vector3.Lerp(P_1, P_2, Value);
