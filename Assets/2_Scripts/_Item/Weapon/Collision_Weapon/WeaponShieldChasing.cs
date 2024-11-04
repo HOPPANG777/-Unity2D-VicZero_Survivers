@@ -7,9 +7,9 @@ public class WeaponShieldChasing : Weapon
     public Vector3 Dir; // 방향을 float에서 Vector3로 변경
     public float RotateSpeed = 200f;
 
-    public UnitEnemy ShieldChasingtarget;
+    public Unit_Enemy ShieldChasing_target;
 
-    public Vector3 StartDir;
+    public Vector3 Start_Dir;
 
     public Vector2 BoxSize;
 
@@ -18,31 +18,31 @@ public class WeaponShieldChasing : Weapon
     public override void Start()
     {
         base.Start();
-        StartDir = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0).normalized; // 초기 무작위 방향 설정
-        Dir = StartDir; // 초기 방향을 Dir로 설정
+        Start_Dir = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0).normalized; // 초기 무작위 방향 설정
+        Dir = Start_Dir; // 초기 방향을 Dir로 설정
     }
 
     public override void Update()
     {
-        if (AllManager.instance.GameModeM.GameStop == false)
+        if (All_Manager.instance.GameMode_M.Game_Stop == false)
         {
             base.Update();
-            ShieldChasingAttack();
-            this.WeaponKnockBackWeapon();
-            this.WeaponTimer();
+            ShieldChasing_Attack();
+            this.Weapon_KnockBack_Weapon();
+            this.Weapon_Timer();
         }
     }
 
     // 유도탄 작동 로직
-    public void ShieldChasingAttack()
+    public void ShieldChasing_Attack()
     {
         // 유도탄의 초기 발사 방향 유지
         if (initialLaunch)
         {
-            this.transform.position += Dir * WeaponSpeed * Time.deltaTime;
+            this.transform.position += Dir * Weapon_Speed * Time.deltaTime;
 
             // 일정 시간 후 초기 발사 상태 해제
-            if (Vector3.Distance(this.transform.position, StartDir) > 1.0f) // 무기가 일정 거리 이동하면
+            if (Vector3.Distance(this.transform.position, Start_Dir) > 1.0f) // 무기가 일정 거리 이동하면
             {
                 initialLaunch = false;
             }
@@ -50,53 +50,53 @@ public class WeaponShieldChasing : Weapon
         }
 
         // 타겟 탐지 범위 설정
-        BoxSize = new Vector2(WeaponRange, WeaponRange);
+        BoxSize = new Vector2(Weapon_Range, Weapon_Range);
         Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(this.transform.position, BoxSize, 0);
 
         float minDistance = 10000f; // 현재까지 탐지된 최소 거리
-        ShieldChasingtarget = null; // 초기화
+        ShieldChasing_target = null; // 초기화
 
         // 주변 적 탐색
         for (int i = 0; i < collider2Ds.Length; i++)
         {
-            if (collider2Ds[i].gameObject.GetComponent<UnitEnemy>())
+            if (collider2Ds[i].gameObject.GetComponent<Unit_Enemy>())
             {
-                UnitEnemy enemyTemp = collider2Ds[i].gameObject.GetComponent<UnitEnemy>();
+                Unit_Enemy enemyTemp = collider2Ds[i].gameObject.GetComponent<Unit_Enemy>();
 
                 float distanceToEnemy = Vector3.Distance(this.transform.position, enemyTemp.transform.position);
                 if (minDistance > distanceToEnemy)
                 {
                     minDistance = distanceToEnemy;
-                    ShieldChasingtarget = enemyTemp;
+                    ShieldChasing_target = enemyTemp;
                 }
             }
         }
 
         // 타겟이 있는 경우 타겟을 향해 방향 설정
-        if (ShieldChasingtarget != null)
+        if (ShieldChasing_target != null)
         {
-            Dir = (ShieldChasingtarget.transform.position - this.transform.position).normalized; // 방향 설정
+            Dir = (ShieldChasing_target.transform.position - this.transform.position).normalized; // 방향 설정
             float angle = Mathf.Atan2(Dir.y, Dir.x) * Mathf.Rad2Deg; // 각도 계산
             this.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward); // 회전
         }
 
         // 설정된 방향으로 이동
-        this.transform.position += Dir * WeaponSpeed * Time.deltaTime;
+        this.transform.position += Dir * Weapon_Speed * Time.deltaTime;
     }
 
-    public override void Upgrade(int pLevel)
+    public override void Upgrade(int p_Level)
     {
 
     }
 
-    public override void WeaponStatAppliaction()
+    public override void Weapon_Stat_Appliaction()
     {
-        base.WeaponStatAppliaction();
+        base.Weapon_Stat_Appliaction();
     }
 
-    public override void WeaponToEnemyCollision()
+    public override void Weapon_To_Enemy_Collision()
     {
-        base.WeaponToEnemyCollision();
+        base.Weapon_To_Enemy_Collision();
     }
 
 
@@ -104,33 +104,33 @@ public class WeaponShieldChasing : Weapon
 }
 
 #region
-//TempGo.transform.position = Mine.transform.position;
-//TempGo.transform.rotation = Quaternion.identity;
-//TempGo.transform.localScale = Vector3.one;
+//Temp_Go.transform.position = Mine.transform.position;
+//Temp_Go.transform.rotation = Quaternion.identity;
+//Temp_Go.transform.localScale = Vector3.one;
 //public float Dir;
 //public float RotateSpeed = 200f;
 
-//public UnitEnemy ShieldChasingtarget;
+//public Unit_Enemy ShieldChasing_target;
 
-//public Vector3 StartDir;
+//public Vector3 Start_Dir;
 
 //public Vector2 BoxSize;
 
 //public override void Start()
 //{
 //    base.Start();
-//    StartDir = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0);
+//    Start_Dir = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0);
 //}
 
 //public override void Update()
 //{
-//    if (AllManager.instance.GameModeM.GameStop == false)
+//    if (All_Manager.instance.GameMode_M.Game_Stop == false)
 //    {
 //        base.Update();
 
-//        ShieldChasingAttack();
+//        ShieldChasing_Attack();
 
-//        this.WeaponKnockBackWeapon();
+//        this.Weapon_KnockBack_Weapon();
 //    }
 
 //    else
@@ -143,9 +143,9 @@ public class WeaponShieldChasing : Weapon
 
 
 //// 유도함정 작동 로직
-//public void ShieldChasingAttack()
+//public void ShieldChasing_Attack()
 //{
-//    BoxSize = new Vector2(WeaponRange, WeaponRange);
+//    BoxSize = new Vector2(Weapon_Range, Weapon_Range);
 
 //    Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(this.transform.position, BoxSize, 0); // 이게 그 유도함정 주변에서 박스 사이즈 만큼 탐지
 
@@ -162,22 +162,22 @@ public class WeaponShieldChasing : Weapon
 //    // 아직까진 멀쩡함!
 //    foreach (UnityEngine.Collider2D collider in collider2Ds)
 //    {
-//        if (collider.gameObject.GetComponent<UnitEnemy>())
+//        if (collider.gameObject.GetComponent<Unit_Enemy>())
 //        {
-//            UnitEnemy EnemyTemp = collider.gameObject.GetComponent<UnitEnemy>();
+//            Unit_Enemy Enemy_Temp = collider.gameObject.GetComponent<Unit_Enemy>();
 
-//            if (Dis > Vector3.Distance(this.transform.position, EnemyTemp.transform.position))
+//            if (Dis > Vector3.Distance(this.transform.position, Enemy_Temp.transform.position))
 //            {
-//                Dis = Vector3.Distance(this.transform.position, EnemyTemp.transform.position);
-//                ShieldChasingtarget = EnemyTemp;
+//                Dis = Vector3.Distance(this.transform.position, Enemy_Temp.transform.position);
+//                ShieldChasing_target = Enemy_Temp;
 //            }
 //        }
 //    }
 
-//    if (ShieldChasingtarget != null)
+//    if (ShieldChasing_target != null)
 //    {
 //        //방향 바꾸고
-//        Dir = (ShieldChasingtarget.transform.position - this.transform.position).normalized; // 방향
+//        Dir = (ShieldChasing_target.transform.position - this.transform.position).normalized; // 방향
 //        float angle = Mathf.Atan2(Dir.y, Dir.x) * Mathf.Rad2Deg;    // 각도
 //        this.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);    // 회전
 //    }
@@ -191,7 +191,7 @@ public class WeaponShieldChasing : Weapon
 //    }
 
 //    // 그 방향을 향해서 앞으로
-//    this.transform.position = this.transform.position + (Dir * WeaponSpeed * Time.deltaTime);
+//    this.transform.position = this.transform.position + (Dir * Weapon_Speed * Time.deltaTime);
 //}
 
 ////public override void OnTriggerStay2D(Collider2D collision)
@@ -199,8 +199,8 @@ public class WeaponShieldChasing : Weapon
 ////    base.OnTriggerStay2D(collision);
 ////}
 
-//public override void WeaponToEnemyCollision()
+//public override void Weapon_To_Enemy_Collision()
 //{
-//    base.WeaponToEnemyCollision();
+//    base.Weapon_To_Enemy_Collision();
 //}
 #endregion

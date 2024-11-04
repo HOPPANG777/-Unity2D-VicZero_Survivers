@@ -14,23 +14,23 @@ public class WeaponRuneTracer : Weapon
         base.Start();
         Dir = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0);
         mainCamera = Camera.main;
-        weaponTrailRenderer.enabled = true;
+        _weaponTrailRenderer.enabled = true;
         
     }
 
     public override void Update()
     {
-        if (AllManager.instance.GameModeM.GameStop == false)
+        if (All_Manager.instance.GameMode_M.Game_Stop == false)
         {
             base.Update();
 
-            RuneAttack();
+            Rune_Attack();
 
-            this.WeaponKnockBackWeapon();
+            this.Weapon_KnockBack_Weapon();
 
-            this.WeaponTimer();
+            this.Weapon_Timer();
 
-            this.WeaponTrail();
+            this.Weapon_Trail();
         }
 
         else
@@ -41,13 +41,13 @@ public class WeaponRuneTracer : Weapon
 
     }
 
-    public void RuneAttack()
+    public void Rune_Attack()
     {
         // Normalize the direction
         Dir = Dir.normalized;
 
         // Move the object
-        this.transform.position += Dir * WeaponSpeed * Time.deltaTime;
+        this.transform.position += Dir * Weapon_Speed * Time.deltaTime;
 
         // Check for collisions with screen edges and reflect
         Vector3 viewPos = mainCamera.WorldToViewportPoint(transform.position);
@@ -85,19 +85,19 @@ public class WeaponRuneTracer : Weapon
     //    base.OnTriggerStay2D(collision);
     //}
 
-    public override void Upgrade(int pLevel)
+    public override void Upgrade(int p_Level)
     {
 
     }
 
-    public override void WeaponStatAppliaction()
+    public override void Weapon_Stat_Appliaction()
     {
-        base.WeaponStatAppliaction();
+        base.Weapon_Stat_Appliaction();
     }
 
-    public override void WeaponToEnemyCollision()
+    public override void Weapon_To_Enemy_Collision()
     {
-        base.WeaponToEnemyCollision();
+        base.Weapon_To_Enemy_Collision();
     }
 
 }
@@ -179,7 +179,7 @@ public class WeaponRuneTracer : Weapon
 //bottomBorder - playerSize.y / 2),
 //this.transform.position.z);
 
-//public void PongAttack()
+//public void Pong_Attack()
 //{
 //    Vector2 screenPosition = Camera.main.WorldToScreenPoint(this.transform.position);
 //    if ((screenPosition.y > Screen.height) || (screenPosition.y < 0f) || (screenPosition.x > Screen.width) || (screenPosition.x < 0f))
@@ -198,27 +198,27 @@ public class WeaponRuneTracer : Weapon
 //    }
 
 
-//public void PongAttack()
+//public void Pong_Attack()
 //{
 //    var Dist = (this.transform.position - Camera.main.transform.position).z;
 
-//    var LeftBorder = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, Dist)).x;
-//    var RightBorder = Camera.main.ViewportToWorldPoint(new Vector3(1, 0, Dist)).x;
-//    var TopBorder = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, Dist)).y;
-//    var BottomBorder = Camera.main.ViewportToWorldPoint(new Vector3(0, 1, Dist)).y;
+//    var Left_Border = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, Dist)).x;
+//    var Right_Border = Camera.main.ViewportToWorldPoint(new Vector3(1, 0, Dist)).x;
+//    var Top_Border = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, Dist)).y;
+//    var Bottom_Border = Camera.main.ViewportToWorldPoint(new Vector3(0, 1, Dist)).y;
 
-//    Vector3 PongSize = this.gameObject.transform.position;
+//    Vector3 Pong_Size = this.gameObject.transform.position;
 
 //    this.transform.position = new Vector3(
 
 //    Mathf.Clamp(this.
 //    transform.position.x,
-//    LeftBorder + PongSize.x / 2,
-//    RightBorder - PongSize.x / 2),
+//    Left_Border + Pong_Size.x / 2,
+//    Right_Border - Pong_Size.x / 2),
 //    Mathf.Clamp
 //    (this.transform.position.y,
-//    TopBorder + PongSize.y / 2,
-//    BottomBorder - PongSize.y / 2),
+//    Top_Border + Pong_Size.y / 2,
+//    Bottom_Border - Pong_Size.y / 2),
 //    this.transform.position.z);
 
 //}

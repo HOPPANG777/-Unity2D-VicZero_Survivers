@@ -5,65 +5,65 @@ using UnityEngine;
 public class GhostEffectController : MonoBehaviour
 {
     // 트레일을 생성할 대상 리스트
-    private List<Transform> GhostTarget = new List<Transform>();
+    private List<Transform> Ghost_Target = new List<Transform>();
 
     // 트레일 지속 시간과 생성 간격 조정 가능
-    public float GhostDuration = 0.1f;
-    public float SpawnInterval = 2.0f;
+    public float Ghost_Duration = 0.1f;
+    public float Spawn_Interval = 2.0f;
 
-    private float TimeSinceLastSpawn = 0f;
+    private float Time_Since_Last_Spawn = 0f;
 
     // 트레일 색상 조정 가능
-    public Color GhostColor;
+    public Color Ghost_Color;
 
     private void Start()
     {
-        GhostColor = new Color(0.0f, 0.0f, 0.0f, 0.5f);
+        Ghost_Color = new Color(0.0f, 0.0f, 0.0f, 0.5f);
     }
 
     private void Update()
     {
-        TimeSinceLastSpawn += Time.deltaTime;
+        Time_Since_Last_Spawn += Time.deltaTime;
 
-        if (TimeSinceLastSpawn >= SpawnInterval)
+        if (Time_Since_Last_Spawn >= Spawn_Interval)
         {
-            SpawnGhost();
-            TimeSinceLastSpawn = 0f;
+            Spawn_Ghost();
+            Time_Since_Last_Spawn = 0f;
         }
     }
 
-    public void AddGhostTarget(Transform target)
+    public void Add_Ghost_Target(Transform target)
     {
         // 트레일 타겟 추가
-        if (!GhostTarget.Contains(target))
+        if (!Ghost_Target.Contains(target))
         {
-            GhostTarget.Add(target);
+            Ghost_Target.Add(target);
         }
     }
 
-    private void SpawnGhost()
+    private void Spawn_Ghost()
     {
         // trailTargets 리스트를 순회하며 트레일 생성
-        int TargetCount = GhostTarget.Count;
-        for (int i = 0; i < TargetCount; i++)
+        int Target_Count = Ghost_Target.Count;
+        for (int i = 0; i < Target_Count; i++)
         {
-            Transform Target = GhostTarget[i];
+            Transform Target = Ghost_Target[i];
             if (Target != null)
             {
                 GameObject Ghost = new GameObject("Trail");
                 Ghost.transform.position = Target.position;
                 Ghost.transform.rotation = Target.rotation;
 
-                SpriteRenderer spriteRenderer = Ghost.AddComponent<SpriteRenderer>();
-                spriteRenderer.sprite = Target.GetComponent<SpriteRenderer>().sprite;
-                spriteRenderer.color = GhostColor;
-                spriteRenderer.flipX = Target.GetComponent<SpriteRenderer>().flipX;
-                spriteRenderer.drawMode = SpriteDrawMode.Sliced;
-                spriteRenderer.size = new Vector2(Target.GetComponent<SpriteRenderer>().size.x, Target.GetComponent<SpriteRenderer>().size.y);
-                spriteRenderer.sortingOrder = -1;
+                SpriteRenderer _spriteRenderer = Ghost.AddComponent<SpriteRenderer>();
+                _spriteRenderer.sprite = Target.GetComponent<SpriteRenderer>().sprite;
+                _spriteRenderer.color = Ghost_Color;
+                _spriteRenderer.flipX = Target.GetComponent<SpriteRenderer>().flipX;
+                _spriteRenderer.drawMode = SpriteDrawMode.Sliced;
+                _spriteRenderer.size = new Vector2(Target.GetComponent<SpriteRenderer>().size.x, Target.GetComponent<SpriteRenderer>().size.y);
+                _spriteRenderer.sortingOrder = -1;
 
                 // 트레일을 일정 시간 후에 제거
-                Destroy(Ghost, GhostDuration);
+                Destroy(Ghost, Ghost_Duration);
             }
         }
     }

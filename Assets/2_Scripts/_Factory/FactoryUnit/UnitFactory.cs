@@ -6,14 +6,14 @@ using UnityEngine;
 // 유닛 생성작업 SerializeField로 미리 연결해놓고 관리하는게 더 효율적이여서 그렇게 수정할게.
 public class UnitFactory : MonoBehaviour
 {
-    [SerializeField] GameObject bossPrefab;
-    [SerializeField] GameObject playerPrefab;
+    [SerializeField] GameObject _bossPrefab;
+    [SerializeField] GameObject _playerPrefab;
 
-    public void CreatePlayer(UnitData PUnit)
+    public void Create_Player(STO_Unit P_Unit)
     {
-        GameObject PlayerGo = new GameObject("Player");
+        GameObject Player_Go = new GameObject("Player");
 
-        UnitPlayer player = PlayerGo.AddComponent<UnitPlayer>();
+        Unit_Player player = Player_Go.AddComponent<Unit_Player>();
 
         if (player == null)
         {
@@ -25,52 +25,52 @@ public class UnitFactory : MonoBehaviour
         player.transform.rotation = Quaternion.identity;
         player.transform.localScale = Vector3.one;
 
-        //spriteRenderer�� ���������� ��ٷ�        
+        //_spriteRenderer�� ���������� ��ٷ�        
         // 여기서 코루틴으로 WaitUntil 사용했던데, 그거 거의 의미 없는 로직인듯...?                                                         
-        player.UnitStatSetting(player, PUnit);
+        player.Unit_Stat_Setting(player, P_Unit);
 
         player.UnitSpriteRenderer.drawMode = SpriteDrawMode.Sliced;
         player.UnitSpriteRenderer.size = new Vector2(player.UnitSpriteRenderer.size.x * 0.2f, player.UnitSpriteRenderer.size.y * 0.2f);
 
-        AllManager.instance.GameModeM.CurrentPlayer = PlayerGo.GetComponent<UnitPlayer>();
+        All_Manager.instance.GameMode_M.Current_Player = Player_Go.GetComponent<Unit_Player>();
 
-        PlayerGo.layer = 6;
+        Player_Go.layer = 6;
 
     }
     // 왜 코루틴으로 작성했었는지 의문이좀 듦.
 
-    public void CreateEnemy(UnitData EUnit, Vector3 PlayerPos, int pNumber, Transform pPool)
+    public void Create_Enemy(STO_Unit E_Unit, Vector3 Player_Pos, int p_Number, Transform p_Pool)
     {
-        GameObject EnemyGo = new GameObject(EUnit.UnitType.ToString() + "-" + pNumber.ToString());
+        GameObject Enemy_Go = new GameObject(E_Unit.UnitType.ToString() + "-" + p_Number.ToString());
 
-        UnitEnemy enemy = EnemyGo.AddComponent<UnitEnemy>();
+        Unit_Enemy enemy = Enemy_Go.AddComponent<Unit_Enemy>();
         if (enemy == null)
         {
             Debug.Log("enemy가 null임");
             return;
         }
 
-        enemy.transform.position = PlayerPos;
+        enemy.transform.position = Player_Pos;
         enemy.transform.rotation = Quaternion.identity;
         enemy.transform.localScale = Vector3.one;
 
         // WaitUntil 왜 쓴건지 여기도 의문..
-        //yield return new WaitUntil(() => enemy.spriteRenderer && enemy.animator);
-        enemy.UnitStatSetting(enemy, EUnit);
-        enemy.UnitType = EUnit.UnitType;
+        //yield return new WaitUntil(() => enemy._spriteRenderer && enemy._animator);
+        enemy.Unit_Stat_Setting(enemy, E_Unit);
+        enemy.UnitType = E_Unit.UnitType;
 
-        //AllManager.instance.GameModeM.EnemyList.Add(EnemyGo.GetComponent<UnitEnemy>());
-        EnemyGo.transform.parent = pPool;
+        //All_Manager.instance.GameMode_M.Enemy_List.Add(Enemy_Go.GetComponent<Unit_Enemy>());
+        Enemy_Go.transform.parent = p_Pool;
 
-        EnemyGo.SetActive(false);
+        Enemy_Go.SetActive(false);
     }
 
 
-    public void CreateBoss(UnitData BossUnit, Vector3 PlayerPos)
+    public void Create_Boss(STO_Unit Boss_Unit, Vector3 Player_Pos)
     {
-        GameObject BossGo = new GameObject(BossUnit.UnitType.ToString() + "-TheUndead");
+        GameObject Boss_Go = new GameObject(Boss_Unit.UnitType.ToString() + "-The_Undead");
 
-        UnitBoss boss = BossGo.AddComponent<UnitBoss>();
+        Unit_Boss boss = Boss_Go.AddComponent<Unit_Boss>();
 
         if (boss == null)
         {
@@ -78,20 +78,20 @@ public class UnitFactory : MonoBehaviour
             return;
         }
 
-        boss.transform.position = PlayerPos;
+        boss.transform.position = Player_Pos;
         boss.transform.rotation = Quaternion.identity;
         boss.transform.localScale = Vector3.one;
 
         // 여기도 왜 WaitUntil 쓴건지 의문..
-        //yield return new WaitUntil(() => boss.spriteRenderer && boss.animator);
-        boss.UnitStatSetting(boss, BossUnit);
+        //yield return new WaitUntil(() => boss._spriteRenderer && boss._animator);
+        boss.Unit_Stat_Setting(boss, Boss_Unit);
 
         boss.UnitSpriteRenderer.drawMode = SpriteDrawMode.Sliced;
         boss.UnitSpriteRenderer.size = new Vector2(boss.UnitSpriteRenderer.size.x * 4, boss.UnitSpriteRenderer.size.y * 4);
 
-        boss.UnitType = BossUnit.UnitType;
+        boss.UnitType = Boss_Unit.UnitType;
 
-        AllManager.instance.GameModeM.EnemyList.Add(BossGo.GetComponent<UnitBoss>());
+        All_Manager.instance.GameMode_M.Enemy_List.Add(Boss_Go.GetComponent<Unit_Boss>());
 
     }
 }

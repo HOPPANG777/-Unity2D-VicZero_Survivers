@@ -6,50 +6,50 @@ using UnityEngine;
 
 public abstract class Mission : MonoBehaviour, IMissionType
 {
-    [SerializeField] protected BoxCollider2D boxCollider2D;
-    [SerializeField] protected SpriteRenderer spriteRenderer;
-    public SpriteRenderer SpriteRenderer { get { return spriteRenderer; } set { spriteRenderer = value; } }
+    [SerializeField] protected BoxCollider2D _boxCollider2D;
+    [SerializeField] protected SpriteRenderer _spriteRenderer;
+    public SpriteRenderer SpriteRenderer { get { return _spriteRenderer; } set { _spriteRenderer = value; } }
 
     // 미션 시작
-    [SerializeField] protected bool isMissionPrograce = false;
-    public bool IsMissionPrograce { get { return isMissionPrograce; } }
+    [SerializeField] protected bool _isMissionPrograce = false;
+    public bool IsMissionPrograce { get { return _isMissionPrograce; } }
 
     // 미션 클리어
-    [SerializeField] protected bool isMissionClear = false;
-    public bool IsMissionCleare { get { return isMissionClear; } }
+    [SerializeField] protected bool _isMissionClear = false;
+    public bool IsMissionCleare { get { return _isMissionClear; } }
 
     // 1초당 4번 충돌 처리
-    [SerializeField] protected float checkInterval = 0.25f;
-    [SerializeField] protected float lastCheckTime = 0.0f;
+    [SerializeField] protected float _checkInterval = 0.25f;
+    [SerializeField] protected float _lastCheckTime = 0.0f;
 
     // 미션 타입
-    [SerializeField] protected MissionType missionType;
-    public MissionType MissionType { get { return missionType; } set { missionType = value; } }
+    [SerializeField] protected MissionType _missionType;
+    public MissionType MissionType { get { return _missionType; } set { _missionType = value; } }
 
     protected virtual void Start()
     {
-        spriteRenderer = this.AddComponent<SpriteRenderer>();
+        _spriteRenderer = this.AddComponent<SpriteRenderer>();
 
-        boxCollider2D = this.AddComponent<BoxCollider2D>();
-        boxCollider2D.isTrigger = true;
+        _boxCollider2D = this.AddComponent<BoxCollider2D>();
+        _boxCollider2D.isTrigger = true;
     }
 
     protected virtual void FixedUpdate()
     {
-        if (Time.time >= lastCheckTime + checkInterval)
+        if (Time.time >= _lastCheckTime + _checkInterval)
         {
             // 0.25초가 경과한 경우 충돌 검사 수행
             CheckPlayerCollision();
 
             // 현재 시간을 기준으로 마지막 체크 시간을 업데이트
-            lastCheckTime = Time.time;
+            _lastCheckTime = Time.time;
         }
     }
 
     // 플레이어가 발판에 올라왔을때 충돌처리
     protected virtual void CheckPlayerCollision()
     {
-        var player = AllManager.instance.GameModeM.CurrentPlayer;
+        var player = All_Manager.instance.GameMode_M.Current_Player;
         var mission = this.gameObject;
 
         // 플레이어 위치와 최소 거리 설정
@@ -65,11 +65,11 @@ public abstract class Mission : MonoBehaviour, IMissionType
 
         if (directionSqr < minDistanceSqr)
         {
-            isMissionPrograce = true;
+            _isMissionPrograce = true;
         }
         else
         {
-            isMissionPrograce = false;
+            _isMissionPrograce = false;
         }
     }
 
@@ -80,6 +80,6 @@ public abstract class Mission : MonoBehaviour, IMissionType
     protected abstract void RemoveMission();
 
     // 미션 생성시 Scriptable Object로 초기화
-    public abstract void MissionSetting(Mission pMission, MissionData pItemTypeO);
+    public abstract void MissionSetting(Mission p_Mission, STO_Mission p_ItemTypeO);
 
 }

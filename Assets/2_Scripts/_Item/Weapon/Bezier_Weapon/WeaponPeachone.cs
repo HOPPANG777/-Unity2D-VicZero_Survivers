@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class WeaponPeachone : Weapon
 {
-    Vector3[] WPeachonePoint = new Vector3[4];
+    Vector3[] W_Peachone_Point = new Vector3[4];
 
-    [SerializeField] public float PosA = 3f;
-    [SerializeField] public float PosB = 2f;
+    [SerializeField] public float Pos_A = 3f;
+    [SerializeField] public float Pos_B = 2f;
 
     public override void Start()
     {
@@ -17,19 +17,19 @@ public class WeaponPeachone : Weapon
 
     public override void Update()
     {
-        if (AllManager.instance.GameModeM.GameStop == false)
+        if (All_Manager.instance.GameMode_M.Game_Stop == false)
         {
             base.Update();
 
-            PeachoneDrawTrajectory();
+            Peachone_Draw_Trajectory();
 
-            //this.WeaponTimer();
+            //this.Weapon_Timer();
 
-            this.WeaponKnockBackWeapon();
+            this.Weapon_KnockBack_Weapon();
 
-            if (WAccumulate > 1)
+            if (W_Accumulate > 1)
             {
-                this.DestroyWeapon();
+                this.Destroy_Weapon();
             }
         }
 
@@ -39,38 +39,38 @@ public class WeaponPeachone : Weapon
         }
     }
 
-    public void PeachoneInit(Vector3 One, Vector3 Two, Vector3 Three, Vector3 Four)
+    public void Peachone_Init(Vector3 One, Vector3 Two, Vector3 Three, Vector3 Four)
     {
-        WPeachonePoint[0] = One; // P0
-        WPeachonePoint[1] = Two; // P1
-        WPeachonePoint[2] = Three; // P2
-        WPeachonePoint[3] = Four; // P3
-        weaponTrailRenderer.enabled = true;
+        W_Peachone_Point[0] = One; // P0
+        W_Peachone_Point[1] = Two; // P1
+        W_Peachone_Point[2] = Three; // P2
+        W_Peachone_Point[3] = Four; // P3
+        _weaponTrailRenderer.enabled = true;
     }
 
-    public Vector3 PeachonePointSetting(Vector3 pVE)
+    public Vector3 Peachone_Point_Setting(Vector3 p_VE)
     {
         float X, Y;
 
-        X = PosA * Mathf.Cos(Random.Range(0, 360) * Mathf.Deg2Rad) + pVE.x;
-        Y = PosB * Mathf.Sin(Random.Range(0, 360) * Mathf.Deg2Rad) + pVE.y;
+        X = Pos_A * Mathf.Cos(Random.Range(0, 360) * Mathf.Deg2Rad) + p_VE.x;
+        Y = Pos_B * Mathf.Sin(Random.Range(0, 360) * Mathf.Deg2Rad) + p_VE.y;
 
         return new Vector3(X, Y, 0);
     }
 
-    public void PeachoneDrawTrajectory()
+    public void Peachone_Draw_Trajectory()
     {
-        this.WeaponAccumulate();
+        this.Weapon_Accumulate();
 
-        this.transform.position = new Vector3(PeachoneBezier(WPeachonePoint[0].x, WPeachonePoint[1].x, WPeachonePoint[2].x, WPeachonePoint[3].x, WAccumulate),
-           PeachoneBezier(WPeachonePoint[0].y, WPeachonePoint[1].y, WPeachonePoint[2].y, WPeachonePoint[3].y, WAccumulate));
+        this.transform.position = new Vector3(Peachone_Bezier(W_Peachone_Point[0].x, W_Peachone_Point[1].x, W_Peachone_Point[2].x, W_Peachone_Point[3].x, W_Accumulate),
+           Peachone_Bezier(W_Peachone_Point[0].y, W_Peachone_Point[1].y, W_Peachone_Point[2].y, W_Peachone_Point[3].y, W_Accumulate));
     }
 
-    public float PeachoneBezier(float P1, float P2, float P3, float P4, float Value)
+    public float Peachone_Bezier(float P_1, float P_2, float P_3, float P_4, float Value)
     {
-        //Vector3 A = Vector3.Lerp(P1, P2, Value);
-        //Vector3 B = Vector3.Lerp(P2, P3, Value);
-        //Vector3 C = Vector3.Lerp(P3, P4, Value);
+        //Vector3 A = Vector3.Lerp(P_1, P_2, Value);
+        //Vector3 B = Vector3.Lerp(P_2, P_3, Value);
+        //Vector3 C = Vector3.Lerp(P_3, P_4, Value);
 
         //Vector3 D = Vector3.Lerp(A, B, Value);
         //Vector3 E = Vector3.Lerp(B, C, Value);
@@ -79,30 +79,30 @@ public class WeaponPeachone : Weapon
 
         //return F;
 
-        return Mathf.Pow((1 - Value), 3) * P1
-        + Mathf.Pow((1 - Value), 2) * 3 * Value * P2
-        + Mathf.Pow(Value, 2) * 3 * (1 - Value) * P3
-        + Mathf.Pow(Value, 3) * P4;
+        return Mathf.Pow((1 - Value), 3) * P_1
+        + Mathf.Pow((1 - Value), 2) * 3 * Value * P_2
+        + Mathf.Pow(Value, 2) * 3 * (1 - Value) * P_3
+        + Mathf.Pow(Value, 3) * P_4;
     }
 
-    public Vector3 ConvertRectTransformToPosition(RectTransform pRT)
+    public Vector3 Convert_RectTransform_To_Position(RectTransform p_RT)
     {
-        return new Vector3((pRT.position.x), (pRT.position.y), 0);
+        return new Vector3((p_RT.position.x), (p_RT.position.y), 0);
     }
 
-    public override void Upgrade(int pLevel)
+    public override void Upgrade(int p_Level)
     {
 
     }
 
-    public override void WeaponStatAppliaction()
+    public override void Weapon_Stat_Appliaction()
     {
-        base.WeaponStatAppliaction();
+        base.Weapon_Stat_Appliaction();
     }
 
-    public override void WeaponToEnemyCollision()
+    public override void Weapon_To_Enemy_Collision()
     {
-        base.WeaponToEnemyCollision();
+        base.Weapon_To_Enemy_Collision();
     }
 
 

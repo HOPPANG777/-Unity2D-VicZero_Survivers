@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public enum VFXType
+public enum VFX_Type
 {
     Peachone,
-    ForceArea,
+    Force_Area,
     LightningRing,
     RuneTracer,
     Nunchaku
@@ -15,12 +15,12 @@ public enum VFXType
 public class VFX : MonoBehaviour
 {
     public ParticleSystem PS;
-    //public ParticleSystemRenderer PspriteRenderer;
+    //public ParticleSystemRenderer P_spriteRenderer;
 
     public virtual void Start()
     {
         PS = this.AddComponent<ParticleSystem>();
-        //PspriteRenderer = PS.GetComponent<ParticleSystemRenderer>();
+        //P_spriteRenderer = PS.GetComponent<ParticleSystemRenderer>();
     }
 
 }
