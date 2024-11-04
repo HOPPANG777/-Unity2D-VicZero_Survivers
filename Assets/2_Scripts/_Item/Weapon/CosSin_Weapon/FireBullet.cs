@@ -4,8 +4,8 @@ using UnityEngine;
 
 /*
 TODO
-- Bound½Ã ÀÏ¾î³¯ ÀÏ(ÅºÈ¯ ºñÈ°¼ºÈ­, ÀåÆÇ »ı¼º µî) ±¸Çö
-- È­¸é ¹ÛÀ¸·Î ³ª°¡¸é »ç¶óÁö´Â°Å ³ÖÀ»°Å¸é ³Ö±â
+- Boundì‹œ ì¼ì–´ë‚  ì¼(íƒ„í™˜ ë¹„í™œì„±í™”, ì¥íŒ ìƒì„± ë“±) êµ¬í˜„
+- í™”ë©´ ë°–ìœ¼ë¡œ ë‚˜ê°€ë©´ ì‚¬ë¼ì§€ëŠ”ê±° ë„£ì„ê±°ë©´ ë„£ê¸°
  */
 
 public class FireBullet : MonoBehaviour
@@ -15,14 +15,14 @@ public class FireBullet : MonoBehaviour
     bool isActive;
     public const float boundSize = 0.0f;
 
-    // ¹ß»ç½Ã »ç¿ëÇÒ °Íµé ÃÊ±âÈ­
-    public void Shoot(Vector3 shootDir)
+    // ë°œì‚¬ì‹œ ì‚¬ìš©í•  ê²ƒë“¤ ì´ˆê¸°í™”
+    public void Shoot(Vector3 p_shootDir)
     {
         isActive = true;
-        shootDir = shootDir;
+        p_shootDir = shootDir;
     }
     
-    // Á¤ÇØÁØ ¹æÇâÀÇ ÁÖº¯À¸·Î ºñÆ²ºñÆ² ³¯¾Æ°¡´Â ¿ëµµÀÇ ÄÚµå
+    // ì •í•´ì¤€ ë°©í–¥ì˜ ì£¼ë³€ìœ¼ë¡œ ë¹„í‹€ë¹„í‹€ ë‚ ì•„ê°€ëŠ” ìš©ë„ì˜ ì½”ë“œ
         
     private void Move()
     {
@@ -61,8 +61,8 @@ public class FireBullet : MonoBehaviour
             Move();
             if(isActive)
             {
-                // È­¿° ÀåÆÇ±ò±â
-                // È¤Àº Æø¹ß½Ã È¿°ú
+                // í™”ì—¼ ì¥íŒê¹”ê¸°
+                // í˜¹ì€ í­ë°œì‹œ íš¨ê³¼
             }
         }
     }

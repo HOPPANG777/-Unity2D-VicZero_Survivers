@@ -13,29 +13,29 @@ MonoBehaviour:
   m_Name: Enemy_STO_Unit_BossOrcRider
   m_EditorClassIdentifier: 
   UnitType: 1
-  Size_X: 1
-  Size_Y: 1.4
-  Offset_X: 0
-  Offset_Y: -0.12
-  _spriteRenderer_Size_X: 0
-  _spriteRenderer_Size_Y: 0
-  Player_info_s:
+  SizeX: 0
+  SizeY: 0
+  OffsetX: 0
+  OffsetY: 0
+  spriteRendererSizeX: 0
+  spriteRendererSizeY: 0
+  Playerinfos:
     HP: 0
-    Unit_Speed: 0
-    Unit_Defense: 0
-    Unit_Weapon_Damage: 0
-    Unit_Weapon_Proj_Speed: 0
-    Unit_Weapon_Duration: 0
-    Unit_Weapon_Range: 0
-    Unit_Weapon_CoolDown: 0
-    Unit_Weapon_Proj_Num: 0
-    Unit_Get_Gem_Range: 0
-  Unit_Enemy_HP: 2000
-  Unit_Enemy_Speed: 2
-  Unit_Enemy_Damage: 35
-  Sprite_Image: {fileID: -769210150, guid: 00d0d5e637303a749b6b6fb2f8b5fd4f, type: 3}
-  Elite_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  Death_Audio_Clip: {fileID: 8300000, guid: 31eb9fd94123ca047b61f1e8bd2a303e, type: 3}
-  Hitted_Audio_Clip: {fileID: 8300000, guid: c1a7a8413f63c6548b21daca157e7415, type: 3}
-  Unit_Animator_Controller: {fileID: 9100000, guid: 25191f71ade1f9548909f54bedb456f1,
+    UnitSpeed: 0
+    UnitDefense: 0
+    UnitWeaponDamage: 0
+    UnitWeaponProjSpeed: 0
+    UnitWeaponDuration: 0
+    UnitWeaponRange: 0
+    UnitWeaponCoolDown: 0
+    UnitWeaponProjNum: 0
+    UnitGetGemRange: 0
+  UnitEnemyHP: 2000
+  UnitEnemySpeed: 2
+  UnitEnemyDamage: 30
+  SpriteImage: {fileID: -769210150, guid: 00d0d5e637303a749b6b6fb2f8b5fd4f, type: 3}
+  EliteMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  DeathAudioClip: {fileID: 8300000, guid: 4470dba7c7597964089272ec758e0ed8, type: 3}
+  HittedAudioClip: {fileID: 8300000, guid: 4aea232bf24b3cf4da270b1771ca0d7c, type: 3}
+  UnitAnimatorController: {fileID: 9100000, guid: 25191f71ade1f9548909f54bedb456f1,
     type: 2}

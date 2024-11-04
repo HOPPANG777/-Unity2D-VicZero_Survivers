@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Chest_STO_Item
   m_EditorClassIdentifier: 
   ItemType: 1
-  Item_Name: "\uBCF4\uBB3C\uC0C1\uC790"
-  Item_Text: 
-  Sprite_Image: {fileID: -962249426, guid: fa1ffc854ddd3214eae3ea6a9ea37a67, type: 3}
-  Get_Item_Audio_Clip: {fileID: 8300000, guid: 805bd61521d3e3b4596b6cc0c59e1202, type: 3}
+  ItemName: "\uBCF4\uBB3C\uC0C1\uC790"
+  ItemText: 
+  SpriteImage: {fileID: -962249426, guid: fa1ffc854ddd3214eae3ea6a9ea37a67, type: 3}
+  GetItemAudioClip: {fileID: 8300000, guid: 805bd61521d3e3b4596b6cc0c59e1202, type: 3}

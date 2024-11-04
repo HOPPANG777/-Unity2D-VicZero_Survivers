@@ -6,7 +6,7 @@ public class MissionData : ScriptableObject
     [Header("MissionData")]
     // 미션 타입
     [SerializeField] MissionType missionType = MissionType.SURVIVE;
-    public MissionType missionType { get { return missionType; } set { missionType = value; } }
+    public MissionType MissionType { get { return missionType; } set { missionType = value; } }
     
     // 발판
     [SerializeField] Sprite sprite;

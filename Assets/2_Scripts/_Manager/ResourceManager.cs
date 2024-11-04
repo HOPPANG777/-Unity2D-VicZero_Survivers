@@ -99,7 +99,7 @@ public class ResourceManager : MonoBehaviour
 
         for (int i = 0; i < MissionDatas.Length; i++)
         {
-            if (MissionDatas[i].missionType == pMission) TempMissionSTO = MissionDatas[i];
+            if (MissionDatas[i].MissionType == pMission) TempMissionSTO = MissionDatas[i];
         }
 
         return TempMissionSTO;

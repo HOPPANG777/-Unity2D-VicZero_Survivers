@@ -106,7 +106,7 @@ public class FollowMission : Mission
 
     public override void MissionSetting(Mission pMission, MissionData pItemTypeO)
     {
-        pMission.MissionType = pItemTypeO.missionType;
+        pMission.MissionType = pItemTypeO.MissionType;
         pMission.SpriteRenderer.sprite = pItemTypeO.Sprite;
         pMission.SpriteRenderer.material = pItemTypeO.Material;
         pMission.SpriteRenderer.sortingOrder = -1;
