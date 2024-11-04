@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-public class Weapon_Synergy 
+public class WeaponSynergy 
 {
 
 }
@@ -13,7 +13,7 @@ public class Weapon_Synergy
 /*
     protected Weapon weapon;
 
-    public Weapon_Synergy(Weapon weapon)
+    public WeaponSynergy(Weapon weapon)
     {
         this.weapon = weapon;
     }
@@ -23,17 +23,17 @@ public class Weapon_Synergy
         base.Update();
     }
 
-    public override void Weapon_Stat_Appliaction()
+    public override void WeaponStatAppliaction()
     {
-        base.Weapon_Stat_Appliaction();
+        base.WeaponStatAppliaction();
     }
 
 
- public class Weapon_Synergy : MonoBehaviour
+ public class WeaponSynergy : MonoBehaviour
 {
     private Dictionary<List<WeaponKeyword>, string> synergyEffects;
 
-    public Weapon_Synergy()
+    public WeaponSynergy()
     {
         synergyEffects = new Dictionary<List<WeaponKeyword>, string>(new TypeListComparer())
         {

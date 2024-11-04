@@ -4,32 +4,32 @@ using UnityEngine;
 
 public class ItemFactory : MonoBehaviour
 {
-    public void Create_Item(STO_Item p_ItemTypeO, Transform p_TF, int p_Number, Transform p_Pool)
+    public void CreateItem(ItemData pItemTypeO, Transform pTF, int pNumber, Transform pPool)
     {
-        StartCoroutine(C_Create_Item(p_ItemTypeO, p_TF, p_Number, p_Pool));
+        StartCoroutine(CCreateItem(pItemTypeO, pTF, pNumber, pPool));
     }
 
-    public IEnumerator C_Create_Item(STO_Item p_ItemTypeO, Transform p_TF, int p_Number, Transform p_Pool)
+    public IEnumerator CCreateItem(ItemData pItemTypeO, Transform pTF, int pNumber, Transform pPool)
     {
-        GameObject Item_Go = new GameObject(p_ItemTypeO.ItemType.ToString() + "-" + p_Number.ToString());
+        GameObject ItemGo = new GameObject(pItemTypeO.ItemType.ToString() + "-" + pNumber.ToString());
 
-        Item_Go.AddComponent<Item>();
+        ItemGo.AddComponent<Item>();
 
-        Item_Go.transform.position = p_TF.transform.position;
-        Item_Go.transform.rotation = Quaternion.identity;
-        Item_Go.transform.localScale = Vector3.one;
+        ItemGo.transform.position = pTF.transform.position;
+        ItemGo.transform.rotation = Quaternion.identity;
+        ItemGo.transform.localScale = Vector3.one;
 
-        if (Item_Go.GetComponent<Item>())
+        if (ItemGo.GetComponent<Item>())
         {
-            yield return new WaitUntil(() => Item_Go.GetComponent<Item>().ItemSpriteRenderer);
-            Item_Go.GetComponent<Item>().Item_Setting(Item_Go.GetComponent<Item>(), p_ItemTypeO);
+            yield return new WaitUntil(() => ItemGo.GetComponent<Item>().ItemSpriteRenderer);
+            ItemGo.GetComponent<Item>().ItemSetting(ItemGo.GetComponent<Item>(), pItemTypeO);
 
-            Item_Go.GetComponent<Item>().ItemType = p_ItemTypeO.ItemType;
+            ItemGo.GetComponent<Item>().ItemType = pItemTypeO.ItemType;
         }
 
-        Item_Go.transform.parent = p_Pool;
+        ItemGo.transform.parent = pPool;
 
-        Item_Go.SetActive(false);
+        ItemGo.SetActive(false);
     }
 
 }

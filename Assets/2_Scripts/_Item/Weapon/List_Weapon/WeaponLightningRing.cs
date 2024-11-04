@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class WeaponLightningRing : Weapon
 {
-    public Unit_Enemy LightningRing_target;
+    public UnitEnemy LightningRingtarget;
 
     public Vector2 BoxSize = new Vector2(2, 2);
 
-    public int Enemy_Count = 0;
+    public int EnemyCount = 0;
 
     public override void Start()
     {
@@ -19,11 +19,11 @@ public class WeaponLightningRing : Weapon
 
     public override void Update()
     {
-        if (All_Manager.instance.GameMode_M.Game_Stop == false)
+        if (AllManager.instance.GameModeM.GameStop == false)
         {
             base.Update();
 
-            this.Weapon_Timer();
+            this.WeaponTimer();
         }
 
         else
@@ -34,26 +34,26 @@ public class WeaponLightningRing : Weapon
 
     }
 
-    public override void Upgrade(int p_Level)
+    public override void Upgrade(int pLevel)
     {
 
     }
 
-    public override void Weapon_Stat_Appliaction()
+    public override void WeaponStatAppliaction()
     {
-        base.Weapon_Stat_Appliaction();
+        base.WeaponStatAppliaction();
     }
 
-    public void LightningRing_Attack()
+    public void LightningRingAttack()
     {
 
 
 
     }
 
-    public override void Weapon_To_Enemy_Collision()
+    public override void WeaponToEnemyCollision()
     {
-        base.Weapon_To_Enemy_Collision();
+        base.WeaponToEnemyCollision();
     }
 
 
@@ -63,11 +63,11 @@ public class WeaponLightningRing : Weapon
 #region
 //public class SpellBook : Weapon
 //{
-//    public GameObject LightningRing_Go = null;
+//    public GameObject LightningRingGo = null;
 
 //    public Vector2 BoxSize = new Vector2(3, 3);
 
-//    public Enemy M_target = null;
+//    public Enemy Mtarget = null;
 
 //    public override void Start()
 //    {
@@ -88,47 +88,47 @@ public class WeaponLightningRing : Weapon
 
 //    public void Spell()
 //    {
-//        StartCoroutine(C_Spell());
+//        StartCoroutine(CSpell());
 //    }
 
-//    public IEnumerator C_Spell()
+//    public IEnumerator CSpell()
 //    {
-//        float Attack_Rate = 10.0f;
+//        float AttackRate = 10.0f;
 
 //        while (true)
 //        {
-//            if (All_Manager.instance.GameMode_M.Enemy_List.Count > 5)
+//            if (AllManager.instance.GameModeM.EnemyList.Count > 5)
 //            {
 
 //                for (int i = 0; i < 5; i++)
 //                {
-//                    GameObject Temp_Go = Instantiate(LightningRing_Go, All_Manager.instance.GameMode_M.Enemy_List[i].transform.position, Quaternion.identity);
+//                    GameObject TempGo = Instantiate(LightningRingGo, AllManager.instance.GameModeM.EnemyList[i].transform.position, Quaternion.identity);
 
-//                    if (Temp_Go.GetComponent<LightningRing>())
+//                    if (TempGo.GetComponent<LightningRing>())
 //                    {
-//                        yield return new WaitUntil(() => Temp_Go.GetComponent<LightningRing>()._spriteRenderer);
-//                        All_Manager.instance.Resource_M.Weapon_Stat(Temp_Go.GetComponent<LightningRing>(), All_Manager.instance.Resource_M.STO_LightningRing);
+//                        yield return new WaitUntil(() => TempGo.GetComponent<LightningRing>().spriteRenderer);
+//                        AllManager.instance.ResourceM.WeaponStat(TempGo.GetComponent<LightningRing>(), AllManager.instance.ResourceM.STOLightningRing);
 //                    }
 //                }
 //            }
 //            else
 //            {
-//                for (int i = 0; i < All_Manager.instance.GameMode_M.Enemy_List.Count; i++)
+//                for (int i = 0; i < AllManager.instance.GameModeM.EnemyList.Count; i++)
 //                {
-//                    GameObject Temp_Go = Instantiate(LightningRing_Go, All_Manager.instance.GameMode_M.Enemy_List[i].transform.position, Quaternion.identity);
+//                    GameObject TempGo = Instantiate(LightningRingGo, AllManager.instance.GameModeM.EnemyList[i].transform.position, Quaternion.identity);
 
-//                    if (Temp_Go.GetComponent<LightningRing>())
+//                    if (TempGo.GetComponent<LightningRing>())
 //                    {
-//                        yield return new WaitUntil(() => Temp_Go.GetComponent<LightningRing>()._spriteRenderer);
-//                        All_Manager.instance.Resource_M.Weapon_Stat(Temp_Go.GetComponent<LightningRing>(), All_Manager.instance.Resource_M.STO_LightningRing);
+//                        yield return new WaitUntil(() => TempGo.GetComponent<LightningRing>().spriteRenderer);
+//                        AllManager.instance.ResourceM.WeaponStat(TempGo.GetComponent<LightningRing>(), AllManager.instance.ResourceM.STOLightningRing);
 //                    }
 
-//                    Destroy(Temp_Go, 2.5f);
+//                    Destroy(TempGo, 2.5f);
 //                }
 //            }
 
 
-//            yield return new WaitForSeconds(Attack_Rate);
+//            yield return new WaitForSeconds(AttackRate);
 //        }
 
 
@@ -145,30 +145,30 @@ public class WeaponLightningRing : Weapon
 //        {
 //            if (collider.gameObject.GetComponent<Enemy>())
 //            {
-//                var Enemy_Temp = collider.gameObject.GetComponent<Enemy>();
+//                var EnemyTemp = collider.gameObject.GetComponent<Enemy>();
 
-//                if (Dis > Vector3.Distance(this.transform.position, Enemy_Temp.transform.position))
+//                if (Dis > Vector3.Distance(this.transform.position, EnemyTemp.transform.position))
 //                {
-//                    Dis = Vector3.Distance(this.transform.position, Enemy_Temp.transform.position);
-//                    M_target = Enemy_Temp;
+//                    Dis = Vector3.Distance(this.transform.position, EnemyTemp.transform.position);
+//                    Mtarget = EnemyTemp;
 //                }
 //            }
 //        }
 
-//        if (M_target != null)
+//        if (Mtarget != null)
 //        {
 //            Debug.Log("LNNULL");
-//            GameObject Temp_Go = Instantiate(LightningRing_Go, M_target.transform.position, Quaternion.identity);
+//            GameObject TempGo = Instantiate(LightningRingGo, Mtarget.transform.position, Quaternion.identity);
 
-//            if (Temp_Go.GetComponent<LightningRing>())
+//            if (TempGo.GetComponent<LightningRing>())
 //            {
-//                if (Temp_Go.GetComponent<LightningRing>()._spriteRenderer == null)
+//                if (TempGo.GetComponent<LightningRing>().spriteRenderer == null)
 //                    return;
-//                All_Manager.instance.Resource_M.Weapon_Stat(Temp_Go.GetComponent<LightningRing>(), All_Manager.instance.Resource_M.STO_LightningRing);
+//                AllManager.instance.ResourceM.WeaponStat(TempGo.GetComponent<LightningRing>(), AllManager.instance.ResourceM.STOLightningRing);
 //            }
 
 
-//            Destroy(Temp_Go.gameObject, 2.5f);
+//            Destroy(TempGo.gameObject, 2.5f);
 //        }
 
 //    }
@@ -179,87 +179,87 @@ public class WeaponLightningRing : Weapon
 //{
 
 
-//    int Max_Count = All_Manager.instance.Resource_M.STO_LightningRing.Info_s[LightningRing_LAT.Level].Weapon_Count;
-//    int Count_To_Spawn = Mathf.Min(Max_Count, All_Manager.instance.GameMode_M.Enemy_List.Count); // 최대 10개까지만 생성하도록 제한
+//    int MaxCount = AllManager.instance.ResourceM.STOLightningRing.Infos[LightningRingLAT.Level].WeaponCount;
+//    int CountToSpawn = Mathf.Min(MaxCount, AllManager.instance.GameModeM.EnemyList.Count); // 최대 10개까지만 생성하도록 제한
 
-//    List<int> Spawned_Indices = new List<int>(); // 이미 생성된 적의 인덱스를 저장할 리스트
+//    List<int> SpawnedIndices = new List<int>(); // 이미 생성된 적의 인덱스를 저장할 리스트
 
-//    if (All_Manager.instance.GameMode_M.Enemy_List.Count > Max_Count)
+//    if (AllManager.instance.GameModeM.EnemyList.Count > MaxCount)
 //    {
-//        for (int i = 0; i < Max_Count; i++)
+//        for (int i = 0; i < MaxCount; i++)
 //        {
-//            int Random_Index = Random.Range(0, All_Manager.instance.GameMode_M.Enemy_List.Count);
+//            int RandomIndex = Random.Range(0, AllManager.instance.GameModeM.EnemyList.Count);
 
 //            // 중첩 방지: 이미 생성된 적 위치에 LightningRing이 있으면 건너뜀
-//            if (Spawned_Indices.Contains(Random_Index))
+//            if (SpawnedIndices.Contains(RandomIndex))
 //            {
 //                continue;
 //            }
 
-//            Spawned_Indices.Add(Random_Index);
+//            SpawnedIndices.Add(RandomIndex);
 
-//            var Check_Enemy_Alive = All_Manager.instance.GameMode_M.Enemy_List[Random_Index];
+//            var CheckEnemyAlive = AllManager.instance.GameModeM.EnemyList[RandomIndex];
 
-//            if (Check_Enemy_Alive != null)
+//            if (CheckEnemyAlive != null)
 //            {
 
-//                Weapon_Go = new GameObject("LightningRing");
-//                Weapon_Go.AddComponent<Weapon_LightningRing>();
+//                WeaponGo = new GameObject("LightningRing");
+//                WeaponGo.AddComponent<WeaponLightningRing>();
 
-//                Weapon_Go.transform.position = All_Manager.instance.GameMode_M.Enemy_List[Random_Index].transform.position;
-//                Weapon_Go.transform.rotation = Quaternion.identity;
-//                Weapon_Go.transform.localScale = Vector3.one;
+//                WeaponGo.transform.position = AllManager.instance.GameModeM.EnemyList[RandomIndex].transform.position;
+//                WeaponGo.transform.rotation = Quaternion.identity;
+//                WeaponGo.transform.localScale = Vector3.one;
 
 //                // LightningRing이 데미지를 주는지 확인 후 처리
-//                if (Weapon_Go.GetComponent<Weapon_LightningRing>())
+//                if (WeaponGo.GetComponent<WeaponLightningRing>())
 //                {
-//                    yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_LightningRing>()._spriteRenderer);
-//                    // Weapon_Init을 통해 필요한 초기화 작업 수행
-//                    Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, All_Manager.instance.Resource_M.STO_LightningRing, LightningRing_LAT.Level);
+//                    yield return new WaitUntil(() => WeaponGo.GetComponent<WeaponLightningRing>().spriteRenderer);
+//                    // WeaponInit을 통해 필요한 초기화 작업 수행
+//                    WeaponGo.GetComponent<Weapon>().WeaponInit(this, AllManager.instance.ResourceM.STOLightningRing, LightningRingLAT.Level);
 //                }
 
 //            }
-//            Destroy(Weapon_Go, 2.5f); // 일정 시간 후 삭제
+//            Destroy(WeaponGo, 2.5f); // 일정 시간 후 삭제
 //        }
 //    }
 
 //    else
 //    {
-//        for (int j = 0; j < All_Manager.instance.GameMode_M.Enemy_List.Count; j++)
+//        for (int j = 0; j < AllManager.instance.GameModeM.EnemyList.Count; j++)
 //        {
-//            int Random_Index = Random.Range(0, All_Manager.instance.GameMode_M.Enemy_List.Count);
+//            int RandomIndex = Random.Range(0, AllManager.instance.GameModeM.EnemyList.Count);
 
 //            // 중첩 방지: 이미 생성된 적 위치에 LightningRing이 있으면 건너뜀
-//            if (Spawned_Indices.Contains(Random_Index))
+//            if (SpawnedIndices.Contains(RandomIndex))
 //            {
 //                continue;
 //            }
 
-//            Spawned_Indices.Add(Random_Index);
+//            SpawnedIndices.Add(RandomIndex);
 
-//            var Check_Enemy_Alive = All_Manager.instance.GameMode_M.Enemy_List[Random_Index];
+//            var CheckEnemyAlive = AllManager.instance.GameModeM.EnemyList[RandomIndex];
 
-//            if (Check_Enemy_Alive != null)
+//            if (CheckEnemyAlive != null)
 //            {
 
-//                Weapon_Go = new GameObject("LightningRing");
-//                Weapon_Go.AddComponent<Weapon_LightningRing>();
+//                WeaponGo = new GameObject("LightningRing");
+//                WeaponGo.AddComponent<WeaponLightningRing>();
 
-//                Weapon_Go.transform.position = All_Manager.instance.GameMode_M.Enemy_List[Random_Index].transform.position;
-//                Weapon_Go.transform.rotation = Quaternion.identity;
-//                Weapon_Go.transform.localScale = Vector3.one;
+//                WeaponGo.transform.position = AllManager.instance.GameModeM.EnemyList[RandomIndex].transform.position;
+//                WeaponGo.transform.rotation = Quaternion.identity;
+//                WeaponGo.transform.localScale = Vector3.one;
 
 //                // LightningRing이 데미지를 주는지 확인 후 처리
-//                if (Weapon_Go.GetComponent<Weapon_LightningRing>())
+//                if (WeaponGo.GetComponent<WeaponLightningRing>())
 //                {
-//                    yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_LightningRing>()._spriteRenderer);
-//                    // Weapon_Init을 통해 필요한 초기화 작업 수행
-//                    Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, All_Manager.instance.Resource_M.STO_LightningRing, LightningRing_LAT.Level);
+//                    yield return new WaitUntil(() => WeaponGo.GetComponent<WeaponLightningRing>().spriteRenderer);
+//                    // WeaponInit을 통해 필요한 초기화 작업 수행
+//                    WeaponGo.GetComponent<Weapon>().WeaponInit(this, AllManager.instance.ResourceM.STOLightningRing, LightningRingLAT.Level);
 //                }
 
 //            }
 
-//            Destroy(Weapon_Go, 2.5f); // 일정 시간 후 삭제
+//            Destroy(WeaponGo, 2.5f); // 일정 시간 후 삭제
 //        }
 //    }
 

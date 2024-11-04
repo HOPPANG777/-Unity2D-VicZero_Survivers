@@ -3,20 +3,20 @@ using UnityEngine;
 public class DefendMission : Mission
 {
     // 발판에 서있는 동안 죽여야하는 적 수
-    [SerializeField] private int _missionClearKill = 100;
-    public int MissionClearKill { get { return _missionClearKill; } }
+    [SerializeField] private int missionClearKill = 100;
+    public int MissionClearKill { get { return missionClearKill; } }
 
-    [SerializeField] private int _killCount = 0;
+    [SerializeField] private int killCount = 0;
 
     protected override void Start()
     {
         base.Start();
-        _killCount = (All_Manager.instance.GameMode_M.Kill_Count + _missionClearKill);
+        killCount = (AllManager.instance.GameModeM.KillCount + missionClearKill);
     }
 
     private void Update()
     {
-        if (All_Manager.instance.GameMode_M.Game_Stop != false) return;
+        if (AllManager.instance.GameModeM.GameStop != false) return;
 
         DefendOnMission();
         MissionReward();
@@ -36,13 +36,13 @@ public class DefendMission : Mission
     private void DefendOnMission()
     {
         // 발판을 밟고
-        if (_isMissionPrograce != true) return;
+        if (isMissionPrograce != true) return;
 
         // 죽인 적의 수가 미션 클리어 조건수보다 많으면
-        if (All_Manager.instance.GameMode_M.Kill_Count > _killCount)
+        if (AllManager.instance.GameModeM.KillCount > killCount)
         {
             // 미션 클리어
-            _isMissionClear = true;
+            isMissionClear = true;
         }
     }
 
@@ -50,10 +50,10 @@ public class DefendMission : Mission
     protected override void MissionReward()
     {
         // 미션이 클리어 되면
-        if (_isMissionClear == true)
+        if (isMissionClear == true)
         {
             // Reward(보물상자)를 떨군 후 미션(발판) 삭제 
-            All_Manager.instance.Pool_M.Item_Pool_Out(ItemType.Chest, this.gameObject.transform);  // 보물상자 드랍
+            AllManager.instance.PoolM.ItemPoolOut(ItemType.Chest, this.gameObject.transform);  // 보물상자 드랍
             RemoveMission();  // 발판 삭제
         }
     }
@@ -63,12 +63,12 @@ public class DefendMission : Mission
         Destroy(this.gameObject);
     }
 
-    public override void MissionSetting(Mission p_Mission, STO_Mission p_ItemTypeO)
+    public override void MissionSetting(Mission pMission, MissionData pItemTypeO)
     {
-        p_Mission.MissionType = p_ItemTypeO.missionType;
-        p_Mission.SpriteRenderer.sprite = p_ItemTypeO.Sprite;
-        p_Mission.SpriteRenderer.material = p_ItemTypeO.Material;
-        p_Mission.SpriteRenderer.sortingOrder = -1;
+        pMission.MissionType = pItemTypeO.missionType;
+        pMission.SpriteRenderer.sprite = pItemTypeO.Sprite;
+        pMission.SpriteRenderer.material = pItemTypeO.Material;
+        pMission.SpriteRenderer.sortingOrder = -1;
     }
 
 }

@@ -15,19 +15,19 @@ public class WeaponFireWand : Weapon
 
     public override void Update()
     {
-        if (All_Manager.instance.GameMode_M.Game_Stop == false)
+        if (AllManager.instance.GameModeM.GameStop == false)
         {
             base.Update();
 
-            this.transform.position = this.transform.position + (-this.transform.right * Weapon_Speed * Time.deltaTime);
+            this.transform.position = this.transform.position + (-this.transform.right * WeaponSpeed * Time.deltaTime);
 
-            this.Weapon_KnockBack_Weapon();
+            this.WeaponKnockBackWeapon();
 
             Vector3 viewPos = mainCamera.WorldToViewportPoint(transform.position);
 
             if (viewPos.x < 0 || viewPos.x > 1 || viewPos.y < 0 || viewPos.y > 1)
             {
-                this.Destroy_Weapon();
+                this.DestroyWeapon();
             }
         }
 
@@ -37,61 +37,61 @@ public class WeaponFireWand : Weapon
         }
     }
 
-    public override void Upgrade(int p_Level)
+    public override void Upgrade(int pLevel)
     {
 
     }
 
-    public override void Weapon_Stat_Appliaction()
+    public override void WeaponStatAppliaction()
     {
-        base.Weapon_Stat_Appliaction();
+        base.WeaponStatAppliaction();
     }
 
-    public override void Weapon_To_Enemy_Collision()
+    public override void WeaponToEnemyCollision()
     {
-        base.Weapon_To_Enemy_Collision();
+        base.WeaponToEnemyCollision();
     }
 
 
 }
 
 #region
-//public void FireWand_Init()   // 안쓰는거
+//public void FireWandInit()   // 안쓰는거
 //{
-//    if (All_Manager.instance.GameMode_M.Game_Stop == false)
+//    if (AllManager.instance.GameModeM.GameStop == false)
 //    {
-//        int FireWand_Count = 0;
+//        int FireWandCount = 0;
 
 //        if (Mine == null) return;
 
-//        for (int i = 0; i < All_Manager.instance.GameMode_M.Current_Player.All_Weapon.Count; i++)
+//        for (int i = 0; i < AllManager.instance.GameModeM.CurrentPlayer.AllWeapon.Count; i++)
 //        {
-//            if (All_Manager.instance.GameMode_M.Current_Player.All_Weapon[i].GetComponent<Weapon_FireWand>())
+//            if (AllManager.instance.GameModeM.CurrentPlayer.AllWeapon[i].GetComponent<WeaponFireWand>())
 //            {
-//                FireWand_Count++;
+//                FireWandCount++;
 //            }
 //        }
 
-//        var Temp_Count = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Count(WeaponType.FireWand, All_Manager.instance.GameMode_M.Current_Player.FireWand_LAT);
+//        var TempCount = AllManager.instance.GameModeM.CurrentPlayer.CurrentWeaponCount(WeaponType.FireWand, AllManager.instance.GameModeM.CurrentPlayer.FireWandLAT);
 
-//        for (int i = 0; i < Temp_Count; i++)
+//        for (int i = 0; i < TempCount; i++)
 //        {
-//            // GameObject boltObj = Instantiate(boltPrefebs, player.transform.position + new Vector3(0, 0.3f), Quaternion.Euler(0, 0, (360 * i / (FireWand_Count - 1)) + 180)); //투사체의 각도가 자연스럽게 회전값을 넣었다.
-//            GameObject FireWand_Go = new GameObject("FireWand");
+//            // GameObject boltObj = Instantiate(boltPrefebs, player.transform.position + new Vector3(0, 0.3f), Quaternion.Euler(0, 0, (360 * i / (FireWandCount - 1)) + 180)); //투사체의 각도가 자연스럽게 회전값을 넣었다.
+//            GameObject FireWandGo = new GameObject("FireWand");
 
-//            FireWand_Go.AddComponent<Weapon_FireWand>();
+//            FireWandGo.AddComponent<WeaponFireWand>();
 
-//            FireWand_Go.transform.position = Mine.transform.position; // + new Vector3(0, 0.3f)
-//                                                                    //FireWand_Go.transform.rotation = Quaternion.Euler(0, 0, (360 * i / (Weapon_Count - 1)) + 180);
-//            FireWand_Go.transform.rotation = Quaternion.identity;
-//            FireWand_Go.transform.localScale = Vector3.one;
+//            FireWandGo.transform.position = Mine.transform.position; // + new Vector3(0, 0.3f)
+//                                                                    //FireWandGo.transform.rotation = Quaternion.Euler(0, 0, (360 * i / (WeaponCount - 1)) + 180);
+//            FireWandGo.transform.rotation = Quaternion.identity;
+//            FireWandGo.transform.localScale = Vector3.one;
 
-//            Vector3 dirVec = new Vector3(Mathf.Cos((Mathf.PI) * 2 * i / (Temp_Count - 1)), Mathf.Sin((Mathf.PI) * i * 2 / (Temp_Count - 1))); //원을 기준으로 각각의 투사체마다 벡터를 정리
-//            FireWand_Go.transform.position = FireWand_Go.transform.position + (dirVec.normalized * Weapon_Speed * Time.deltaTime);
+//            Vector3 dirVec = new Vector3(Mathf.Cos((Mathf.PI) * 2 * i / (TempCount - 1)), Mathf.Sin((Mathf.PI) * i * 2 / (TempCount - 1))); //원을 기준으로 각각의 투사체마다 벡터를 정리
+//            FireWandGo.transform.position = FireWandGo.transform.position + (dirVec.normalized * WeaponSpeed * Time.deltaTime);
 
-//            //this.transform.position = this.transform.position + (-this.transform.right * Weapon_Speed * Time.deltaTime);
+//            //this.transform.position = this.transform.position + (-this.transform.right * WeaponSpeed * Time.deltaTime);
 
-//            //Vector3 dirVec = new Vector3(Mathf.Cos((Mathf.PI) * 2 * i / (Weapon_Level - 1)), Mathf.Sin((Mathf.PI) * i * 2 / (Weapon_Level - 1)));
+//            //Vector3 dirVec = new Vector3(Mathf.Cos((Mathf.PI) * 2 * i / (WeaponLevel - 1)), Mathf.Sin((Mathf.PI) * i * 2 / (WeaponLevel - 1)));
 //        }
 //    }
 
@@ -108,8 +108,8 @@ public class WeaponFireWand : Weapon
 //
 //    if (clone.GetComponent<WeaponPrefab>())
 //    {
-//        yield return new WaitUntil(() => clone.GetComponent<WeaponPrefab>()._spriteRenderer);
-//        clone.GetComponent<WeaponPrefab>()._spriteRenderer.sprite = All_Manager.instance.Resource_M.STO_Weapon.Sprite_Image;
+//        yield return new WaitUntil(() => clone.GetComponent<WeaponPrefab>().spriteRenderer);
+//        clone.GetComponent<WeaponPrefab>().spriteRenderer.sprite = AllManager.instance.ResourceM.WeaponData.SpriteImage;
 //    }
 //
 //    time = IntervalAngle * i;
@@ -121,31 +121,31 @@ public class WeaponFireWand : Weapon
 //    // clone.transform.position = clone.transform.position * (clone.transform.up * MoveDir);
 //}
 
-//for (int i = 0; i < Weapon_Level; i++)
+//for (int i = 0; i < WeaponLevel; i++)
 //{
 //    투사체의 각도가 자연스럽게 회전값을 넣었다.
-//    GameObject clone = Instantiate(FireWand_Go, this.transform.position + new Vector3(0, 0.3f), Quaternion.Euler(0, 0, (360 * i / (Weapon_Level - 1)) + 180));
+//    GameObject clone = Instantiate(FireWandGo, this.transform.position + new Vector3(0, 0.3f), Quaternion.Euler(0, 0, (360 * i / (WeaponLevel - 1)) + 180));
 
 //    GameObject clone = new GameObject("FireWand");
 
 //    clone.AddComponent<FireWand>();
 
 //    clone.transform.position = this.transform.position + new Vector3(0, 0.3f);
-//    Vector3 dirVec = new Vector3(Mathf.Cos((Mathf.PI) * 2 * i / (Weapon_Level - 1)), Mathf.Sin((Mathf.PI) * i * 2 / (Weapon_Level - 1)));
-//    clone.transform.position = clone.transform.position + (dirVec.normalized * Weapon_Speed * Time.deltaTime);
+//    Vector3 dirVec = new Vector3(Mathf.Cos((Mathf.PI) * 2 * i / (WeaponLevel - 1)), Mathf.Sin((Mathf.PI) * i * 2 / (WeaponLevel - 1)));
+//    clone.transform.position = clone.transform.position + (dirVec.normalized * WeaponSpeed * Time.deltaTime);
 
-//    clone.transform.rotation = Quaternion.Euler(0, 0, (360 * i / (Weapon_Level - 1)) + 180);
+//    clone.transform.rotation = Quaternion.Euler(0, 0, (360 * i / (WeaponLevel - 1)) + 180);
 //    clone.transform.localScale = Vector3.one;
 
 //    if (clone.GetComponent<FireWand>())
 //    {
-//        yield return new WaitUntil(() => clone.GetComponent<FireWand>()._spriteRenderer);
-//        All_Manager.instance.Resource_M.Weapon_Stat(clone.GetComponent<FireWand>(), All_Manager.instance.Resource_M.STO_FireWand);
+//        yield return new WaitUntil(() => clone.GetComponent<FireWand>().spriteRenderer);
+//        AllManager.instance.ResourceM.WeaponStat(clone.GetComponent<FireWand>(), AllManager.instance.ResourceM.STOFireWand);
 //        Debug.Log("1");
 //    }
 //    원을 기준으로 각각의 투사체마다 벡터를 정리
-//    clone.GetComponent<Rigidbody2D>().AddForce(dirVec * Weapon_Speed * Time.deltaTime);
+//    clone.GetComponent<Rigidbody2D>().AddForce(dirVec * WeaponSpeed * Time.deltaTime);
 //}
 
-//this.transform.position = this.transform.position + (-this.transform.right * Weapon_Speed * Time.deltaTime);
+//this.transform.position = this.transform.position + (-this.transform.right * WeaponSpeed * Time.deltaTime);
 #endregion

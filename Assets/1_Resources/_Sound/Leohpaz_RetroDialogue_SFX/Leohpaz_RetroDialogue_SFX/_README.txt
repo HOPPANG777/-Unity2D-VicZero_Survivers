@@ -8,7 +8,7 @@ Blips (Synth, Typewriter, Keyboard)
 - These sounds should be played in your game while a character is speaking (letters appearing one by one in the dialogue window);
 - Play the sounds every time a letter appears in the text or loop them in fixed time intervals;
 - Synth blips can be played either interrupting the last call or not;
-  - Bubble_Low will work best being played once every 0.127 seconds (or approximate)
+  - BubbleLow will work best being played once every 0.127 seconds (or approximate)
   - All other synths will work best being played once every 0.079 seconds
 - Typewriter and Keyboard will sound better if they play over the previous sound instead of interrupting it;
 

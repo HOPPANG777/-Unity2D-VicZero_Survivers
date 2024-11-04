@@ -5,17 +5,17 @@ using UnityEngine;
 public class WeaponAxe : Weapon
 {
 
-    public Vector3[] W_Axe_Point = new Vector3[4];
+    public Vector3[] WAxePoint = new Vector3[4];
 
     public float Dis;
 
     public Vector3 BoxSize;
 
-    public float Axe_Timer = 0.0f;
+    public float AxeTimer = 0.0f;
 
-    public bool Axe_Throwing = false;
+    public bool AxeThrowing = false;
 
-    public float Rotation_Speed = 360f;
+    public float RotationSpeed = 360f;
 
     public override void Start()
     {
@@ -24,58 +24,58 @@ public class WeaponAxe : Weapon
 
     public override void Update()
     {
-        if (All_Manager.instance.GameMode_M.Game_Stop == false)
+        if (AllManager.instance.GameModeM.GameStop == false)
         {
             base.Update();
 
-            Axe_Attack();
+            AxeAttack();
 
-            this.Weapon_KnockBack_Weapon();
+            this.WeaponKnockBackWeapon();
 
-            this.transform.Rotate(Vector3.forward, Rotation_Speed * Time.deltaTime);
+            this.transform.Rotate(Vector3.forward, RotationSpeed * Time.deltaTime);
 
-            this.Weapon_Timer();
+            this.WeaponTimer();
         }
 
         else { }
     }
 
-    public void Axe_Init(Vector3 p_One_Vector, Vector3 p_Two_Vector, Vector3 p_Three_Vector, Vector3 p_Four_Vector)
+    public void AxeInit(Vector3 pOneVector, Vector3 pTwoVector, Vector3 pThreeVector, Vector3 pFourVector)
     {
-        W_Axe_Point[0] = p_One_Vector;
-        W_Axe_Point[1] = p_Two_Vector;
-        W_Axe_Point[2] = p_Three_Vector;
-        W_Axe_Point[3] = p_Four_Vector;
+        WAxePoint[0] = pOneVector;
+        WAxePoint[1] = pTwoVector;
+        WAxePoint[2] = pThreeVector;
+        WAxePoint[3] = pFourVector;
     }
 
-    public void Axe_Attack()
+    public void AxeAttack()
     {
-        this.Weapon_Accumulate();
+        this.WeaponAccumulate();
 
-        this.transform.position = Axe_Bezier(W_Axe_Point[0], W_Axe_Point[1], W_Axe_Point[2], W_Axe_Point[3], W_Accumulate);
+        this.transform.position = AxeBezier(WAxePoint[0], WAxePoint[1], WAxePoint[2], WAxePoint[3], WAccumulate);
     }
 
-    public override void Upgrade(int p_Level)
+    public override void Upgrade(int pLevel)
     {
 
     }
 
-    public override void Weapon_Stat_Appliaction()
+    public override void WeaponStatAppliaction()
     {
-        base.Weapon_Stat_Appliaction();
+        base.WeaponStatAppliaction();
     }
 
-    public override void Weapon_To_Enemy_Collision()
+    public override void WeaponToEnemyCollision()
     {
-        base.Weapon_To_Enemy_Collision();
+        base.WeaponToEnemyCollision();
     }
 
     // 베지어 곡선
-    public Vector3 Axe_Bezier(Vector3 P_1, Vector3 P_2, Vector3 P_3, Vector3 P_4, float Value)
+    public Vector3 AxeBezier(Vector3 P1, Vector3 P2, Vector3 P3, Vector3 P4, float Value)
     {
-        Vector3 A = Vector3.Lerp(P_1, P_2, Value);
-        Vector3 B = Vector3.Lerp(P_2, P_3, Value);
-        Vector3 C = Vector3.Lerp(P_3, P_4, Value);
+        Vector3 A = Vector3.Lerp(P1, P2, Value);
+        Vector3 B = Vector3.Lerp(P2, P3, Value);
+        Vector3 C = Vector3.Lerp(P3, P4, Value);
 
         Vector3 D = Vector3.Lerp(A, B, Value);
         Vector3 E = Vector3.Lerp(B, C, Value);

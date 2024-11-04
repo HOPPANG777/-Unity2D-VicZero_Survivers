@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class WeaponNunchaku : Weapon
 {
-    public float Nunchaku_Timer = 0.0f;
-    public bool Nunchaku_Right_Attack = false;
-    public bool Nunchaku_Left_Attack = false;
+    public float NunchakuTimer = 0.0f;
+    public bool NunchakuRightAttack = false;
+    public bool NunchakuLeftAttack = false;
 
     public override void Start()
     {
@@ -16,13 +16,13 @@ public class WeaponNunchaku : Weapon
 
     public override void Update()
     {
-        if (All_Manager.instance.GameMode_M.Game_Stop == false)
+        if (AllManager.instance.GameModeM.GameStop == false)
         {
             base.Update();
 
-            Weapon_KnockBack_Weapon();
+            WeaponKnockBackWeapon();
 
-            this.Weapon_Timer();
+            this.WeaponTimer();
         }
 
         else
@@ -32,27 +32,27 @@ public class WeaponNunchaku : Weapon
 
     }
 
-    public void Nunchaku_Init()
+    public void NunchakuInit()
     {
-        if (All_Manager.instance.GameMode_M.Current_Player.InputVec.x != 0)
+        if (AllManager.instance.GameModeM.CurrentPlayer.InputVec.x != 0)
         {
-            _weaponSpriteRenderer.flipX = All_Manager.instance.GameMode_M.Current_Player.InputVec.x >= 0;
+            weaponSpriteRenderer.flipX = AllManager.instance.GameModeM.CurrentPlayer.InputVec.x >= 0;
         }
     }
 
-    public override void Upgrade(int p_Level)
+    public override void Upgrade(int pLevel)
     {
 
     }
 
-    public override void Weapon_Stat_Appliaction()
+    public override void WeaponStatAppliaction()
     {
-        base.Weapon_Stat_Appliaction();
+        base.WeaponStatAppliaction();
     }
 
-    public override void Weapon_To_Enemy_Collision()
+    public override void WeaponToEnemyCollision()
     {
-        base.Weapon_To_Enemy_Collision();
+        base.WeaponToEnemyCollision();
     }
 
 }

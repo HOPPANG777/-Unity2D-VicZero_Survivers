@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class WeaponKingBible : Weapon
 {
-    public int Weapon_KingBible_Count = 0;
-    public int Weapon_Mine_KingBible_Count = 0;
-    public int Weapon_Max_KingBible_Count = 0;
+    public int WeaponKingBibleCount = 0;
+    public int WeaponMineKingBibleCount = 0;
+    public int WeaponMaxKingBibleCount = 0;
 
-    public float b_Deg = 0.0f;
+    public float bDeg = 0.0f;
 
     public override void Start()
     {
@@ -17,15 +17,15 @@ public class WeaponKingBible : Weapon
 
     public override void Update()
     {
-        if (All_Manager.instance.GameMode_M.Game_Stop == false)
+        if (AllManager.instance.GameModeM.GameStop == false)
         {
             base.Update();
 
-            KingBible_Attack();
+            KingBibleAttack();
 
-            this.Weapon_KnockBack_Weapon();
+            this.WeaponKnockBackWeapon();
 
-            //this.Weapon_Timer();
+            //this.WeaponTimer();
         }
 
         else 
@@ -35,33 +35,33 @@ public class WeaponKingBible : Weapon
 
     }
 
-    public void KingBible_Attack()
+    public void KingBibleAttack()
     {
         if (Mine == null) return;  // 코루틴 말고 해결책이 있었네? // Mine이 null이면 반환.
 
-        b_Deg = Time.time * Weapon_Speed;
+        bDeg = Time.time * WeaponSpeed;
 
-        float C = Weapon_Mine_KingBible_Count;
-        float M = Weapon_Max_KingBible_Count;
-        float rad = Mathf.Deg2Rad * (b_Deg + (C * (360f / M)));
-        var x = Weapon_Range * Mathf.Sin(rad);
-        var y = Weapon_Range * Mathf.Cos(rad);
+        float C = WeaponMineKingBibleCount;
+        float M = WeaponMaxKingBibleCount;
+        float rad = Mathf.Deg2Rad * (bDeg + (C * (360f / M)));
+        var x = WeaponRange * Mathf.Sin(rad);
+        var y = WeaponRange * Mathf.Cos(rad);
         this.transform.position = Mine.transform.position + new Vector3(x, y, 0);
     }
 
-    public override void Upgrade(int p_Level)
+    public override void Upgrade(int pLevel)
     {
 
     }
 
-    public override void Weapon_Stat_Appliaction()
+    public override void WeaponStatAppliaction()
     {
-        base.Weapon_Stat_Appliaction();
+        base.WeaponStatAppliaction();
     }
 
-    public override void Weapon_To_Enemy_Collision()
+    public override void WeaponToEnemyCollision()
     {
-        base.Weapon_To_Enemy_Collision();
+        base.WeaponToEnemyCollision();
     }
 
 
@@ -69,35 +69,35 @@ public class WeaponKingBible : Weapon
 
 #region
 /*
-for (int i = 0; i < Weapon_KingBible_Count; i++){}
-var Temp = All_Manager.instance.GameMode_M.Current_Player.Current_Weapon_Count(WeaponType.KingBible, All_Manager.instance.GameMode_M.Current_Player.KingBible_LAT);
-var STO_Weapon_Temp = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr(p_weaponType);
-int Weapon_Count_Value = 0;
-Weapon_Count_Value = this.Origin_Stat.Unit_Weapon_Proj_Count + this.Percent_Stat.Unit_Weapon_Proj_Count;
-int Temp_Count = STO_Weapon_Temp.Info_s[p_WLAT.Level].Weapon_Count + Weapon_Count_Value;
+for (int i = 0; i < WeaponKingBibleCount; i++){}
+var Temp = AllManager.instance.GameModeM.CurrentPlayer.CurrentWeaponCount(WeaponType.KingBible, AllManager.instance.GameModeM.CurrentPlayer.KingBibleLAT);
+var WeaponDataTemp = AllManager.instance.ResourceM.ConvertWeaponTypeToWeaponDataArr(pweaponType);
+int WeaponCountValue = 0;
+WeaponCountValue = this.OriginStat.UnitWeaponProjCount + this.PercentStat.UnitWeaponProjCount;
+int TempCount = WeaponDataTemp.Infos[pWLAT.Level].WeaponCount + WeaponCountValue;
 for (int i = 0; i < Temp; i++)
 {
 float Temp = 6.28 / 현재 바이블 갯수
-float Plus = Temp * Weapon_KingBible_Count;
-var rad = Mathf.Deg2Rad * (Weapon_Time Plus) + Plus;
-var KingBible_Road = 6.28f / Weapon_KingBible_Count;
-var KingBible_Plus = KingBible_Road * Weapon_KingBible_Count;
-var rad = Mathf.Deg2Rad * (Weapon_Time + KingBible_Plus); 
-Debug.Log("Weapon_Mine_KingBible_Count : " + Weapon_Mine_KingBible_Count);  // 여기서 문제가 발생한다. 즉 플레이어에서 바이블의 Max, Mine 카운트 증가가 안먹힌다는 소리다.
-Debug.Log("Weapon_Max_KingBible_Count : " + Weapon_Max_KingBible_Count);
-var rad = Mathf.Deg2Rad * (b_Deg + (Weapon_Mine_KingBible_Count * (360f / Temp)));
-Debug.Log(b_Deg);
-float rad = (b_Deg + (C * (360f / M)));
+float Plus = Temp * WeaponKingBibleCount;
+var rad = Mathf.Deg2Rad * (WeaponTime Plus) + Plus;
+var KingBibleRoad = 6.28f / WeaponKingBibleCount;
+var KingBiblePlus = KingBibleRoad * WeaponKingBibleCount;
+var rad = Mathf.Deg2Rad * (WeaponTime + KingBiblePlus); 
+Debug.Log("WeaponMineKingBibleCount : " + WeaponMineKingBibleCount);  // 여기서 문제가 발생한다. 즉 플레이어에서 바이블의 Max, Mine 카운트 증가가 안먹힌다는 소리다.
+Debug.Log("WeaponMaxKingBibleCount : " + WeaponMaxKingBibleCount);
+var rad = Mathf.Deg2Rad * (bDeg + (WeaponMineKingBibleCount * (360f / Temp)));
+Debug.Log(bDeg);
+float rad = (bDeg + (C * (360f / M)));
 Debug.Log("KingBible rad : " + rad);
-var rad = Mathf.Deg2Rad * (b_Deg + (i * (360f / Weapon_KingBible_Count)));
-Debug.Log(this.name + Weapon_Range);
-Debug.Log(this.name + Weapon_Range);
+var rad = Mathf.Deg2Rad * (bDeg + (i * (360f / WeaponKingBibleCount)));
+Debug.Log(this.name + WeaponRange);
+Debug.Log(this.name + WeaponRange);
 Debug.Log("this : " + this.transform.position);
-var Temp_Weapon_Count = All_Manager.instance.GameMode_M.Current_Player.All_Weapon;
-var Temp_Player = Mine.GetComponent<Unit_Player>();
-All_Manager.instance.GameMode_M.Current_Player.All_Weapon[Weapon_Mine_KingBible_Count].transform.position = Mine.transform.position + new Vector3(x, y, 0);
-if(All_Manager.instance.GameMode_M.Current_Player.All_Weapon[i].GetComponent<this>())
-All_Manager.instance.GameMode_M.Current_Player.All_Weapon[i].transform.position = Mine.transform.position + new Vector3(x, y, 0);
+var TempWeaponCount = AllManager.instance.GameModeM.CurrentPlayer.AllWeapon;
+var TempPlayer = Mine.GetComponent<UnitPlayer>();
+AllManager.instance.GameModeM.CurrentPlayer.AllWeapon[WeaponMineKingBibleCount].transform.position = Mine.transform.position + new Vector3(x, y, 0);
+if(AllManager.instance.GameModeM.CurrentPlayer.AllWeapon[i].GetComponent<this>())
+AllManager.instance.GameModeM.CurrentPlayer.AllWeapon[i].transform.position = Mine.transform.position + new Vector3(x, y, 0);
 */
 /*
  // 변수들
@@ -113,10 +113,10 @@ All_Manager.instance.GameMode_M.Current_Player.All_Weapon[i].transform.position 
     for (int i = 0; i < count; i++)
     {
         // 객체는 일단 아무렇게나 생성해도 됨
-        others.push_back(new Rect({ -5000, -5000,0 }, { 100,100,1 }));
+        others.pushback(new Rect({ -5000, -5000,0 }, { 100,100,1 }));
 
         // 각도들은 360도 / 객체 개수 * 객체 번호 순으로
-        radians.push_back((360.0f / count) * i);
+        radians.pushback((360.0f / count) * i);
     }
 }
 
@@ -162,84 +162,84 @@ All_Manager.instance.GameMode_M.Current_Player.All_Weapon[i].transform.position 
 //if (Mine == null)   // 코루틴 말고 해결책이 있었네? // Mine이 null이면 꺼져.
 //    return;
 
-//Weapon_Time += Time.deltaTime * Weapon_Speed;
-//if (Weapon_Time < 360)
+//WeaponTime += Time.deltaTime * WeaponSpeed;
+//if (WeaponTime < 360)
 //{
-//    float x = Weapon_Range * Mathf.Cos(Weapon_Time);
-//    float y = Weapon_Range * Mathf.Sin(Weapon_Time);
+//    float x = WeaponRange * Mathf.Cos(WeaponTime);
+//    float y = WeaponRange * Mathf.Sin(WeaponTime);
 //    this.transform.position = Mine.transform.position + new Vector3(x, y, 0);
 //    // 오류 이유 Mine이 생성되기 전에 불러와서
 //    // 해결책 내가 아는건 코루틴 
 //}
 //else
 //{
-//    Weapon_Time = 0;
+//    WeaponTime = 0;
 //}
 
-//Weapon_Time += Time.deltaTime * Weapon_Speed;
-//if (Weapon_Time < 360)
+//WeaponTime += Time.deltaTime * WeaponSpeed;
+//if (WeaponTime < 360)
 //{
 //    if (Mine == null)   // 코루틴 말고 해결책이 있었네? // Mine이 null이면 꺼져.
 //        return;
 
-//    var All_Weapon_Count = All_Manager.instance.GameMode_M.Current_Player.All_Weapon.Count;
+//    var AllWeaponCount = AllManager.instance.GameModeM.CurrentPlayer.AllWeapon.Count;
 
-//    for (int i = 0; i < All_Weapon_Count; i++)
+//    for (int i = 0; i < AllWeaponCount; i++)
 //    {
-//        var All_Weapon_Object = All_Manager.instance.GameMode_M.Current_Player.All_Weapon[i];
+//        var AllWeaponObject = AllManager.instance.GameModeM.CurrentPlayer.AllWeapon[i];
 
-//        KingBible KingBible_Weapon = All_Weapon_Object.GetComponent<KingBible>();
-//        if (KingBible_Weapon != null)
+//        KingBible KingBibleWeapon = AllWeaponObject.GetComponent<KingBible>();
+//        if (KingBibleWeapon != null)
 //        {
-//            var rad = Mathf.Deg2Rad * (Weapon_Time + (i * (360 / All_Weapon_Count)));
-//            var x = Weapon_Range * Mathf.Sin(rad);
-//            var y = Weapon_Range * Mathf.Cos(rad);
-//            KingBible_Weapon.transform.position = Mine.transform.position + new Vector3(x, y);
-//            KingBible_Weapon.transform.rotation = Quaternion.Euler(0, 0, (Weapon_Time + (i * (360 / All_Weapon_Count))) * -1);
+//            var rad = Mathf.Deg2Rad * (WeaponTime + (i * (360 / AllWeaponCount)));
+//            var x = WeaponRange * Mathf.Sin(rad);
+//            var y = WeaponRange * Mathf.Cos(rad);
+//            KingBibleWeapon.transform.position = Mine.transform.position + new Vector3(x, y);
+//            KingBibleWeapon.transform.rotation = Quaternion.Euler(0, 0, (WeaponTime + (i * (360 / AllWeaponCount))) * -1);
 //        }
 //    }
 //}
 //else
 //{
-//    Weapon_Time = 0;
+//    WeaponTime = 0;
 //}
-//public void KingBible_Attack()
+//public void KingBibleAttack()
 //{
 //    if (Mine == null) return;  // 코루틴 말고 해결책이 있었네? // Mine이 null이면 꺼져.
 
-//    Weapon_Time += Time.deltaTime * Weapon_Speed;
-//    if (Weapon_Time < 360)
+//    WeaponTime += Time.deltaTime * WeaponSpeed;
+//    if (WeaponTime < 360)
 //    {
-//        for (int i = 0; i < Weapon_KingBible_Count; i++)
+//        for (int i = 0; i < WeaponKingBibleCount; i++)
 //        {
-//            var rad = Mathf.Deg2Rad * (Weapon_Time + (i * (360 / Weapon_KingBible_Count)));
-//            var x = Weapon_Range * Mathf.Sin(rad);
-//            var y = Weapon_Range * Mathf.Cos(rad);
+//            var rad = Mathf.Deg2Rad * (WeaponTime + (i * (360 / WeaponKingBibleCount)));
+//            var x = WeaponRange * Mathf.Sin(rad);
+//            var y = WeaponRange * Mathf.Cos(rad);
 //            this.transform.position = Mine.transform.position + new Vector3(x, y, 0);
-//            //this.transform.rotation = Quaternion.Euler(0, 0, (Weapon_Time + (i * (360 / Weapon_KingBible_Count))) * -1);
+//            //this.transform.rotation = Quaternion.Euler(0, 0, (WeaponTime + (i * (360 / WeaponKingBibleCount))) * -1);
 //        }
-//        // this가 아니라 All_Weapon의 리스트에 있는 KingBible의 객체의 포지션과 회전값을 사용해야 한다.
+//        // this가 아니라 AllWeapon의 리스트에 있는 KingBible의 객체의 포지션과 회전값을 사용해야 한다.
 //        // this로 하니까 그냥 작동이 안된다.
-//        // 해결 내가 잘못하고 있었다 Player에서 int로 KingBible_Count를 만들어서 해결 근데 또다른 문제는 실행하면 간격이 이상하게 된다
+//        // 해결 내가 잘못하고 있었다 Player에서 int로 KingBibleCount를 만들어서 해결 근데 또다른 문제는 실행하면 간격이 이상하게 된다
 //    }
 //    else
 //    {
-//        Weapon_Time = 0;
+//        WeaponTime = 0;
 //    }
 //}
 
 /*
              //float Temp = 6.28 / 현재 바이블 갯수
-            //float Plus = Temp * Weapon_KingBible_Count;
-            //var rad = Mathf.Deg2Rad * (Weapon_Time Plus) + Plus;
-            var rad = Mathf.Deg2Rad * (i * (360 / Weapon_KingBible_Count) * Weapon_Time);
-            var x = Mathf.Sin(rad) * Weapon_Range;
-            var y = Mathf.Cos(rad) * Weapon_Range;
+            //float Plus = Temp * WeaponKingBibleCount;
+            //var rad = Mathf.Deg2Rad * (WeaponTime Plus) + Plus;
+            var rad = Mathf.Deg2Rad * (i * (360 / WeaponKingBibleCount) * WeaponTime);
+            var x = Mathf.Sin(rad) * WeaponRange;
+            var y = Mathf.Cos(rad) * WeaponRange;
             this.transform.position = Mine.transform.position + new Vector3(x, y, 0);
-            //this.transform.rotation = Quaternion.Euler(0, 0, (Weapon_Time + (i * (360 / Weapon_KingBible_Count))) * -1);
+            //this.transform.rotation = Quaternion.Euler(0, 0, (WeaponTime + (i * (360 / WeaponKingBibleCount))) * -1);
 
-            // this가 아니라 All_Weapon의 리스트에 있는 KingBible의 객체의 포지션과 회전값을 사용해야 한다.
+            // this가 아니라 AllWeapon의 리스트에 있는 KingBible의 객체의 포지션과 회전값을 사용해야 한다.
             // this로 하니까 그냥 작동이 안된다.
-            // 해결 내가 잘못하고 있었다 Player에서 int로 KingBible_Count를 만들어서 해결 근데 또다른 문제는 실행하면 간격이 이상하게 된다
+            // 해결 내가 잘못하고 있었다 Player에서 int로 KingBibleCount를 만들어서 해결 근데 또다른 문제는 실행하면 간격이 이상하게 된다
  */
 #endregion

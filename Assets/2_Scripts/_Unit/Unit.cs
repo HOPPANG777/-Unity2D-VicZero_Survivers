@@ -6,31 +6,31 @@ using UnityEngine;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 
 [System.Serializable]
-public struct Unit_Stat_Sheet
+public struct UnitStatSheet
 {
-    public float Unit_HP;
-    public float Unit_Speed;
-    public float Unit_Defense;
-    public float Unit_Weapon_Damage;
-    public float Unit_Weapon_Proj_Speed;
-    public float Unit_Weapon_Duration;
-    public float Unit_Weapon_Range;
-    public float Unit_Weapon_CoolDown;
-    public int Unit_Weapon_Proj_Count;
-    public float Unit_Get_Gem_Range;
-    public float Unit_Weapon_Size;
+    public float UnitHP;
+    public float UnitSpeed;
+    public float UnitDefense;
+    public float UnitWeaponDamage;
+    public float UnitWeaponProjSpeed;
+    public float UnitWeaponDuration;
+    public float UnitWeaponRange;
+    public float UnitWeaponCoolDown;
+    public int UnitWeaponProjCount;
+    public float UnitGetGemRange;
+    public float UnitWeaponSize;
 }
 
 public abstract class Unit : MonoBehaviour, IUnitType, IUnitAnimationState
 {
-    [SerializeField] protected SpriteRenderer _unitSpriteRenderer;
-    public SpriteRenderer UnitSpriteRenderer { get { return _unitSpriteRenderer; } set { _unitSpriteRenderer = value; } }
+    [SerializeField] protected SpriteRenderer unitSpriteRenderer;
+    public SpriteRenderer UnitSpriteRenderer { get { return unitSpriteRenderer; } set { unitSpriteRenderer = value; } }
 
-    [SerializeField] protected BoxCollider2D _unitBoxCollider2D;
-    public BoxCollider2D UnitBoxCollider2D { get { return _unitBoxCollider2D; } set { _unitBoxCollider2D = value; } }
+    [SerializeField] protected BoxCollider2D unitBoxCollider2D;
+    public BoxCollider2D UnitBoxCollider2D { get { return unitBoxCollider2D; } set { unitBoxCollider2D = value; } }
 
-    [SerializeField] protected Animator _unitAnimator;
-    public Animator UnitAnimator { get { return _unitAnimator; } set { _unitAnimator = value; } } 
+    [SerializeField] protected Animator unitAnimator;
+    public Animator UnitAnimator { get { return unitAnimator; } set { unitAnimator = value; } } 
 
     public bool isDead = false;
     public bool isAlive = false;
@@ -38,24 +38,24 @@ public abstract class Unit : MonoBehaviour, IUnitType, IUnitAnimationState
     public bool isHit = false;
     public bool isDeathAnim = false;
 
-    public Unit_Stat_Sheet Origin_Stat;
-    public Unit_Stat_Sheet Percent_Stat;
+    public UnitStatSheet OriginStat;
+    public UnitStatSheet PercentStat;
 
     [SerializeField] public UnitType UnitType { get; set; }
     [SerializeField] public UnitAnimationState UnitAnimationState { get; set; }
 
-    public float Unit_Enemy_HP = 0f;
-    public float Unit_Enemy_Speed = 0f;
-    public float Unit_Enemy_Damage = 0f;
+    public float UnitEnemyHP = 0f;
+    public float UnitEnemySpeed = 0f;
+    public float UnitEnemyDamage = 0f;
 
-    public float Max_HP = 0f;
-    public float Current_HP = 0f;
+    public float MaxHP = 0f;
+    public float CurrentHP = 0f;
 
-    public float Knock_Timer = 0f;
-    //public float _spriteRenderer_GB = 0f;
-    public float Hit_Time = 0.0f;
+    public float KnockTimer = 0f;
+    //public float spriteRendererGB = 0f;
+    public float HitTime = 0.0f;
 
-    public float Dead_Effect = 0.0f;
+    public float DeadEffect = 0.0f;
 
     protected bool isKnock = false;
     private Vector3 knockDirection; 
@@ -66,12 +66,12 @@ public abstract class Unit : MonoBehaviour, IUnitType, IUnitAnimationState
     void Awake()
     {
         // Awake를 생성자 대용으로 사용하셈. Start는 생성되자마자 호출되지 않음.
-        _unitSpriteRenderer = this.AddComponent<SpriteRenderer>();
+        unitSpriteRenderer = this.AddComponent<SpriteRenderer>();
 
-        _unitBoxCollider2D = this.AddComponent<BoxCollider2D>();
-        _unitBoxCollider2D.isTrigger = true;
+        unitBoxCollider2D = this.AddComponent<BoxCollider2D>();
+        unitBoxCollider2D.isTrigger = true;
 
-        _unitAnimator = this.AddComponent<Animator>();
+        unitAnimator = this.AddComponent<Animator>();
     }
 
     public virtual void Start()
@@ -81,33 +81,33 @@ public abstract class Unit : MonoBehaviour, IUnitType, IUnitAnimationState
     public virtual void Update()
     {
         // ������ ������ ���¶�� �Լ� ����
-        if (All_Manager.instance.GameMode_M.Game_Stop) return;
+        if (AllManager.instance.GameModeM.GameStop) return;
 
         // SpriteRenderer ���� ������Ʈ
-        Update_Sprite_Renderer();
+        UpdateSpriteRenderer();
 
         // �˹� ó��
         if (isKnock == true)
         {
-            Perform_Knockback();
+            PerformKnockback();
         }
 
         // �ǰ� ȿ�� ó��
         // Hit ���� �ð� ��� ó��
         if (!isHit)
         {
-            Update_Hit_Timer();
+            UpdateHitTimer();
         }
     }
 
-    private void Update_Sprite_Renderer()
+    private void UpdateSpriteRenderer()
     {
-        _unitSpriteRenderer.color = new Color(1, 1 - Hit_Time, 1 - Hit_Time, 1 - Dead_Effect);
-        _unitSpriteRenderer.material.SetFloat("_Red_Value", 1 - Hit_Time);
-        _unitSpriteRenderer.material.SetFloat("_Alpha", 1 - Dead_Effect);
+        unitSpriteRenderer.color = new Color(1, 1 - HitTime, 1 - HitTime, 1 - DeadEffect);
+        unitSpriteRenderer.material.SetFloat("RedValue", 1 - HitTime);
+        unitSpriteRenderer.material.SetFloat("Alpha", 1 - DeadEffect);
     }
 
-    private void Perform_Knockback()
+    private void PerformKnockback()
     {
         if (isKnock)
         {
@@ -127,32 +127,32 @@ public abstract class Unit : MonoBehaviour, IUnitType, IUnitAnimationState
         }
     }
 
-    private void Update_Hit_Timer()
+    private void UpdateHitTimer()
     {
         // �ǰ� ���� ȸ�� �ð��� ���
-        Hit_Time -= Time.deltaTime;
+        HitTime -= Time.deltaTime;
 
-        if (Hit_Time < 0.0f)
+        if (HitTime < 0.0f)
         {
-            //Hit_Time = 1.0f;
+            //HitTime = 1.0f;
             isHit = true;
         }
     }
 
-    public virtual void Hitted(float p_Damage_Value)
+    public virtual void Hitted(float pDamageValue)
     {
         if (isHit == true)
         {
-            Hit_Time = 1.0f;
+            HitTime = 1.0f;
 
-            var Temp_Defense = 100f / (100f + this.Origin_Stat.Unit_Defense) * p_Damage_Value;
+            var TempDefense = 100f / (100f + this.OriginStat.UnitDefense) * pDamageValue;
 
-            All_Manager.instance.Audio_M.Unit_Hitted_Effect_Audio_Play(this.UnitType);
+            AllManager.instance.AudioM.UnitHittedEffectAudioPlay(this.UnitType);
 
-            Current_HP -= (Temp_Defense);
+            CurrentHP -= (TempDefense);
 
-            var Temp_Shader_Alpha = this._unitSpriteRenderer.material.GetFloat("_Alpha");
-            var Temp_Color_Alpha = this._unitSpriteRenderer.color.a;
+            var TempShaderAlpha = this.unitSpriteRenderer.material.GetFloat("Alpha");
+            var TempColorAlpha = this.unitSpriteRenderer.color.a;
 
             isHit = false;
             
@@ -165,7 +165,7 @@ public abstract class Unit : MonoBehaviour, IUnitType, IUnitAnimationState
     protected virtual IEnumerator CheckDeadWithDelay()
     {
         // Wait for hit effect to complete
-        yield return new WaitForSeconds(Hit_Time);
+        yield return new WaitForSeconds(HitTime);
 
         // Check if the unit is dead
         CheckDead();
@@ -173,9 +173,9 @@ public abstract class Unit : MonoBehaviour, IUnitType, IUnitAnimationState
 
     protected virtual bool CheckDead()
     {
-        if (Current_HP < 0)
+        if (CurrentHP < 0)
         {
-            Current_HP = 0;
+            CurrentHP = 0;
             Die();
             return true;
         }
@@ -190,51 +190,51 @@ public abstract class Unit : MonoBehaviour, IUnitType, IUnitAnimationState
         if (isDead) return;
 
         isDead = true;
-        _unitAnimator.SetBool("Move", false);
-        _unitAnimator.SetBool("Death", true);
+        unitAnimator.SetBool("Move", false);
+        unitAnimator.SetBool("Death", true);
 
-        //_spriteRenderer_GB = 0f;
-        Hit_Time = 0.0f;
+        //spriteRendererGB = 0f;
+        HitTime = 0.0f;
 
-        All_Manager.instance.Audio_M.Unit_Death_Effect_Audio_Play(UnitType);
+        AllManager.instance.AudioM.UnitDeathEffectAudioPlay(UnitType);
 
-        Death_Animation_End();
+        DeathAnimationEnd();
     }
 
-    protected virtual void Death_Animation_End()
+    protected virtual void DeathAnimationEnd()
     {
-        StartCoroutine(C_Death_Animation_End());
+        StartCoroutine(CDeathAnimationEnd());
     }
 
-    protected virtual IEnumerator C_Death_Animation_End()
+    protected virtual IEnumerator CDeathAnimationEnd()
     {
         yield return new WaitForSeconds(1.6f);
 
-        Return_Pool();
+        ReturnPool();
     }
 
-    protected virtual void Return_Pool()
+    protected virtual void ReturnPool()
     {
         this.gameObject.SetActive(false);
     }
 
-    public abstract void Unit_Clear();
+    public abstract void UnitClear();
 
-    public void Knock_Back(Vector3 Knock_Dir, float Knock_Power, float Knock_Duration)
+    public void KnockBack(Vector3 KnockDir, float KnockPower, float KnockDuration)
     {
         if (!isKnock)
         {
-            this.knockDirection = Knock_Dir.normalized;
-            this.knockStrength = Knock_Power;
+            this.knockDirection = KnockDir.normalized;
+            this.knockStrength = KnockPower;
             this.knockTimer = 0.0f;
-            this.knockDuration = Knock_Duration;
+            this.knockDuration = KnockDuration;
             this.isKnock = true;
         }
     }
 
-    public abstract void Unit_Stat_Setting(Unit p_Unit, STO_Unit Un_STO);
+    public abstract void UnitStatSetting(Unit pUnit, UnitData UnSTO);
 
-    public virtual void Unit_Animation(UnitAnimationState State)
+    public virtual void UnitAnimation(UnitAnimationState State)
     {
 
         switch (State)
@@ -242,23 +242,23 @@ public abstract class Unit : MonoBehaviour, IUnitType, IUnitAnimationState
             case UnitAnimationState.Idle:
                 {
                     Debug.Log("Idle �ٲ�");
-                    _unitAnimator.SetBool("Idle", true);
-                    _unitAnimator.SetBool("Move", false);
-                    _unitAnimator.SetBool("Death", false);
+                    unitAnimator.SetBool("Idle", true);
+                    unitAnimator.SetBool("Move", false);
+                    unitAnimator.SetBool("Death", false);
                 }
                 break;
             case UnitAnimationState.Walk:
                 {
                     Debug.Log("Walk �ٲ�");
-                    _unitAnimator.SetBool("Idle", false);
-                    _unitAnimator.SetBool("Move", true);
+                    unitAnimator.SetBool("Idle", false);
+                    unitAnimator.SetBool("Move", true);
                 }
                 break;
             case UnitAnimationState.Death:
                 {
                     Debug.Log("Death �ٲ�");
-                    _unitAnimator.SetBool("Idle", false);
-                    _unitAnimator.SetBool("Death", true);
+                    unitAnimator.SetBool("Idle", false);
+                    unitAnimator.SetBool("Death", true);
                 }
                 break;
         }
@@ -281,7 +281,7 @@ public abstract class Unit : MonoBehaviour, IUnitType, IUnitAnimationState
 //    isKnock = false;
 //}
 
-//public void Knock_Back(Vector3 knockDir, float knockStrength, float knockDuration)
+//public void KnockBack(Vector3 knockDir, float knockStrength, float knockDuration)
 //{
 //    if (isKnock == false)
 //    {
@@ -291,55 +291,55 @@ public abstract class Unit : MonoBehaviour, IUnitType, IUnitAnimationState
 //        this.isKnock = true;
 //    }
 //}
-//public void Knock_Back(Vector3 Knock_Dir, float Knock_Force, float Knock_Duration)
+//public void KnockBack(Vector3 KnockDir, float KnockForce, float KnockDuration)
 //{
 //    if (!isKnock)
 //    {
 //        for (int i = 0; i < 100; i++)
 //        {
-//            this.transform.position = this.transform.position + ((Knock_Dir.normalized * Knock_Force) * (100 - i) * 0.01f * Time.deltaTime);
+//            this.transform.position = this.transform.position + ((KnockDir.normalized * KnockForce) * (100 - i) * 0.01f * Time.deltaTime);
 //        }
 
 //        isKnock = true;
-//        Knock_Timer = Knock_Duration;
+//        KnockTimer = KnockDuration;
 
 //    }
 //}
 
 //if (!isKnock)
 //{
-//    for (int i = 0; i < Knock_Count; i++)
+//    for (int i = 0; i < KnockCount; i++)
 //    {
-//        this.transform.position = this.transform.position + (Knock_Dir.normalized * Knock_Force * (Knock_Count - i) * 0.05f);
+//        this.transform.position = this.transform.position + (KnockDir.normalized * KnockForce * (KnockCount - i) * 0.05f);
 
 //    }
 
 //    isKnock = true;
-//    Knock_Timer = Knock_Duration;
+//    KnockTimer = KnockDuration;
 //}
 
-//for (int i = 0; i < Knock_Count; i++)
+//for (int i = 0; i < KnockCount; i++)
 //{
-//    this.transform.position = this.transform.position + (Knock_Dir.normalized * Knock_Force * (Knock_Count - i) * Knock_Duration);
+//    this.transform.position = this.transform.position + (KnockDir.normalized * KnockForce * (KnockCount - i) * KnockDuration);
 //}
 
 //    public virtual void Update()
 //{
-//    if (All_Manager.instance.GameMode_M.Game_Stop == true) return;
+//    if (AllManager.instance.GameModeM.GameStop == true) return;
 
-//    _spriteRenderer.color = new Color(1, 1 - _spriteRenderer_GB, 1 - _spriteRenderer_GB, 1 - Dead_Effect);
+//    spriteRenderer.color = new Color(1, 1 - spriteRendererGB, 1 - spriteRendererGB, 1 - DeadEffect);
 
-//    _spriteRenderer.material.SetFloat("_Red_Value", 1 - _spriteRenderer_GB);
+//    spriteRenderer.material.SetFloat("RedValue", 1 - spriteRendererGB);
 
-//    _spriteRenderer.material.SetFloat("_Alpha", 1 - Dead_Effect);
+//    spriteRenderer.material.SetFloat("Alpha", 1 - DeadEffect);
 
 //    //if (isKnock == true)
 //    //{
-//    //    Knock_Timer -= Time.deltaTime;
+//    //    KnockTimer -= Time.deltaTime;
 
-//    //    if (Knock_Timer < 0)
+//    //    if (KnockTimer < 0)
 //    //    {
-//    //        Knock_Timer = 0;
+//    //        KnockTimer = 0;
 
 //    //        isKnock = false;
 //    //    }
@@ -364,26 +364,26 @@ public abstract class Unit : MonoBehaviour, IUnitType, IUnitAnimationState
 //        }
 //    }
 
-//    if (isHit_C == true)
+//    if (isHitC == true)
 //    {
-//        _spriteRenderer_GB -= Time.deltaTime;
+//        spriteRendererGB -= Time.deltaTime;
 
-//        if (_spriteRenderer_GB < 0)
+//        if (spriteRendererGB < 0)
 //        {
-//            isHit_C = false;
+//            isHitC = false;
 //        }
 //    }
 
 //    if (isHit == false)
 //    {
-//        if (Hit_Time > 1.0f)
+//        if (HitTime > 1.0f)
 //        {
-//            Hit_Time = 0;
+//            HitTime = 0;
 
 //            isHit = true;
 //        }
 
-//        Hit_Time += Time.deltaTime;
+//        HitTime += Time.deltaTime;
 //    }
 
 //    //// �˹� ���� �� ó��

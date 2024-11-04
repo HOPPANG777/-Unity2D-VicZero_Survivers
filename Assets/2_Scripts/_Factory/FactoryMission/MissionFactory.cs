@@ -4,84 +4,84 @@ using UnityEngine;
 
 public class MissionFactory : MonoBehaviour
 {
-    public void Create_Mission(STO_Mission p_Mission, Vector3 p_Position)
+    public void CreateMission(MissionData pMission, Vector3 pPosition)
     {
-        StartCoroutine(C_Create_Mission(p_Mission, p_Position));
+        StartCoroutine(CCreateMission(pMission, pPosition));
     }
 
-    public IEnumerator C_Create_Mission(STO_Mission p_Mission, Vector3 p_Position)
+    public IEnumerator CCreateMission(MissionData pMission, Vector3 pPosition)
     {
-        switch (p_Mission.missionType)
+        switch (pMission.missionType)
         {
             case MissionType.SURVIVE:
                 {
-                    GameObject Mission_Go = new GameObject(p_Mission.missionType.ToString());
+                    GameObject MissionGo = new GameObject(pMission.missionType.ToString());
 
-                    Mission_Go.AddComponent<SurviversMission>();
+                    MissionGo.AddComponent<SurviversMission>();
 
-                    Mission_Go.transform.position = p_Position;
-                    Mission_Go.transform.rotation = Quaternion.identity;
-                    Mission_Go.transform.localScale = Vector3.one;
+                    MissionGo.transform.position = pPosition;
+                    MissionGo.transform.rotation = Quaternion.identity;
+                    MissionGo.transform.localScale = Vector3.one;
 
-                    if (Mission_Go.GetComponent<SurviversMission>())
+                    if (MissionGo.GetComponent<SurviversMission>())
                     {
-                        yield return new WaitUntil(() => Mission_Go.GetComponent<SurviversMission>().SpriteRenderer);
-                        Mission_Go.GetComponent<SurviversMission>().MissionSetting(Mission_Go.GetComponent<SurviversMission>(), p_Mission);
+                        yield return new WaitUntil(() => MissionGo.GetComponent<SurviversMission>().SpriteRenderer);
+                        MissionGo.GetComponent<SurviversMission>().MissionSetting(MissionGo.GetComponent<SurviversMission>(), pMission);
 
-                        Mission_Go.GetComponent<Mission>().SpriteRenderer.drawMode = SpriteDrawMode.Sliced;
-                        Mission_Go.GetComponent<Mission>().SpriteRenderer.size = new Vector2(2, 2);
+                        MissionGo.GetComponent<Mission>().SpriteRenderer.drawMode = SpriteDrawMode.Sliced;
+                        MissionGo.GetComponent<Mission>().SpriteRenderer.size = new Vector2(2, 2);
 
-                        Mission_Go.GetComponent<SurviversMission>().MissionType = p_Mission.missionType;
+                        MissionGo.GetComponent<SurviversMission>().MissionType = pMission.missionType;
 
-                        All_Manager.instance.GameMode_M.missionList.Add(Mission_Go.GetComponent<SurviversMission>());
+                        AllManager.instance.GameModeM.missionList.Add(MissionGo.GetComponent<SurviversMission>());
                     }
                 }
                 break;
             case MissionType.DEFEND:
                 {
-                    GameObject Mission_Go = new GameObject(p_Mission.missionType.ToString());
+                    GameObject MissionGo = new GameObject(pMission.missionType.ToString());
 
-                    Mission_Go.AddComponent<DefendMission>();
+                    MissionGo.AddComponent<DefendMission>();
 
-                    Mission_Go.transform.position = p_Position;
-                    Mission_Go.transform.rotation = Quaternion.identity;
-                    Mission_Go.transform.localScale = Vector3.one;
+                    MissionGo.transform.position = pPosition;
+                    MissionGo.transform.rotation = Quaternion.identity;
+                    MissionGo.transform.localScale = Vector3.one;
 
-                    if (Mission_Go.GetComponent<DefendMission>())
+                    if (MissionGo.GetComponent<DefendMission>())
                     {
-                        yield return new WaitUntil(() => Mission_Go.GetComponent<DefendMission>().SpriteRenderer);
-                        Mission_Go.GetComponent<DefendMission>().MissionSetting(Mission_Go.GetComponent<DefendMission>(), p_Mission);
+                        yield return new WaitUntil(() => MissionGo.GetComponent<DefendMission>().SpriteRenderer);
+                        MissionGo.GetComponent<DefendMission>().MissionSetting(MissionGo.GetComponent<DefendMission>(), pMission);
 
-                        Mission_Go.GetComponent<Mission>().SpriteRenderer.drawMode = SpriteDrawMode.Sliced;
-                        Mission_Go.GetComponent<Mission>().SpriteRenderer.size = new Vector2(2, 2);
+                        MissionGo.GetComponent<Mission>().SpriteRenderer.drawMode = SpriteDrawMode.Sliced;
+                        MissionGo.GetComponent<Mission>().SpriteRenderer.size = new Vector2(2, 2);
 
-                        Mission_Go.GetComponent<DefendMission>().MissionType = p_Mission.missionType;
+                        MissionGo.GetComponent<DefendMission>().MissionType = pMission.missionType;
 
-                        All_Manager.instance.GameMode_M.missionList.Add(Mission_Go.GetComponent<DefendMission>());
+                        AllManager.instance.GameModeM.missionList.Add(MissionGo.GetComponent<DefendMission>());
                     }
                 }
                 break;
             case MissionType.FOLLOW:
                 {
-                    GameObject Mission_Go = new GameObject(p_Mission.missionType.ToString());
+                    GameObject MissionGo = new GameObject(pMission.missionType.ToString());
 
-                    Mission_Go.AddComponent<FollowMission>();
+                    MissionGo.AddComponent<FollowMission>();
 
-                    Mission_Go.transform.position = p_Position;
-                    Mission_Go.transform.rotation = Quaternion.identity;
-                    Mission_Go.transform.localScale = Vector3.one;
+                    MissionGo.transform.position = pPosition;
+                    MissionGo.transform.rotation = Quaternion.identity;
+                    MissionGo.transform.localScale = Vector3.one;
 
-                    if (Mission_Go.GetComponent<FollowMission>())
+                    if (MissionGo.GetComponent<FollowMission>())
                     {
-                        yield return new WaitUntil(() => Mission_Go.GetComponent<FollowMission>().SpriteRenderer);
-                        Mission_Go.GetComponent<FollowMission>().MissionSetting(Mission_Go.GetComponent<FollowMission>(), p_Mission);
+                        yield return new WaitUntil(() => MissionGo.GetComponent<FollowMission>().SpriteRenderer);
+                        MissionGo.GetComponent<FollowMission>().MissionSetting(MissionGo.GetComponent<FollowMission>(), pMission);
 
-                        Mission_Go.GetComponent<Mission>().SpriteRenderer.drawMode = SpriteDrawMode.Sliced;
-                        Mission_Go.GetComponent<Mission>().SpriteRenderer.size = new Vector2(2, 2);
+                        MissionGo.GetComponent<Mission>().SpriteRenderer.drawMode = SpriteDrawMode.Sliced;
+                        MissionGo.GetComponent<Mission>().SpriteRenderer.size = new Vector2(2, 2);
 
-                        Mission_Go.GetComponent<FollowMission>().MissionType = p_Mission.missionType;
+                        MissionGo.GetComponent<FollowMission>().MissionType = pMission.missionType;
 
-                        All_Manager.instance.GameMode_M.missionList.Add(Mission_Go.GetComponent<FollowMission>());
+                        AllManager.instance.GameModeM.missionList.Add(MissionGo.GetComponent<FollowMission>());
                     }
                 }
                 break;

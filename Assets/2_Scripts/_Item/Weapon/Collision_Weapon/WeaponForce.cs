@@ -6,7 +6,7 @@ using UnityEngine.VFX;
 
 public class WeaponForce : Weapon
 {
-    public Unit_Enemy F_target;
+    public UnitEnemy Ftarget;
     public CircleCollider2D CC;
 
     public override void Start()
@@ -14,25 +14,25 @@ public class WeaponForce : Weapon
         CC = this.AddComponent<CircleCollider2D>();
         CC.isTrigger = true;
         base.Start();
-        _weaponSpriteRenderer.sortingOrder = -1;
-        _weaponSpriteRenderer.color = new Color(0, 0, 0, 0);
+        weaponSpriteRenderer.sortingOrder = -1;
+        weaponSpriteRenderer.color = new Color(0, 0, 0, 0);
     }
 
     public override void Update()
     {
-        if (All_Manager.instance.GameMode_M.Game_Stop == false)
+        if (AllManager.instance.GameModeM.GameStop == false)
         {
             base.Update();
 
-            this._weaponSpriteRenderer.size = new Vector2(Weapon_Range + 2.0f, Weapon_Range + 2.0f);
+            this.weaponSpriteRenderer.size = new Vector2(WeaponRange + 2.0f, WeaponRange + 2.0f);
 
-            //Force_Attack();
+            //ForceAttack();
 
-            Weapon_KnockBack_Weapon();
+            WeaponKnockBackWeapon();
 
-            this.Weapon_Timer();
+            this.WeaponTimer();
 
-            _weaponSpriteRenderer.material = All_Manager.instance.Resource_M.Convert_WeaponType_To_STO_Weapon_Arr(WeaponType.Force).Sprite_Material;
+            weaponSpriteRenderer.material = AllManager.instance.ResourceM.ConvertWeaponTypeToWeaponDataArr(WeaponType.Force).SpriteMaterial;
         }
 
         else
@@ -41,61 +41,61 @@ public class WeaponForce : Weapon
         }
     }
 
-    public void Force_Attack()
+    public void ForceAttack()
     {
-        _weaponBoxCollider2D.isTrigger = false;
-        CC.radius = Weapon_Range * 0.5f;
+        weaponBoxCollider2D.isTrigger = false;
+        CC.radius = WeaponRange * 0.5f;
 
-        Collider2D[] collider2Ds = Physics2D.OverlapCircleAll(this.transform.position, (Weapon_Range * 0.5f));
+        Collider2D[] collider2Ds = Physics2D.OverlapCircleAll(this.transform.position, (WeaponRange * 0.5f));
 
         float Dis = 10000;
 
         foreach (UnityEngine.Collider2D collider in collider2Ds)
         {
-            if (collider.gameObject.GetComponent<Unit_Enemy>())
+            if (collider.gameObject.GetComponent<UnitEnemy>())
             {
-                Unit_Enemy Enemy_Temp = collider.gameObject.GetComponent<Unit_Enemy>();
+                UnitEnemy EnemyTemp = collider.gameObject.GetComponent<UnitEnemy>();
 
-                if (Dis > Vector3.Distance(this.transform.position, Enemy_Temp.transform.position))
+                if (Dis > Vector3.Distance(this.transform.position, EnemyTemp.transform.position))
                 {
-                    Dis = Vector3.Distance(this.transform.position, Enemy_Temp.transform.position);
-                    Weapon_Target_Weapon = Enemy_Temp;
+                    Dis = Vector3.Distance(this.transform.position, EnemyTemp.transform.position);
+                    WeaponTargetWeapon = EnemyTemp;
                 }
 
-                //Weapon_Target_Weapon = Enemy_Temp;
+                //WeaponTargetWeapon = EnemyTemp;
             }
 
         }
 
-        if (Weapon_Target_Weapon != null)
+        if (WeaponTargetWeapon != null)
         {
-            Vector3 Dir = (Weapon_Target_Weapon.transform.position - this.transform.position).normalized;
+            Vector3 Dir = (WeaponTargetWeapon.transform.position - this.transform.position).normalized;
 
-            if (Weapon_Target_Weapon.UnitType == UnitType.Barrel)
+            if (WeaponTargetWeapon.UnitType == UnitType.Barrel)
             {
 
             }
 
             else
             {
-                Weapon_Target_Weapon.Knock_Back(Dir, Weapon_Knock, Weapon_Duration);
+                WeaponTargetWeapon.KnockBack(Dir, WeaponKnock, WeaponDuration);
             }
         }
     }
 
-    public override void Upgrade(int p_Level)
+    public override void Upgrade(int pLevel)
     {
 
     }
 
-    public override void Weapon_Stat_Appliaction()
+    public override void WeaponStatAppliaction()
     {
-        base.Weapon_Stat_Appliaction();
+        base.WeaponStatAppliaction();
     }
 
-    public override void Weapon_To_Enemy_Collision()
+    public override void WeaponToEnemyCollision()
     {
-        base.Weapon_To_Enemy_Collision();
+        base.WeaponToEnemyCollision();
     }
 
 
@@ -106,30 +106,30 @@ public class WeaponForce : Weapon
 
 //foreach (var collider in collider2Ds)
 //{
-//    if (collider.gameObject.GetComponent<Unit_Enemy>())
+//    if (collider.gameObject.GetComponent<UnitEnemy>())
 //    {
-//        var Enemy_Temp = collider.gameObject.GetComponent<Unit_Enemy>();
+//        var EnemyTemp = collider.gameObject.GetComponent<UnitEnemy>();
 
-//        if (Dis > Vector3.Distance(this.transform.position, Enemy_Temp.transform.position))
+//        if (Dis > Vector3.Distance(this.transform.position, EnemyTemp.transform.position))
 //        {
-//            Dis = Vector3.Distance(this.transform.position, Enemy_Temp.transform.position);
-//            F_target = Enemy_Temp;
+//            Dis = Vector3.Distance(this.transform.position, EnemyTemp.transform.position);
+//            Ftarget = EnemyTemp;
 //        }
 //    }
 //}
 
-//if (F_target != null)
+//if (Ftarget != null)
 //{
-//    Vector3 Dir = (F_target.transform.position - this.transform.position).normalized;
+//    Vector3 Dir = (Ftarget.transform.position - this.transform.position).normalized;
 
-//    //Vector3 Knock = Dir * Weapon_Speed;
+//    //Vector3 Knock = Dir * WeaponSpeed;
 
-//   // F_target.Knock_Back(Dir, Weapon_Knock, Weapon_Duration, Weapon_Kncok_Temp);
-//   F_target.Knock_Back(Dir, Weapon_Knock, Weapon_Duration);
+//   // Ftarget.KnockBack(Dir, WeaponKnock, WeaponDuration, WeaponKncokTemp);
+//   Ftarget.KnockBack(Dir, WeaponKnock, WeaponDuration);
 //}
 //public class Force : Weapon
 //{
-//    public Enemy F_target;
+//    public Enemy Ftarget;
 //    public CircleCollider2D CC;
 
 //    public override void Start()
@@ -138,13 +138,13 @@ public class WeaponForce : Weapon
 //        CC.isTrigger = true;
 //        CC.radius = 1f;
 //        base.Start();
-//        _boxCollider2D.size = new Vector2(0f, 0f);
-//        _boxCollider2D.isTrigger = false;
+//        boxCollider2D.size = new Vector2(0f, 0f);
+//        boxCollider2D.isTrigger = false;
 //    }
 
 //    public override void Update()
 //    {
-//        var collider2Ds = Physics2D.OverlapCircleAll(this.transform.position, Weapon_Range);
+//        var collider2Ds = Physics2D.OverlapCircleAll(this.transform.position, WeaponRange);
 
 //        float Dis = 10000;
 
@@ -152,23 +152,23 @@ public class WeaponForce : Weapon
 //        {
 //            if (collider.gameObject.GetComponent<Enemy>())
 //            {
-//                var Enemy_Temp = collider.gameObject.GetComponent<Enemy>();
+//                var EnemyTemp = collider.gameObject.GetComponent<Enemy>();
 
-//                if (Dis > Vector3.Distance(this.transform.position, Enemy_Temp.transform.position))
+//                if (Dis > Vector3.Distance(this.transform.position, EnemyTemp.transform.position))
 //                {
-//                    Dis = Vector3.Distance(this.transform.position, Enemy_Temp.transform.position);
-//                    F_target = Enemy_Temp;
+//                    Dis = Vector3.Distance(this.transform.position, EnemyTemp.transform.position);
+//                    Ftarget = EnemyTemp;
 //                }
 //            }
 //        }
 
-//        if (F_target != null)
+//        if (Ftarget != null)
 //        {
-//            Vector3 Dir = (F_target.transform.position - this.transform.position).normalized;
+//            Vector3 Dir = (Ftarget.transform.position - this.transform.position).normalized;
 
-//            Vector3 Knock = Dir * Weapon_Speed;
+//            Vector3 Knock = Dir * WeaponSpeed;
 
-//            F_target.Push(Knock);
+//            Ftarget.Push(Knock);
 //        }
 
 //    }

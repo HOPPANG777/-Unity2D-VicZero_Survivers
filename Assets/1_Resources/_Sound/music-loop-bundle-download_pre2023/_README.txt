@@ -12,7 +12,7 @@ If you use any of these songs, please let me know! I'd love to see the game you 
 
 It's not required, but if you'd like to credit me, please use the artist name "Abstraction" and link to either this page (https://tallbeard.itch.io/music-loop-bundle) or the Abstraction homepage (https://abstractionmusic.com/). Thank you!
 
-While these songs are listed as pay-what-you-want, if you do plan on making money off your project (either through ads, microtransactions, or direct sales), please consider subscribing to my Patreon (https://patreon.com/ben_burnes) for access to hundreds more songs and to support the creation of more music.
+While these songs are listed as pay-what-you-want, if you do plan on making money off your project (either through ads, microtransactions, or direct sales), please consider subscribing to my Patreon (https://patreon.com/benburnes) for access to hundreds more songs and to support the creation of more music.
 
 -----
 
@@ -20,11 +20,11 @@ Here are a few other places on the Internet where you can find me:
 
 Website:    abstractionmusic.com
 Bandcamp:   abstractionmusic.bandcamp.com
-Patreon:    patreon.com/ben_burnes
-YouTube:    youtube.com/ben_burnes
+Patreon:    patreon.com/benburnes
+YouTube:    youtube.com/benburnes
 Spotify:    abstraction.rocks
 
-You can get in contact with me directly through Twitter @ben_burnes, I love to chat with new people!
+You can get in contact with me directly through Twitter @benburnes, I love to chat with new people!
 
 <3
 - Benjamin

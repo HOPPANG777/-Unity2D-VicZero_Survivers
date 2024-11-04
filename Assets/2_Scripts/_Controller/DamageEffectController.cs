@@ -16,7 +16,7 @@ public class DamageEffectController : MonoBehaviour
         damageEffects = new GameObject[poolSize];
         for (int i = 0; i < poolSize; i++)
         {
-            GameObject damageEffect = new GameObject("Damage_Effect_" + i);
+            GameObject damageEffect = new GameObject("DamageEffect" + i);
             TextMesh damageText = damageEffect.AddComponent<TextMesh>();
 
             damageText.fontSize = 50; // 폰트 사이즈
