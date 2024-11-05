@@ -28,7 +28,9 @@ public enum Weapon_Type
     LightningRing,
     ShadowPinion,
     RuneTracer,
-    Whip
+    Whip,
+    BoundAxe,
+    Phoenix
 }
 
 [System.Serializable]
