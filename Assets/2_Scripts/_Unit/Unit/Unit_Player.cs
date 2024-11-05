@@ -591,8 +591,6 @@ public class Unit_Player : Unit
             // 타이머 증가
             levelTimer.Timer += Time.deltaTime;
         }
-
-        //Debug.Log("Weapon_Spawn!");
     }
 
     public void Update_Get_Equipment(Equipment_Type p_EquipmentType)
@@ -862,8 +860,6 @@ public class Unit_Player : Unit
         return Equipment_Level;
     }
 
-
-    // ��ű��� �����ϴ� ���� ����ü ����
     public int Current_Weapon_Count(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
         var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
@@ -899,7 +895,6 @@ public class Unit_Player : Unit
         return p_Weapon_Range;
     }
 
-    // ��ű��� �����ϴ� ���� ������ ũ��
     public float Current_Weapon_Size(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
         var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
@@ -911,8 +906,6 @@ public class Unit_Player : Unit
 
         return p_Weapon_Size;
     }
-
-    //���� ���� ������ ���ݼӵ�.
     public float Current_Weapon_Speed(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
         var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
@@ -925,7 +918,6 @@ public class Unit_Player : Unit
         return p_Weapon_Speed;
     }
 
-    //���� ���� ������ ���ݷ�.
     public float Current_Weapon_Damage(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
         var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
@@ -937,8 +929,6 @@ public class Unit_Player : Unit
 
         return p_Weapon_Damage;
     }
-
-    //���� ���� ������ ���ӽð�.
     public float Current_Weapon_Duration(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
         var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
@@ -952,7 +942,6 @@ public class Unit_Player : Unit
     }
     #endregion
 
-    // �ó��� ȿ�� ���� Ȯ�� �� ó��
     public void CheckSynergyEffects(WeaponKeyword keyword)
     {
         if (keyword == WeaponKeyword.NONE) return;
@@ -972,7 +961,6 @@ public class Unit_Player : Unit
         }
     }
 
-    // �ó��� ȿ�� ���� �Լ�
     public void ApplySynergyEffect(WeaponKeyword keyword)
     {
         switch (keyword)
@@ -1073,13 +1061,11 @@ public class Unit_Player : Unit
         All_Manager.instance.UI_M.Update_Player_HPBar_Image(Current_HP / Max_HP);
     }
 
-    // �� ȹ�� �Լ�
     public void Get_Gem(float p_Get_Gem_Current_Count)
     {
         All_Manager.instance.GameMode_M.Add_Gem(p_Get_Gem_Current_Count);
     }
 
-    // ���� �÷��̾� ���� ����
     public override void Unit_Stat_Setting(Unit p_Unit, STO_Unit p_Un_STO)
     {
         if (p_Unit == null)
