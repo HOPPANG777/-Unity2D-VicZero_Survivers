@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
-
 public class Unit_Manager : MonoBehaviour
 {
     public Unit_Factory Unit_F;
@@ -44,8 +42,8 @@ public class Unit_Manager : MonoBehaviour
 
 // public GameObject Player_Go;
 // public GameObject Enemy_Go;
-//50 - 100 ±¸ÇÏ°í
-//È¦ÀÌ¸é ÇÃ Â¦ÀÌ¸é ¸¶
+//50 - 100 êµ¬í•˜ê³ 
+//í™€ì´ë©´ í”Œ ì§ì´ë©´ ë§ˆ
 //int Temp_X = Random.Range(5, 10);
 //Temp_X = ((Temp_X % 2) == 1) ? -Temp_X : Temp_X;
 
@@ -69,11 +67,11 @@ public class Unit_Manager : MonoBehaviour
 //{
 //    GameObject Temp_Go = Instantiate(Enemy_Go, null);
 //
-//    //var ¶õ ÇüÅÂ¿¡ ¸ÂÃç¼­ º¯¼ö Å¸ÀÔÀ» ÀÚµ¿À¸·Î ¹Ş´Â´Ù
+//    //var ë€ í˜•íƒœì— ë§ì¶°ì„œ ë³€ìˆ˜ íƒ€ì…ì„ ìë™ìœ¼ë¡œ ë°›ëŠ”ë‹¤
 //    var Player_Pos = All_Manager.instance.GameMode_Manager.Current_Player.transform.position;
 //
-//    //50 - 100 ±¸ÇÏ°í
-//    //È¦ÀÌ¸é ÇÃ Â¦ÀÌ¸é ¸¶
+//    //50 - 100 êµ¬í•˜ê³ 
+//    //í™€ì´ë©´ í”Œ ì§ì´ë©´ ë§ˆ
 //    int Temp_X = Random.Range(5, 10);
 //    Temp_X = ((Temp_X % 2) == 1) ? -Temp_X : Temp_X;
 //
@@ -92,10 +90,10 @@ public class Unit_Manager : MonoBehaviour
 //    StartCoroutine(C_Create_Unit(p_Unit_Name));
 //}
 
-////À¯´Ö »ı¼ºÇÏ´Â ÇÔ¼ö
+////ìœ ë‹› ìƒì„±í•˜ëŠ” í•¨ìˆ˜
 //public IEnumerator C_Create_Unit(Unit_Name p_Unit_Name)
 //{
-//    //ÇÃ·¹ÀÌ¾î »ı¼º
+//    //í”Œë ˆì´ì–´ ìƒì„±
 //    if (p_Unit_Name == Unit_Name.Player)
 //    {
 //        GameObject Temp_Go = Instantiate(Player_Go, null);
@@ -103,10 +101,10 @@ public class Unit_Manager : MonoBehaviour
 //        Temp_Go.transform.rotation = Quaternion.identity;
 //        Temp_Go.transform.localScale = Vector3.one;
 
-//        //ÀÌ °ÔÀÓ¿ÀºêÁ§Æ® ÀÌ ÄÄÆ÷³ÍÆ®¸¦ °®°í ÀÖ´ÂÁöÀÇ bool °ª
+//        //ì´ ê²Œì„ì˜¤ë¸Œì íŠ¸ ì´ ì»´í¬ë„ŒíŠ¸ë¥¼ ê°–ê³  ìˆëŠ”ì§€ì˜ bool ê°’
 //        if (Temp_Go.GetComponent<Player>())
 //        {
-//            //SRÀÌ ÀÖÀ»¶§±îÁö ±â´Ù·Á
+//            //SRì´ ìˆì„ë•Œê¹Œì§€ ê¸°ë‹¤ë ¤
 //            yield return new WaitUntil(() => Temp_Go.GetComponent<Player>().SR);
 //            All_Manager.instance.Resource_M.Unit_Stat(Temp_Go.GetComponent<Player>(), All_Manager.instance.Resource_M.STO_Player);
 
@@ -114,16 +112,16 @@ public class Unit_Manager : MonoBehaviour
 //        }
 //    }
 
-//    // Àû »ı¼º
+//    // ì  ìƒì„±
 //    else if (p_Unit_Name == Unit_Name.Enemy)
 //    {
 //        GameObject Temp_Go = Instantiate(Enemy_Go, null);
 
-//        //var ¶õ ÇüÅÂ¿¡ ¸ÂÃç¼­ º¯¼ö Å¸ÀÔÀ» ÀÚµ¿À¸·Î ¹Ş´Â´Ù
+//        //var ë€ í˜•íƒœì— ë§ì¶°ì„œ ë³€ìˆ˜ íƒ€ì…ì„ ìë™ìœ¼ë¡œ ë°›ëŠ”ë‹¤
 //        var Player_Pos = All_Manager.instance.GameMode_M.Current_Player.transform.position;
 
-//        //50 - 100 ±¸ÇÏ°í
-//        //È¦ÀÌ¸é ÇÃ Â¦ÀÌ¸é ¸¶
+//        //50 - 100 êµ¬í•˜ê³ 
+//        //í™€ì´ë©´ í”Œ ì§ì´ë©´ ë§ˆ
 //        int Temp_X = Random.Range(5, 10);
 //        Temp_X = ((Temp_X % 2) == 1) ? -Temp_X : Temp_X;
 
@@ -164,7 +162,7 @@ public class Unit_Manager : MonoBehaviour
 
 //    if (Player_Go.GetComponent<Unit_Player>())
 //    {
-//        //SRÀÌ ÀÖÀ»¶§±îÁö ±â´Ù·Á                                                                 
+//        //SRì´ ìˆì„ë•Œê¹Œì§€ ê¸°ë‹¤ë ¤                                                                 
 //        yield return new WaitUntil(() => Player_Go.GetComponent<Unit_Player>().SR && Player_Go.GetComponent<Unit_Player>().AM);
 //        Player_Go.GetComponent<Unit_Player>().Unit_Stat_Setting(Player_Go.GetComponent<Unit_Player>(), P_Unit);
 
