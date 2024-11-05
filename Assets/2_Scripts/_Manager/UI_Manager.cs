@@ -141,7 +141,6 @@ public class UI_Manager : MonoBehaviour
 
     //public int Treasure_Got_Gem_Number = 0;
 
-
     [Header("OnGUI용")]
     public string[] WP_Options;
     public string[] EQ_Options;

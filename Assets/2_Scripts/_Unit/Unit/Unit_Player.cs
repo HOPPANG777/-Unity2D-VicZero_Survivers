@@ -682,119 +682,52 @@ public class Unit_Player : Unit
             return;
         }
 
-        if (Eq_STO == null)
-        {
-            return;
-        }
+        if (Eq_STO == null) return;
 
-        if (Eq_STO.ET == Temp_Equipment_STO[0].ET)
-        {
-            Player_Unit.Percent_Stat.Unit_Weapon_Damage += Eq_STO.Equipment_Stat_Sheet.Unit_Weapon_Damage;
-        }
+        // Dictionary를 사용해 장비 유형을 스탯 수정 동작과 매핑
+        var equipmentStatActions = new Dictionary<Equipment_Type, Action>
+    {
+        { Temp_Equipment_STO[0].ET, () => Player_Unit.Percent_Stat.Unit_Weapon_Damage += Eq_STO.Equipment_Stat_Sheet.Unit_Weapon_Damage },
+        { Temp_Equipment_STO[1].ET, () => Player_Unit.Percent_Stat.Unit_Weapon_Proj_Speed += Eq_STO.Equipment_Stat_Sheet.Unit_Weapon_Proj_Speed },
+        { Temp_Equipment_STO[2].ET, () => Player_Unit.Percent_Stat.Unit_Weapon_Proj_Count += Eq_STO.Equipment_Stat_Sheet.Unit_Weapon_Proj_Count },
+        { Temp_Equipment_STO[3].ET, () => Player_Unit.Percent_Stat.Unit_Weapon_CoolDown += Eq_STO.Equipment_Stat_Sheet.Unit_Weapon_CoolDown },
+        { Temp_Equipment_STO[4].ET, () => Player_Unit.Percent_Stat.Unit_Speed += Eq_STO.Equipment_Stat_Sheet.Unit_Speed },
+        { Temp_Equipment_STO[5].ET, () => { Player_Unit.Percent_Stat.Unit_Weapon_Range += Eq_STO.Equipment_Stat_Sheet.Unit_Weapon_Range; Player_Unit.Percent_Stat.Unit_Weapon_Size += Eq_STO.Equipment_Stat_Sheet.Unit_Weapon_Size; }},
+        { Temp_Equipment_STO[6].ET, () => Player_Unit.Percent_Stat.Unit_Defense += Eq_STO.Equipment_Stat_Sheet.Unit_Defense },
+        { Temp_Equipment_STO[7].ET, () => Player_Unit.Percent_Stat.Unit_HP += Eq_STO.Equipment_Stat_Sheet.Unit_HP },
+        { Temp_Equipment_STO[8].ET, () => Player_Unit.Percent_Stat.Unit_Weapon_Duration += Eq_STO.Equipment_Stat_Sheet.Unit_Weapon_Duration },
+        { Temp_Equipment_STO[9].ET, () => Player_Unit.Percent_Stat.Unit_Get_Gem_Range += Eq_STO.Equipment_Stat_Sheet.Unit_Get_Gem_Range }
+    };
 
-        else if (Eq_STO.ET == Temp_Equipment_STO[1].ET)
+        // 매핑된 동작 실행
+        if (equipmentStatActions.TryGetValue(Eq_STO.ET, out var updateStatAction))
         {
-            Player_Unit.Percent_Stat.Unit_Weapon_Proj_Speed += Eq_STO.Equipment_Stat_Sheet.Unit_Weapon_Proj_Speed;
-        }
-
-        else if (Eq_STO.ET == Temp_Equipment_STO[2].ET)
-        {
-            Player_Unit.Percent_Stat.Unit_Weapon_Proj_Count += Eq_STO.Equipment_Stat_Sheet.Unit_Weapon_Proj_Count;
-        }
-
-        else if (Eq_STO.ET == Temp_Equipment_STO[3].ET)
-        {
-            Player_Unit.Percent_Stat.Unit_Weapon_CoolDown += Eq_STO.Equipment_Stat_Sheet.Unit_Weapon_CoolDown;
-        }
-
-        else if (Eq_STO.ET == Temp_Equipment_STO[4].ET)
-        {
-            Player_Unit.Percent_Stat.Unit_Speed += Eq_STO.Equipment_Stat_Sheet.Unit_Speed;
-        }
-
-        else if (Eq_STO.ET == Temp_Equipment_STO[5].ET)
-        {
-            Player_Unit.Percent_Stat.Unit_Weapon_Range += Eq_STO.Equipment_Stat_Sheet.Unit_Weapon_Range;
-            Player_Unit.Percent_Stat.Unit_Weapon_Size += Eq_STO.Equipment_Stat_Sheet.Unit_Weapon_Size;
-        }
-
-        else if (Eq_STO.ET == Temp_Equipment_STO[6].ET)
-        {
-            Player_Unit.Percent_Stat.Unit_Defense += Eq_STO.Equipment_Stat_Sheet.Unit_Defense;
-        }
-
-        else if (Eq_STO.ET == Temp_Equipment_STO[7].ET)
-        {
-            Player_Unit.Percent_Stat.Unit_HP += Eq_STO.Equipment_Stat_Sheet.Unit_HP;
-        }
-
-        else if (Eq_STO.ET == Temp_Equipment_STO[8].ET)
-        {
-            Player_Unit.Percent_Stat.Unit_Weapon_Duration += Eq_STO.Equipment_Stat_Sheet.Unit_Weapon_Duration;
-        }
-
-        else if (Eq_STO.ET == Temp_Equipment_STO[9].ET)
-        {
-            Player_Unit.Percent_Stat.Unit_Get_Gem_Range += Eq_STO.Equipment_Stat_Sheet.Unit_Get_Gem_Range;
+            updateStatAction();
         }
 
     }
 
     public Weapon_Level_And_Timer Convert_WLAT_Player(STO_Weapon p_WTO)
     {
-        Weapon_Level_And_Timer WLAT = null;
+        var weaponList = All_Manager.instance.Resource_M.STO_Weapons;
 
-        if (p_WTO == All_Manager.instance.Resource_M.STO_Weapons[0])
+        // 무기 배열에서의 인덱스를 찾고 그에 따라 `Weapon_Level_And_Timer`를 반환
+        int index = Array.IndexOf(weaponList, p_WTO);
+
+        switch (index)
         {
-            WLAT = Axe_LAT;
+            case 0: return Axe_LAT;
+            case 1: return KingBible_LAT;
+            case 2: return Peachone_LAT;
+            case 3: return FireWand_LAT;
+            case 4: return Cross_LAT;
+            case 5: return Garlic_LAT;
+            case 6: return LightningRing_LAT;
+            case 7: return ShadowPinion_LAT;
+            case 8: return RuneTracer_LAT;
+            case 9: return Whip_LAT;
+            default: return null;
         }
-
-        if (p_WTO == All_Manager.instance.Resource_M.STO_Weapons[1])
-        {
-            WLAT = KingBible_LAT;
-        }
-
-        if (p_WTO == All_Manager.instance.Resource_M.STO_Weapons[2])
-        {
-            WLAT = Peachone_LAT;
-        }
-
-        if (p_WTO == All_Manager.instance.Resource_M.STO_Weapons[3])
-        {
-            WLAT = FireWand_LAT;
-        }
-
-        if (p_WTO == All_Manager.instance.Resource_M.STO_Weapons[4])
-        {
-            WLAT = Cross_LAT;
-        }
-
-        if (p_WTO == All_Manager.instance.Resource_M.STO_Weapons[5])
-        {
-            WLAT = Garlic_LAT;
-        }
-
-        if (p_WTO == All_Manager.instance.Resource_M.STO_Weapons[6])
-        {
-            WLAT = LightningRing_LAT;
-        }
-
-        if (p_WTO == All_Manager.instance.Resource_M.STO_Weapons[7])
-        {
-            WLAT = ShadowPinion_LAT;
-        }
-
-        if (p_WTO == All_Manager.instance.Resource_M.STO_Weapons[8])
-        {
-            WLAT = RuneTracer_LAT;
-        }
-
-        if (p_WTO == All_Manager.instance.Resource_M.STO_Weapons[9])
-        {
-            WLAT = Whip_LAT;
-        }
-
-        return WLAT;
     }
 
     public int Convert_Equipment_Level_Player(Equipment_Type p_ET)
@@ -884,7 +817,7 @@ public class Unit_Player : Unit
                 {
                     if (weapon.WeaponKeyword == keyword)
                     {
-                        weapon.Weapon_Speed *= 1.5f;
+                        weapon.Weapon_Damage *= 1.5f;
                         Debug.Log("바운드");
                     }
                 }
