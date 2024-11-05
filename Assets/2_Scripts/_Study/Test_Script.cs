@@ -606,6 +606,1164 @@ public class Test_Script : MonoBehaviour
 //}
 #endregion
 
+/*
+     private List<Weapon_Type> availableWeapons;
+    void Start()
+    {
+        availableWeapons = new List<Weapon_Type>
+        {
+            Weapon_Type.Axe,
+            Weapon_Type.KingBible,
+            Weapon_Type.Peachone,
+            Weapon_Type.FireWand,
+            Weapon_Type.Cross,
+            Weapon_Type.Garlic,
+            Weapon_Type.LightningRing,
+            Weapon_Type.ShadowPinion,
+            Weapon_Type.RuneTracer,
+            Weapon_Type.Whip
+        };
+    }
+
+
+    public void Renew_Start_Weapon_Panel()
+    {
+        List<int> Selected_Start_Weapon_List = new List<int>();
+        do
+        {
+            All_Manager.instance.UI_M.Start_First_Weapon_Number = UnityEngine.Random.Range(0, availableWeapons.Count);
+
+        } while (Selected_Start_Weapon_List.Contains(All_Manager.instance.UI_M.Start_First_Weapon_Number));
+
+        Selected_Start_Weapon_List.Add(All_Manager.instance.UI_M.Start_First_Weapon_Number);
+
+        do
+        {
+            All_Manager.instance.UI_M.Start_Second_Weapon_Number = UnityEngine.Random.Range(0, availableWeapons.Count);
+
+        } while (Selected_Start_Weapon_List.Contains(All_Manager.instance.UI_M.Start_Second_Weapon_Number));
+
+        Selected_Start_Weapon_List.Add(All_Manager.instance.UI_M.Start_Second_Weapon_Number);
+
+
+        var Temp_WT_First = availableWeapons[All_Manager.instance.UI_M.Start_First_Weapon_Number];
+
+        STO_Weapon Convert_Weapon_First = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(Temp_WT_First);
+
+        All_Manager.instance.UI_M.Start_Weapon_Icon_Image[0].sprite = Convert_Weapon_First.Item_Image;
+        All_Manager.instance.UI_M.Start_Weapon_Name_Text[0].text = Convert_Weapon_First.Weapon_Name;
+        All_Manager.instance.UI_M.Start_Weapon_Example_Text[0].text = Convert_Weapon_First.Weapon_Text;
+
+        var Temp_WT_Second = availableWeapons[All_Manager.instance.UI_M.Start_Second_Weapon_Number];
+        Weapon_Select_Assign_Info(1, Temp_WT_Second);
+
+        STO_Weapon Convert_Weapon_Second = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(Temp_WT_Second);
+
+        All_Manager.instance.UI_M.Start_Weapon_Icon_Image[1].sprite = Convert_Weapon_Second.Item_Image;
+        All_Manager.instance.UI_M.Start_Weapon_Name_Text[1].text = Convert_Weapon_Second.Weapon_Name;
+        All_Manager.instance.UI_M.Start_Weapon_Example_Text[1].text = Convert_Weapon_Second.Weapon_Text;
+    }
+
+    public void Click_Start_Weapon_Select(int p_Index)
+    {
+
+        if (p_Index == 0)
+        {
+            var Temp_WT = availableWeapons[All_Manager.instance.UI_M.Start_First_Weapon_Number];
+
+            Weapon_Select_Assign_Button(Temp_WT);
+        }
+
+        else if (p_Index == 1)
+        {
+            var Temp_WT = availableWeapons[All_Manager.instance.UI_M.Start_Second_Weapon_Number];
+
+            Weapon_Select_Assign_Button(Temp_WT);
+        }
+
+        All_Manager.instance.UI_M.Off_Panel();
+    }
+    public void Renew_Item_Panel()
+    {
+        Renew_Current_Weapon_Icon();
+        Renew_Current_Equipment_Icon();
+
+        int Max = availableWeapons.Count + System.Enum.GetValues(typeof(Equipment_Type)).Length;
+        List<int> Selected_Item_List = new List<int>();
+        do
+        {   // 첫번째 패널에 나타날 아이템 룰렛 
+            All_Manager.instance.UI_M.Select_First_Item_Number = UnityEngine.Random.Range(0, Max - 1);
+
+        } while (Selected_Item_List.Contains(All_Manager.instance.UI_M.Select_First_Item_Number));
+
+        Selected_Item_List.Add(All_Manager.instance.UI_M.Select_First_Item_Number);
+
+
+        do
+        {   // 두번째 패널에 나타날 아이템 룰렛 
+            All_Manager.instance.UI_M.Select_Second_Item_Number = UnityEngine.Random.Range(0, Max - 1);
+
+        } while (Selected_Item_List.Contains(All_Manager.instance.UI_M.Select_Second_Item_Number));
+
+        Selected_Item_List.Add(All_Manager.instance.UI_M.Select_Second_Item_Number);
+
+        do
+        {   // 세번째 패널에 나타날 아이템 룰렛 
+            All_Manager.instance.UI_M.Select_Third_Item_Number = UnityEngine.Random.Range(0, Max - 1);
+
+        } while (Selected_Item_List.Contains(All_Manager.instance.UI_M.Select_Third_Item_Number));
+
+        Selected_Item_List.Add(All_Manager.instance.UI_M.Select_Third_Item_Number);
+
+
+        //Select_First_Item_Number
+        if (All_Manager.instance.UI_M.Select_First_Item_Number < availableWeapons.Count)
+        {
+            //무기
+            var Temp_WT = availableWeapons[All_Manager.instance.UI_M.Select_First_Item_Number];
+            Weapon_Select_Assign_Info(0, Temp_WT);
+        }
+
+        else
+        {
+            //장비
+            var Temp_ET = (Equipment_Type)(All_Manager.instance.UI_M.Select_First_Item_Number - availableWeapons.Count);
+            Equipment_Select_Assign_Info(0, Temp_ET);
+        }
+
+
+        //Select_Second_Item_Number
+        if (All_Manager.instance.UI_M.Select_Second_Item_Number < availableWeapons.Count)
+        {
+            //무기
+            var Temp_WT = availableWeapons[All_Manager.instance.UI_M.Select_Second_Item_Number];
+            Weapon_Select_Assign_Info(1, Temp_WT);
+        }
+
+        else
+        {
+            //장비
+            var Temp_ET = (Equipment_Type)(All_Manager.instance.UI_M.Select_Second_Item_Number - availableWeapons.Count);
+            Equipment_Select_Assign_Info(1, Temp_ET);
+        }
+
+        //Select_Third_Item_Number
+        if (All_Manager.instance.UI_M.Select_Third_Item_Number < availableWeapons.Count)
+        {
+            //무기
+            var Temp_WT = availableWeapons[All_Manager.instance.UI_M.Select_Third_Item_Number];
+            Weapon_Select_Assign_Info(2, Temp_WT);
+        }
+
+        else
+        {
+            //장비
+            var Temp_ET = (Equipment_Type)(All_Manager.instance.UI_M.Select_Third_Item_Number - availableWeapons.Count);
+            Equipment_Select_Assign_Info(2, Temp_ET);
+        }
+    }
+
+    public void Click_Select_Item_Button(int p_Index)
+    {
+        //Select_First_Item_Number 
+        if (p_Index == 0)
+        {
+            if (All_Manager.instance.UI_M.Select_First_Item_Number < availableWeapons.Count)
+            {
+                var Temp_WT = availableWeapons[All_Manager.instance.UI_M.Select_First_Item_Number];
+
+                Weapon_Select_Assign_Button(Temp_WT);
+            }
+
+            else
+            {
+                var Temp_ET = (Equipment_Type)(All_Manager.instance.UI_M.Select_First_Item_Number - availableWeapons.Count);
+
+                Equipment_Select_Assign_Button(Temp_ET);
+            }
+        }
+
+        //Select_Second_Item_Number
+        else if (p_Index == 1)
+        {
+            if (All_Manager.instance.UI_M.Select_Second_Item_Number < availableWeapons.Count)
+            {
+                var Temp_WT = availableWeapons[All_Manager.instance.UI_M.Select_Second_Item_Number];
+
+                Weapon_Select_Assign_Button(Temp_WT);
+            }
+
+            else
+            {
+                var Temp_ET = (Equipment_Type)(All_Manager.instance.UI_M.Select_Second_Item_Number - availableWeapons.Count);
+
+                Equipment_Select_Assign_Button(Temp_ET);
+            }
+        }
+
+        //Select_Third_Item_Number
+        else if (p_Index == 2)
+        {
+            if (All_Manager.instance.UI_M.Select_Third_Item_Number < availableWeapons.Count)
+            {
+                var Temp_WT = availableWeapons[All_Manager.instance.UI_M.Select_Third_Item_Number];
+
+                Weapon_Select_Assign_Button(Temp_WT);
+            }
+
+            else
+            {
+                var Temp_ET = (Equipment_Type)(All_Manager.instance.UI_M.Select_Third_Item_Number - availableWeapons.Count);
+
+                Equipment_Select_Assign_Button(Temp_ET);
+            }
+        }
+
+        All_Manager.instance.UI_M.Off_Panel();
+        All_Manager.instance.UI_M.Update_Gem_Count_Image(0);
+    }
+
+    public void Weapon_Select_Assign_Button(Weapon_Type p_WT)
+    {
+        STO_Weapon Temp_WT = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
+
+        var Player_Weapon_Level = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_WT);
+
+        if (Player_Weapon_Level.Level >= 8)
+        {
+            All_Manager.instance.GameMode_M.Current_Player.Recovery_Current_HP();
+        }
+
+        else
+        {
+            All_Manager.instance.GameMode_M.Current_Player.Upgrade_Weapon(p_WT);
+
+            if (All_Manager.instance.GameMode_M.Current_Player != null)
+            {
+                if (Temp_WT != null)
+                {
+                    bool Sprite_Currect = All_Manager.instance.UI_M.Weapon_Icon_List.Contains(Temp_WT.Item_Image);
+
+                    if (!Sprite_Currect)
+                    {
+                        All_Manager.instance.UI_M.Weapon_Icon_List.Add(Temp_WT.Item_Image);
+                    }
+
+                    else
+                    {
+                        //Debug.Log("이미 무기 아이콘이 존재합니다");
+                    }
+
+                    for (int i = 0; i < All_Manager.instance.UI_M.Weapon_Icon_List.Count; i++)
+                    {
+                        if (All_Manager.instance.UI_M.Weapon_Icon_List[i] == Temp_WT.Item_Image)
+                        {
+                            int Weapon_Level_Temp = 0;
+
+                            for (int j = 0; j < Player_Weapon_Level.Level; j++)
+                            {
+                                Weapon_Level_Temp++;
+                            }
+
+                            All_Manager.instance.UI_M.Basic_Current_Weapon_Icon_Image[i].GetComponentInChildren<Text>().text = "Lv. " + Weapon_Level_Temp;
+                        }
+                    }
+
+                    Renew_Current_Weapon_Icon();
+                }
+            }
+        }
+
+
+    }
+
+    public void Equipment_Select_Assign_Button(Equipment_Type p_ET)
+    {
+        STO_Equipment Temp_ET = All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(p_ET);
+
+        var Player_Equipment_Level = All_Manager.instance.GameMode_M.Current_Player.Convert_Equipment_Level_Player(p_ET);
+
+        if (Player_Equipment_Level >= 5)
+        {
+            All_Manager.instance.GameMode_M.Current_Player.Recovery_Current_HP();
+        }
+
+        else
+        {
+            All_Manager.instance.GameMode_M.Current_Player.Upgrade_Equipment(p_ET);
+
+            All_Manager.instance.GameMode_M.Current_Player.Origin_Stat_Application_Player(p_ET);
+
+            if (All_Manager.instance.GameMode_M.Current_Player != null)
+            {
+                if (Temp_ET != null)
+                {
+
+                    bool Sprite_Currect = All_Manager.instance.UI_M.Equipment_Icon_List.Contains(Temp_ET.Sprite_Image);
+
+                    if (!Sprite_Currect)
+                    {
+                        All_Manager.instance.UI_M.Equipment_Icon_List.Add(Temp_ET.Sprite_Image);
+                    }
+
+                    else
+                    {
+                        //Debug.Log("이미 장신구 아이콘이 존재합니다.");
+                    }
+
+                    for (int i = 0; i < All_Manager.instance.UI_M.Equipment_Icon_List.Count; i++)
+                    {
+                        if (All_Manager.instance.UI_M.Equipment_Icon_List[i] == Temp_ET.Sprite_Image)
+                        {
+                            int Equipment_Level_Temp = 0;
+
+                            var Temp_Current_Equipment_Level = All_Manager.instance.GameMode_M.Current_Player.Convert_Equipment_Level_Player(p_ET);
+
+                            for (int j = 0; j < Temp_Current_Equipment_Level; j++)
+                            {
+                                Equipment_Level_Temp++;
+                            }
+
+                            All_Manager.instance.UI_M.Basic_Current_Equipment_Icon_Image[i].GetComponentInChildren<Text>().text = "Lv. " + Equipment_Level_Temp;
+                        }
+
+                    }
+
+                    Renew_Current_Equipment_Icon();
+                }
+
+            }
+        }
+
+
+    }
+
+    public void Weapon_Select_Assign_Info(int Index, Weapon_Type p_WT)
+    {
+        STO_Weapon Temp_WT = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
+
+        STO_MISC Temp_Food = All_Manager.instance.Resource_M.Convert_MISC_Type_To_STO_MISC_Arr(MISC_Type.Food);
+
+        if (All_Manager.instance.GameMode_M.Current_Player != null)
+        {
+            var Player_Weapon_Level = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_WT);
+
+            if (Player_Weapon_Level.Level >= 8)
+            {
+                if (All_Manager.instance.UI_M.Select_Item_Icon_Image[Index] == null) Debug.Log(2);
+                All_Manager.instance.UI_M.Select_Item_Icon_Image[Index].sprite = Temp_Food.Sprite_Image;
+
+                if (All_Manager.instance.UI_M.Select_Item_Name_Text[Index] == null) Debug.Log(3);
+                All_Manager.instance.UI_M.Select_Item_Name_Text[Index].text = Temp_Food.MISC_Name;
+
+                if (All_Manager.instance.UI_M.Select_Item_Example_Text[Index] == null) Debug.Log(4);
+                All_Manager.instance.UI_M.Select_Item_Example_Text[Index].text = Temp_Food.MISC_Text;
+            }
+
+            else
+            {
+                if (All_Manager.instance.UI_M.Select_Item_Icon_Image[Index] == null) Debug.Log(2);
+                All_Manager.instance.UI_M.Select_Item_Icon_Image[Index].sprite = Temp_WT.Item_Image;
+
+                if (All_Manager.instance.UI_M.Select_Item_Name_Text[Index] == null) Debug.Log(3);
+                All_Manager.instance.UI_M.Select_Item_Name_Text[Index].text = Temp_WT.Weapon_Name;
+
+                if (All_Manager.instance.UI_M.Select_Item_Example_Text[Index] == null) Debug.Log(4);
+                All_Manager.instance.UI_M.Select_Item_Example_Text[Index].text = Temp_WT.Weapon_Text;
+            }
+        }
+    }
+
+    public void Equipment_Select_Assign_Info(int Index, Equipment_Type p_ET)
+    {
+        STO_Equipment Temp_ET = All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(p_ET);
+
+        STO_MISC Temp_Food = All_Manager.instance.Resource_M.Convert_MISC_Type_To_STO_MISC_Arr(MISC_Type.Food);
+
+        if (All_Manager.instance.GameMode_M.Current_Player != null)
+        {
+            var Player_Equipment_Level = All_Manager.instance.GameMode_M.Current_Player.Convert_Equipment_Level_Player(p_ET);
+
+            if (Player_Equipment_Level >= 5)
+            {
+                if (All_Manager.instance.UI_M.Select_Item_Icon_Image[Index] == null) Debug.Log(2);
+                All_Manager.instance.UI_M.Select_Item_Icon_Image[Index].sprite = Temp_Food.Sprite_Image;
+
+                if (All_Manager.instance.UI_M.Select_Item_Name_Text[Index] == null) Debug.Log(3);
+                All_Manager.instance.UI_M.Select_Item_Name_Text[Index].text = Temp_Food.MISC_Name;
+
+                if (All_Manager.instance.UI_M.Select_Item_Example_Text[Index] == null) Debug.Log(4);
+                All_Manager.instance.UI_M.Select_Item_Example_Text[Index].text = Temp_Food.MISC_Text;
+            }
+
+            else
+            {
+                All_Manager.instance.UI_M.Select_Item_Icon_Image[Index].sprite = Temp_ET.Sprite_Image;
+                All_Manager.instance.UI_M.Select_Item_Name_Text[Index].text = Temp_ET.Equipment_Name;
+                All_Manager.instance.UI_M.Select_Item_Example_Text[Index].text = Temp_ET.Equipment_Text;
+            }
+        }
+
+
+        //Select_Item_Button[Index].onClick.AddListener(() => { All_Manager.instance.GameMode_M.Current_Player.Update_Get_Equipment(p_ET); }); 
+    }
+
+    // 인게임 무기 아이콘 갱신
+    public void Renew_Current_Weapon_Icon()
+    {
+        if (All_Manager.instance.GameMode_M.Current_Player.Current_HP <= 0)
+        {
+            for (int i = 0; i < All_Manager.instance.UI_M.Basic_Current_Weapon_Icon_Image.Length; i++)
+            {
+                All_Manager.instance.UI_M.Basic_Current_Weapon_Icon_Image[i].gameObject.SetActive(false);
+                All_Manager.instance.UI_M.Player_Info_s_Current_Weapon_Icon_Image[i].gameObject.SetActive(false);
+
+                var Temp_WTO = All_Manager.instance.Resource_M.STO_Weapons;
+
+                for (int j = 0; j < Temp_WTO.Length; j++)
+                {
+                    var Temp_WT = Temp_WTO[j].WT;
+
+                    var Temp_Weapon_Sprite = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(Temp_WT).Item_Image;
+
+                    if (All_Manager.instance.UI_M.Weapon_Icon_List.Contains(Temp_Weapon_Sprite))
+                    {
+                        All_Manager.instance.UI_M.Weapon_Icon_List.Remove(Temp_Weapon_Sprite);
+                    }
+
+                }
+            }
+        }
+
+        else
+        {
+            for (int i = 0; i < All_Manager.instance.UI_M.Weapon_Icon_List.Count; i++)
+            {
+                All_Manager.instance.UI_M.Basic_Current_Weapon_Icon_Image[i].sprite = All_Manager.instance.UI_M.Weapon_Icon_List[i];
+                All_Manager.instance.UI_M.Basic_Current_Weapon_Icon_Image[i].gameObject.SetActive(true);
+
+                All_Manager.instance.UI_M.Player_Info_s_Current_Weapon_Icon_Image[i].sprite = All_Manager.instance.UI_M.Weapon_Icon_List[i];
+                All_Manager.instance.UI_M.Player_Info_s_Current_Weapon_Icon_Image[i].gameObject.SetActive(true);
+            }
+        }
+
+    }
+
+    // 인게임 장신구 아이콘 갱신
+    public void Renew_Current_Equipment_Icon()
+    {
+        if (All_Manager.instance.GameMode_M.Current_Player.Current_HP <= 0)
+        {
+            for (int i = 0; i < All_Manager.instance.UI_M.Basic_Current_Equipment_Icon_Image.Length; i++)
+            {
+                All_Manager.instance.UI_M.Basic_Current_Equipment_Icon_Image[i].gameObject.SetActive(false);
+                All_Manager.instance.UI_M.Player_Info_s_Current_Equipment_Icon_Image[i].gameObject.SetActive(false);
+
+                var Temp_ETO = All_Manager.instance.Resource_M.STO_Equipments;
+
+                for (int j = 0; j < Temp_ETO.Length; j++)
+                {
+                    var Temp_ET = Temp_ETO[j].ET;
+
+                    var Temp_Equipment_Sprite = All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Temp_ET).Sprite_Image;
+
+                    if (All_Manager.instance.UI_M.Equipment_Icon_List.Contains(Temp_Equipment_Sprite))
+                    {
+                        All_Manager.instance.UI_M.Equipment_Icon_List.Remove(Temp_Equipment_Sprite);
+
+                    }
+
+                }
+            }
+
+        }
+
+        else
+        {
+            for (int i = 0; i < All_Manager.instance.UI_M.Equipment_Icon_List.Count; i++)
+            {
+                All_Manager.instance.UI_M.Basic_Current_Equipment_Icon_Image[i].sprite = All_Manager.instance.UI_M.Equipment_Icon_List[i];
+                All_Manager.instance.UI_M.Basic_Current_Equipment_Icon_Image[i].gameObject.SetActive(true);
+
+                All_Manager.instance.UI_M.Player_Info_s_Current_Equipment_Icon_Image[i].sprite = All_Manager.instance.UI_M.Equipment_Icon_List[i];
+                All_Manager.instance.UI_M.Player_Info_s_Current_Equipment_Icon_Image[i].gameObject.SetActive(true);
+            }
+
+        }
+    }
+  
+ */
+
+#region
+/*
+         var Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_Weapon.WT);
+
+        var Weapon_WLAT = Convert_WLAT_Player(Weapon_STO);
+
+        switch (p_Weapon.WeaponKeywords)
+        {
+            case WeaponKeyword.NONE:
+                break;
+            case WeaponKeyword.Bound:
+                {
+                    switch (p_Weapon.WT)
+                    {
+                        case Weapon_Type.Axe:
+                            {
+                                if (Axe_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywords);
+                            }
+                            break;
+                        case Weapon_Type.RuneTracer:
+                            {
+                                if (RuneTracer_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywords);
+                            }
+                            break;
+                    }
+                }
+                break;
+            case WeaponKeyword.Phoenix:
+                {
+                    switch (p_Weapon.WT)
+                    {
+                        case Weapon_Type.Peachone:
+                            {
+                                if (Peachone_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywords);
+                            }
+                            break;
+                        case Weapon_Type.FireWand:
+                            {
+                                if (FireWand_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywords);
+                            }
+                            break;
+                    }
+                }
+                break;
+            case WeaponKeyword.Paladin:
+                {
+                    switch (p_Weapon.WT)
+                    {
+                        case Weapon_Type.ShadowPinion:
+                            {
+                                if (ShadowPinion_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywords);
+                            }
+                            break;
+                        case Weapon_Type.Cross:
+                            {
+                                if (Cross_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywords);
+                            }
+                            break;
+                    }
+                }
+                break;
+            case WeaponKeyword.Sonic:
+                switch (p_Weapon.WT)
+                {
+                    case Weapon_Type.LightningRing:
+                        {
+                            if (LightningRing_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywords);
+                        }
+                        break;
+                    case Weapon_Type.Whip:
+                        {
+                            if (Whip_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywords);
+                        }
+                        break;
+                }
+                break;
+            case WeaponKeyword.Holy:
+                switch (p_Weapon.WT)
+                {
+                    case Weapon_Type.Garlic:
+                        {
+                            if (Garlic_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywords);
+                        }
+                        break;
+                    case Weapon_Type.KingBible:
+                        {
+                            if (KingBible_LAT.Level > 0) weaponKeywardList.Add(p_Weapon.WeaponKeywords);
+                        }
+                        break;
+                }
+                break;
+        }
+ */
+//if (Dis > Vector3.Distance(this.transform.position, Gem_Temp.transform.position))
+//{
+//    Dis = Vector3.Distance(this.transform.position, Gem_Temp.transform.position);
+//    Target_Gem = Gem_Temp;
+//}
+//if (Gem_Temp == null) return;
+
+//var Temp_Equipment = 
+
+//if (p_WT == Weapon_Type.Axe)
+//{
+//    Axe_LAT.Level++;
+
+//    for (int i = 0; i < All_Weapon.Count; i++)
+//    {
+//        if (All_Weapon[i].GetComponent<Weapon_Axe>())
+//        {
+//            All_Weapon[i].Upgrade(Axe_LAT.Level);
+//        }
+//    }
+
+//}
+//if (InputVec.x <= 0)
+//{
+//    Player_Right = false;
+//}
+
+//if (Player_Right == true)
+//{
+//    The_Scale.x *= -1;
+//}
+
+//Vector3 The_Scale = this.transform.localScale;
+//The_Scale.x *= -1;
+//this.transform.localScale = The_Scale;
+//if (Target_Gem == null) return;
+
+//if (Target_Gem != null)
+//{
+//    Debug.Log("Gem Not Null");
+
+//    //���� �ٲٰ�
+//    Vector2 Dir = (this.transform.position - Target_Gem.transform.position).normalized;
+
+//    //float angle = Mathf.Atan2(Dir.y, Dir.x) * Mathf.Rad2Deg;
+//    //Target_Gem.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+
+//    //Target_Gem.transform.position = Target_Gem.transform.position + Target_Gem.transform.right * (5.0f * Time.deltaTime);
+//    var Gem_Dir = Dir * 0.1f;
+
+//    Target_Gem.Gem_To_Player(Gem_Dir);
+//}
+//else
+//{
+//    Debug.Log("Gem Null");
+//}
+
+// �� ������ ���ؼ� ������
+
+//if (All_Manager.instance != null && All_Manager.instance.GameMode_M != null && All_Manager.instance.GameMode_M.Gem_List != null && All_Manager.instance.GameMode_M.Gem_List.Count > 0)
+//{
+//    int Count_To_Gem_Spawn = All_Manager.instance.GameMode_M.Enemy_List.Count;
+
+//    List<int> Spawned_Gem_Indices = new List<int>();
+
+//    for (int i = 0; i < Count_To_Gem_Spawn; i++)
+//    {
+
+//        if (Spawned_Gem_Indices.Contains(i))
+//        {
+
+//        }
+//        else
+//        {
+//            continue;
+//        }
+
+//        Spawned_Gem_Indices.Add(i);
+
+//        var Check_Null_Gem = All_Manager.instance.GameMode_M.Gem_List[i];
+
+//        if (Check_Null_Gem == null)
+//        {
+//            continue;
+//        }
+
+//        var Gem_trasform = All_Manager.instance.GameMode_M.Gem_List[i].transform;
+
+//        if (Gem_trasform != null)
+//        {
+//            Debug.Log("Gem Not Null");
+//            Vector2 Dir = this.transform.position - Gem_trasform.position;
+//            float angle = Mathf.Atan2(Dir.y, Dir.x) * Mathf.Rad2Deg;
+//            Gem_trasform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+//        }
+//        else
+//        {
+//            Debug.Log("Gem NULL");
+//        }
+
+//        Gem_trasform.position = Gem_trasform.position + Gem_trasform.right * (5.0f * Time.deltaTime);
+
+//      }
+
+
+//}
+
+//int Create_KingBible_Count = 0;
+
+//for (int i = 0; i < All_Weapon.Count; i++)
+//{
+//    if (All_Weapon[i] == GetComponent<Weapon_KingBible>())
+//    {
+//        if (All_Weapon[i].GetComponent<Weapon_KingBible>().Weapon_Mine_KingBible_Count < Current_Weapon_Count(Weapon_Type.KingBible, KingBible_LAT))
+//        {
+//            All_Weapon[i].GetComponent<Weapon_KingBible>().Weapon_Mine_KingBible_Count++;
+//        }
+
+//    }
+//}
+
+
+// ���⼭ All_Weapon�� �ִ� ��� ������ �ٽ� ����
+// All_Weapon.GetComponent<KingBible>().Max = 3;
+// All_Weapon.GetComponent<KingBible>().Current = 3;
+//
+// 1 2 3
+
+//var KingBibles = this.GetComponentsInChildren<Weapon_KingBible>();
+//KingBibles.Length
+
+//int Player_Weapon_KingBible_Count = 0;
+
+//for (int i = 0; i < All_Weapon.Count; i++)
+//{
+//    if (All_Weapon[i].GetComponent<Weapon_KingBible>())
+//    {
+//        All_Weapon[i].GetComponent<Weapon_KingBible>().Weapon_Mine_KingBible_Count++;
+
+//        if (All_Weapon[i].GetComponent<Weapon_KingBible>().Weapon_Mine_KingBible_Count > All_Weapon[i].GetComponent<Weapon_KingBible>().Weapon_Max_KingBible_Count)
+//        {
+//            All_Weapon[i].GetComponent<Weapon_KingBible>().Weapon_Max_KingBible_Count++;
+//        }
+//    }
+
+//}
+
+//Debug.Log("Player_Weapon_KingBible_Count : " + Player_Weapon_KingBible_Count);
+
+
+//float xInput = Input.GetAxis("Horizontal");
+//float yInput = Input.GetAxis("Vertical");
+
+//float xSpeed = xInput * Xspeed * Time.deltaTime;
+//float ySpeed = yInput * Yspeed * Time.deltaTime;
+
+//�� �����ΰ���
+// this.transform.position = this.transform.position + (this.transform.up * ySpeed);
+
+//����
+// this.transform.Rotate(new Vector3(0, 0, -xSpeed));
+
+//if (Skill_Full < Skill_Cool)
+//{
+
+//    Skill_Full += Time.deltaTime;
+//    All_Manager.instance.UI_M.Update_Player_Skill_Image(Skill_Full / Skill_Cool);
+//    Temp_Go = Instantiate(Garlic_Go, null);
+//    Temp_Go.transform.parent = this.transform;
+//    if (Temp_Go.GetComponent<Garlic>())
+//    {
+//        yield return new WaitUntil(() => Temp_Go.GetComponent<Garlic>().SR);
+//        All_Manager.instance.Resource_M.Weapon_Stat(Temp_Go.GetComponent<Garlic>(), All_Manager.instance.Resource_M.STO_Garlic);
+//    }
+//}
+//else
+//{
+//    Skill_Full = 0.0f;
+//}
+
+//switch (p_WT)
+//{
+//    case Weapon_Type.None:
+//        {
+//        }
+//        break;
+//    case Weapon_Type.KingBible:
+//        {
+//            //Temp_Go = Instantiate(Weapon_Go, null);
+//            GameObject Weapon_Go = new GameObject("KingBible");
+//            Weapon_Go.AddComponent<KingBible>();
+//            Weapon_Go.transform.parent = this.transform;
+//            if (Weapon_Go.GetComponent<KingBible>())
+//            {
+//                yield return new WaitUntil(() => Weapon_Go.GetComponent<KingBible>().SR);
+//                All_Manager.instance.Resource_M.Weapon_Stat(Weapon_Go.GetComponent<KingBible>(), All_Manager.instance.Resource_M.STO_KingBible);
+//            }
+//            if (Weapon_Go.GetComponent<Weapon>())
+//            {
+//                Weapon_Go.GetComponent<Weapon>().Weapon_Init(this);
+//            }
+//        }
+//        break;
+//    case Weapon_Type.SpellBook:
+//        {
+//            //Temp_Go = Instantiate(SpellBook_Go, null);
+//            GameObject SpellBook_Go = new GameObject("SpellBook");
+//            SpellBook_Go.AddComponent<SpellBook>();
+//            SpellBook_Go.transform.parent = this.transform;
+//            if (SpellBook_Go.GetComponent<SpellBook>())
+//            {
+//                yield return new WaitUntil(() => SpellBook_Go.GetComponent<SpellBook>().SR);
+//                All_Manager.instance.Resource_M.Weapon_Stat(SpellBook_Go.GetComponent<SpellBook>(), All_Manager.instance.Resource_M.STO_SpellBook);
+//            }
+//            if (SpellBook_Go.GetComponent<Weapon>())
+//            {
+//                SpellBook_Go.GetComponent<Weapon>().Weapon_Init(this);
+//            }
+//        }
+//        break;
+//    case Weapon_Type.FireWand_Launcher:
+//        {
+//            //Temp_Go = Instantiate(FireWand_Launcher_Go, null);
+//            GameObject FireWand_Launcher_Go = new GameObject("FireWand_Launcher");
+//            FireWand_Launcher_Go.AddComponent<FireWand_Launcher>();
+//            FireWand_Launcher_Go.transform.parent = this.transform;
+//            if (FireWand_Launcher_Go.GetComponent<FireWand_Launcher>())
+//            {
+//                yield return new WaitUntil(() => FireWand_Launcher_Go.GetComponent<FireWand_Launcher>().SR);
+//                All_Manager.instance.Resource_M.Weapon_Stat(FireWand_Launcher_Go.GetComponent<FireWand_Launcher>(), All_Manager.instance.Resource_M.STO_FireWand_Launcher);
+//            }
+//            if (FireWand_Launcher_Go.GetComponent<Weapon>())
+//            {
+//                FireWand_Launcher_Go.GetComponent<Weapon>().Weapon_Init(this);
+//            }
+//        }
+//        break;
+//    case Weapon_Type.ShadowPinion_Launcher:
+//        {
+//            //Temp_Go = Instantiate(ShadowPinion_Launcher_Go, null);
+//            GameObject ShadowPinion_Launcher_Go = new GameObject("ShadowPinion_Launcher");
+//            ShadowPinion_Launcher_Go.AddComponent<ShadowPinion_Launcher>();
+//            ShadowPinion_Launcher_Go.transform.parent = this.transform;
+//            if (ShadowPinion_Launcher_Go.GetComponent<ShadowPinion_Launcher>())
+//            {
+//                yield return new WaitUntil(() => ShadowPinion_Launcher_Go.GetComponent<ShadowPinion_Launcher>().SR);
+//                All_Manager.instance.Resource_M.Weapon_Stat(ShadowPinion_Launcher_Go.GetComponent<ShadowPinion_Launcher>(), All_Manager.instance.Resource_M.STO_ShadowPinion_Launcher);
+//            }
+//            if (ShadowPinion_Launcher_Go.GetComponent<Weapon>())
+//            {
+//                ShadowPinion_Launcher_Go.GetComponent<Weapon>().Weapon_Init(this);
+//            }
+//        }
+//        break;
+//    case Weapon_Type.Garlic:
+//        {
+//            //Temp_Go = Instantiate(Garlic_Go, null);
+//            GameObject Garlic_Go = new GameObject("Garlic");
+//            Garlic_Go.AddComponent<Garlic>();
+//            Garlic_Go.transform.parent = this.transform;
+//            if (Garlic_Go.GetComponent<Garlic>())
+//            {
+//                yield return new WaitUntil(() => Garlic_Go.GetComponent<Garlic>().SR);
+//                All_Manager.instance.Resource_M.Weapon_Stat(Garlic_Go.GetComponent<Garlic>(), All_Manager.instance.Resource_M.STO_Garlic);
+//            }
+//            if (Garlic_Go.GetComponent<Weapon>())
+//            {
+//                Garlic_Go.GetComponent<Weapon>().Weapon_Init(this);
+//            }
+//        }
+//        break;
+//    default:
+//        break;
+//}
+
+//public IEnumerator C_Create_Weapon(Weapon_Type p_PT)
+//{
+//    yield return new WaitWhile(() => Creating_Weapon == true);
+
+//    Creating_Weapon = true;
+
+//    GameObject Weapon_Go = null;
+
+//    switch (p_PT)
+//    {
+//        case Weapon_Type.None:
+//            break;
+//        case Weapon_Type.KingBible:
+//            {
+//                Weapon_Go = new GameObject("KingBible");
+
+//                Weapon_Go.AddComponent<Weapon_KingBible>();
+
+//                Weapon_Go.transform.parent = this.transform;
+//                if (Weapon_Go.GetComponent<Weapon_KingBible>())
+//                {
+//                    yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_KingBible>().SR);
+//                    Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, All_Manager.instance.Resource_M.STO_KingBible, KingBible_LAT.Level);
+
+//                    int Create_KingBible_Count = 1;
+
+//                    for (int i = 0; i < All_Weapon.Count; i++)
+//                    {
+//                        if (All_Weapon[i].GetComponent<Weapon_KingBible>())
+//                        {
+//                            Create_KingBible_Count++;
+//                        }
+//                    }
+
+//                    Weapon_Go.GetComponent<Weapon_KingBible>().Weapon_KingBible_Count = Create_KingBible_Count;
+//                }
+//            }
+//            break;
+//        case Weapon_Type.Garlic:
+//            {
+//                Weapon_Go = new GameObject("Garlic");
+
+//                Weapon_Go.AddComponent<Weapon_Garlic>();
+
+//                if (Weapon_Go.GetComponent<Weapon_Garlic>())
+//                {
+//                    yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_Garlic>().SR);
+//                    Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, All_Manager.instance.Resource_M.STO_Garlic, Garlic_LAT.Level);
+//                }
+//            }
+//            break;
+//        case Weapon_Type.LightningRing:
+//            {
+//                if (All_Manager.instance.GameMode_M.Enemy_List.Count > 10)
+//                {
+
+//                    for (int i = 0; i < 10; i++)
+//                    {
+//                        GameObject Temp_Go = Instantiate(Weapon_Go, All_Manager.instance.GameMode_M.Enemy_List[i].transform.position, Quaternion.identity);
+//                        Weapon_Go = new GameObject("LightningRing");
+//                        Weapon_Go.AddComponent<Weapon_LightningRing>();
+
+//                        Weapon_Go.transform.position = All_Manager.instance.GameMode_M.Enemy_List[i].transform.position;
+//                        Weapon_Go.transform.rotation = Quaternion.identity;
+
+//                        if (Weapon_Go.GetComponent<Weapon_LightningRing>())
+//                        {
+//                            yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_LightningRing>().SR);
+//                            Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, All_Manager.instance.Resource_M.STO_LightningRing, LightningRing_LAT.Level);
+//                        }
+
+//                    }
+//                }
+//                else
+//                {
+//                    for (int i = 0; i < All_Manager.instance.GameMode_M.Enemy_List.Count; i++)
+//                    {
+//                        GameObject Temp_Go = Instantiate(Weapon_Go, All_Manager.instance.GameMode_M.Enemy_List[i].transform.position, Quaternion.identity);
+//                        Weapon_Go = new GameObject("LightningRing");
+//                        Weapon_Go.AddComponent<Weapon_LightningRing>();
+
+//                        Weapon_Go.transform.position = All_Manager.instance.GameMode_M.Enemy_List[i].transform.position;
+//                        Weapon_Go.transform.rotation = Quaternion.identity;
+
+//                        if (Weapon_Go.GetComponent<Weapon_LightningRing>())
+//                        {
+//                            yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_LightningRing>().SR);
+//                            Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, All_Manager.instance.Resource_M.STO_LightningRing, LightningRing_LAT.Level);
+//                        }
+
+//                        Destroy(Weapon_Go, 2.5f);
+//                    }
+//                }
+
+//            }
+//            break;
+//        case Weapon_Type.FireWand:
+//            {
+//                Weapon_Go = new GameObject("FireWand");
+
+//                Weapon_Go.AddComponent<Weapon_FireWand>();
+
+//                if (Weapon_Go.GetComponent<Weapon_FireWand>())
+//                {
+//                    yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_FireWand>().SR);
+//                    Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, All_Manager.instance.Resource_M.STO_FireWand, FireWand_LAT.Level);
+//                }
+//            }
+//            break;
+//        case Weapon_Type.ShadowPinion:
+//            {
+//                Weapon_Go = new GameObject("ShadowPinion");
+
+//                Weapon_Go.AddComponent<Weapon_ShadowPinion>();
+
+//                if (Weapon_Go.GetComponent<Weapon_ShadowPinion>())
+//                {
+//                    yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_ShadowPinion>().SR);
+//                    Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, All_Manager.instance.Resource_M.STO_ShadowPinion, ShadowPinion_LAT.Level);
+//                }
+//            }
+//            break;
+//        case Weapon_Type.Axe:
+//            {
+//                Weapon_Go = new GameObject("Axe");
+
+//                Weapon_Go.AddComponent<Axe>();
+
+
+
+//                if (Weapon_Go.GetComponent<Axe>())
+//                {
+//                    yield return new WaitUntil(() => Weapon_Go.GetComponent<Axe>().SR);
+//                    Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, All_Manager.instance.Resource_M.STO_Axe, Axe_LAT.Level);
+//                    Vector3 One = this.transform.position;
+//                    Vector3 Two = One + new Vector3(0, 5, 0); // ��
+//                    Vector3 Three = Two + new Vector3(5, 0, 0); //������
+//                    Vector3 Four = One + new Vector3(5, -10, 0); // ������ �Ʒ�
+
+
+//                    Weapon_Go.GetComponent<Axe>().Axe_Init(One, Two, Three, Four);
+//                }
+
+//            }
+//            break;
+//        default:
+//            break;
+//    }
+
+//    All_Weapon.Add(Weapon_Go.GetComponent<Weapon>());
+
+//    Creating_Weapon = false;
+//}
+
+//if (All_Manager.instance.GameMode_M.Enemy_List.Count > 10)
+//{
+
+//    for (int i = 0; i < 10; i++)
+//    {
+//        //GameObject Temp_Go = Instantiate(Weapon_Go, All_Manager.instance.GameMode_M.Enemy_List[i].transform.position, Quaternion.identity);
+//        Weapon_Go = new GameObject("LightningRing");
+//        Weapon_Go.AddComponent<Weapon_LightningRing>();
+
+//        Weapon_Go.transform.position = All_Manager.instance.GameMode_M.Enemy_List[i].transform.position;
+//        Weapon_Go.transform.rotation = Quaternion.identity;
+//        Weapon_Go.transform.localScale = Vector3.one;
+
+//        if (Weapon_Go.GetComponent<Weapon_LightningRing>())
+//        {
+//            yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_LightningRing>().SR);
+//            Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, All_Manager.instance.Resource_M.STO_LightningRing, LightningRing_LAT.Level);
+//        }
+
+//    }
+//}
+//else
+//{
+//    for (int i = 0; i < All_Manager.instance.GameMode_M.Enemy_List.Count; i++)
+//    {
+//        //GameObject Temp_Go = Instantiate(Weapon_Go, All_Manager.instance.GameMode_M.Enemy_List[i].transform.position, Quaternion.identity);
+//        Weapon_Go = new GameObject("LightningRing");
+//        Weapon_Go.AddComponent<Weapon_LightningRing>();
+
+//        Weapon_Go.transform.position = All_Manager.instance.GameMode_M.Enemy_List[i].transform.position;
+//        Weapon_Go.transform.rotation = Quaternion.identity;
+//        Weapon_Go.transform.localScale = Vector3.one;
+
+//        if (Weapon_Go.GetComponent<Weapon_LightningRing>())
+//        {
+//            yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_LightningRing>().SR);
+//            Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, All_Manager.instance.Resource_M.STO_LightningRing, LightningRing_LAT.Level);
+//        }
+
+//        Destroy(Weapon_Go, 2.5f);
+//    }
+//}
+
+//public void Get_Equipment(Equipment_Type p_ET)
+//{
+//    StartCoroutine(C_Get_Equipment(p_ET));
+//}
+
+//public IEnumerator C_Get_Equipment(Equipment_Type p_ET)
+//{
+//    // ���� Temp�� ���̿��� �߻��ϴ� �����ΰ����� ���δ�.
+//    // �ϴ� �� ���� ����
+//    // ���� �ϴ� �ٽ� �ѹ�
+//    yield return new WaitWhile(() => Creating_Equipment == true);
+
+//    var Temp = All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment(p_ET);
+
+//    Creating_Equipment = true;
+
+//    if (p_ET == Equipment_Type.None)
+//    {
+
+//    }
+
+//    if (p_ET == Equipment_Type.HollowHeart)
+//    {
+//        yield return new WaitUntil(() => (Temp = All_Manager.instance.Resource_M.STO_Equipment_HollowHeart));
+//        if (Temp == All_Manager.instance.Resource_M.STO_Equipment_HollowHeart)
+//        {
+//            HollowHeart_Level++;
+
+//            Get_Equipment_Player_Percentage_Stat(this, Temp);
+//            Debug.Log(Temp);
+//            Debug.Log("��ű� ����");
+//        }
+//    }
+
+//    if (p_ET == Equipment_Type.Wings)
+//    {
+//        Wings_Level++;
+
+//        Get_Equipment_Player_Percentage_Stat(this, Temp);
+//    }
+
+//    if (p_ET == Equipment_Type.Armour)
+//    {
+//        Armour_Level++;
+
+//        Get_Equipment_Player_Percentage_Stat(this, Temp);
+//    }
+
+//    if (p_ET == Equipment_Type.Spinach)
+//    {
+//        Spinach_Level++;
+
+//        Get_Equipment_Player_Percentage_Stat(this, Temp);
+//    }
+
+//    if (p_ET == Equipment_Type.Bracer)
+//    {
+//        Bracer_Level++;
+
+//        Get_Equipment_Player_Percentage_Stat(this, Temp);
+//    }
+
+//    if (p_ET == Equipment_Type.SpellBinder)
+//    {
+//        SpellBinder_Level++;
+
+//        Get_Equipment_Player_Percentage_Stat(this, Temp);
+//    }
+
+//    if (p_ET == Equipment_Type.Candelabrador)
+//    {
+//        Candelabrador_Level++;
+
+//        Get_Equipment_Player_Percentage_Stat(this, Temp);
+//    }
+
+//    if (p_ET == Equipment_Type.EmptyTome)
+//    {
+//        EmptyTome_Level++;
+
+//        Get_Equipment_Player_Percentage_Stat(this, Temp);
+//    }
+
+//    if (p_ET == Equipment_Type.Duplicator)
+//    {
+//        Duplicator_Level++;
+
+//        Get_Equipment_Player_Percentage_Stat(this, Temp);
+//    }
+
+//    if (p_ET == Equipment_Type.Attractorb)
+//    {
+//        Attractorb_Level++;
+
+//        Get_Equipment_Player_Percentage_Stat(this, Temp);
+//    }
+
+//    if (Temp != null)
+//    {
+//        All_Equipment.Add(Temp);
+//    }
+
+//    Creating_Equipment = false;
+//}
+#endregion
 
 /// 유닛 플레이어 스크립트 주석들
 ///
