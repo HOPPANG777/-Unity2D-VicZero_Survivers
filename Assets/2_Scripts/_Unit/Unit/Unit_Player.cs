@@ -231,7 +231,7 @@ public class Unit_Player : Unit
         var enemyList = All_Manager.instance.GameMode_M?.Enemy_List;
         if (enemyList != null && enemyList.Count > 0)
         {
-            int randomIndex = Random.Range(0, enemyList.Count);
+            int randomIndex = UnityEngine.Random.Range(0, enemyList.Count);
             var targetEnemy = enemyList[randomIndex];
             return targetEnemy?.transform.position ?? Vector3.zero;
         }
@@ -281,14 +281,14 @@ public class Unit_Player : Unit
                     if (Weapon_Trigger)
                     {
                         Two = One + new Vector3(0, 5, 0);
-                        Three = Two + new Vector3(Random.Range(1, 5), 0, 0);
-                        Four = One + new Vector3(Random.Range(1, 5), -10, 0);
+                        Three = Two + new Vector3(UnityEngine.Random.Range(1, 5), 0, 0);
+                        Four = One + new Vector3(UnityEngine.Random.Range(1, 5), -10, 0);
                     }
                     else
                     {
                         Two = One + new Vector3(0, 5, 0);
-                        Three = Two + new Vector3(Random.Range(-5, -1), 0, 0);
-                        Four = One + new Vector3(Random.Range(-5, -1), -10, 0);
+                        Three = Two + new Vector3(UnityEngine.Random.Range(-5, -1), 0, 0);
+                        Four = One + new Vector3(UnityEngine.Random.Range(-5, -1), -10, 0);
                     }
                     Weapon_Axe waeponAxe = weaponGo.GetComponent<Weapon_Axe>();
 
@@ -376,10 +376,10 @@ public class Unit_Player : Unit
                     var W_Cross_S = Weapon_STO.Info_s[Cross_LAT.Level];
 
                     Vector3 One = this.transform.position;
-                    Vector3 Target = One + new Vector3(Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range), Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range), 0);
+                    Vector3 Target = One + new Vector3(UnityEngine.Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range), UnityEngine.Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range), 0);
 
-                    Vector3 Two = One + (Target - One) / 3 + new Vector3(Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2, Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2, 0);
-                    Vector3 Three = Target + (One - Target) / 3 + new Vector3(Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2, Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2, 0);
+                    Vector3 Two = One + (Target - One) / 3 + new Vector3(UnityEngine.Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2, UnityEngine.Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2, 0);
+                    Vector3 Three = Target + (One - Target) / 3 + new Vector3(UnityEngine.Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2, UnityEngine.Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2, 0);
                     Vector3 Four = One + ((One - Target) * W_Cross_S.Weapon_Range);
 
                     weaponGo.GetComponent<Weapon_Cross>().Weapon_Init(this, Weapon_STO, Cross_LAT.Level);
@@ -407,7 +407,7 @@ public class Unit_Player : Unit
 
                         for (int i = 0; i < Count_To_Spawn; i++)
                         {
-                            int Random_Index = Random.Range(0, All_Manager.instance.GameMode_M.Enemy_List.Count);
+                            int Random_Index = UnityEngine.Random.Range(0, All_Manager.instance.GameMode_M.Enemy_List.Count);
 
                             if (Spawned_Indices.Contains(Random_Index))
                             {
@@ -445,7 +445,7 @@ public class Unit_Player : Unit
                 break;
             case Weapon_Type.ShadowPinion:
                 {
-                    weaponGo.transform.position = this.transform.position + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0);
+                    weaponGo.transform.position = this.transform.position + new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), UnityEngine.Random.Range(-0.5f, 0.5f), 0);
                     weaponGo.transform.rotation = Quaternion.identity;
                     weaponGo.transform.localScale = Vector3.one;
 
@@ -467,13 +467,13 @@ public class Unit_Player : Unit
                 {
                     if (Weapon_Trigger)
                     {
-                        weaponGo.transform.position = this.transform.position + new Vector3(-2f + Random.Range(-0.5f, 0.5f), -0.1f + Random.Range(-0.2f, 0.2f), 0);
+                        weaponGo.transform.position = this.transform.position + new Vector3(-2f + UnityEngine.Random.Range(-0.5f, 0.5f), -0.1f + UnityEngine.Random.Range(-0.2f, 0.2f), 0);
                         weaponGo.transform.rotation = Quaternion.identity;
                         weaponGo.transform.localScale = new Vector3(-4, -1, -1);
                     }
                     else
                     {
-                        weaponGo.transform.position = this.transform.position + new Vector3(2f + Random.Range(-0.5f, 0.5f), -0.1f + Random.Range(-0.2f, 0.2f), 0);
+                        weaponGo.transform.position = this.transform.position + new Vector3(2f + UnityEngine.Random.Range(-0.5f, 0.5f), -0.1f + UnityEngine.Random.Range(-0.2f, 0.2f), 0);
                         weaponGo.transform.rotation = Quaternion.identity;
                         weaponGo.transform.localScale = new Vector3(4, 1, 1);
                     }
