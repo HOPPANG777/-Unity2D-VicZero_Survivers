@@ -346,7 +346,6 @@ public class Unit_Player : Unit
                     weaponGo.GetComponent<Weapon_Peachone>().Peachone_Init(One, Two, Three, Four);
                     CheckSynergyEffects(weaponGo.GetComponent<Weapon_Peachone>().WeaponKeyword);
                     All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.Peachone);
-
                 }
                 break;
             case Weapon_Type.FireWand:
@@ -618,8 +617,7 @@ public class Unit_Player : Unit
         }
     }
 
-
-
+    //
     public void Upgrade_Equipment(Equipment_Type p_ET)
     {
         if (equipmentLevels.ContainsKey(p_ET))
@@ -681,7 +679,6 @@ public class Unit_Player : Unit
                 break;
         }
     }
-
 
     //
     public void Get_Equipment_Player_Percentage_Stat(Unit Player_Unit, STO_Equipment Eq_STO)
@@ -817,6 +814,7 @@ public class Unit_Player : Unit
         return equipmentLevels.TryGetValue(p_ET, out int level) ? level : 0;
     }
 
+    //
     private float GetCurrentWeaponStat(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT, Func<Weapon_Information, float> statSelector)
     {
         var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
@@ -829,12 +827,14 @@ public class Unit_Player : Unit
         return statSelector(weaponInfo) + weaponStatValue;
     }
 
+    //
     public int Current_Weapon_Count(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
         var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
         return this.Origin_Stat.Unit_Weapon_Proj_Count + STO_Weapon_STO.Info_s[p_WLAT.Level].Weapon_Count;
     }
 
+    //
     public float Current_Weapon_CoolDown(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
         var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
@@ -845,27 +845,31 @@ public class Unit_Player : Unit
         return weaponInfo.Weapon_CoolDown - weaponCoolDownValue;
     }
 
-
+    //
     public float Current_Weapon_Range(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
         return GetCurrentWeaponStat(p_WT, p_WLAT, weaponInfo => weaponInfo.Weapon_Range);
     }
 
+    //
     public float Current_Weapon_Size(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
         return GetCurrentWeaponStat(p_WT, p_WLAT, weaponInfo => weaponInfo.Weapon_Size);
     }
 
+    //
     public float Current_Weapon_Speed(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
         return GetCurrentWeaponStat(p_WT, p_WLAT, weaponInfo => weaponInfo.Weapon_Speed);
     }
 
+    //
     public float Current_Weapon_Damage(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
         return GetCurrentWeaponStat(p_WT, p_WLAT, weaponInfo => weaponInfo.Weapon_Damage);
     }
 
+    //
     public float Current_Weapon_Duration(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
         return GetCurrentWeaponStat(p_WT, p_WLAT, weaponInfo => weaponInfo.Weapon_Duration);
@@ -892,7 +896,7 @@ public class Unit_Player : Unit
         }
     }
 
-    // �ó��� ȿ�� ���� �Լ�
+    // 
     public void ApplySynergyEffect(WeaponKeyword keyword)
     {
         switch (keyword)
@@ -943,11 +947,11 @@ public class Unit_Player : Unit
                     }
                 }
                 break;
-                // �ٸ� Ű���忡 ���� �ó��� ȿ�� �߰� ����
+                // 
         }
     }
 
-    // �÷��̾� �̵�
+    // 
     public void Player_Move()
     {
         if (isDead == true) return;
@@ -975,7 +979,7 @@ public class Unit_Player : Unit
     }
 
 
-    // ü�� ȸ�� �Լ�
+    // 
     public void Recovery_Current_HP()
     {
         int Recovery_HP = 25;
@@ -993,13 +997,13 @@ public class Unit_Player : Unit
         All_Manager.instance.UI_M.Update_Player_HPBar_Image(Current_HP / Max_HP);
     }
 
-    // �� ȹ�� �Լ�
+    // 
     public void Get_Gem(float p_Get_Gem_Current_Count)
     {
         All_Manager.instance.GameMode_M.Add_Gem(p_Get_Gem_Current_Count);
     }
 
-    // ���� �÷��̾� ���� ����
+    // 
     public override void Unit_Stat_Setting(Unit p_Unit, STO_Unit p_Un_STO)
     {
         if (p_Unit == null)
@@ -1030,6 +1034,7 @@ public class Unit_Player : Unit
         }
     }
 
+    //
     public override void Unit_Animation(Unit_Anim_State State)
     {
         base.Unit_Animation(State);

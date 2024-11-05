@@ -25,14 +25,14 @@ public enum Panel_Style
 
 public class UI_Manager : MonoBehaviour
 {
-    [Header("±âº» UI")]
+    [Header("ê¸°ë³¸ UI")]
     public Text Kill_Count_Text;
     public Text Time_Count_Text;
     public Text Player_Level_Count_Text;
     public UnityEngine.UI.Image Gem_Count_Image;
     public UnityEngine.UI.Image Player_HPbar_Image;
 
-    [Header("ÀÎ°ÔÀÓ ½ÌÅ© UI")]
+    [Header("ì¸ê²Œì„ ì‹±í¬ UI")]
     public UnityEngine.UI.Image Peachone_Range_Image;
     public UnityEngine.UI.Image Peachone_Image;
     public UnityEngine.UI.Image Force_Image;
@@ -42,7 +42,7 @@ public class UI_Manager : MonoBehaviour
     public Text Game_Pool_Ready_Text;
     public Text Mission_Text;
 
-    [Header("UIÄµ¹ö½º")]
+    [Header("UIìº”ë²„ìŠ¤")]
     public GameObject Basic_Panel;
     public GameObject Ingame_Sink_Panel;
     public GameObject Player_Information_Panel;
@@ -56,64 +56,64 @@ public class UI_Manager : MonoBehaviour
     public GameObject Treasure_Chest_Panel;
     public GameObject Ingame_Debug_Log;
 
-    [Header("Å¸ÀÌÆ² È­¸é")]
-    public UnityEngine.UI.Button[] Start_Weapon_Button;        // ½ÃÀÛ ¹öÆ° ´©¸£°í ³ª¿À´Â ¹«±â ¼±ÅÃ ¹öÆ°
+    [Header("íƒ€ì´í‹€ í™”ë©´")]
+    public UnityEngine.UI.Button[] Start_Weapon_Button;        // ì‹œì‘ ë²„íŠ¼ ëˆ„ë¥´ê³  ë‚˜ì˜¤ëŠ” ë¬´ê¸° ì„ íƒ ë²„íŠ¼
 
-    public UnityEngine.UI.Image[] Start_Weapon_Icon_Image;     // ½ÃÀÛ ¹«±â ¾ÆÀÌÄÜ
-    public Text[] Start_Weapon_Name_Text;       // ÀÌ¸§
-    public Text[] Start_Weapon_Example_Text;    // ¼³¸í
+    public UnityEngine.UI.Image[] Start_Weapon_Icon_Image;     // ì‹œì‘ ë¬´ê¸° ì•„ì´ì½˜
+    public Text[] Start_Weapon_Name_Text;                      // ì´ë¦„
+    public Text[] Start_Weapon_Example_Text;                   // ì„¤ëª…
 
-    public Text Start_Loding_Text;  // ½ÃÀÛ ÇÒ¶§ ·Îµù ÁßÀÓÀ» ¾Ë¸®´Â ÅØ½ºÆ®
+    public Text Start_Loding_Text;                             // ì‹œì‘ í• ë•Œ ë¡œë”© ì¤‘ì„ì„ ì•Œë¦¬ëŠ” í…ìŠ¤íŠ¸
 
-    [Header("½ÃÀÛ ¹«±â ÀÌ³Ñ")]
-    public int Start_First_Weapon_Number;   // ½ÃÀÛ ¹«±â ¹öÆ° 1¿¡¼­ ³ª¿Ã ¹«±â
-    public int Start_Second_Weapon_Number;  // ½ÃÀÛ ¹«±â ¹öÆ° 2¿¡¼­ ³ª¿Ã ¹«±â
+    [Header("ì‹œì‘ ë¬´ê¸° ì´ë„˜")]
+    public int Start_First_Weapon_Number;   // ì‹œì‘ ë¬´ê¸° ë²„íŠ¼ 1ì—ì„œ ë‚˜ì˜¬ ë¬´ê¸°
+    public int Start_Second_Weapon_Number;  // ì‹œì‘ ë¬´ê¸° ë²„íŠ¼ 2ì—ì„œ ë‚˜ì˜¬ ë¬´ê¸°
 
-    [Header("¾ÆÀÌÅÛ ¾ÆÀÌÄÜ")]
-    public List<Sprite> Weapon_Icon_List = new List<Sprite>();      // È¹µæÇÑ ¹«±âÀÇ ¾ÆÀÌÄÜ ÀúÀå
-    public List<Sprite> Equipment_Icon_List = new List<Sprite>();   // È¹µæÇÑ Àå½Å±¸ÀÇ ¾ÆÀÌÄÜ ÀúÀå
+    [Header("ì•„ì´í…œ ì•„ì´ì½˜")]
+    public List<Sprite> Weapon_Icon_List = new List<Sprite>();      // íšë“í•œ ë¬´ê¸°ì˜ ì•„ì´ì½˜ ì €ì¥
+    public List<Sprite> Equipment_Icon_List = new List<Sprite>();   // íšë“í•œ ì¥ì‹ êµ¬ì˜ ì•„ì´ì½˜ ì €ì¥
 
-    [Header("¾ÆÀÌÅÛ ÀÌ³Ñ")]
-    public int Select_First_Item_Number;    // Ã¹ ¹øÂ° ¹öÆ°¿¡¼­ ³ª¿Ã ¾ÆÀÌÅÛ 
-    public int Select_Second_Item_Number;   // µÎ ¹øÂ° ¹öÆ°¿¡¼­ ³ª¿Ã ¾ÆÀÌÅÛ
-    public int Select_Third_Item_Number;    // ¼¼ ¹øÂ° ¹öÆ°¿¡¼­ ³ª¿Ã ¾ÆÀÌÅÛ
+    [Header("ì•„ì´í…œ ì´ë„˜")]
+    public int Select_First_Item_Number;    // ì²« ë²ˆì§¸ ë²„íŠ¼ì—ì„œ ë‚˜ì˜¬ ì•„ì´í…œ 
+    public int Select_Second_Item_Number;   // ë‘ ë²ˆì§¸ ë²„íŠ¼ì—ì„œ ë‚˜ì˜¬ ì•„ì´í…œ
+    public int Select_Third_Item_Number;    // ì„¸ ë²ˆì§¸ ë²„íŠ¼ì—ì„œ ë‚˜ì˜¬ ì•„ì´í…œ
 
 
-    [Header("¾ÆÀÌÅÛ ¼±ÅÃÃ¢")]
-    public UnityEngine.UI.Button[] Select_Item_Button;     // ¾ÆÀÌÅÛ ¼±ÅÃ ¹öÆ°
+    [Header("ì•„ì´í…œ ì„ íƒì°½")]
+    public UnityEngine.UI.Button[] Select_Item_Button;     // ì•„ì´í…œ ì„ íƒ ë²„íŠ¼
 
-    public UnityEngine.UI.Image[] Select_Item_Icon_Image;  // ¼±ÅÃÇÒ ¾ÆÀÌÅÛÀÇ ÀÌ¹ÌÁö
-    public Text[] Select_Item_Name_Text;    // ¼±ÅÃÇÒ ¾ÆÀÌÅÛÀÇ ÀÌ¸§
-    public Text[] Select_Item_Example_Text; // ¼±ÅÃÇÒ ¾ÆÀÌÅÛÀÇ ¼³¸í
+    public UnityEngine.UI.Image[] Select_Item_Icon_Image;  // ì„ íƒí•  ì•„ì´í…œì˜ ì´ë¯¸ì§€
+    public Text[] Select_Item_Name_Text;    // ì„ íƒí•  ì•„ì´í…œì˜ ì´ë¦„
+    public Text[] Select_Item_Example_Text; // ì„ íƒí•  ì•„ì´í…œì˜ ì„¤ëª…
 
-    [Header("ÇÃ·¹ÀÌ¾î Á¤º¸Ã¢")]
-    // ÀÎ°ÔÀÓ ÇÃ·¹ÀÌ È­¸éÀÇ ÇöÀç ¹«±â¿Í Àå½Å±¸ ¾ÆÀÌÄÜ
+    [Header("í”Œë ˆì´ì–´ ì •ë³´ì°½")]
+    // ì¸ê²Œì„ í”Œë ˆì´ í™”ë©´ì˜ í˜„ì¬ ë¬´ê¸°ì™€ ì¥ì‹ êµ¬ ì•„ì´ì½˜
     public UnityEngine.UI.Image[] Basic_Current_Weapon_Icon_Image;
     public UnityEngine.UI.Image[] Basic_Current_Equipment_Icon_Image;
 
-    // ÀÎ°ÔÀÓ UI·Î ¶ç¿öÁÖ´Â ¹«±â ·¹º§
+    // ì¸ê²Œì„ UIë¡œ ë„ì›Œì£¼ëŠ” ë¬´ê¸° ë ˆë²¨
     public Text[] Weapon_Level_Text;
     public Text[] Equipment_Level_Text;
 
-    // ÇÃ·¹ÀÌ¾î Á¤º¸Ã¢ ÇöÀç ¹«±â¿Í Àå½Å±¸ ¾ÆÀÌÄÜ
+    // í”Œë ˆì´ì–´ ì •ë³´ì°½ í˜„ì¬ ë¬´ê¸°ì™€ ì¥ì‹ êµ¬ ì•„ì´ì½˜
     public UnityEngine.UI.Image[] Player_Info_s_Current_Weapon_Icon_Image;
     public UnityEngine.UI.Image[] Player_Info_s_Current_Equipment_Icon_Image;
 
-    // ÇÃ·¹ÀÌ¾î Á¤º¸Ã¢ ½ºÅÈ
+    // í”Œë ˆì´ì–´ ì •ë³´ì°½ ìŠ¤íƒ¯
     public Text[] Player_Info_s_Pase_One_Text;
     public Text[] Player_Info_s_Pase_Two_Text;
 
-    [Header("ÀÎ°ÔÀÓ ½ÌÅ© UI¿ë")]
-    public float W_Peachone_Deg = 0;    // PeachoneÀÇ °¢µµ(ÇÃ·¹ÀÌ¾î ÁÖº¯À» µ·´Ù).
-    public float W_Peachone_Range_Deg = 0;  // PeachoneÀÇ °ø°İ ¹üÀ§(ÇÃ·¹ÀÌ¾î ÁÖº¯À» µ·´Ù).
+    [Header("ì¸ê²Œì„ ì‹±í¬ UIìš©")]
+    public float W_Peachone_Deg = 0;    // Peachoneì˜ ê°ë„(í”Œë ˆì´ì–´ ì£¼ë³€ì„ ëˆë‹¤).
+    public float W_Peachone_Range_Deg = 0;  // Peachoneì˜ ê³µê²© ë²”ìœ„(í”Œë ˆì´ì–´ ì£¼ë³€ì„ ëˆë‹¤).
 
-    public bool isLevelUp = false;  // ·¹º§¾÷ »óÅÂÀÎÁö È®ÀÎ¿ë
+    public bool isLevelUp = false;  // ë ˆë²¨ì—… ìƒíƒœì¸ì§€ í™•ì¸ìš©
 
-    public float Speed = 1.0f;  // ·¹º§¾÷½Ã °æÇèÄ¡¹Ù Á¡¸ê ¼Óµµ.
-    public float Current_Blue = 0.0f;   // ÇöÀç RGBAÁß B»ö±ò
-    public bool Blinking = false;   // Á¡¸ê ÇÒ²¨³Ä.
+    public float Speed = 1.0f;  // ë ˆë²¨ì—…ì‹œ ê²½í—˜ì¹˜ë°” ì ë©¸ ì†ë„.
+    public float Current_Blue = 0.0f;   // í˜„ì¬ RGBAì¤‘ Bìƒ‰ê¹”
+    public bool Blinking = false;   // ì ë©¸ í• êº¼ëƒ.
 
-    [Header("º¸¹°»óÀÚ UI¿ë")]
+    [Header("ë³´ë¬¼ìƒì UIìš©")]
     public GameObject Treasure_Item_Image_01;
     public GameObject Treasure_Item_Image_02;
     public GameObject Treasure_Gem_Image_List;
@@ -142,7 +142,7 @@ public class UI_Manager : MonoBehaviour
     //public int Treasure_Got_Gem_Number = 0;
 
 
-    [Header("OnGUI¿ë")]
+    [Header("OnGUIìš©")]
     public string[] WP_Options;
     public string[] EQ_Options;
     public string[] PS_Options;
@@ -151,7 +151,7 @@ public class UI_Manager : MonoBehaviour
     public bool Equipment_On = false;
     public bool PanelStyle_On = false;
 
-    // ÆĞ³Î »óÅÂ º¯¼öµé
+    // íŒ¨ë„ ìƒíƒœ ë³€ìˆ˜ë“¤
     public bool Help_On = false;
     public bool Configuration_On = false;
     public bool WindowOptions_On = false;
@@ -161,7 +161,7 @@ public class UI_Manager : MonoBehaviour
     public bool TablesColumns_On = false;
     public bool InputsFocus_On = false;
 
-    // µğ¹ö±× Á¤º¸ º¯¼öµé
+    // ë””ë²„ê·¸ ì •ë³´ ë³€ìˆ˜ë“¤
     public bool WantCaptureMouse = true;
     public bool WantCaptureKeyboard = false;
     public bool NavActive = false;
@@ -280,49 +280,49 @@ public class UI_Manager : MonoBehaviour
         Mission_Text.text = p_Text;
     }
 
-    // Å³ Ä«¿îÆ® °»½Å
+    // í‚¬ ì¹´ìš´íŠ¸ ê°±ì‹ 
     public void Update_Kill_Count_Text(int p_Count)
     {
         Kill_Count_Text.text = "\t : " + p_Count;
     }
 
-    // ÇÃ·¹ÀÌ¾î ÇöÀç Ã¼·Â °»½Å
+    // í”Œë ˆì´ì–´ í˜„ì¬ ì²´ë ¥ ê°±ì‹ 
     public void Update_Player_HPBar_Image(float p_FillAmount_Value)
     {
         Player_HPbar_Image.fillAmount = p_FillAmount_Value;
     }
 
-    // ÇÃ·¹ÀÌ¾î ·¹º§ Ä«¿îÆ® °»½Å
+    // í”Œë ˆì´ì–´ ë ˆë²¨ ì¹´ìš´íŠ¸ ê°±ì‹ 
     public void Update_Player_Level_Count_Text(int p_Level_Count)
     {
         Player_Level_Count_Text.text = "Lv . " + p_Level_Count;
     }
 
-    // ¹«±â ·¹º§ Ä«¿îÆ® °»½Å
+    // ë¬´ê¸° ë ˆë²¨ ì¹´ìš´íŠ¸ ê°±ì‹ 
     public void Update_Weapon_Level_Count_Text(int Index, int p_Weapon_Level_Count)
     {
         Weapon_Level_Text[Index].text = "Lv. " + p_Weapon_Level_Count;
     }
 
-    // Àå½Å±¸ ·¹º§ Ä«¿îÆ® °»½Å
+    // ì¥ì‹ êµ¬ ë ˆë²¨ ì¹´ìš´íŠ¸ ê°±ì‹ 
     public void Update_Equipment_Level_Count_Text(int Index, int p_Equipment_Level_Count)
     {
         Equipment_Level_Text[Index].text = "Lv. " + p_Equipment_Level_Count;
     }
 
-    // °ÔÀÓ ½Ã°£ °æ°ú °»½Å
+    // ê²Œì„ ì‹œê°„ ê²½ê³¼ ê°±ì‹ 
     public void Update_Time_Count_Text(float p_Time_Count)
     {
         Time_Count_Text.text = ((int)p_Time_Count / 60 % 60).ToString("D2") + " : " + ((int)p_Time_Count % 60).ToString("D2");
     }
 
-    // °æÇèÄ¡ ¹Ù °»½Å
+    // ê²½í—˜ì¹˜ ë°” ê°±ì‹ 
     public void Update_Gem_Count_Image(float p_Fill_Amount_Gem_Count)
     {
         Gem_Count_Image.fillAmount = p_Fill_Amount_Gem_Count;
     }
 
-    // Å¬¸¯ Å×½ºÆ®
+    // í´ë¦­ í…ŒìŠ¤íŠ¸
     public void Click_Test()
     {
         Debug.Log("fd");
@@ -330,7 +330,7 @@ public class UI_Manager : MonoBehaviour
 
 
 
-    // ÇÃ·¹ÀÌ¾î¸¦ µû¶ó¿À´Â Ã¼·Â
+    // í”Œë ˆì´ì–´ë¥¼ ë”°ë¼ì˜¤ëŠ” ì²´ë ¥
     public void Update_MaxHPBar_Position_Image()
     {
         if (All_Manager.instance.GameMode_M.Current_Player != null)
@@ -341,7 +341,7 @@ public class UI_Manager : MonoBehaviour
         }
     }
 
-    // ·Îµù Ã¢
+    // ë¡œë”© ì°½
     public void Loding_Text()
     {
         if (All_Manager.instance.Pool_M.Ready == true)
@@ -350,7 +350,7 @@ public class UI_Manager : MonoBehaviour
         }
     }
 
-    // ÆĞ³Î Å´
+    // íŒ¨ë„ í‚´
     public void On_Panel(Panel_Style p_PS)
     {
         All_Manager.instance.GameMode_M.Game_Stop = true;
@@ -394,7 +394,7 @@ public class UI_Manager : MonoBehaviour
         Update_Panel_Check_Text(p_PS.ToString());
     }
 
-    // ÆĞ³Î ²û
+    // íŒ¨ë„ ë”
     public void Off_Panel()
     {
         All_Manager.instance.GameMode_M.Game_Stop = false;
@@ -426,14 +426,14 @@ public class UI_Manager : MonoBehaviour
 
     public void Renew_Player_Info_Stat()
     {
-        // ÆäÀÌÁö 1
+        // í˜ì´ì§€ 1
         Player_Info_s_Pase_One_Text[0].text = "" + All_Manager.instance.GameMode_M.Current_Player.Origin_Stat.Unit_HP;
         Player_Info_s_Pase_One_Text[1].text = "" + All_Manager.instance.GameMode_M.Current_Player.Origin_Stat.Unit_Speed;
         Player_Info_s_Pase_One_Text[2].text = "" + All_Manager.instance.GameMode_M.Current_Player.Origin_Stat.Unit_Defense + "%";
         Player_Info_s_Pase_One_Text[3].text = "" + All_Manager.instance.GameMode_M.Current_Player.Percent_Stat.Unit_Weapon_Damage + "%";
         Player_Info_s_Pase_One_Text[4].text = "" + All_Manager.instance.GameMode_M.Current_Player.Origin_Stat.Unit_Weapon_Proj_Speed + "%";
 
-        // ÆäÀÌÁö 2
+        // í˜ì´ì§€ 2
         Player_Info_s_Pase_Two_Text[0].text = "" + All_Manager.instance.GameMode_M.Current_Player.Percent_Stat.Unit_Weapon_Duration + "%";
         Player_Info_s_Pase_Two_Text[1].text = "" + All_Manager.instance.GameMode_M.Current_Player.Percent_Stat.Unit_Weapon_Range + "%";
         Player_Info_s_Pase_Two_Text[2].text = "-" + All_Manager.instance.GameMode_M.Current_Player.Percent_Stat.Unit_Weapon_CoolDown + "%";
@@ -487,7 +487,7 @@ public class UI_Manager : MonoBehaviour
 //            Peachone_Image.gameObject.SetActive(true);
 
 //            // Peachone_Image.rectTransform
-//            //µ¹¸®°í ³ª¼­
+//            //ëŒë¦¬ê³  ë‚˜ì„œ
 
 //            W_Peachone_Stat.Weapon_Time += Time.deltaTime * W_Peachone_Stat.Weapon_Speed;
 //            if (W_Peachone_Stat.Weapon_Time < 360)
@@ -495,8 +495,8 @@ public class UI_Manager : MonoBehaviour
 //                float x = W_Peachone_Stat.Weapon_Range * Mathf.Cos(W_Peachone_Stat.Weapon_Time);
 //                float y = W_Peachone_Stat.Weapon_Range * Mathf.Sin(W_Peachone_Stat.Weapon_Time);
 //                Peachone_Image.rectTransform.position = P_Peachone_Stat.transform.position + new Vector3(x, y, 0);
-//                // ¿À·ù ÀÌÀ¯ MineÀÌ »ı¼ºµÇ±â Àü¿¡ ºÒ·¯¿Í¼­
-//                // ÇØ°áÃ¥ ³»°¡ ¾Æ´Â°Ç ÄÚ·çÆ¾ 
+//                // ì˜¤ë¥˜ ì´ìœ  Mineì´ ìƒì„±ë˜ê¸° ì „ì— ë¶ˆëŸ¬ì™€ì„œ
+//                // í•´ê²°ì±… ë‚´ê°€ ì•„ëŠ”ê±´ ì½”ë£¨í‹´ 
 //            }
 //            else
 //            {
@@ -531,8 +531,8 @@ public class UI_Manager : MonoBehaviour
 //                float x = W_Peachone_Stat.Weapon_Range * Mathf.Cos(W_Peachone_Stat.Weapon_Time);
 //                float y = W_Peachone_Stat.Weapon_Range * Mathf.Sin(W_Peachone_Stat.Weapon_Time);
 //                Peachone_Range_Image.rectTransform.position = P_Peachone_Stat.transform.position + new Vector3(x, y, 0);
-//                // ¿À·ù ÀÌÀ¯ MineÀÌ »ı¼ºµÇ±â Àü¿¡ ºÒ·¯¿Í¼­
-//                // ÇØ°áÃ¥ ³»°¡ ¾Æ´Â°Ç ÄÚ·çÆ¾ 
+//                // ì˜¤ë¥˜ ì´ìœ  Mineì´ ìƒì„±ë˜ê¸° ì „ì— ë¶ˆëŸ¬ì™€ì„œ
+//                // í•´ê²°ì±… ë‚´ê°€ ì•„ëŠ”ê±´ ì½”ë£¨í‹´ 
 //            }
 //            else
 //            {
@@ -547,29 +547,29 @@ public class UI_Manager : MonoBehaviour
 
 //public class SelectWeaponPanel : MonoBehaviour
 //{
-//    public Button[] weaponButtons;  // ¹«±â ¼±ÅÃÀ» À§ÇÑ ¹öÆ° ¹è¿­
-//    public Image weaponIcon;        // ¹«±â ¾ÆÀÌÄÜÀ» Ç¥½ÃÇÒ ÀÌ¹ÌÁö UI
-//    public Text weaponNameText;     // ¹«±â ÀÌ¸§À» Ç¥½ÃÇÒ ÅØ½ºÆ® UI
-//    public Text weaponDescriptionText;  // ¹«±â ¼³¸íÀ» Ç¥½ÃÇÒ ÅØ½ºÆ® UI
+//    public Button[] weaponButtons;  // ë¬´ê¸° ì„ íƒì„ ìœ„í•œ ë²„íŠ¼ ë°°ì—´
+//    public Image weaponIcon;        // ë¬´ê¸° ì•„ì´ì½˜ì„ í‘œì‹œí•  ì´ë¯¸ì§€ UI
+//    public Text weaponNameText;     // ë¬´ê¸° ì´ë¦„ì„ í‘œì‹œí•  í…ìŠ¤íŠ¸ UI
+//    public Text weaponDescriptionText;  // ë¬´ê¸° ì„¤ëª…ì„ í‘œì‹œí•  í…ìŠ¤íŠ¸ UI
 
-//    public WeaponData[] weapons;    // ¹Ì¸® ¼³Á¤ÇÑ ¹«±â µ¥ÀÌÅÍ ¹è¿­
+//    public WeaponData[] weapons;    // ë¯¸ë¦¬ ì„¤ì •í•œ ë¬´ê¸° ë°ì´í„° ë°°ì—´
 
 //    private void Start()
 //    {
-//        // °¢ ¹öÆ°¿¡ Å¬¸¯ ÀÌº¥Æ®¸¦ Ãß°¡
+//        // ê° ë²„íŠ¼ì— í´ë¦­ ì´ë²¤íŠ¸ë¥¼ ì¶”ê°€
 //        for (int i = 0; i < weaponButtons.Length; i++)
 //        {
-//            int index = i;  // Å¬·ÎÀú º¯¼ö·Î »ç¿ëÇÏ±â À§ÇØ ÀÎµ¦½º ÀúÀå
+//            int index = i;  // í´ë¡œì € ë³€ìˆ˜ë¡œ ì‚¬ìš©í•˜ê¸° ìœ„í•´ ì¸ë±ìŠ¤ ì €ì¥
 //            weaponButtons[i].onClick.AddListener(() => SelectWeapon(index));
 //        }
 
-//        // ÃÊ±â ¹«±â Á¤º¸ Ç¥½Ã
-//        SelectWeapon(0);  // ¿¹¸¦ µé¾î, Ã¹ ¹øÂ° ¹«±â¸¦ ÃÊ±â ¼±ÅÃÀ¸·Î ¼³Á¤
+//        // ì´ˆê¸° ë¬´ê¸° ì •ë³´ í‘œì‹œ
+//        SelectWeapon(0);  // ì˜ˆë¥¼ ë“¤ì–´, ì²« ë²ˆì§¸ ë¬´ê¸°ë¥¼ ì´ˆê¸° ì„ íƒìœ¼ë¡œ ì„¤ì •
 //    }
 
 //    void SelectWeapon(int index)
 //    {
-//        // ¼±ÅÃÇÑ ¹«±âÀÇ Á¤º¸¸¦ UI¿¡ Ç¥½Ã
+//        // ì„ íƒí•œ ë¬´ê¸°ì˜ ì •ë³´ë¥¼ UIì— í‘œì‹œ
 //        weaponIcon.sprite = weapons[index].icon;
 //        weaponNameText.text = weapons[index].name;
 //        weaponDescriptionText.text = weapons[index].description;
