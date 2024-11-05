@@ -29,14 +29,15 @@ public class Weapon_Whip : Weapon
 
             this.Weapon_Timer();
         }
-
-        else
-        {
-
-        }
+    }
+    protected override void AutoUse()
+    {
 
     }
+    protected override void Use()
+    {
 
+    }
     public void Whip_Init()
     {
         if (All_Manager.instance.GameMode_M.Current_Player.InputVec.x != 0)

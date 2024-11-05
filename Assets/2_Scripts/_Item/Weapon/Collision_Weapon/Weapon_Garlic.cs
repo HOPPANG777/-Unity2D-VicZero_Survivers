@@ -36,16 +36,19 @@ public class Weapon_Garlic : Weapon
             Weapon_KnockBack_Weapon();
 
             this.Weapon_Timer();
-            
+
             SR.material = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(Weapon_Type.Garlic).Sprite_Material;
-        }
-
-        else
-        {
-
         }
     }
 
+    protected override void AutoUse()
+    {
+
+    }
+    protected override void Use()
+    {
+
+    }
     public void Garlic_Attack()
     {
         BC.isTrigger = false;

@@ -39,10 +39,18 @@ public class Phoenix : Weapon
             if (bulletCount >= bullets.Count) bulletCount = 0;
         }
     }
+    protected override void AutoUse()
+    {
+
+    }
+    protected override void Use()
+    {
+
+    }
 
     public override void Upgrade(int p_Level)
     {
-        
+
     }
 
     public override void Weapon_Stat_Appliaction()

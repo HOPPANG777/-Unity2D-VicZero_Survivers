@@ -37,13 +37,15 @@ public class Weapon_Peachone : Weapon
                 this.Destroy_Weapon();
             }
         }
-
-        else
-        {
-
-        }
     }
+    protected override void AutoUse()
+    {
 
+    }
+    protected override void Use()
+    {
+
+    }
     public void Peachone_Init(Vector3 One, Vector3 Two, Vector3 Three, Vector3 Four)
     {
         W_Peachone_Point[0] = One; // P0

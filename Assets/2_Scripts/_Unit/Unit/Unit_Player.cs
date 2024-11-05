@@ -19,16 +19,16 @@ using static UnityEngine.UI.CanvasScaler;
 public enum Weapon_Type
 {
     //None,             
-    Axe,                
-    KingBible,          
-    Peachone,           
-    FireWand,           
-    Cross,              
-    Garlic,             
-    LightningRing,      
-    ShadowPinion,       
-    RuneTracer,         
-    Whip                
+    Axe,
+    KingBible,
+    Peachone,
+    FireWand,
+    Cross,
+    Garlic,
+    LightningRing,
+    ShadowPinion,
+    RuneTracer,
+    Whip
 }
 
 [System.Serializable]
@@ -57,18 +57,11 @@ public class Weapon_Level_And_Timer
 public class Unit_Player : Unit
 {
     public Rigidbody2D rigidBody;
-
-    //ã�ƺ��鼭 �Ẹ��
     public List<Weapon> All_Weapon = new List<Weapon>();
     public List<STO_Equipment> All_Equipment = new List<STO_Equipment>();
     public Dictionary<WeaponKeyword, int> weaponKeywordCounts = new Dictionary<WeaponKeyword, int>();
 
     public Vector2 InputVec;
-
-    public float W_Dist = 0.0f;
-
-    public bool Player_Right = false;
-    public bool Player_Left = false;
 
     public Weapon_Level_And_Timer Axe_LAT = new Weapon_Level_And_Timer();
     public Weapon_Level_And_Timer KingBible_LAT = new Weapon_Level_And_Timer();
@@ -238,13 +231,13 @@ public class Unit_Player : Unit
         return Vector3.zero;
     }
 
-    public void Create_Weapon(Weapon_Type p_WT)
+    public void UseWeapon(Weapon_Type p_WT)
     {
-        StartCoroutine(C_Create_Weapon(p_WT));
+        StartCoroutine(CoUseWeapon(p_WT));
     }
 
     #region
-    public IEnumerator C_Create_Weapon(Weapon_Type weaponType)
+    public IEnumerator CoUseWeapon(Weapon_Type weaponType)
     {
         yield return new WaitWhile(() => Creating_Weapon == true);
 
@@ -532,7 +525,7 @@ public class Unit_Player : Unit
             // 추가 로직이 필요한 경우 처리
             if (weaponType == Weapon_Type.KingBible)
             {
-                Create_Weapon(Weapon_Type.KingBible);
+                UseWeapon(Weapon_Type.KingBible);
             }
         }
     }
@@ -543,6 +536,7 @@ public class Unit_Player : Unit
         return false;
     }
 
+    // 대충 타이머 갱신하는 스크립트인듯?
     public void Spawn_Weapon_Timer_Update()
     {
         var weaponTimers = new Dictionary<Weapon_Type, Weapon_Level_And_Timer>
@@ -561,21 +555,22 @@ public class Unit_Player : Unit
 
         foreach (var weapon in weaponTimers)
         {
-            var weaponType = weapon.Key;
-            var weaponData = weapon.Value;
+            Weapon_Type weaponType = weapon.Key;
 
-            if (weaponData.Level <= 0) continue; // 레벨이 0보다 큰 경우에만 처리
+            Weapon_Level_And_Timer levelTimer = weapon.Value;
+
+            if (levelTimer.Level <= 0) continue; // 레벨이 0보다 큰 경우에만 처리
 
             // 무기 쿨다운 체크
-            if (weaponData.Timer > Current_Weapon_CoolDown(weaponType, weaponData))
+            if (levelTimer.Timer > Current_Weapon_CoolDown(weaponType, levelTimer))
             {
-                weaponData.Timer = 0; // 타이머 초기화
+                levelTimer.Timer = 0; // 타이머 초기화
 
                 // 무기 스폰
                 if (weaponType == Weapon_Type.FireWand || weaponType == Weapon_Type.LightningRing || weaponType == Weapon_Type.Garlic)
                 {
                     // 단일 인스턴스만 생성하는 무기
-                    Create_Weapon(weaponType);
+                    UseWeapon(weaponType);
                 }
                 else if (weaponType == Weapon_Type.KingBible)
                 {
@@ -584,20 +579,18 @@ public class Unit_Player : Unit
                 else
                 {
                     // Current_Weapon_Count에 따라 다수 생성하는 무기
-                    int weaponCount = Current_Weapon_Count(weaponType, weaponData);
+                    int weaponCount = Current_Weapon_Count(weaponType, levelTimer);
                     for (int i = 0; i < weaponCount; i++)
                     {
-                        Create_Weapon(weaponType);
+                        UseWeapon(weaponType);
                     }
                 }
 
             }
 
             // 타이머 증가
-            weaponData.Timer += Time.deltaTime;
+            levelTimer.Timer += Time.deltaTime;
         }
-
-        //Debug.Log("Weapon_Spawn!");
     }
 
     public void Update_Get_Equipment(Equipment_Type p_EquipmentType)
@@ -680,7 +673,7 @@ public class Unit_Player : Unit
         }
     }
 
-    //
+
     public void Get_Equipment_Player_Percentage_Stat(Unit Player_Unit, STO_Equipment Eq_STO)
     {
         var Temp_Equipment_STO = All_Manager.instance.Resource_M.STO_Equipments;
@@ -827,56 +820,47 @@ public class Unit_Player : Unit
         return statSelector(weaponInfo) + weaponStatValue;
     }
 
-    //
     public int Current_Weapon_Count(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
         var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
         return this.Origin_Stat.Unit_Weapon_Proj_Count + STO_Weapon_STO.Info_s[p_WLAT.Level].Weapon_Count;
     }
 
-    //
-    public float Current_Weapon_CoolDown(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
+    public float Current_Weapon_CoolDown(Weapon_Type weaponType, Weapon_Level_And_Timer levelTimer)
     {
-        var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
-        var weaponInfo = STO_Weapon_STO.Info_s[p_WLAT.Level];
+        STO_Weapon weaponSTO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(weaponType);
 
-        // 무기 쿨다운을 감소값으로 계산
-        float weaponCoolDownValue = (weaponInfo.Weapon_CoolDown * this.Origin_Stat.Unit_Weapon_CoolDown * 0.01f);
-        return weaponInfo.Weapon_CoolDown - weaponCoolDownValue;
+        float coolDownValue = weaponSTO.Info_s[levelTimer.Level].Weapon_CoolDown * this.Origin_Stat.Unit_Weapon_CoolDown * 0.01f;
+
+        float p_Weapon_CoolDown = weaponSTO.Info_s[levelTimer.Level].Weapon_CoolDown - coolDownValue;
+
+        return p_Weapon_CoolDown;
     }
 
-    //
     public float Current_Weapon_Range(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
         return GetCurrentWeaponStat(p_WT, p_WLAT, weaponInfo => weaponInfo.Weapon_Range);
     }
 
-    //
     public float Current_Weapon_Size(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
         return GetCurrentWeaponStat(p_WT, p_WLAT, weaponInfo => weaponInfo.Weapon_Size);
     }
-
-    //
     public float Current_Weapon_Speed(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
         return GetCurrentWeaponStat(p_WT, p_WLAT, weaponInfo => weaponInfo.Weapon_Speed);
     }
 
-    //
     public float Current_Weapon_Damage(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
         return GetCurrentWeaponStat(p_WT, p_WLAT, weaponInfo => weaponInfo.Weapon_Damage);
     }
-
-    //
     public float Current_Weapon_Duration(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
         return GetCurrentWeaponStat(p_WT, p_WLAT, weaponInfo => weaponInfo.Weapon_Duration);
     }
     #endregion
 
-    // 
     public void CheckSynergyEffects(WeaponKeyword keyword)
     {
         if (keyword == WeaponKeyword.NONE) return;
@@ -896,7 +880,6 @@ public class Unit_Player : Unit
         }
     }
 
-    // 
     public void ApplySynergyEffect(WeaponKeyword keyword)
     {
         switch (keyword)
@@ -997,13 +980,11 @@ public class Unit_Player : Unit
         All_Manager.instance.UI_M.Update_Player_HPBar_Image(Current_HP / Max_HP);
     }
 
-    // 
     public void Get_Gem(float p_Get_Gem_Current_Count)
     {
         All_Manager.instance.GameMode_M.Add_Gem(p_Get_Gem_Current_Count);
     }
 
-    // 
     public override void Unit_Stat_Setting(Unit p_Unit, STO_Unit p_Un_STO)
     {
         if (p_Unit == null)

@@ -17,7 +17,6 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
     public Animator AM;
 
     public Unit Mine;
-
     public Unit_Enemy Weapon_Target_Weapon;
 
     public float Weapon_Damage = 0;
@@ -38,6 +37,7 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
     public bool Forever = false;
 
     public bool IsKeywordCounted { get; set; } = false;
+    public Weapon_Level_And_Timer levelTimer = new Weapon_Level_And_Timer();
 
     public virtual void Awake()
     {
@@ -81,8 +81,47 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
 
             Weapon_To_Enemy_Collision();
         }
+        MeasureTime();
 
     }
+    public void MeasureTime()
+    {
+        // 레벨이 0보다 큰 경우에만 처리
+        if (levelTimer.Level <= 0)
+            return;
+
+        // 무기 쿨다운 체크
+        if (levelTimer.Timer > Current_Weapon_CoolDown(WT, levelTimer))
+        {
+            levelTimer.Timer = 0; // 타이머 초기화
+            Use();
+        }
+        // 타이머 증가
+        levelTimer.Timer += Time.deltaTime;
+    }
+    public float Current_Weapon_CoolDown(Weapon_Type weaponType, Weapon_Level_And_Timer levelTimer)
+    {
+        STO_Weapon weaponSTO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(weaponType);
+
+        float coolDownValue = weaponSTO.Info_s[levelTimer.Level].Weapon_CoolDown * Mine.Origin_Stat.Unit_Weapon_CoolDown * 0.01f;
+
+        float p_Weapon_CoolDown = weaponSTO.Info_s[levelTimer.Level].Weapon_CoolDown - coolDownValue;
+
+        return p_Weapon_CoolDown;
+    }
+    public int Current_Weapon_Count(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
+    {
+        STO_Weapon weaponSTO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
+
+        int weaponCount = 0;
+        weaponCount = Mine.Origin_Stat.Unit_Weapon_Proj_Count;
+
+        int p_Weapon_Count = weaponSTO.Info_s[p_WLAT.Level].Weapon_Count + weaponCount;
+
+        return p_Weapon_Count;
+    }
+    protected abstract void AutoUse();
+    protected abstract void Use();
 
     // 업그레이드
     public abstract void Upgrade(int p_Level);
@@ -96,7 +135,6 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
 
             Destroy_Weapon();
         }
-
         Weapon_Time += Time.deltaTime;
     }
 

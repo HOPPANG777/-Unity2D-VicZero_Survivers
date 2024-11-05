@@ -35,11 +35,14 @@ public class Weapon_FireWand : Weapon
                 this.Destroy_Weapon();
             }
         }
+    }
+    protected override void AutoUse()
+    {
 
-        else
-        { 
-        
-        }
+    }
+    protected override void Use()
+    {
+
     }
 
     public override void Upgrade(int p_Level)

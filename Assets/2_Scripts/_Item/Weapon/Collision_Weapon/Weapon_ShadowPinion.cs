@@ -37,6 +37,14 @@ public class Weapon_ShadowPinion : Weapon
             this.Weapon_Timer();
         }
     }
+    protected override void AutoUse()
+    {
+
+    }
+    protected override void Use()
+    {
+
+    }
 
     // 유도탄 작동 로직
     public void ShadowPinion_Attack()

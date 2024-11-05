@@ -44,6 +44,14 @@ public class BoundAxe : Weapon
         }
 
     }
+    protected override void AutoUse()
+    {
+
+    }
+    protected override void Use()
+    {
+
+    }
 
     public void Axe_Init(Vector3 p_One_Vector, Vector3 p_Two_Vector, Vector3 p_Three_Vector, Vector3 p_Four_Vector)
     {
@@ -69,7 +77,7 @@ public class BoundAxe : Weapon
             W_Axe_Point[0] = this.transform.position;
 
             W_Axe_Point[1] = W_Axe_Point[0] + new Vector3(0, 5, 0);
-            W_Axe_Point[2] = W_Axe_Point[1] + new Vector3(Random.Range(-5, -1), 0, 0);        // ¿À¸¥ÂÊ
+            W_Axe_Point[2] = W_Axe_Point[1] + new Vector3(Random.Range(-5, -1), 0, 0);        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             W_Axe_Point[3] = W_Axe_Point[0] + new Vector3(Random.Range(-5, -1), -10, 0);
         }
         // Left
@@ -79,13 +87,13 @@ public class BoundAxe : Weapon
             W_Axe_Point[0] = this.transform.position;
 
             W_Axe_Point[1] = W_Axe_Point[0] + new Vector3(0, 5, 0);
-            W_Axe_Point[2] = W_Axe_Point[1] + new Vector3(Random.Range(1, 5), 0, 0);        // ¿À¸¥ÂÊ
+            W_Axe_Point[2] = W_Axe_Point[1] + new Vector3(Random.Range(1, 5), 0, 0);        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             W_Axe_Point[3] = W_Axe_Point[0] + new Vector3(Random.Range(1, 5), -10, 0);
         }
         // Top
         else if ((Camera.main.transform.position.y + screenHalfWidth) < this.transform.position.y)
         {
-            // ÀÏ¾î³¯¸®°¡ ¾øÀ½
+            // ï¿½Ï¾î³¯ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
         // Bottom
         else if ((Camera.main.transform.position.y - screenHalfWidth) > this.transform.position.y)
@@ -95,7 +103,7 @@ public class BoundAxe : Weapon
             W_Axe_Point[0] = this.transform.position;
 
             W_Axe_Point[1] = W_Axe_Point[0] + new Vector3(0, height, 0);
-            W_Axe_Point[2] = W_Axe_Point[1] + new Vector3(Random.Range(1, 5), height, 0);        // ¿À¸¥ÂÊ
+            W_Axe_Point[2] = W_Axe_Point[1] + new Vector3(Random.Range(1, 5), height, 0);        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             W_Axe_Point[3] = W_Axe_Point[0] + new Vector3(Random.Range(1, 5), -10, 0);
         }
     }
@@ -122,7 +130,7 @@ public class BoundAxe : Weapon
         v2 = temp;
     }
 
-    // º£Áö¾î °î¼±
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½î¼±
     public Vector3 Axe_Bezier(Vector3 P_1, Vector3 P_2, Vector3 P_3, Vector3 P_4, float Value)
     {
         Vector3 A = Vector3.Lerp(P_1, P_2, Value);
