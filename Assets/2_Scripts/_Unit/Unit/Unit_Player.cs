@@ -497,7 +497,7 @@ public class Unit_Player : Unit
         Creating_Weapon = false;
     }
 
-    public void Upgrade_Weapon(Weapon_Type p_WT)
+    public void Upgrade_Weapon(Weapon_Type weaponType)
     {
         // 무기 유형별로 WLAT과 컴포넌트 타입을 Dictionary에 저장
         var weaponLevels = new Dictionary<Weapon_Type, (Weapon_Level_And_Timer WLAT, System.Type Type)>
@@ -515,7 +515,7 @@ public class Unit_Player : Unit
     };
 
         // 무기 유형이 Dictionary에 있는지 확인
-        if (weaponLevels.TryGetValue(p_WeaponType, out var weaponInfo))
+        if (weaponLevels.TryGetValue(weaponType, out var weaponInfo))
         {
             // 해당 무기의 레벨 증가
             weaponInfo.WLAT.Level++;
@@ -530,7 +530,7 @@ public class Unit_Player : Unit
             }
 
             // 추가 로직이 필요한 경우 처리
-            if (p_WeaponType == Weapon_Type.KingBible)
+            if (weaponType == Weapon_Type.KingBible)
             {
                 Create_Weapon(Weapon_Type.KingBible);
             }
