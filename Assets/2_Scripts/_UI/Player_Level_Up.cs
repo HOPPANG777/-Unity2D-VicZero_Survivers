@@ -6,255 +6,471 @@ using UnityEngine.UI;
 
 public class Player_Level_Up : MonoBehaviour
 {
-    private List<Weapon_Type> availableWeapons;
-
-    void Start()
-    {
-        InitializeAvailableWeapons();
-    }
-
-    private void InitializeAvailableWeapons()
-    {
-        availableWeapons = new List<Weapon_Type>
-        {
-            Weapon_Type.Axe,
-            Weapon_Type.KingBible,
-            Weapon_Type.Peachone,
-            Weapon_Type.FireWand,
-            Weapon_Type.Cross,
-            Weapon_Type.Garlic,
-            Weapon_Type.LightningRing,
-            Weapon_Type.ShadowPinion,
-            Weapon_Type.RuneTracer,
-            Weapon_Type.Whip
-        };
-    }
 
     public void Renew_Start_Weapon_Panel()
     {
-        List<int> selectedWeapons = SelectUniqueRandomNumbers(2, availableWeapons.Count);
-
-        AssignWeaponInfoToUI(0, selectedWeapons[0]);
-        AssignWeaponInfoToUI(1, selectedWeapons[1]);
-    }
-
-    private List<int> SelectUniqueRandomNumbers(int count, int max)
-    {
-        List<int> selectedNumbers = new List<int>();
-        while (selectedNumbers.Count < count)
+        List<int> Selected_Start_Weapon_List = new List<int>();
+        do
         {
-            int randomNumber = UnityEngine.Random.Range(0, max);
-            if (!selectedNumbers.Contains(randomNumber))
-            {
-                selectedNumbers.Add(randomNumber);
-            }
+            All_Manager.instance.UI_M.Start_First_Weapon_Number = UnityEngine.Random.Range(0, System.Enum.GetValues(typeof(Weapon_Type)).Length - 1);
+
+        } while (Selected_Start_Weapon_List.Contains(All_Manager.instance.UI_M.Start_First_Weapon_Number));
+
+        Selected_Start_Weapon_List.Add(All_Manager.instance.UI_M.Start_First_Weapon_Number);
+
+        do
+        {
+            All_Manager.instance.UI_M.Start_Second_Weapon_Number = UnityEngine.Random.Range(0, System.Enum.GetValues(typeof(Weapon_Type)).Length - 1);
+
+        } while (Selected_Start_Weapon_List.Contains(All_Manager.instance.UI_M.Start_Second_Weapon_Number));
+
+        Selected_Start_Weapon_List.Add(All_Manager.instance.UI_M.Start_Second_Weapon_Number);
+
+
+        var Temp_WT_First = (Weapon_Type)All_Manager.instance.UI_M.Start_First_Weapon_Number;
+
+        STO_Weapon Convert_Weapon_First = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(Temp_WT_First);
+
+        All_Manager.instance.UI_M.Start_Weapon_Icon_Image[0].sprite = Convert_Weapon_First.Item_Image;
+        All_Manager.instance.UI_M.Start_Weapon_Name_Text[0].text = Convert_Weapon_First.Weapon_Name;
+        All_Manager.instance.UI_M.Start_Weapon_Example_Text[0].text = Convert_Weapon_First.Weapon_Text;
+
+        var Temp_WT_Second = (Weapon_Type)All_Manager.instance.UI_M.Start_Second_Weapon_Number;
+
+        Weapon_Select_Assign_Info(1, Temp_WT_Second);
+
+        STO_Weapon Convert_Weapon_Second = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(Temp_WT_Second);
+
+        All_Manager.instance.UI_M.Start_Weapon_Icon_Image[1].sprite = Convert_Weapon_Second.Item_Image;
+        All_Manager.instance.UI_M.Start_Weapon_Name_Text[1].text = Convert_Weapon_Second.Weapon_Name;
+        All_Manager.instance.UI_M.Start_Weapon_Example_Text[1].text = Convert_Weapon_Second.Weapon_Text;
+    }
+
+    public void Click_Start_Weapon_Select(int p_Index)
+    {
+
+        if (p_Index == 0)
+        {
+            var Temp_WT = (Weapon_Type)All_Manager.instance.UI_M.Start_First_Weapon_Number;
+
+            Weapon_Select_Assign_Button(Temp_WT);
         }
-        return selectedNumbers;
-    }
 
-    private void AssignWeaponInfoToUI(int index, int weaponIndex)
-    {
-        var weaponType = availableWeapons[weaponIndex];
-        var weaponData = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(weaponType);
+        else if (p_Index == 1)
+        {
+            var Temp_WT = (Weapon_Type)All_Manager.instance.UI_M.Start_Second_Weapon_Number;
 
-        All_Manager.instance.UI_M.Start_Weapon_Icon_Image[index].sprite = weaponData.Item_Image;
-        All_Manager.instance.UI_M.Start_Weapon_Name_Text[index].text = weaponData.Weapon_Name;
-        All_Manager.instance.UI_M.Start_Weapon_Example_Text[index].text = weaponData.Weapon_Text;
-    }
-
-    public void Click_Start_Weapon_Select(int index)
-    {
-        var selectedWeaponIndex = (index == 0)
-            ? All_Manager.instance.UI_M.Start_First_Weapon_Number
-            : All_Manager.instance.UI_M.Start_Second_Weapon_Number;
-
-        var weaponType = availableWeapons[selectedWeaponIndex];
-        Weapon_Select_Assign_Button(weaponType);
+            Weapon_Select_Assign_Button(Temp_WT);
+        }
 
         All_Manager.instance.UI_M.Off_Panel();
     }
-
     public void Renew_Item_Panel()
     {
         Renew_Current_Weapon_Icon();
         Renew_Current_Equipment_Icon();
 
-        List<int> selectedItems = SelectUniqueRandomNumbers(3, availableWeapons.Count + System.Enum.GetValues(typeof(Equipment_Type)).Length);
+        int Max = System.Enum.GetValues(typeof(Weapon_Type)).Length + System.Enum.GetValues(typeof(Equipment_Type)).Length;
+        List<int> Selected_Item_List = new List<int>();
+        do
+        {   // √ππ¯¬∞ ∆–≥Œø° ≥™≈∏≥Ø æ∆¿Ã≈€ ∑Í∑ø 
+            All_Manager.instance.UI_M.Select_First_Item_Number = UnityEngine.Random.Range(0, Max - 1);
 
-        AssignItemInfoToUI(0, selectedItems[0]);
-        AssignItemInfoToUI(1, selectedItems[1]);
-        AssignItemInfoToUI(2, selectedItems[2]);
-    }
+        } while (Selected_Item_List.Contains(All_Manager.instance.UI_M.Select_First_Item_Number));
 
-    private void AssignItemInfoToUI(int index, int itemIndex)
-    {
-        if (itemIndex < availableWeapons.Count)
+        Selected_Item_List.Add(All_Manager.instance.UI_M.Select_First_Item_Number);
+
+
+        do
+        {   // µŒπ¯¬∞ ∆–≥Œø° ≥™≈∏≥Ø æ∆¿Ã≈€ ∑Í∑ø 
+            All_Manager.instance.UI_M.Select_Second_Item_Number = UnityEngine.Random.Range(0, Max - 1);
+
+        } while (Selected_Item_List.Contains(All_Manager.instance.UI_M.Select_Second_Item_Number));
+
+        Selected_Item_List.Add(All_Manager.instance.UI_M.Select_Second_Item_Number);
+
+        do
+        {   // ººπ¯¬∞ ∆–≥Œø° ≥™≈∏≥Ø æ∆¿Ã≈€ ∑Í∑ø 
+            All_Manager.instance.UI_M.Select_Third_Item_Number = UnityEngine.Random.Range(0, Max - 1);
+
+        } while (Selected_Item_List.Contains(All_Manager.instance.UI_M.Select_Third_Item_Number));
+
+        Selected_Item_List.Add(All_Manager.instance.UI_M.Select_Third_Item_Number);
+
+
+        //Select_First_Item_Number
+        if (All_Manager.instance.UI_M.Select_First_Item_Number < System.Enum.GetValues(typeof(Weapon_Type)).Length)
         {
-            Weapon_Select_Assign_Info(index, availableWeapons[itemIndex]);
+            //π´±‚
+            var Temp_WT = (Weapon_Type)All_Manager.instance.UI_M.Select_First_Item_Number;
+            Weapon_Select_Assign_Info(0, Temp_WT);
         }
+
         else
         {
-            Equipment_Select_Assign_Info(index, (Equipment_Type)(itemIndex - availableWeapons.Count));
+            //¿Â∫Ò
+            var Temp_ET = (Equipment_Type)(All_Manager.instance.UI_M.Select_First_Item_Number - System.Enum.GetValues(typeof(Weapon_Type)).Length);
+            Equipment_Select_Assign_Info(0, Temp_ET);
+        }
+
+
+        //Select_Second_Item_Number
+        if (All_Manager.instance.UI_M.Select_Second_Item_Number < System.Enum.GetValues(typeof(Weapon_Type)).Length)
+        {
+            //π´±‚
+            var Temp_WT = (Weapon_Type)All_Manager.instance.UI_M.Select_Second_Item_Number;
+            Weapon_Select_Assign_Info(1, Temp_WT);
+        }
+
+        else
+        {
+            //¿Â∫Ò
+            var Temp_ET = (Equipment_Type)(All_Manager.instance.UI_M.Select_Second_Item_Number - System.Enum.GetValues(typeof(Weapon_Type)).Length);
+            Equipment_Select_Assign_Info(1, Temp_ET);
+        }
+
+        //Select_Third_Item_Number
+        if (All_Manager.instance.UI_M.Select_Third_Item_Number < System.Enum.GetValues(typeof(Weapon_Type)).Length)
+        {
+            //π´±‚
+            var Temp_WT = (Weapon_Type)All_Manager.instance.UI_M.Select_Third_Item_Number;
+            Weapon_Select_Assign_Info(2, Temp_WT);
+        }
+
+        else
+        {
+            //¿Â∫Ò
+            var Temp_ET = (Equipment_Type)(All_Manager.instance.UI_M.Select_Third_Item_Number - System.Enum.GetValues(typeof(Weapon_Type)).Length);
+            Equipment_Select_Assign_Info(2, Temp_ET);
         }
     }
 
-    public void Click_Select_Item_Button(int index)
+    public void Click_Select_Item_Button(int p_Index)
     {
-        int selectedItemNumber = index switch
+        //Select_First_Item_Number 
+        if (p_Index == 0)
         {
-            0 => All_Manager.instance.UI_M.Select_First_Item_Number,
-            1 => All_Manager.instance.UI_M.Select_Second_Item_Number,
-            _ => All_Manager.instance.UI_M.Select_Third_Item_Number,
-        };
+            if (All_Manager.instance.UI_M.Select_First_Item_Number < System.Enum.GetValues(typeof(Weapon_Type)).Length)
+            {
+                var Temp_WT = (Weapon_Type)All_Manager.instance.UI_M.Select_First_Item_Number;
 
-        if (selectedItemNumber < availableWeapons.Count)
-        {
-            Weapon_Select_Assign_Button(availableWeapons[selectedItemNumber]);
+                Weapon_Select_Assign_Button(Temp_WT);
+            }
+
+            else
+            {
+                var Temp_ET = (Equipment_Type)(All_Manager.instance.UI_M.Select_First_Item_Number - System.Enum.GetValues(typeof(Weapon_Type)).Length);
+
+                Equipment_Select_Assign_Button(Temp_ET);
+            }
         }
-        else
+
+        //Select_Second_Item_Number
+        else if (p_Index == 1)
         {
-            Equipment_Select_Assign_Button((Equipment_Type)(selectedItemNumber - availableWeapons.Count));
+            if (All_Manager.instance.UI_M.Select_Second_Item_Number < System.Enum.GetValues(typeof(Weapon_Type)).Length)
+            {
+                var Temp_WT = (Weapon_Type)All_Manager.instance.UI_M.Select_Second_Item_Number;
+
+                Weapon_Select_Assign_Button(Temp_WT);
+            }
+
+            else
+            {
+                var Temp_ET = (Equipment_Type)(All_Manager.instance.UI_M.Select_Second_Item_Number - System.Enum.GetValues(typeof(Weapon_Type)).Length);
+
+                Equipment_Select_Assign_Button(Temp_ET);
+            }
+        }
+
+        //Select_Third_Item_Number
+        else if (p_Index == 2)
+        {
+            if (All_Manager.instance.UI_M.Select_Third_Item_Number < System.Enum.GetValues(typeof(Weapon_Type)).Length)
+            {
+                var Temp_WT = (Weapon_Type)All_Manager.instance.UI_M.Select_Third_Item_Number;
+
+                Weapon_Select_Assign_Button(Temp_WT);
+            }
+
+            else
+            {
+                var Temp_ET = (Equipment_Type)(All_Manager.instance.UI_M.Select_Third_Item_Number - System.Enum.GetValues(typeof(Weapon_Type)).Length);
+
+                Equipment_Select_Assign_Button(Temp_ET);
+            }
         }
 
         All_Manager.instance.UI_M.Off_Panel();
         All_Manager.instance.UI_M.Update_Gem_Count_Image(0);
     }
 
-    public void Weapon_Select_Assign_Button(Weapon_Type weaponType)
+    public void Weapon_Select_Assign_Button(Weapon_Type p_WT)
     {
-        var weaponData = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(weaponType);
-        var weaponLevel = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(weaponData);
+        STO_Weapon Temp_WT = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
 
-        if (weaponLevel.Level >= 8)
+        var Player_Weapon_Level = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_WT);
+
+        if (Player_Weapon_Level.Level >= 8)
         {
             All_Manager.instance.GameMode_M.Current_Player.Recovery_Current_HP();
         }
+
         else
         {
-            All_Manager.instance.GameMode_M.Current_Player.Upgrade_Weapon(weaponType);
-            UpdateWeaponIcon(weaponData, weaponLevel.Level);
+            All_Manager.instance.GameMode_M.Current_Player.Upgrade_Weapon(p_WT);
+
+            if (All_Manager.instance.GameMode_M.Current_Player != null)
+            {
+                if (Temp_WT != null)
+                {
+                    bool Sprite_Currect = All_Manager.instance.UI_M.Weapon_Icon_List.Contains(Temp_WT.Item_Image);
+
+                    if (!Sprite_Currect)
+                    {
+                        All_Manager.instance.UI_M.Weapon_Icon_List.Add(Temp_WT.Item_Image);
+                    }
+
+                    else
+                    {
+                        //Debug.Log("¿ÃπÃ π´±‚ æ∆¿Ãƒ‹¿Ã ¡∏¿Á«’¥œ¥Ÿ");
+                    }
+
+                    for (int i = 0; i < All_Manager.instance.UI_M.Weapon_Icon_List.Count; i++)
+                    {
+                        if (All_Manager.instance.UI_M.Weapon_Icon_List[i] == Temp_WT.Item_Image)
+                        {
+                            int Weapon_Level_Temp = 0;
+
+                            for (int j = 0; j < Player_Weapon_Level.Level; j++)
+                            {
+                                Weapon_Level_Temp++;
+                            }
+
+                            All_Manager.instance.UI_M.Basic_Current_Weapon_Icon_Image[i].GetComponentInChildren<Text>().text = "Lv. " + Weapon_Level_Temp;
+                        }
+                    }
+
+                    Renew_Current_Weapon_Icon();
+                }
+            }
         }
+
+
     }
 
-    private void UpdateWeaponIcon(STO_Weapon weaponData, int weaponLevel)
+    public void Equipment_Select_Assign_Button(Equipment_Type p_ET)
     {
-        bool spriteExists = All_Manager.instance.UI_M.Weapon_Icon_List.Contains(weaponData.Item_Image);
-        if (!spriteExists)
-        {
-            All_Manager.instance.UI_M.Weapon_Icon_List.Add(weaponData.Item_Image);
-        }
+        STO_Equipment Temp_ET = All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(p_ET);
 
-        int index = All_Manager.instance.UI_M.Weapon_Icon_List.IndexOf(weaponData.Item_Image);
-        All_Manager.instance.UI_M.Basic_Current_Weapon_Icon_Image[index].GetComponentInChildren<Text>().text = "Lv. " + weaponLevel;
-        Renew_Current_Weapon_Icon();
-    }
+        var Player_Equipment_Level = All_Manager.instance.GameMode_M.Current_Player.Convert_Equipment_Level_Player(p_ET);
 
-    public void Equipment_Select_Assign_Button(Equipment_Type equipmentType)
-    {
-        var equipmentData = All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(equipmentType);
-        var equipmentLevel = All_Manager.instance.GameMode_M.Current_Player.Convert_Equipment_Level_Player(equipmentType);
-
-        if (equipmentLevel >= 5)
+        if (Player_Equipment_Level >= 5)
         {
             All_Manager.instance.GameMode_M.Current_Player.Recovery_Current_HP();
         }
+
         else
         {
-            All_Manager.instance.GameMode_M.Current_Player.Upgrade_Equipment(equipmentType);
-            All_Manager.instance.GameMode_M.Current_Player.Origin_Stat_Application_Player(equipmentType);
-            UpdateEquipmentIcon(equipmentData, equipmentLevel);
+            All_Manager.instance.GameMode_M.Current_Player.Upgrade_Equipment(p_ET);
+
+            All_Manager.instance.GameMode_M.Current_Player.Origin_Stat_Application_Player(p_ET);
+
+            if (All_Manager.instance.GameMode_M.Current_Player != null)
+            {
+                if (Temp_ET != null)
+                {
+
+                    bool Sprite_Currect = All_Manager.instance.UI_M.Equipment_Icon_List.Contains(Temp_ET.Sprite_Image);
+
+                    if (!Sprite_Currect)
+                    {
+                        All_Manager.instance.UI_M.Equipment_Icon_List.Add(Temp_ET.Sprite_Image);
+                    }
+
+                    else
+                    {
+                        //Debug.Log("¿ÃπÃ ¿ÂΩ≈±∏ æ∆¿Ãƒ‹¿Ã ¡∏¿Á«’¥œ¥Ÿ.");
+                    }
+
+                    for (int i = 0; i < All_Manager.instance.UI_M.Equipment_Icon_List.Count; i++)
+                    {
+                        if (All_Manager.instance.UI_M.Equipment_Icon_List[i] == Temp_ET.Sprite_Image)
+                        {
+                            int Equipment_Level_Temp = 0;
+
+                            var Temp_Current_Equipment_Level = All_Manager.instance.GameMode_M.Current_Player.Convert_Equipment_Level_Player(p_ET);
+
+                            for (int j = 0; j < Temp_Current_Equipment_Level; j++)
+                            {
+                                Equipment_Level_Temp++;
+                            }
+
+                            All_Manager.instance.UI_M.Basic_Current_Equipment_Icon_Image[i].GetComponentInChildren<Text>().text = "Lv. " + Equipment_Level_Temp;
+                        }
+
+                    }
+
+                    Renew_Current_Equipment_Icon();
+                }
+
+            }
         }
+
+
     }
 
-    private void UpdateEquipmentIcon(STO_Equipment equipmentData, int equipmentLevel)
+    public void Weapon_Select_Assign_Info(int Index, Weapon_Type p_WT)
     {
-        bool spriteExists = All_Manager.instance.UI_M.Equipment_Icon_List.Contains(equipmentData.Sprite_Image);
-        if (!spriteExists)
-        {
-            All_Manager.instance.UI_M.Equipment_Icon_List.Add(equipmentData.Sprite_Image);
-        }
+        STO_Weapon Temp_WT = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
 
-        int index = All_Manager.instance.UI_M.Equipment_Icon_List.IndexOf(equipmentData.Sprite_Image);
-        All_Manager.instance.UI_M.Basic_Current_Equipment_Icon_Image[index].GetComponentInChildren<Text>().text = "Lv. " + equipmentLevel;
-        Renew_Current_Equipment_Icon();
+        STO_MISC Temp_Food = All_Manager.instance.Resource_M.Convert_MISC_Type_To_STO_MISC_Arr(MISC_Type.Food);
+
+        if (All_Manager.instance.GameMode_M.Current_Player != null)
+        {
+            var Player_Weapon_Level = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_WT);
+
+            if (Player_Weapon_Level.Level >= 8)
+            {
+                if (All_Manager.instance.UI_M.Select_Item_Icon_Image[Index] == null) Debug.Log(2);
+                All_Manager.instance.UI_M.Select_Item_Icon_Image[Index].sprite = Temp_Food.Sprite_Image;
+
+                if (All_Manager.instance.UI_M.Select_Item_Name_Text[Index] == null) Debug.Log(3);
+                All_Manager.instance.UI_M.Select_Item_Name_Text[Index].text = Temp_Food.MISC_Name;
+
+                if (All_Manager.instance.UI_M.Select_Item_Example_Text[Index] == null) Debug.Log(4);
+                All_Manager.instance.UI_M.Select_Item_Example_Text[Index].text = Temp_Food.MISC_Text;
+            }
+
+            else
+            {
+                if (All_Manager.instance.UI_M.Select_Item_Icon_Image[Index] == null) Debug.Log(2);
+                All_Manager.instance.UI_M.Select_Item_Icon_Image[Index].sprite = Temp_WT.Item_Image;
+
+                if (All_Manager.instance.UI_M.Select_Item_Name_Text[Index] == null) Debug.Log(3);
+                All_Manager.instance.UI_M.Select_Item_Name_Text[Index].text = Temp_WT.Weapon_Name;
+
+                if (All_Manager.instance.UI_M.Select_Item_Example_Text[Index] == null) Debug.Log(4);
+                All_Manager.instance.UI_M.Select_Item_Example_Text[Index].text = Temp_WT.Weapon_Text;
+            }
+        }
     }
 
-    public void Weapon_Select_Assign_Info(int index, Weapon_Type weaponType)
+    public void Equipment_Select_Assign_Info(int Index, Equipment_Type p_ET)
     {
-        var weaponData = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(weaponType);
-        AssignWeaponInfoToUI(index, weaponData);
+        STO_Equipment Temp_ET = All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(p_ET);
+
+        STO_MISC Temp_Food = All_Manager.instance.Resource_M.Convert_MISC_Type_To_STO_MISC_Arr(MISC_Type.Food);
+
+        if (All_Manager.instance.GameMode_M.Current_Player != null)
+        {
+            var Player_Equipment_Level = All_Manager.instance.GameMode_M.Current_Player.Convert_Equipment_Level_Player(p_ET);
+
+            if (Player_Equipment_Level >= 5)
+            {
+                if (All_Manager.instance.UI_M.Select_Item_Icon_Image[Index] == null) Debug.Log(2);
+                All_Manager.instance.UI_M.Select_Item_Icon_Image[Index].sprite = Temp_Food.Sprite_Image;
+
+                if (All_Manager.instance.UI_M.Select_Item_Name_Text[Index] == null) Debug.Log(3);
+                All_Manager.instance.UI_M.Select_Item_Name_Text[Index].text = Temp_Food.MISC_Name;
+
+                if (All_Manager.instance.UI_M.Select_Item_Example_Text[Index] == null) Debug.Log(4);
+                All_Manager.instance.UI_M.Select_Item_Example_Text[Index].text = Temp_Food.MISC_Text;
+            }
+
+            else
+            {
+                All_Manager.instance.UI_M.Select_Item_Icon_Image[Index].sprite = Temp_ET.Sprite_Image;
+                All_Manager.instance.UI_M.Select_Item_Name_Text[Index].text = Temp_ET.Equipment_Name;
+                All_Manager.instance.UI_M.Select_Item_Example_Text[Index].text = Temp_ET.Equipment_Text;
+            }
+        }
+
+
+        //Select_Item_Button[Index].onClick.AddListener(() => { All_Manager.instance.GameMode_M.Current_Player.Update_Get_Equipment(p_ET); }); 
     }
 
-    public void Equipment_Select_Assign_Info(int index, Equipment_Type equipmentType)
-    {
-        var equipmentData = All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(equipmentType);
-        AssignEquipmentInfoToUI(index, equipmentData);
-    }
-
-    private void AssignWeaponInfoToUI(int index, STO_Weapon weaponData)
-    {
-        var playerWeaponLevel = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(weaponData);
-        bool isMaxLevel = playerWeaponLevel.Level >= 8;
-
-        if (isMaxLevel)
-        {
-            // Î†àÎ≤®Ïù¥ 8 Ïù¥ÏÉÅÏùº Îïå, MISC Ï†ïÎ≥¥Î•º Ìï†Îãπ
-            var miscData = All_Manager.instance.Resource_M.Convert_MISC_Type_To_STO_MISC_Arr(MISC_Type.Food);
-            All_Manager.instance.UI_M.Select_Item_Icon_Image[index].sprite = miscData.Sprite_Image;
-            All_Manager.instance.UI_M.Select_Item_Name_Text[index].text = miscData.MISC_Name;
-            All_Manager.instance.UI_M.Select_Item_Example_Text[index].text = miscData.MISC_Text;
-        }
-        else
-        {
-            // Í∑∏Î†áÏßÄ ÏïäÏúºÎ©¥ Î¨¥Í∏∞ Ï†ïÎ≥¥Î•º Ìï†Îãπ
-            All_Manager.instance.UI_M.Select_Item_Icon_Image[index].sprite = weaponData.Item_Image;
-            All_Manager.instance.UI_M.Select_Item_Name_Text[index].text = weaponData.Weapon_Name;
-            All_Manager.instance.UI_M.Select_Item_Example_Text[index].text = weaponData.Weapon_Text;
-        }
-    }
-
-    private void AssignEquipmentInfoToUI(int index, STO_Equipment equipmentData)
-    {
-        var playerEquipmentLevel = All_Manager.instance.GameMode_M.Current_Player.Convert_Equipment_Level_Player(equipmentData.ET);
-        bool isMaxLevel = playerEquipmentLevel >= 5;
-
-        if (isMaxLevel)
-        {
-            // Î†àÎ≤®Ïù¥ 5 Ïù¥ÏÉÅÏùº Í≤ΩÏö∞, MISC Ï†ïÎ≥¥Î•º UIÏóê Ìï†Îãπ
-            var miscData = All_Manager.instance.Resource_M.Convert_MISC_Type_To_STO_MISC_Arr(MISC_Type.Food);
-            All_Manager.instance.UI_M.Select_Item_Icon_Image[index].sprite = miscData.Sprite_Image;
-            All_Manager.instance.UI_M.Select_Item_Name_Text[index].text = miscData.MISC_Name;
-            All_Manager.instance.UI_M.Select_Item_Example_Text[index].text = miscData.MISC_Text;
-        }
-        else
-        {
-            // Î†àÎ≤®Ïù¥ 5 ÎØ∏ÎßåÏùº Í≤ΩÏö∞, Ïû•ÎπÑ Ï†ïÎ≥¥Î•º UIÏóê Ìï†Îãπ
-            All_Manager.instance.UI_M.Select_Item_Icon_Image[index].sprite = equipmentData.Sprite_Image;
-            All_Manager.instance.UI_M.Select_Item_Name_Text[index].text = equipmentData.Equipment_Name;
-            All_Manager.instance.UI_M.Select_Item_Example_Text[index].text = equipmentData.Equipment_Text;
-        }
-    }
-
+    // ¿Œ∞‘¿” π´±‚ æ∆¿Ãƒ‹ ∞ªΩ≈
     public void Renew_Current_Weapon_Icon()
     {
-        UpdateIconUI(All_Manager.instance.UI_M.Basic_Current_Weapon_Icon_Image, All_Manager.instance.UI_M.Weapon_Icon_List, "weapon");
+        if (All_Manager.instance.GameMode_M.Current_Player.Current_HP <= 0)
+        {
+            for (int i = 0; i < All_Manager.instance.UI_M.Basic_Current_Weapon_Icon_Image.Length; i++)
+            {
+                All_Manager.instance.UI_M.Basic_Current_Weapon_Icon_Image[i].gameObject.SetActive(false);
+                All_Manager.instance.UI_M.Player_Info_s_Current_Weapon_Icon_Image[i].gameObject.SetActive(false);
+
+                var Temp_WTO = All_Manager.instance.Resource_M.STO_Weapons;
+
+                for (int j = 0; j < Temp_WTO.Length; j++)
+                {
+                    var Temp_WT = Temp_WTO[j].WT;
+
+                    var Temp_Weapon_Sprite = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(Temp_WT).Item_Image;
+
+                    if (All_Manager.instance.UI_M.Weapon_Icon_List.Contains(Temp_Weapon_Sprite))
+                    {
+                        All_Manager.instance.UI_M.Weapon_Icon_List.Remove(Temp_Weapon_Sprite);
+                    }
+
+                }
+            }
+        }
+
+        else
+        {
+            for (int i = 0; i < All_Manager.instance.UI_M.Weapon_Icon_List.Count; i++)
+            {
+                All_Manager.instance.UI_M.Basic_Current_Weapon_Icon_Image[i].sprite = All_Manager.instance.UI_M.Weapon_Icon_List[i];
+                All_Manager.instance.UI_M.Basic_Current_Weapon_Icon_Image[i].gameObject.SetActive(true);
+
+                All_Manager.instance.UI_M.Player_Info_s_Current_Weapon_Icon_Image[i].sprite = All_Manager.instance.UI_M.Weapon_Icon_List[i];
+                All_Manager.instance.UI_M.Player_Info_s_Current_Weapon_Icon_Image[i].gameObject.SetActive(true);
+            }
+        }
+
     }
 
+    // ¿Œ∞‘¿” ¿ÂΩ≈±∏ æ∆¿Ãƒ‹ ∞ªΩ≈
     public void Renew_Current_Equipment_Icon()
     {
-        UpdateIconUI(All_Manager.instance.UI_M.Basic_Current_Equipment_Icon_Image, All_Manager.instance.UI_M.Equipment_Icon_List, "equipment");
-    }
-
-    private void UpdateIconUI(Image[] iconImages, List<Sprite> iconList, string type)
-    {
-        bool isPlayerAlive = All_Manager.instance.GameMode_M.Current_Player.Current_HP > 0;
-        for (int i = 0; i < iconImages.Length; i++)
+        if (All_Manager.instance.GameMode_M.Current_Player.Current_HP <= 0)
         {
-            iconImages[i].gameObject.SetActive(isPlayerAlive && i < iconList.Count);
-            if (isPlayerAlive && i < iconList.Count)
+            for (int i = 0; i < All_Manager.instance.UI_M.Basic_Current_Equipment_Icon_Image.Length; i++)
             {
-                iconImages[i].sprite = iconList[i];
+                All_Manager.instance.UI_M.Basic_Current_Equipment_Icon_Image[i].gameObject.SetActive(false);
+                All_Manager.instance.UI_M.Player_Info_s_Current_Equipment_Icon_Image[i].gameObject.SetActive(false);
+
+                var Temp_ETO = All_Manager.instance.Resource_M.STO_Equipments;
+
+                for (int j = 0; j < Temp_ETO.Length; j++)
+                {
+                    var Temp_ET = Temp_ETO[j].ET;
+
+                    var Temp_Equipment_Sprite = All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Temp_ET).Sprite_Image;
+
+                    if (All_Manager.instance.UI_M.Equipment_Icon_List.Contains(Temp_Equipment_Sprite))
+                    {
+                        All_Manager.instance.UI_M.Equipment_Icon_List.Remove(Temp_Equipment_Sprite);
+
+                    }
+
+                }
             }
+
+        }
+
+        else
+        {
+            for (int i = 0; i < All_Manager.instance.UI_M.Equipment_Icon_List.Count; i++)
+            {
+                All_Manager.instance.UI_M.Basic_Current_Equipment_Icon_Image[i].sprite = All_Manager.instance.UI_M.Equipment_Icon_List[i];
+                All_Manager.instance.UI_M.Basic_Current_Equipment_Icon_Image[i].gameObject.SetActive(true);
+
+                All_Manager.instance.UI_M.Player_Info_s_Current_Equipment_Icon_Image[i].sprite = All_Manager.instance.UI_M.Equipment_Icon_List[i];
+                All_Manager.instance.UI_M.Player_Info_s_Current_Equipment_Icon_Image[i].gameObject.SetActive(true);
+            }
+
         }
     }
 
@@ -282,4 +498,3 @@ public class Player_Level_Up : MonoBehaviour
     }
 
 }
-
