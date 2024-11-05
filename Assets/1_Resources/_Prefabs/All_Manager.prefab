@@ -12405,6 +12405,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c597d0264c02d674999239e9d1c4f2b1, type: 2}
   - {fileID: 11400000, guid: 2c4eb00972c920d44b01351ffa1e9185, type: 2}
   - {fileID: 11400000, guid: 3e2c2e2da1e86c54d83fec6383765104, type: 2}
+  - {fileID: 11400000, guid: 2c7a7fff06e77c949bd7154a70340026, type: 2}
+  - {fileID: 11400000, guid: a69b43e4835e52345b0e3707ec1213fd, type: 2}
   STO_Waves:
   - {fileID: 11400000, guid: 0313d29034297294aab8061eb4d53bd9, type: 2}
   - {fileID: 11400000, guid: ca70f3280770abe45883a9850aea785e, type: 2}

@@ -459,7 +459,40 @@ public class Unit_Player : Unit
 
                 }
                 break;
-            default:
+
+            case Weapon_Type.BoundAxe:
+                {
+                    Vector3 One = this.transform.position;
+                    Vector3 Two, Three, Four;
+
+                    if (Weapon_Trigger)
+                    {
+                        Two = One + new Vector3(0, 5, 0);
+                        Three = Two + new Vector3(UnityEngine.Random.Range(1, 5), 0, 0);
+                        Four = One + new Vector3(UnityEngine.Random.Range(1, 5), -10, 0);
+                    }
+                    else
+                    {
+                        Two = One + new Vector3(0, 5, 0);
+                        Three = Two + new Vector3(UnityEngine.Random.Range(-5, -1), 0, 0);
+                        Four = One + new Vector3(UnityEngine.Random.Range(-5, -1), -10, 0);
+                    }
+                    Weapon_Axe waeponAxe = weaponGo.GetComponent<Weapon_Axe>();
+
+                    waeponAxe.Weapon_Init(this, Weapon_STO, Axe_LAT.Level);
+                    waeponAxe.Axe_Init(One, Two, Three, Four);
+
+                    CheckSynergyEffects(waeponAxe.WeaponKeyword);
+
+                    Weapon_Trigger = !Weapon_Trigger;
+
+                    All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.Axe);
+                }
+                break;
+            case Weapon_Type.Phoenix:
+                {
+
+                }
                 break;
         }
 
