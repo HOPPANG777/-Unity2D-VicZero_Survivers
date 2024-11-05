@@ -33,17 +33,8 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
     public int Weapon_Level = 0;
     public int Weapon_Count = 0;
 
-    public float Weapon_Basic_Damage = 0;
-    public float Weapon_Basic_Speed = 0;
-    public float Weapon_Basic_Range = 0;
-    public float Weapon_Basic_Duration = 0;
-
     public int Collision_Count = 0;
     public float Closet_Distance = 0;
-
-    private float Check_Interval = 0.5f;
-    private float Next_Check_Time = 0.0f;
-
     public bool Forever = false;
 
     public bool IsKeywordCounted { get; set; } = false;
@@ -89,8 +80,6 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
             Weapon_Stat_Appliaction();
 
             Weapon_To_Enemy_Collision();
-
-            Next_Check_Time = Time.time + Check_Interval;
         }
 
     }

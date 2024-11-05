@@ -33,17 +33,17 @@ public enum Weapon_Type
 [System.Serializable]
 public enum Equipment_Type
 {
-    //None,                 // = "����"
-    Spinach,              // ������ ���ݷ� 10%���� (�ִ뷹�� : 5)
-    Bracer,               // ������ ����ü �ӵ� 10%���� (�ִ뷹�� : 5)
-    Duplicator,           // ������ ����ü 1���� ���� (�ִ뷹�� : 5)
-    EmptyTome,            // ������ ���� ��Ÿ�� 8%�� ���� (�ִ뷹�� : 5)
-    Wings,                // ������ �̵��ӵ� 10%���� (�ִ뷹�� : 5)
-    Candelabrador,        // ������ ���ݹ��� 10%����   (�ִ뷹�� : 5)
-    Armour,               // ������ ���� 5%���� (�ִ뷹�� : 5)
-    SpellBinder,          // ������ ���ӽð� 10%���� (�ִ뷹�� 5)
-    Attractorb,           // ������ ������ ȹ�� ���� 30% (�ִ뷹�� : 5)
-    HollowHeart           // ������ ü�� 20%���� (�ִ뷹�� : 5)
+    //None,
+    Spinach,
+    Bracer,
+    Duplicator,
+    EmptyTome,
+    Wings,
+    Candelabrador,
+    Armour,
+    SpellBinder,
+    Attractorb,
+    HollowHeart
 }
 
 [System.Serializable]
@@ -97,6 +97,12 @@ public class Unit_Player : Unit
 
     public bool Equipment_Level_Up = false;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        rigidBody = this.AddComponent<Rigidbody2D>();
+        rigidBody.bodyType = RigidbodyType2D.Kinematic;
+    }
     public override void Start()
     {
         base.Start();
@@ -112,8 +118,6 @@ public class Unit_Player : Unit
         Upgrade_Weapon(Weapon_Type.RuneTracer);         // �ϼ�
         Upgrade_Weapon(Weapon_Type.Whip);               // �ϼ�
         */
-        rigidBody = this.AddComponent<Rigidbody2D>();
-        rigidBody.bodyType = RigidbodyType2D.Kinematic;
 
         All_Manager.instance.Resource_M.Ghost_Effect.Add_Ghost_Target(this.transform);
     }
@@ -181,6 +185,43 @@ public class Unit_Player : Unit
             Destroy(this.gameObject);
         }
     }
+    Vector3 GetWeaponStartPosition(Weapon_Type weaponType)
+    {
+        Vector3 position = Vector3.zero;
+
+        switch (weaponType)
+        {
+            case Weapon_Type.Axe:
+            case Weapon_Type.KingBible:
+            case Weapon_Type.Garlic:
+            case Weapon_Type.ShadowPinion:
+            case Weapon_Type.Cross:
+            case Weapon_Type.RuneTracer:
+            case Weapon_Type.Whip:
+                return this.transform.position;
+            case Weapon_Type.Peachone:
+                return All_Manager.instance.UI_M.Peachone_Image.rectTransform.position;
+            case Weapon_Type.LightningRing:
+                return GetLightningRingStartPosition();
+            case Weapon_Type.FireWand:
+                return this.transform.position + new Vector3(0, -0.3f, 0);
+
+            default:
+                break;
+        }
+        return position;
+    }
+    Vector3 GetLightningRingStartPosition()
+    {
+        var enemyList = All_Manager.instance.GameMode_M?.Enemy_List;
+        if (enemyList != null && enemyList.Count > 0)
+        {
+            int randomIndex = Random.Range(0, enemyList.Count);
+            var targetEnemy = enemyList[randomIndex];
+            return targetEnemy?.transform.position ?? Vector3.zero;
+        }
+        return Vector3.zero;
+    }
 
     public void Create_Weapon(Weapon_Type p_WT)
     {
@@ -188,151 +229,108 @@ public class Unit_Player : Unit
     }
 
     #region
-    // ���� ����
-    public IEnumerator C_Create_Weapon(Weapon_Type p_WT)
+    public IEnumerator C_Create_Weapon(Weapon_Type weaponType)
     {
         yield return new WaitWhile(() => Creating_Weapon == true);
 
-        var Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
+        STO_Weapon Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(weaponType);
 
-        var Weapon_WLAT = Convert_WLAT_Player(Weapon_STO);
+        Weapon_Level_And_Timer Weapon_WLAT = Convert_WLAT_Player(Weapon_STO);
 
         Creating_Weapon = true;
 
-        //GameObject Weapon_Go = null;
-        GameObject Weapon_Go = null;
+        GameObject weaponGo = All_Manager.instance.Pool_M.Weapon_Pool_Out(weaponType);
 
-        switch (p_WT)
+        if (weaponGo == null)
         {
-            // ����
+            Debug.LogError("Weapon object is null.");
+            yield break;
+        }
+
+        weaponGo.transform.position = GetWeaponStartPosition(weaponType);
+        weaponGo.transform.rotation = Quaternion.identity;
+        weaponGo.transform.localScale = Vector3.one;
+
+        Weapon weapon = weaponGo.GetComponent<Weapon>();
+
+        if (weapon == null)
+            yield break;
+
+        switch (weaponType)
+        {
             case Weapon_Type.Axe:
                 {
-                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
+                    Vector3 One = this.transform.position;
+                    Vector3 Two, Three, Four;
 
-                    //Weapon_Go.AddComponent<Weapon_Axe>();
-
-                    // Weapon_Go�� �ش� ������ ������Ʈ�� �����ϰ� �ִٸ�.
-                    if (Weapon_Go.GetComponent<Weapon_Axe>())
+                    if (Weapon_Trigger)
                     {
-                        // ��ġ �ʱ�ȭ
-                        Weapon_Go.transform.position = this.transform.position;
-                        Weapon_Go.transform.rotation = Quaternion.identity;
-                        Weapon_Go.transform.localScale = Vector3.one;
-
-                        // �� ������ ��������Ʈ�� �ҷ��ö����� ��ٷ���.
-                        yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_Axe>().SR);
-                        Vector3 One = this.transform.position;
-                        Vector3 Two, Three, Four;
-
-                        // ���� ���⿡ ����
-                        if (Weapon_Trigger)
-                        {
-                            Two = One + new Vector3(0, 5, 0);
-                            Three = Two + new Vector3(Random.Range(1, 5), 0, 0);        // ������
-                            Four = One + new Vector3(Random.Range(1, 5), -10, 0);       // ������ �Ʒ�
-                        }
-                        else
-                        {
-                            Two = One + new Vector3(0, 5, 0);
-                            Three = Two + new Vector3(Random.Range(-5, -1), 0, 0);      // ����
-                            Four = One + new Vector3(Random.Range(-5, -1), -10, 0);     // ���� �Ʒ�
-                        }
-
-                        // ���� �ʱ�ȭ
-                        Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, Axe_LAT.Level);
-                        Weapon_Go.GetComponent<Weapon_Axe>().Axe_Init(One, Two, Three, Four);
-                        CheckSynergyEffects(Weapon_Go.GetComponent<Weapon_Axe>().WeaponKeyword);
-
-                        // ������ �����ɶ� ���� �ݴ�� ����
-                        Weapon_Trigger = !Weapon_Trigger;
-
-                        // ���� ������ ȿ����
-                        All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.Axe);
+                        Two = One + new Vector3(0, 5, 0);
+                        Three = Two + new Vector3(Random.Range(1, 5), 0, 0);
+                        Four = One + new Vector3(Random.Range(1, 5), -10, 0);
                     }
+                    else
+                    {
+                        Two = One + new Vector3(0, 5, 0);
+                        Three = Two + new Vector3(Random.Range(-5, -1), 0, 0);
+                        Four = One + new Vector3(Random.Range(-5, -1), -10, 0);
+                    }
+                    Weapon_Axe waeponAxe = weaponGo.GetComponent<Weapon_Axe>();
+
+                    waeponAxe.Weapon_Init(this, Weapon_STO, Axe_LAT.Level);
+                    waeponAxe.Axe_Init(One, Two, Three, Four);
+
+                    CheckSynergyEffects(waeponAxe.WeaponKeyword);
+
+                    Weapon_Trigger = !Weapon_Trigger;
+
+                    All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.Axe);
                 }
                 break;
             case Weapon_Type.KingBible:
                 {
-                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
+                    weaponGo.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, KingBible_LAT.Level);
+                    CheckSynergyEffects(weaponGo.GetComponent<Weapon_KingBible>().WeaponKeyword);
 
-                    //Weapon_Go.AddComponent<Weapon_KingBible>();
+                    int Max = 0;
 
-                    if (Weapon_Go.GetComponent<Weapon_KingBible>())
+                    for (int i = 0; i < All_Weapon.Count; i++)
                     {
-                        Weapon_Go.transform.position = this.transform.position;
-                        Weapon_Go.transform.rotation = Quaternion.identity;
-                        Weapon_Go.transform.localScale = Vector3.one;
-
-                        //Start()
-                        //Update()
-
-                        yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_KingBible>().SR);
-
-                        Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, KingBible_LAT.Level);
-                        CheckSynergyEffects(Weapon_Go.GetComponent<Weapon_KingBible>().WeaponKeyword);
-
-                        // ���� ���� ������ �ִ� ������ ����
-                        int Max = 0;
-
-                        // �÷��̾ ����ϰ� �ִ� ������ ����
-                        for (int i = 0; i < All_Weapon.Count; i++)
+                        if (All_Weapon[i].GetComponent<Weapon_KingBible>())
                         {
-                            if (All_Weapon[i].GetComponent<Weapon_KingBible>())
-                            {
-                                Max++;
-                            }
+                            Max++;
                         }
-
-                        // 
-                        Max++;
-
-                        //
-                        for (int i = 0; i < All_Weapon.Count; i++)
-                        {
-                            if (All_Weapon[i].GetComponent<Weapon_KingBible>())
-                            {
-                                All_Weapon[i].GetComponent<Weapon_KingBible>().Weapon_Max_KingBible_Count = Max;
-                            }
-                        }
-
-                        Weapon_Go.GetComponent<Weapon_KingBible>().Weapon_Max_KingBible_Count = Max;
-                        Weapon_Go.GetComponent<Weapon_KingBible>().Weapon_Mine_KingBible_Count = Max;
-
-                        //var Temp_KingBible_Range = Current_Weapon_Range(Weapon_Type.KingBible, KingBible_LAT);
-
-                        //Weapon_Go.GetComponent<Weapon_KingBible>().Weapon_Range = Temp_KingBible_Range;
-
-                        All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.KingBible);
                     }
+
+                    Max++;
+                    for (int i = 0; i < All_Weapon.Count; i++)
+                    {
+                        if (All_Weapon[i].GetComponent<Weapon_KingBible>())
+                        {
+                            All_Weapon[i].GetComponent<Weapon_KingBible>().Weapon_Max_KingBible_Count = Max;
+                        }
+                    }
+
+                    weaponGo.GetComponent<Weapon_KingBible>().Weapon_Max_KingBible_Count = Max;
+                    weaponGo.GetComponent<Weapon_KingBible>().Weapon_Mine_KingBible_Count = Max;
+
+                    All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.KingBible);
                 }
                 break;
             case Weapon_Type.Peachone:
                 {
-                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
+                    var P_Peachone_UI_Range = weaponGo.GetComponent<Weapon_Peachone>().Convert_RectTransform_To_Position(All_Manager.instance.UI_M.Peachone_Range_Image.rectTransform);
+                    var P_Peachone_UI = weaponGo.GetComponent<Weapon_Peachone>().Convert_RectTransform_To_Position(All_Manager.instance.UI_M.Peachone_Image.rectTransform);
 
-                    //Weapon_Go.AddComponent<Weapon_Peachone>();
+                    Vector3 One = All_Manager.instance.UI_M.Peachone_Image.transform.position;
+                    Vector3 Two = weaponGo.GetComponent<Weapon_Peachone>().Peachone_Point_Setting(All_Manager.instance.UI_M.Peachone_Image.transform.position);
+                    Vector3 Three = weaponGo.GetComponent<Weapon_Peachone>().Peachone_Point_Setting(P_Peachone_UI_Range);
+                    Vector3 Four = P_Peachone_UI_Range;
 
-                    if (Weapon_Go.GetComponent<Weapon_Peachone>())
-                    {
-                        Weapon_Go.transform.position = All_Manager.instance.UI_M.Peachone_Image.rectTransform.position;
-                        Weapon_Go.transform.rotation = Quaternion.identity;
-                        Weapon_Go.transform.localScale = Vector3.one;
-
-                        yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_Peachone>().SR);
-
-                        var P_Peachone_UI_Range = Weapon_Go.GetComponent<Weapon_Peachone>().Convert_RectTransform_To_Position(All_Manager.instance.UI_M.Peachone_Range_Image.rectTransform);
-                        var P_Peachone_UI = Weapon_Go.GetComponent<Weapon_Peachone>().Convert_RectTransform_To_Position(All_Manager.instance.UI_M.Peachone_Image.rectTransform);
-
-                        Vector3 One = All_Manager.instance.UI_M.Peachone_Image.transform.position;
-                        Vector3 Two = Weapon_Go.GetComponent<Weapon_Peachone>().Peachone_Point_Setting(All_Manager.instance.UI_M.Peachone_Image.transform.position);
-                        Vector3 Three = Weapon_Go.GetComponent<Weapon_Peachone>().Peachone_Point_Setting(P_Peachone_UI_Range);
-                        Vector3 Four = P_Peachone_UI_Range;
-
-                        Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, Peachone_LAT.Level);
-                        Weapon_Go.GetComponent<Weapon_Peachone>().Peachone_Init(One, Two, Three, Four);
-                        CheckSynergyEffects(Weapon_Go.GetComponent<Weapon_Peachone>().WeaponKeyword);
-                        All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.Peachone);
-                    }
+                    weaponGo.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, Peachone_LAT.Level);
+                    weaponGo.GetComponent<Weapon_Peachone>().Peachone_Init(One, Two, Three, Four);
+                    CheckSynergyEffects(weaponGo.GetComponent<Weapon_Peachone>().WeaponKeyword);
+                    All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.Peachone);
 
                 }
                 break;
@@ -342,32 +340,19 @@ public class Unit_Player : Unit
 
                     for (int i = 0; i < Current_Weapon_Count(Weapon_Type.FireWand, FireWand_LAT); i++)
                     {
-                        Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
+                        weaponGo.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, FireWand_LAT.Level);
+                        CheckSynergyEffects(weaponGo.GetComponent<Weapon_FireWand>().WeaponKeyword);
 
-                        //Weapon_Go.AddComponent<Weapon_FireWand>();
+                        Vector3 Dir_Vec = new Vector3(Mathf.Cos((Mathf.PI * 2 * i / Current_Weapon_Count(Weapon_Type.FireWand, FireWand_LAT))), Mathf.Sin((Mathf.PI * i * 2 / Current_Weapon_Count(Weapon_Type.FireWand, FireWand_LAT))));
 
-                        if (Weapon_Go.GetComponent<Weapon_FireWand>())
+                        if (All_Manager.instance.GameMode_M.Game_Stop == false)
                         {
-                            Weapon_Go.transform.position = this.transform.position + new Vector3(0, -0.3f, 0);
-                            Weapon_Go.transform.rotation = Quaternion.identity;
-                            Weapon_Go.transform.localScale = Vector3.one;
-
-                            yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_FireWand>().SR);
-
-                            Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, FireWand_LAT.Level);
-                            CheckSynergyEffects(Weapon_Go.GetComponent<Weapon_FireWand>().WeaponKeyword);
-
-                            Vector3 Dir_Vec = new Vector3(Mathf.Cos((Mathf.PI * 2 * i / Current_Weapon_Count(Weapon_Type.FireWand, FireWand_LAT))), Mathf.Sin((Mathf.PI * i * 2 / Current_Weapon_Count(Weapon_Type.FireWand, FireWand_LAT)))); //���� �������� ������ ����ü���� ���͸� ����
-
-                            if (All_Manager.instance.GameMode_M.Game_Stop == false)
-                            {
-                                Weapon_Go.transform.position = Weapon_Go.transform.position + (Dir_Vec.normalized * FireWand_Stat.Weapon_Speed * Time.deltaTime);
-                            }
-                            else { }
-
-                            Weapon_Go.transform.rotation = Quaternion.Euler(0, 0, (360 * i / (Current_Weapon_Count(Weapon_Type.FireWand, FireWand_LAT))) + 180); //����ü�� ������ �ڿ������� ȸ������ �־���.
-                            All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.FireWand);
+                            weaponGo.transform.position = weaponGo.transform.position + (Dir_Vec.normalized * FireWand_Stat.Weapon_Speed * Time.deltaTime);
                         }
+
+                        weaponGo.transform.rotation = Quaternion.Euler(0, 0, (360 * i / (Current_Weapon_Count(Weapon_Type.FireWand, FireWand_LAT))) + 180);
+                        All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.FireWand);
+
                     }
                 }
                 break;
@@ -375,69 +360,40 @@ public class Unit_Player : Unit
                 {
                     var W_Cross_S = Weapon_STO.Info_s[Cross_LAT.Level];
 
-                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
+                    Vector3 One = this.transform.position;
+                    Vector3 Target = One + new Vector3(Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range), Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range), 0);
 
-                    //Weapon_Go.AddComponent<Weapon_Cross>();
+                    Vector3 Two = One + (Target - One) / 3 + new Vector3(Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2, Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2, 0);
+                    Vector3 Three = Target + (One - Target) / 3 + new Vector3(Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2, Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2, 0);
+                    Vector3 Four = One + ((One - Target) * W_Cross_S.Weapon_Range);
 
-                    if (Weapon_Go.GetComponent<Weapon_Cross>())
-                    {
-                        Weapon_Go.transform.position = this.transform.position;
-                        Weapon_Go.transform.rotation = Quaternion.identity;
-                        Weapon_Go.transform.localScale = Vector3.one;
-
-                        yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_Cross>().SR);
-
-                        Vector3 One = this.transform.position;
-                        Vector3 Target = One + new Vector3(Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range), Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range), 0);
-
-                        Vector3 Two = One + (Target - One) / 3 + new Vector3(Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2, Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2, 0);
-                        Vector3 Three = Target + (One - Target) / 3 + new Vector3(Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2, Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2, 0);
-                        Vector3 Four = One + ((One - Target) * W_Cross_S.Weapon_Range);
-
-                        Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, Cross_LAT.Level);
-                        Weapon_Go.GetComponent<Weapon_Cross>().Cross_Init(One, Two, Three, Four);
-                        CheckSynergyEffects(Weapon_Go.GetComponent<Weapon_Cross>().WeaponKeyword);
-                        //Weapon_Go.GetComponent<Weapon_Cross>().Weapon_Application_Equipment();
-                        All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.Cross);
-                    }
+                    weaponGo.GetComponent<Weapon_Cross>().Weapon_Init(this, Weapon_STO, Cross_LAT.Level);
+                    weaponGo.GetComponent<Weapon_Cross>().Cross_Init(One, Two, Three, Four);
+                    CheckSynergyEffects(weaponGo.GetComponent<Weapon_Cross>().WeaponKeyword);
+                    All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.Cross);
                 }
                 break;
             case Weapon_Type.Garlic:
                 {
-                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
-                    //Weapon_Go.AddComponent<Weapon_Garlic>();
+                    weaponGo.transform.parent = this.transform;
 
-                    if (Weapon_Go.GetComponent<Weapon_Garlic>())
-                    {
-                        Weapon_Go.transform.position = this.transform.position;
-                        Weapon_Go.transform.rotation = Quaternion.identity;
-                        Weapon_Go.transform.localScale = Vector3.one;
-
-                        Weapon_Go.transform.parent = this.transform;
-
-                        yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_Garlic>().SR);
-
-                        Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, Garlic_LAT.Level);
-                        CheckSynergyEffects(Weapon_Go.GetComponent<Weapon_Garlic>().WeaponKeyword);
-                        //Weapon_Go.GetComponent<Weapon_Garlic>().Weapon_Application_Equipment();
-                        //All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.Garlic);
-                    }
+                    weaponGo.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, Garlic_LAT.Level);
+                    CheckSynergyEffects(weaponGo.GetComponent<Weapon_Garlic>().WeaponKeyword);
                 }
                 break;
             case Weapon_Type.LightningRing:
                 {
-                    if (All_Manager.instance != null && All_Manager.instance.GameMode_M != null && All_Manager.instance.GameMode_M.Enemy_List != null && All_Manager.instance.GameMode_M.Enemy_List.Count > 0)
+                    if (All_Manager.instance != null && All_Manager.instance.GameMode_M.Enemy_List != null && All_Manager.instance.GameMode_M.Enemy_List.Count > 0)
                     {
                         var Max_Count = Current_Weapon_Count(Weapon_Type.LightningRing, LightningRing_LAT);
-                        int Count_To_Spawn = Mathf.Min(Max_Count, All_Manager.instance.GameMode_M.Enemy_List.Count); // �ִ� 10�������� �����ϵ��� ����
+                        int Count_To_Spawn = Mathf.Min(Max_Count, All_Manager.instance.GameMode_M.Enemy_List.Count);
 
-                        List<int> Spawned_Indices = new List<int>(); // �̹� ������ ���� �ε����� ������ ����Ʈ
+                        List<int> Spawned_Indices = new List<int>();
 
                         for (int i = 0; i < Count_To_Spawn; i++)
                         {
                             int Random_Index = Random.Range(0, All_Manager.instance.GameMode_M.Enemy_List.Count);
 
-                            // ��ø ����: �̹� ������ �� ��ġ�� LightningRing�� ������ �ǳʶ�
                             if (Spawned_Indices.Contains(Random_Index))
                             {
                                 continue;
@@ -449,112 +405,70 @@ public class Unit_Player : Unit
 
                             if (Check_Enemy_Alive == null)
                             {
-                                //Debug.LogWarning("None Enemy! : " + Random_Index);
                                 continue;
                             }
 
-                            Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
-                            //Weapon_Go.AddComponent<Weapon_LightningRing>();
+                            weaponGo = All_Manager.instance.Pool_M.Weapon_Pool_Out(weaponType);
 
 
-                            // LightningRing�� �������� �ִ��� Ȯ�� �� ó��
-                            if (Weapon_Go.GetComponent<Weapon_LightningRing>() != null)
+                            if (weaponGo.GetComponent<Weapon_LightningRing>() != null)
                             {
-                                Weapon_Go.transform.position = All_Manager.instance.GameMode_M.Enemy_List[Random_Index].transform.position;
-                                Weapon_Go.transform.rotation = Quaternion.identity;
-                                Weapon_Go.transform.localScale = Vector3.one;
+                                weaponGo.transform.position = All_Manager.instance.GameMode_M.Enemy_List[Random_Index].transform.position;
+                                weaponGo.transform.rotation = Quaternion.identity;
+                                weaponGo.transform.localScale = Vector3.one;
 
-                                yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_LightningRing>().SR);
+                                yield return new WaitUntil(() => weaponGo.GetComponent<Weapon_LightningRing>().SR);
 
-                                // Weapon_Init�� ���� �ʿ��� �ʱ�ȭ �۾� ����
-                                Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, LightningRing_LAT.Level);
-                                CheckSynergyEffects(Weapon_Go.GetComponent<Weapon_LightningRing>().WeaponKeyword);
-                                //Weapon_Go.GetComponent<Weapon_LightningRing>().Weapon_Application_Equipment();
+                                weaponGo.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, LightningRing_LAT.Level);
+                                CheckSynergyEffects(weaponGo.GetComponent<Weapon_LightningRing>().WeaponKeyword);
+
                                 All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.LightningRing);
                             }
-                            else
-                            {
-                                //Debug.Log("LightningRing Gone!");
-                            }
-
                         }
                     }
-
-
-
                 }
                 break;
             case Weapon_Type.ShadowPinion:
                 {
-                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
-                    //Weapon_Go.AddComponent<Weapon_ShadowPinion>();
+                    weaponGo.transform.position = this.transform.position + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0);
+                    weaponGo.transform.rotation = Quaternion.identity;
+                    weaponGo.transform.localScale = Vector3.one;
 
-                    if (Weapon_Go.GetComponent<Weapon_ShadowPinion>())
-                    {
-                        Weapon_Go.transform.position = this.transform.position + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0);
-                        Weapon_Go.transform.rotation = Quaternion.identity;
-                        Weapon_Go.transform.localScale = Vector3.one;
+                    weaponGo.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, ShadowPinion_LAT.Level);
+                    CheckSynergyEffects(weaponGo.GetComponent<Weapon_ShadowPinion>().WeaponKeyword);
 
-                        yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_ShadowPinion>().SR);
-
-                        Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, ShadowPinion_LAT.Level);
-                        CheckSynergyEffects(Weapon_Go.GetComponent<Weapon_ShadowPinion>().WeaponKeyword);
-                        //Weapon_Go.GetComponent<Weapon_ShadowPinion>().Weapon_Application_Equipment();
-                        All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.ShadowPinion);
-                    }
+                    All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.ShadowPinion);
                 }
                 break;
             case Weapon_Type.RuneTracer:
                 {
-                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
-                    //Weapon_Go.AddComponent<Weapon_RuneTracer>();
+                    weaponGo.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, RuneTracer_LAT.Level);
 
-                    if (Weapon_Go.GetComponent<Weapon_RuneTracer>())
-                    {
-                        Weapon_Go.transform.position = this.transform.position;
-                        Weapon_Go.transform.rotation = Quaternion.identity;
-                        Weapon_Go.transform.localScale = Vector3.one;
-
-                        yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_RuneTracer>().SR);
-
-                        Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, RuneTracer_LAT.Level);
-                        //Weapon_Go.GetComponent<Weapon_RuneTracer>().Weapon_Application_Equipment();
-                        CheckSynergyEffects(Weapon_Go.GetComponent<Weapon_RuneTracer>().WeaponKeyword);
-                        All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.RuneTracer);
-                    }
+                    CheckSynergyEffects(weaponGo.GetComponent<Weapon_RuneTracer>().WeaponKeyword);
+                    All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.RuneTracer);
                 }
                 break;
             case Weapon_Type.Whip:
                 {
-                    Weapon_Go = All_Manager.instance.Pool_M.Weapon_Pool_Out(p_WT);
-                    //Weapon_Go.AddComponent<Weapon_Whip>();
-
-                    //Weapon_Go.transform.parent = this.transform;
-
-                    if (Weapon_Go.GetComponent<Weapon_Whip>())
+                    if (Weapon_Trigger)
                     {
-                        yield return new WaitUntil(() => Weapon_Go.GetComponent<Weapon_Whip>().SR);
-
-                        if (Weapon_Trigger)
-                        {
-                            Weapon_Go.transform.position = this.transform.position + new Vector3(-2f + Random.Range(-0.5f, 0.5f), -0.1f + Random.Range(-0.2f, 0.2f), 0);
-                            Weapon_Go.transform.rotation = Quaternion.identity;
-                            Weapon_Go.transform.localScale = new Vector3(-4, -1, -1);
-                        }
-                        else
-                        {
-                            Weapon_Go.transform.position = this.transform.position + new Vector3(2f + Random.Range(-0.5f, 0.5f), -0.1f + Random.Range(-0.2f, 0.2f), 0);
-                            Weapon_Go.transform.rotation = Quaternion.identity;
-                            Weapon_Go.transform.localScale = new Vector3(4, 1, 1);
-                        }
-
-
-                        Weapon_Go.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, Whip_LAT.Level);
-                        CheckSynergyEffects(Weapon_Go.GetComponent<Weapon_Whip>().WeaponKeyword);
-                        Weapon_Trigger = !Weapon_Trigger;
-
-                        All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.Whip);
+                        weaponGo.transform.position = this.transform.position + new Vector3(-2f + Random.Range(-0.5f, 0.5f), -0.1f + Random.Range(-0.2f, 0.2f), 0);
+                        weaponGo.transform.rotation = Quaternion.identity;
+                        weaponGo.transform.localScale = new Vector3(-4, -1, -1);
                     }
+                    else
+                    {
+                        weaponGo.transform.position = this.transform.position + new Vector3(2f + Random.Range(-0.5f, 0.5f), -0.1f + Random.Range(-0.2f, 0.2f), 0);
+                        weaponGo.transform.rotation = Quaternion.identity;
+                        weaponGo.transform.localScale = new Vector3(4, 1, 1);
+                    }
+
+
+                    weaponGo.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, Whip_LAT.Level);
+                    CheckSynergyEffects(weaponGo.GetComponent<Weapon_Whip>().WeaponKeyword);
+                    Weapon_Trigger = !Weapon_Trigger;
+
+                    All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.Whip);
 
                 }
                 break;
@@ -562,28 +476,13 @@ public class Unit_Player : Unit
                 break;
         }
 
-        //Debug.Log(Weapon_Go);
-
-        if (Weapon_Go != null)
+        if (weaponGo != null)
         {
-            All_Weapon.Add(Weapon_Go.GetComponent<Weapon>());
-            //Weapon_Go.transform.parent = this.transform;
+            All_Weapon.Add(weapon);
         }
-
-        else
-        {
-            //Debug.Log("Weapon_Go Null");
-        }
-
         Creating_Weapon = false;
     }
 
-    void UseWeapon()
-    {
-
-    }
-
-    // ���� ���׷��̵�
     public void Upgrade_Weapon(Weapon_Type p_WT)
     {
         if (p_WT == Weapon_Type.Axe)

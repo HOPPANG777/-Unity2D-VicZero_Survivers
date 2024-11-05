@@ -86,7 +86,7 @@ public abstract class Unit : MonoBehaviour
     private float knockTimer; // �˹� ���� �ð� Ÿ�̸�
     private float knockDuration;
 
-    void Awake()
+    protected virtual void Awake()
     {
         // Awake를 생성자 대용으로 사용하셈. Start는 생성되자마자 호출되지 않음.
         SR = this.AddComponent<SpriteRenderer>();
@@ -178,7 +178,7 @@ public abstract class Unit : MonoBehaviour
             var Temp_Color_Alpha = this.SR.color.a;
 
             isHit = false;
-            
+
             //CheckDead();
             StartCoroutine(CheckDeadWithDelay());
         }
