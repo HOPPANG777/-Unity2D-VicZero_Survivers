@@ -91,6 +91,20 @@ public class Unit_Player : Unit
     public int Attractorb_Level;
     public int HollowHeart_Level;
 
+    private Dictionary<Equipment_Type, int> equipmentLevels = new Dictionary<Equipment_Type, int>
+{
+    { Equipment_Type.HollowHeart, 0 },
+    { Equipment_Type.Wings, 0 },
+    { Equipment_Type.Armour, 0 },
+    { Equipment_Type.Spinach, 0 },
+    { Equipment_Type.Bracer, 0 },
+    { Equipment_Type.SpellBinder, 0 },
+    { Equipment_Type.Candelabrador, 0 },
+    { Equipment_Type.EmptyTome, 0 },
+    { Equipment_Type.Duplicator, 0 },
+    { Equipment_Type.Attractorb, 0 }
+};
+
     public bool Creating_Weapon = false;
     public bool Creating_Equipment = false;
     public bool Weapon_Trigger = false;
@@ -485,149 +499,42 @@ public class Unit_Player : Unit
 
     public void Upgrade_Weapon(Weapon_Type p_WT)
     {
-        if (p_WT == Weapon_Type.Axe)
-        {
-            Axe_LAT.Level++;
+        // 무기 유형별로 WLAT과 컴포넌트 타입을 Dictionary에 저장
+        var weaponLevels = new Dictionary<Weapon_Type, (Weapon_Level_And_Timer WLAT, System.Type Type)>
+    {
+        { Weapon_Type.Axe, (Axe_LAT, typeof(Weapon_Axe)) },
+        { Weapon_Type.KingBible, (KingBible_LAT, typeof(Weapon_KingBible)) },
+        { Weapon_Type.Peachone, (Peachone_LAT, typeof(Weapon_Peachone)) },
+        { Weapon_Type.FireWand, (FireWand_LAT, typeof(Weapon_FireWand)) },
+        { Weapon_Type.Cross, (Cross_LAT, typeof(Weapon_Cross)) },
+        { Weapon_Type.Garlic, (Garlic_LAT, typeof(Weapon_Garlic)) },
+        { Weapon_Type.LightningRing, (LightningRing_LAT, typeof(Weapon_LightningRing)) },
+        { Weapon_Type.ShadowPinion, (ShadowPinion_LAT, typeof(Weapon_ShadowPinion)) },
+        { Weapon_Type.RuneTracer, (RuneTracer_LAT, typeof(Weapon_RuneTracer)) },
+        { Weapon_Type.Whip, (Whip_LAT, typeof(Weapon_Whip)) },
+    };
 
-            for (int i = 0; i < All_Weapon.Count; i++)
+        // 무기 유형이 Dictionary에 있는지 확인
+        if (weaponLevels.TryGetValue(p_WeaponType, out var weaponInfo))
+        {
+            // 해당 무기의 레벨 증가
+            weaponInfo.WLAT.Level++;
+
+            // 모든 무기 리스트에서 해당 무기 유형 찾기 및 업그레이드 호출
+            foreach (var weapon in All_Weapon)
             {
-                if (All_Weapon[i].GetComponent<Weapon_Axe>())
+                if (weapon.GetComponent(weaponInfo.Type) is Weapon matchedWeapon)
                 {
-                    All_Weapon[i].Upgrade(Axe_LAT.Level);
+                    matchedWeapon.Upgrade(weaponInfo.WLAT.Level);
                 }
             }
 
-            //Debug.Log(Axe_LAT.Level);
-        }
-
-        else if (p_WT == Weapon_Type.KingBible)
-        {
-            KingBible_LAT.Level++;
-
-            for (int i = 0; i < All_Weapon.Count; i++)
+            // 추가 로직이 필요한 경우 처리
+            if (p_WeaponType == Weapon_Type.KingBible)
             {
-                if (All_Weapon[i].GetComponent<Weapon_KingBible>())
-                {
-                    All_Weapon[i].Upgrade(KingBible_LAT.Level);
-                }
-            }
-
-            Create_Weapon(Weapon_Type.KingBible);
-        }
-
-        else if (p_WT == Weapon_Type.Peachone)
-        {
-            Peachone_LAT.Level++;
-
-            for (int i = 0; i < All_Weapon.Count; i++)
-            {
-                if (All_Weapon[i].GetComponent<Weapon_Peachone>())
-                {
-                    All_Weapon[i].Upgrade(Peachone_LAT.Level);
-                }
+                Create_Weapon(Weapon_Type.KingBible);
             }
         }
-
-        else if (p_WT == Weapon_Type.FireWand)
-        {
-            FireWand_LAT.Level++;
-
-            for (int i = 0; i < All_Weapon.Count; i++)
-            {
-                if (All_Weapon[i].GetComponent<Weapon_FireWand>())
-                {
-                    All_Weapon[i].Upgrade(FireWand_LAT.Level);
-                }
-            }
-
-        }
-
-        else if (p_WT == Weapon_Type.Cross)
-        {
-            Cross_LAT.Level++;
-
-            for (int i = 0; i < All_Weapon.Count; i++)
-            {
-                if (All_Weapon[i].GetComponent<Weapon_Cross>())
-                {
-                    All_Weapon[i].Upgrade(Cross_LAT.Level);
-                }
-            }
-
-        }
-
-        else if (p_WT == Weapon_Type.Garlic)
-        {
-            Garlic_LAT.Level++;
-
-            for (int i = 0; i < All_Weapon.Count; i++)
-            {
-                if (All_Weapon[i].GetComponent<Weapon_Garlic>())
-                {
-                    All_Weapon[i].Upgrade(Garlic_LAT.Level);
-                }
-            }
-
-
-        }
-
-        else if (p_WT == Weapon_Type.LightningRing)
-        {
-            LightningRing_LAT.Level++;
-
-            for (int i = 0; i < All_Weapon.Count; i++)
-            {
-                if (All_Weapon[i].GetComponent<Weapon_LightningRing>())
-                {
-                    All_Weapon[i].Upgrade(LightningRing_LAT.Level);
-                }
-            }
-
-        }
-
-        else if (p_WT == Weapon_Type.ShadowPinion)
-        {
-            ShadowPinion_LAT.Level++;
-
-            for (int i = 0; i < All_Weapon.Count; i++)
-            {
-                if (All_Weapon[i].GetComponent<Weapon_ShadowPinion>())
-                {
-                    All_Weapon[i].Upgrade(ShadowPinion_LAT.Level);
-                }
-            }
-
-        }
-
-        else if (p_WT == Weapon_Type.RuneTracer)
-        {
-            RuneTracer_LAT.Level++;
-
-            for (int i = 0; i < All_Weapon.Count; i++)
-            {
-                if (All_Weapon[i].GetComponent<Weapon_RuneTracer>())
-                {
-                    All_Weapon[i].Upgrade(RuneTracer_LAT.Level);
-                }
-            }
-
-        }
-
-        else if (p_WT == Weapon_Type.Whip)
-        {
-            Whip_LAT.Level++;
-
-            for (int i = 0; i < All_Weapon.Count; i++)
-            {
-                if (All_Weapon[i].GetComponent<Weapon_Whip>())
-                {
-                    All_Weapon[i].Upgrade(Whip_LAT.Level);
-                }
-            }
-
-        }
-
-
     }
 
     // ������ �ִ���
@@ -636,479 +543,142 @@ public class Unit_Player : Unit
         return false;
     }
 
-    // ���� ���� Ÿ�̸� ������Ʈ
     public void Spawn_Weapon_Timer_Update()
     {
-        if (Axe_LAT.Level > 0)
+        var weaponTimers = new Dictionary<Weapon_Type, Weapon_Level_And_Timer>
+    {
+        { Weapon_Type.Axe, Axe_LAT },
+        { Weapon_Type.KingBible, KingBible_LAT },
+        { Weapon_Type.Peachone, Peachone_LAT },
+        { Weapon_Type.FireWand, FireWand_LAT },
+        { Weapon_Type.Cross, Cross_LAT },
+        { Weapon_Type.Garlic, Garlic_LAT },
+        { Weapon_Type.LightningRing, LightningRing_LAT },
+        { Weapon_Type.ShadowPinion, ShadowPinion_LAT },
+        { Weapon_Type.RuneTracer, RuneTracer_LAT },
+        { Weapon_Type.Whip, Whip_LAT }
+    };
+
+        foreach (var weapon in weaponTimers)
         {
-            if (Axe_LAT.Timer > Current_Weapon_CoolDown(Weapon_Type.Axe, Axe_LAT))
+            var weaponType = weapon.Key;
+            var weaponData = weapon.Value;
+
+            if (weaponData.Level <= 0) continue; // 레벨이 0보다 큰 경우에만 처리
+
+            // 무기 쿨다운 체크
+            if (weaponData.Timer > Current_Weapon_CoolDown(weaponType, weaponData))
             {
-                Axe_LAT.Timer = 0;
+                weaponData.Timer = 0; // 타이머 초기화
 
-                //for (int i = 0; i < STO_Weapon_Temp.Info_s[Axe_LAT.Level].Weapon_Count; i++)
-                //{
-                //    Create_Weapon(Weapon_Type.Axe);
-                //}
-
-                for (int i = 0; i < Current_Weapon_Count(Weapon_Type.Axe, Axe_LAT); i++)
+                // 무기 스폰
+                if (weaponType == Weapon_Type.FireWand || weaponType == Weapon_Type.LightningRing || weaponType == Weapon_Type.Garlic)
                 {
-                    Create_Weapon(Weapon_Type.Axe);
+                    // 단일 인스턴스만 생성하는 무기
+                    Create_Weapon(weaponType);
                 }
-            }
-
-            Axe_LAT.Timer += Time.deltaTime;
-        }
-
-        if (KingBible_LAT.Level > 0)
-        {
-            if (KingBible_LAT.Timer > Current_Weapon_CoolDown(Weapon_Type.KingBible, KingBible_LAT))
-            {
-                KingBible_LAT.Timer = 0;
-
-                //for (int i = 0; i < Current_Weapon_Count(Weapon_Type.KingBible, KingBible_LAT); i++)    // ������ �� ������ ���� ������ �ȳ������� ����, ���� �̰� STO�� ���� ������ ȸ�� ��Ų�� �� �̰� ���ľ� �Ѵ�.
-                //{
-                //    Create_Weapon(Weapon_Type.KingBible);
-                //}
-            }
-
-            KingBible_LAT.Timer += Time.deltaTime;
-        }
-
-        if (Peachone_LAT.Level > 0)
-        {
-            if (Peachone_LAT.Timer > Current_Weapon_CoolDown(Weapon_Type.Peachone, Peachone_LAT))
-            {
-                Peachone_LAT.Timer = 0;
-
-
-                for (int i = 0; i < Current_Weapon_Count(Weapon_Type.Peachone, Peachone_LAT); i++)
+                else if (weaponType == Weapon_Type.KingBible)
                 {
-                    Create_Weapon(Weapon_Type.Peachone);
+                    // 성경은 업그레이드에서 생성
                 }
-            }
-
-            Peachone_LAT.Timer += Time.deltaTime;
-        }
-
-        if (FireWand_LAT.Level > 0)
-        {
-            if (FireWand_LAT.Timer > Current_Weapon_CoolDown(Weapon_Type.FireWand, FireWand_LAT))
-            {
-                FireWand_LAT.Timer = 0;
-
-                Create_Weapon(Weapon_Type.FireWand);
-                //Debug.Log("FireWand!");
-            }
-
-            FireWand_LAT.Timer += Time.deltaTime;
-        }
-
-        if (Cross_LAT.Level > 0)
-        {
-            if (Cross_LAT.Timer > Current_Weapon_CoolDown(Weapon_Type.Cross, Cross_LAT))
-            {
-                Cross_LAT.Timer = 0;
-
-                for (int i = 0; i < Current_Weapon_Count(Weapon_Type.Cross, Cross_LAT); i++)
+                else
                 {
-                    Create_Weapon(Weapon_Type.Cross);
+                    // Current_Weapon_Count에 따라 다수 생성하는 무기
+                    int weaponCount = Current_Weapon_Count(weaponType, weaponData);
+                    for (int i = 0; i < weaponCount; i++)
+                    {
+                        Create_Weapon(weaponType);
+                    }
                 }
+
             }
 
-            Cross_LAT.Timer += Time.deltaTime;
-        }
-
-        if (Garlic_LAT.Level > 0)
-        {
-            var STO_Weapon_Temp = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(Weapon_Type.Garlic);
-
-            if (Garlic_LAT.Timer > Current_Weapon_CoolDown(Weapon_Type.Garlic, Garlic_LAT))
-            {
-                Garlic_LAT.Timer = 0;
-
-                Create_Weapon(Weapon_Type.Garlic);
-            }
-
-            Garlic_LAT.Timer += Time.deltaTime;
-        }
-
-        if (LightningRing_LAT.Level > 0)
-        {
-            if (LightningRing_LAT.Timer > Current_Weapon_CoolDown(Weapon_Type.LightningRing, LightningRing_LAT))
-            {
-                LightningRing_LAT.Timer = 0;
-
-                Create_Weapon(Weapon_Type.LightningRing);
-            }
-
-            LightningRing_LAT.Timer += Time.deltaTime;
-        }
-
-        if (ShadowPinion_LAT.Level > 0)
-        {
-            if (ShadowPinion_LAT.Timer > Current_Weapon_CoolDown(Weapon_Type.ShadowPinion, ShadowPinion_LAT))
-            {
-                ShadowPinion_LAT.Timer = 0;
-
-                for (int i = 0; i < Current_Weapon_Count(Weapon_Type.ShadowPinion, ShadowPinion_LAT); i++)
-                {
-                    Create_Weapon(Weapon_Type.ShadowPinion);
-                }
-            }
-
-            ShadowPinion_LAT.Timer += Time.deltaTime;
-        }
-
-        if (RuneTracer_LAT.Level > 0)
-        {
-            if (RuneTracer_LAT.Timer > Current_Weapon_CoolDown(Weapon_Type.RuneTracer, RuneTracer_LAT))
-            {
-                RuneTracer_LAT.Timer = 0;
-
-                for (int i = 0; i < Current_Weapon_Count(Weapon_Type.RuneTracer, RuneTracer_LAT); i++)
-                {
-                    Create_Weapon(Weapon_Type.RuneTracer);
-                }
-            }
-
-            RuneTracer_LAT.Timer += Time.deltaTime;
-        }
-
-        if (Whip_LAT.Level > 0)
-        {
-            if (Whip_LAT.Timer > Current_Weapon_CoolDown(Weapon_Type.Whip, Whip_LAT))
-            {
-                Whip_LAT.Timer = 0;
-
-                for (int i = 0; i < Current_Weapon_Count(Weapon_Type.Whip, Whip_LAT); i++)
-                {
-                    Create_Weapon(Weapon_Type.Whip);
-                }
-            }
-
-            Whip_LAT.Timer += Time.deltaTime;
+            // 타이머 증가
+            weaponData.Timer += Time.deltaTime;
         }
 
         //Debug.Log("Weapon_Spawn!");
     }
 
-    // ��ű� ����
-    public void Update_Get_Equipment(Equipment_Type p_ET)
+    public void Update_Get_Equipment(Equipment_Type p_EquipmentType)
     {
-        var Temp = All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(p_ET);
+        var equipmentSTO = All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(p_EquipmentType);
 
-        if (p_ET == Equipment_Type.HollowHeart)
+        // p_EquipmentType과 equipmentSTO가 동일한 경우에만 호출
+        if (equipmentSTO == All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(p_EquipmentType))
         {
-
-            if (Temp == All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.HollowHeart))
-            {
-                Get_Equipment_Player_Percentage_Stat(this, Temp);
-            }
-
-            //Get_Equipment_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Equipment_HollowHeart);
+            Get_Equipment_Player_Percentage_Stat(this, equipmentSTO);
         }
 
-        else if (p_ET == Equipment_Type.Wings)
+        // equipmentSTO가 null이 아닌 경우 장비 추가
+        if (equipmentSTO != null)
         {
-
-            if (Temp == All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.Wings))
-            {
-                Get_Equipment_Player_Percentage_Stat(this, Temp);
-            }
-
-            //Get_Equipment_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Equipment_HollowHeart);
-        }
-
-        else if (p_ET == Equipment_Type.Armour)
-        {
-
-            if (Temp == All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.Armour))
-            {
-                Get_Equipment_Player_Percentage_Stat(this, Temp);
-            }
-
-            //Get_Equipment_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Equipment_HollowHeart);
-        }
-
-        else if (p_ET == Equipment_Type.Spinach)
-        {
-
-            if (Temp == All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.Spinach))
-            {
-                Get_Equipment_Player_Percentage_Stat(this, Temp);
-            }
-
-            //Get_Equipment_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Equipment_HollowHeart);
-        }
-
-        else if (p_ET == Equipment_Type.Bracer)
-        {
-
-            if (Temp == All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.Bracer))
-            {
-                Get_Equipment_Player_Percentage_Stat(this, Temp);
-            }
-
-            //Get_Equipment_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Equipment_HollowHeart);
-        }
-
-        else if (p_ET == Equipment_Type.SpellBinder)
-        {
-
-            if (Temp == All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.SpellBinder))
-            {
-                Get_Equipment_Player_Percentage_Stat(this, Temp);
-            }
-
-            //Get_Equipment_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Equipment_HollowHeart);
-        }
-
-        else if (p_ET == Equipment_Type.Candelabrador)
-        {
-
-            if (Temp == All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.Candelabrador))
-            {
-                Get_Equipment_Player_Percentage_Stat(this, Temp);
-            }
-
-            //Get_Equipment_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Equipment_HollowHeart);
-        }
-
-        else if (p_ET == Equipment_Type.EmptyTome)
-        {
-
-            if (Temp == All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.EmptyTome))
-            {
-                Get_Equipment_Player_Percentage_Stat(this, Temp);
-            }
-
-            //Get_Equipment_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Equipment_HollowHeart);
-        }
-
-        else if (p_ET == Equipment_Type.Duplicator)
-        {
-
-            if (Temp == All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.Duplicator))
-            {
-                Get_Equipment_Player_Percentage_Stat(this, Temp);
-            }
-
-            //Get_Equipment_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Equipment_HollowHeart);
-        }
-
-        else if (p_ET == Equipment_Type.Attractorb)
-        {
-
-            if (Temp == All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.Attractorb))
-            {
-                Get_Equipment_Player_Percentage_Stat(this, Temp);
-            }
-
-            //Get_Equipment_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Equipment_HollowHeart);
-        }
-
-        //Debug.Log("��ű� ����");
-
-        if (Temp != null)
-        {
-            All_Equipment.Add(Temp);
+            All_Equipment.Add(equipmentSTO);
         }
     }
 
-    // ��ű� ���׷��̵�
+
+
     public void Upgrade_Equipment(Equipment_Type p_ET)
     {
-        if (p_ET == Equipment_Type.HollowHeart)
+        if (equipmentLevels.ContainsKey(p_ET))
         {
-            HollowHeart_Level += 1;
-
-            Update_Get_Equipment(Equipment_Type.HollowHeart);
-        }
-
-        else if (p_ET == Equipment_Type.Wings)
-        {
-            Wings_Level += 1;
-
-            Update_Get_Equipment(Equipment_Type.Wings);
-        }
-
-        else if (p_ET == Equipment_Type.Armour)
-        {
-            Armour_Level += 1;
-
-            Update_Get_Equipment(Equipment_Type.Armour);
-        }
-
-        else if (p_ET == Equipment_Type.Spinach)
-        {
-            Spinach_Level += 1;
-
-            Update_Get_Equipment(Equipment_Type.Spinach);
-        }
-
-        else if (p_ET == Equipment_Type.Bracer)
-        {
-            Bracer_Level += 1;
-
-            Update_Get_Equipment(Equipment_Type.Bracer);
-        }
-
-        else if (p_ET == Equipment_Type.SpellBinder)
-        {
-            SpellBinder_Level += 1;
-
-            Update_Get_Equipment(Equipment_Type.SpellBinder);
-        }
-
-        else if (p_ET == Equipment_Type.Candelabrador)
-        {
-            Candelabrador_Level += 1;
-
-            Update_Get_Equipment(Equipment_Type.Candelabrador);
-        }
-
-        else if (p_ET == Equipment_Type.EmptyTome)
-        {
-            EmptyTome_Level += 1;
-
-            Update_Get_Equipment(Equipment_Type.EmptyTome);
-        }
-
-        else if (p_ET == Equipment_Type.Duplicator)
-        {
-            Duplicator_Level += 1;
-
-            Update_Get_Equipment(Equipment_Type.Duplicator);
-        }
-
-        else if (p_ET == Equipment_Type.Attractorb)
-        {
-            Attractorb_Level += 1;
-
-            Update_Get_Equipment(Equipment_Type.Attractorb);
+            equipmentLevels[p_ET] += 1;
+            Update_Get_Equipment(p_ET);
         }
     }
 
-    // �÷��̾� ������ ���ȿ� �ۼ�Ƽ�� ���� ����
-    public void Origin_Stat_Application_Player(Equipment_Type p_ET)
+    // 리팩토링된 Origin_Stat_Application_Player 메서드
+    public void Origin_Stat_Application_Player(Equipment_Type p_EquipmentType)
     {
-        if (p_ET == Equipment_Type.Spinach)
+        if (!equipmentLevels.ContainsKey(p_EquipmentType) || equipmentLevels[p_EquipmentType] <= 0)
+            return;
+
+        switch (p_EquipmentType)
         {
-            if (Spinach_Level > 0)
-            {
-                float Unit_Player_Damage = 0;
-                Unit_Player_Damage = this.Percent_Stat.Unit_Weapon_Damage;
+            case Equipment_Type.Spinach:
+                this.Origin_Stat.Unit_Weapon_Damage += this.Percent_Stat.Unit_Weapon_Damage;
+                break;
 
-                this.Origin_Stat.Unit_Weapon_Damage += Unit_Player_Damage;
-            }
-        }
+            case Equipment_Type.Bracer:
+                this.Origin_Stat.Unit_Weapon_Proj_Speed += this.Percent_Stat.Unit_Weapon_Proj_Speed;
+                break;
 
-        else if (p_ET == Equipment_Type.Bracer)
-        {
-            if (Bracer_Level > 0)
-            {
-                float Unit_Player_Proj_Spd = 0;
-                Unit_Player_Proj_Spd = this.Percent_Stat.Unit_Weapon_Proj_Speed;
+            case Equipment_Type.Duplicator:
+                this.Origin_Stat.Unit_Weapon_Proj_Count += this.Percent_Stat.Unit_Weapon_Proj_Count;
+                break;
 
-                this.Origin_Stat.Unit_Weapon_Proj_Speed += Unit_Player_Proj_Spd;
-            }
-        }
+            case Equipment_Type.EmptyTome:
+                this.Origin_Stat.Unit_Weapon_Range += this.Percent_Stat.Unit_Weapon_Range;
+                break;
 
-        else if (p_ET == Equipment_Type.Duplicator)
-        {
-            if (Duplicator_Level > 0)
-            {
-                int Unit_Player_Proj_Count = 0;
-                Unit_Player_Proj_Count = this.Percent_Stat.Unit_Weapon_Proj_Count;
+            case Equipment_Type.Wings:
+                this.Origin_Stat.Unit_Speed += this.Origin_Stat.Unit_Speed * this.Percent_Stat.Unit_Speed * 0.01f;
+                break;
 
-                this.Origin_Stat.Unit_Weapon_Proj_Count += Unit_Player_Proj_Count;
-            }
-        }
+            case Equipment_Type.Candelabrador:
+                this.Origin_Stat.Unit_Weapon_Range += this.Percent_Stat.Unit_Weapon_Range;
+                this.Origin_Stat.Unit_Weapon_Size += this.Percent_Stat.Unit_Weapon_Size;
+                break;
 
-        else if (p_ET == Equipment_Type.EmptyTome)
-        {
-            if (EmptyTome_Level > 0)
-            {
-                float Unit_Player_Range = 0;
-                Unit_Player_Range = this.Percent_Stat.Unit_Weapon_Range;
+            case Equipment_Type.Armour:
+                this.Origin_Stat.Unit_Defense += this.Percent_Stat.Unit_Defense;
+                break;
 
-                this.Origin_Stat.Unit_Weapon_Range += Unit_Player_Range;
-            }
-        }
-
-        else if (p_ET == Equipment_Type.Wings)
-        {
-            if (Wings_Level > 0)
-            {
-                float Unit_Player_Speed = 0;
-                Unit_Player_Speed = (this.Origin_Stat.Unit_Speed * this.Percent_Stat.Unit_Speed * 0.01f);
-
-                this.Origin_Stat.Unit_Speed += Unit_Player_Speed;
-            }
-        }
-
-        else if (p_ET == Equipment_Type.Candelabrador)
-        {
-            if (Candelabrador_Level > 0)
-            {
-                float Unit_Player_Range = 0;
-                float Unit_Player_Size = 0;
-                Unit_Player_Range = this.Percent_Stat.Unit_Weapon_Range;
-                Unit_Player_Size = this.Percent_Stat.Unit_Weapon_Size;
-
-                this.Origin_Stat.Unit_Weapon_Range += Unit_Player_Range;
-                this.Origin_Stat.Unit_Weapon_Size += Unit_Player_Size;
-            }
-        }
-
-        else if (p_ET == Equipment_Type.Armour)
-        {
-            if (Armour_Level > 0)
-            {
-                float Unit_Player_Defense = 0;
-                Unit_Player_Defense = this.Percent_Stat.Unit_Defense;
-
-                this.Origin_Stat.Unit_Defense += Unit_Player_Defense;
-            }
-        }
-
-        else if (p_ET == Equipment_Type.HollowHeart)
-        {
-            if (HollowHeart_Level > 0)
-            {
-                float Unit_Player_HP = 0;
-                Unit_Player_HP = (this.Origin_Stat.Unit_HP * this.Percent_Stat.Unit_HP * 0.01f); // (this.Origin_Stat.Unit_HP * this.Percent_Stat.Unit_HP * 0.01f);
-
-                var Temp_HP = this.Origin_Stat.Unit_HP + Unit_Player_HP;
-
-                this.Origin_Stat.Unit_HP = Temp_HP;
-
+            case Equipment_Type.HollowHeart:
+                float hpIncrease = this.Origin_Stat.Unit_HP * this.Percent_Stat.Unit_HP * 0.01f;
+                this.Origin_Stat.Unit_HP += hpIncrease;
                 this.Max_HP = this.Origin_Stat.Unit_HP;
-            }
+                break;
+
+            case Equipment_Type.SpellBinder:
+                this.Origin_Stat.Unit_Weapon_Duration += this.Percent_Stat.Unit_Weapon_Duration;
+                break;
+
+            case Equipment_Type.Attractorb:
+                this.Origin_Stat.Unit_Get_Gem_Range += this.Origin_Stat.Unit_Get_Gem_Range * this.Percent_Stat.Unit_Get_Gem_Range * 0.01f;
+                break;
         }
-
-        else if (p_ET == Equipment_Type.SpellBinder)
-        {
-            if (SpellBinder_Level > 0)
-            {
-                float Unit_Player_Duration = 0;
-                Unit_Player_Duration = this.Percent_Stat.Unit_Weapon_Duration;
-
-                this.Origin_Stat.Unit_Weapon_Duration += Unit_Player_Duration;
-            }
-        }
-
-        else if (p_ET == Equipment_Type.Attractorb)
-        {
-            if (Attractorb_Level > 0)
-            {
-                float Unit_Player_Get_Gem_Range = 0;
-                Unit_Player_Get_Gem_Range = (this.Origin_Stat.Unit_Get_Gem_Range * this.Percent_Stat.Unit_Get_Gem_Range * 0.01f);
-
-                this.Origin_Stat.Unit_Get_Gem_Range += Unit_Player_Get_Gem_Range;
-            }
-        }
-
     }
 
 
@@ -1186,8 +756,6 @@ public class Unit_Player : Unit
     {
         Weapon_Level_And_Timer WLAT = null;
 
-        //var Temp = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr()
-
         if (p_WTO == All_Manager.instance.Resource_M.STO_Weapons[0])
         {
             WLAT = Axe_LAT;
@@ -1239,10 +807,8 @@ public class Unit_Player : Unit
         }
 
         return WLAT;
-
     }
 
-    // ��ű� ���� ã�ư��� �ְ� // �ٵ� �̰� ���� �̳��̳� ��Ʈ��Ʈ�� ���� �����ϸ� ���ﲨ �����ѵ�
     public int Convert_Equipment_Level_Player(Equipment_Type p_ET)
     {
         var Equipment_Level = 0;
