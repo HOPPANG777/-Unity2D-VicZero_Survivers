@@ -530,7 +530,6 @@ public class Unit_Player : Unit
         }
     }
 
-    // ������ �ִ���
     public bool Check_Weapon(Weapon_Type p_PT)
     {
         return false;
@@ -610,7 +609,6 @@ public class Unit_Player : Unit
         }
     }
 
-    //
     public void Upgrade_Equipment(Equipment_Type p_ET)
     {
         if (equipmentLevels.ContainsKey(p_ET))
@@ -684,7 +682,7 @@ public class Unit_Player : Unit
             return;
         }
 
-        if (Eq_STO == null) //
+        if (Eq_STO == null)
         {
             return;
         }
@@ -742,7 +740,6 @@ public class Unit_Player : Unit
 
     }
 
-    //
     public Weapon_Level_And_Timer Convert_WLAT_Player(STO_Weapon p_WTO)
     {
         Weapon_Level_And_Timer WLAT = null;
@@ -800,14 +797,12 @@ public class Unit_Player : Unit
         return WLAT;
     }
 
-    //
     public int Convert_Equipment_Level_Player(Equipment_Type p_ET)
     {
         // 요청된 장비 타입의 레벨을 반환, 없으면 0
         return equipmentLevels.TryGetValue(p_ET, out int level) ? level : 0;
     }
 
-    //
     private float GetCurrentWeaponStat(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT, Func<Weapon_Information, float> statSelector)
     {
         var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
@@ -930,11 +925,9 @@ public class Unit_Player : Unit
                     }
                 }
                 break;
-                // 
         }
     }
 
-    // 
     public void Player_Move()
     {
         if (isDead == true) return;
@@ -960,9 +953,6 @@ public class Unit_Player : Unit
             SR.flipX = InputVec.x >= 0;
         }
     }
-
-
-    // 
     public void Recovery_Current_HP()
     {
         int Recovery_HP = 25;
@@ -970,11 +960,6 @@ public class Unit_Player : Unit
         if (this.Current_HP < this.Max_HP)
         {
             this.Current_HP += Recovery_HP;
-        }
-
-        else
-        {
-            Debug.Log("�̹� �ִ� ü�� �Դϴ�.");
         }
 
         All_Manager.instance.UI_M.Update_Player_HPBar_Image(Current_HP / Max_HP);
@@ -1010,12 +995,10 @@ public class Unit_Player : Unit
         if (p_Un_STO.Unit_Animator_Controller != null)
         {
             p_Unit.AM.runtimeAnimatorController = p_Un_STO.Unit_Animator_Controller;
-            p_Unit.AM.speed = 1.0f; // �ִϸ��̼� ���
+            p_Unit.AM.speed = 1.0f;
             p_Unit.AM.cullingMode = AnimatorCullingMode.CullCompletely;
         }
     }
-
-    //
     public override void Unit_Animation(Unit_Anim_State State)
     {
         base.Unit_Animation(State);
