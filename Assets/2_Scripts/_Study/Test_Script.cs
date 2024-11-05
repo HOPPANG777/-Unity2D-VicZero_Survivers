@@ -610,6 +610,65 @@ public class Test_Script : MonoBehaviour
 /// 유닛 플레이어 스크립트 주석들
 ///
 /// 
+//public int Convert_Equipment_Level_Player(Equipment_Type p_ET)
+//{
+//    var Equipment_Level = 0;
+
+//    if (p_ET == Equipment_Type.Spinach)
+//    {
+//        Equipment_Level += Spinach_Level;
+//    }
+
+//    if (p_ET == Equipment_Type.Bracer)
+//    {
+//        Equipment_Level += Bracer_Level;
+//    }
+
+//    if (p_ET == Equipment_Type.Duplicator)
+//    {
+//        Equipment_Level += Duplicator_Level;
+//    }
+
+//    if (p_ET == Equipment_Type.EmptyTome)
+//    {
+//        Equipment_Level += EmptyTome_Level;
+//    }
+
+//    if (p_ET == Equipment_Type.Wings)
+//    {
+//        Equipment_Level += Wings_Level;
+//    }
+
+//    if (p_ET == Equipment_Type.Candelabrador)
+//    {
+//        Equipment_Level += Candelabrador_Level;
+//    }
+
+//    if (p_ET == Equipment_Type.Armour)
+//    {
+//        Equipment_Level += Armour_Level;
+//    }
+
+//    if (p_ET == Equipment_Type.HollowHeart)
+//    {
+//        Equipment_Level += HollowHeart_Level;
+//    }
+
+//    if (p_ET == Equipment_Type.SpellBinder)
+//    {
+//        Equipment_Level += SpellBinder_Level;
+//    }
+
+//    if (p_ET == Equipment_Type.Attractorb)
+//    {
+//        Equipment_Level += Attractorb_Level;
+//    }
+
+//    //Debug.Log("Equipment_Level : " + Equipment_Level);
+
+//    return Equipment_Level;
+//}
+
 /*
 var Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_Weapon.WT);
 

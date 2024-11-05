@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -17,17 +18,17 @@ using static UnityEngine.UI.CanvasScaler;
 [System.Serializable]
 public enum Weapon_Type
 {
-    //None,               // = "����"
-    Axe,                  // �������� �׸��� �������� ����
-    KingBible,            // ����
-    Peachone,             // �켭�� ��ѱ�
-    FireWand,             // ȭ���� �Ѹ���
-    Cross,                // �θ޶�
-    Garlic,               // ���� ��Ÿ���� �ֺ� �о
-    LightningRing,        // �÷��̾� �ֺ����� �������� ����
-    ShadowPinion,         // ��������
-    RuneTracer,           // ����ó�� ȭ�鿡 ������ ƨ��� �� Ʈ���̼�
-    Whip                  // �÷��̾� �������� �����ư��� �����ϴ� ä��
+    //None,             
+    Axe,                
+    KingBible,          
+    Peachone,           
+    FireWand,           
+    Cross,              
+    Garlic,             
+    LightningRing,      
+    ShadowPinion,       
+    RuneTracer,         
+    Whip                
 }
 
 [System.Serializable]
@@ -682,7 +683,7 @@ public class Unit_Player : Unit
     }
 
 
-    // ��ű��� �нú� ���� ����
+    //
     public void Get_Equipment_Player_Percentage_Stat(Unit Player_Unit, STO_Equipment Eq_STO)
     {
         var Temp_Equipment_STO = All_Manager.instance.Resource_M.STO_Equipments;
@@ -751,7 +752,7 @@ public class Unit_Player : Unit
 
     }
 
-    // ���� ���� ã�ư��� �ְ�
+    //
     public Weapon_Level_And_Timer Convert_WLAT_Player(STO_Weapon p_WTO)
     {
         Weapon_Level_And_Timer WLAT = null;
@@ -809,159 +810,69 @@ public class Unit_Player : Unit
         return WLAT;
     }
 
+    //
     public int Convert_Equipment_Level_Player(Equipment_Type p_ET)
     {
-        var Equipment_Level = 0;
-
-        if (p_ET == Equipment_Type.Spinach)
-        {
-            Equipment_Level += Spinach_Level;
-        }
-
-        if (p_ET == Equipment_Type.Bracer)
-        {
-            Equipment_Level += Bracer_Level;
-        }
-
-        if (p_ET == Equipment_Type.Duplicator)
-        {
-            Equipment_Level += Duplicator_Level;
-        }
-
-        if (p_ET == Equipment_Type.EmptyTome)
-        {
-            Equipment_Level += EmptyTome_Level;
-        }
-
-        if (p_ET == Equipment_Type.Wings)
-        {
-            Equipment_Level += Wings_Level;
-        }
-
-        if (p_ET == Equipment_Type.Candelabrador)
-        {
-            Equipment_Level += Candelabrador_Level;
-        }
-
-        if (p_ET == Equipment_Type.Armour)
-        {
-            Equipment_Level += Armour_Level;
-        }
-
-        if (p_ET == Equipment_Type.HollowHeart)
-        {
-            Equipment_Level += HollowHeart_Level;
-        }
-
-        if (p_ET == Equipment_Type.SpellBinder)
-        {
-            Equipment_Level += SpellBinder_Level;
-        }
-
-        if (p_ET == Equipment_Type.Attractorb)
-        {
-            Equipment_Level += Attractorb_Level;
-        }
-
-        //Debug.Log("Equipment_Level : " + Equipment_Level);
-
-        return Equipment_Level;
+        // 요청된 장비 타입의 레벨을 반환, 없으면 0
+        return equipmentLevels.TryGetValue(p_ET, out int level) ? level : 0;
     }
 
+    private float GetCurrentWeaponStat(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT, Func<Weapon_Information, float> statSelector)
+    {
+        var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
+        var weaponInfo = STO_Weapon_STO.Info_s[p_WLAT.Level];
 
-    // ��ű��� �����ϴ� ���� ����ü ����
+        // 선택한 통계 값을 가져온 후 Origin Stat과 비율을 적용하여 계산
+        float weaponStatValue = statSelector(weaponInfo) * this.Origin_Stat.Unit_Weapon_Damage * 0.01f;
+
+        // 최종 무기 통계 값 계산
+        return statSelector(weaponInfo) + weaponStatValue;
+    }
+
     public int Current_Weapon_Count(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
         var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
-
-        int Weapon_Count_Value = 0;
-        Weapon_Count_Value = this.Origin_Stat.Unit_Weapon_Proj_Count;
-
-        int p_Weapon_Count = STO_Weapon_STO.Info_s[p_WLAT.Level].Weapon_Count + Weapon_Count_Value;
-
-        return p_Weapon_Count;
+        return this.Origin_Stat.Unit_Weapon_Proj_Count + STO_Weapon_STO.Info_s[p_WLAT.Level].Weapon_Count;
     }
 
-    // ��ű��� ���ҵǴ� ������ ��Ÿ��
     public float Current_Weapon_CoolDown(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
         var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
+        var weaponInfo = STO_Weapon_STO.Info_s[p_WLAT.Level];
 
-        float Weapon_CoolDown_Value = 0;
-        Weapon_CoolDown_Value = (STO_Weapon_STO.Info_s[p_WLAT.Level].Weapon_CoolDown * this.Origin_Stat.Unit_Weapon_CoolDown * 0.01f);
-
-        float p_Weapon_CoolDown = STO_Weapon_STO.Info_s[p_WLAT.Level].Weapon_CoolDown - Weapon_CoolDown_Value;
-
-        return p_Weapon_CoolDown;
+        // 무기 쿨다운을 감소값으로 계산
+        float weaponCoolDownValue = (weaponInfo.Weapon_CoolDown * this.Origin_Stat.Unit_Weapon_CoolDown * 0.01f);
+        return weaponInfo.Weapon_CoolDown - weaponCoolDownValue;
     }
 
-    // ��ű��� �����ϴ� ���� ������ ��Ÿ�
+
     public float Current_Weapon_Range(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
-        var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
-
-        float Weapon_Range_Value = 0;
-        Weapon_Range_Value = (STO_Weapon_STO.Info_s[p_WLAT.Level].Weapon_Range * this.Origin_Stat.Unit_Weapon_Range * 0.01f);
-
-        float p_Weapon_Range = STO_Weapon_STO.Info_s[p_WLAT.Level].Weapon_Range + Weapon_Range_Value;
-
-        return p_Weapon_Range;
+        return GetCurrentWeaponStat(p_WT, p_WLAT, weaponInfo => weaponInfo.Weapon_Range);
     }
 
-    // ��ű��� �����ϴ� ���� ������ ũ��
     public float Current_Weapon_Size(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
-        var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
-
-        float Weapon_Size_Value = 0;
-        Weapon_Size_Value = (STO_Weapon_STO.Info_s[p_WLAT.Level].Weapon_Size * this.Origin_Stat.Unit_Weapon_Size * 0.01f);
-
-        float p_Weapon_Size = STO_Weapon_STO.Info_s[p_WLAT.Level].Weapon_Size + Weapon_Size_Value;
-
-        return p_Weapon_Size;
+        return GetCurrentWeaponStat(p_WT, p_WLAT, weaponInfo => weaponInfo.Weapon_Size);
     }
 
-    //���� ���� ������ ���ݼӵ�.
     public float Current_Weapon_Speed(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
-        var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
-
-        float Weapon_Speed_Value = 0;
-        Weapon_Speed_Value = (STO_Weapon_STO.Info_s[p_WLAT.Level].Weapon_Speed * this.Origin_Stat.Unit_Weapon_Proj_Speed * 0.01f);
-
-        float p_Weapon_Speed = STO_Weapon_STO.Info_s[p_WLAT.Level].Weapon_Speed + Weapon_Speed_Value;
-
-        return p_Weapon_Speed;
+        return GetCurrentWeaponStat(p_WT, p_WLAT, weaponInfo => weaponInfo.Weapon_Speed);
     }
 
-    //���� ���� ������ ���ݷ�.
     public float Current_Weapon_Damage(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
-        var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
-
-        float Weapon_Damage_Value = 0;
-        Weapon_Damage_Value = (STO_Weapon_STO.Info_s[p_WLAT.Level].Weapon_Damage * this.Origin_Stat.Unit_Weapon_Damage * 0.01f);
-
-        float p_Weapon_Damage = STO_Weapon_STO.Info_s[p_WLAT.Level].Weapon_Damage + Weapon_Damage_Value;
-
-        return p_Weapon_Damage;
+        return GetCurrentWeaponStat(p_WT, p_WLAT, weaponInfo => weaponInfo.Weapon_Damage);
     }
 
-    //���� ���� ������ ���ӽð�.
     public float Current_Weapon_Duration(Weapon_Type p_WT, Weapon_Level_And_Timer p_WLAT)
     {
-        var STO_Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(p_WT);
-
-        float Weapon_Duration_Value = 0;
-        Weapon_Duration_Value = (STO_Weapon_STO.Info_s[p_WLAT.Level].Weapon_Duration * this.Origin_Stat.Unit_Weapon_Duration * 0.01f);
-
-        float p_Weapon_Duration = STO_Weapon_STO.Info_s[p_WLAT.Level].Weapon_Duration + Weapon_Duration_Value;
-
-        return p_Weapon_Duration;
+        return GetCurrentWeaponStat(p_WT, p_WLAT, weaponInfo => weaponInfo.Weapon_Duration);
     }
     #endregion
 
-    // �ó��� ȿ�� ���� Ȯ�� �� ó��
+    // 
     public void CheckSynergyEffects(WeaponKeyword keyword)
     {
         if (keyword == WeaponKeyword.NONE) return;
