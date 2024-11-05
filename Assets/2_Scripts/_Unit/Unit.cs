@@ -103,20 +103,15 @@ public abstract class Unit : MonoBehaviour
 
     public virtual void Update()
     {
-        // ������ ������ ���¶�� �Լ� ����
         if (All_Manager.instance.GameMode_M.Game_Stop) return;
 
-        // SpriteRenderer ���� ������Ʈ
         Update_Sprite_Renderer();
 
-        // �˹� ó��
         if (isKnock == true)
         {
             Perform_Knockback();
         }
 
-        // �ǰ� ȿ�� ó��
-        // Hit ���� �ð� ��� ó��
         if (!isHit)
         {
             Update_Hit_Timer();
@@ -152,7 +147,6 @@ public abstract class Unit : MonoBehaviour
 
     private void Update_Hit_Timer()
     {
-        // �ǰ� ���� ȸ�� �ð��� ���
         Hit_Time -= Time.deltaTime;
 
         if (Hit_Time < 0.0f)

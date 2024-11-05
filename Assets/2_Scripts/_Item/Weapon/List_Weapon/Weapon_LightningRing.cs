@@ -30,12 +30,13 @@ public class Weapon_LightningRing : Weapon
 
             this.Weapon_Timer();
         }
+    }
+    protected override void AutoUse()
+    {
 
-        else
-        {
-
-        }
-
+    }
+    protected override void Use()
+    {
 
     }
 

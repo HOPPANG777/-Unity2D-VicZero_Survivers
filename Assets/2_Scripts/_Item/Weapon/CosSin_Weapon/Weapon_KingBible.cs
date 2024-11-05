@@ -30,13 +30,14 @@ public class Weapon_KingBible : Weapon
 
             this.Weapon_KnockBack_Weapon();
 
-            //this.Weapon_Timer();
         }
+    }
+    protected override void AutoUse()
+    {
 
-        else 
-        { 
-            
-        }
+    }
+    protected override void Use()
+    {
 
     }
 

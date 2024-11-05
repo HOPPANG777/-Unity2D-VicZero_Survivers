@@ -41,12 +41,13 @@ public class Weapon_Cross : Weapon
 
             //this.Weapon_Timer();
         }
+    }
+    protected override void AutoUse()
+    {
 
-        else
-        {
-
-        }
-
+    }
+    protected override void Use()
+    {
 
     }
 

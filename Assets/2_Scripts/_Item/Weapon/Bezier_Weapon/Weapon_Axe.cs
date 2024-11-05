@@ -25,7 +25,7 @@ public class Weapon_Axe : Weapon
     public override void Start()
     {
         base.Start();
-    }   
+    }
 
     public override void Update()
     {
@@ -41,8 +41,14 @@ public class Weapon_Axe : Weapon
 
             this.Weapon_Timer();
         }
+    }
+    protected override void AutoUse()
+    {
 
-        else { }
+    }
+    protected override void Use()
+    {
+
     }
 
     public void Axe_Init(Vector3 p_One_Vector, Vector3 p_Two_Vector, Vector3 p_Three_Vector, Vector3 p_Four_Vector)
