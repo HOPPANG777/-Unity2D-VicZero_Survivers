@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Security.Cryptography;
@@ -605,3 +605,616 @@ public class Test_Script : MonoBehaviour
 //    }
 //}
 #endregion
+
+//// ���� ���� Ÿ�̸� ������Ʈ
+//public void Spawn_Weapon_Timer_Update()
+//{
+//    if (Axe_LAT.Level > 0)
+//    {
+//        if (Axe_LAT.Timer > Current_Weapon_CoolDown(Weapon_Type.Axe, Axe_LAT))
+//        {
+//            Axe_LAT.Timer = 0;
+
+//            for (int i = 0; i < Current_Weapon_Count(Weapon_Type.Axe, Axe_LAT); i++)
+//            {
+//                Create_Weapon(Weapon_Type.Axe);
+//            }
+//        }
+
+//        Axe_LAT.Timer += Time.deltaTime;
+//    }
+
+//    if (KingBible_LAT.Level > 0)
+//    {
+//        if (KingBible_LAT.Timer > Current_Weapon_CoolDown(Weapon_Type.KingBible, KingBible_LAT))
+//        {
+//            KingBible_LAT.Timer = 0;
+//        }
+
+//        KingBible_LAT.Timer += Time.deltaTime;
+//    }
+
+//    if (Peachone_LAT.Level > 0)
+//    {
+//        if (Peachone_LAT.Timer > Current_Weapon_CoolDown(Weapon_Type.Peachone, Peachone_LAT))
+//        {
+//            Peachone_LAT.Timer = 0;
+
+
+//            for (int i = 0; i < Current_Weapon_Count(Weapon_Type.Peachone, Peachone_LAT); i++)
+//            {
+//                Create_Weapon(Weapon_Type.Peachone);
+//            }
+//        }
+
+//        Peachone_LAT.Timer += Time.deltaTime;
+//    }
+
+//    if (FireWand_LAT.Level > 0)
+//    {
+//        if (FireWand_LAT.Timer > Current_Weapon_CoolDown(Weapon_Type.FireWand, FireWand_LAT))
+//        {
+//            FireWand_LAT.Timer = 0;
+
+//            Create_Weapon(Weapon_Type.FireWand);
+//            //Debug.Log("FireWand!");
+//        }
+
+//        FireWand_LAT.Timer += Time.deltaTime;
+//    }
+
+//    if (Cross_LAT.Level > 0)
+//    {
+//        if (Cross_LAT.Timer > Current_Weapon_CoolDown(Weapon_Type.Cross, Cross_LAT))
+//        {
+//            Cross_LAT.Timer = 0;
+
+//            for (int i = 0; i < Current_Weapon_Count(Weapon_Type.Cross, Cross_LAT); i++)
+//            {
+//                Create_Weapon(Weapon_Type.Cross);
+//            }
+//        }
+
+//        Cross_LAT.Timer += Time.deltaTime;
+//    }
+
+//    if (Garlic_LAT.Level > 0)
+//    {
+//        var STO_Weapon_Temp = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(Weapon_Type.Garlic);
+
+//        if (Garlic_LAT.Timer > Current_Weapon_CoolDown(Weapon_Type.Garlic, Garlic_LAT))
+//        {
+//            Garlic_LAT.Timer = 0;
+
+//            Create_Weapon(Weapon_Type.Garlic);
+//        }
+
+//        Garlic_LAT.Timer += Time.deltaTime;
+//    }
+
+//    if (LightningRing_LAT.Level > 0)
+//    {
+//        if (LightningRing_LAT.Timer > Current_Weapon_CoolDown(Weapon_Type.LightningRing, LightningRing_LAT))
+//        {
+//            LightningRing_LAT.Timer = 0;
+
+//            Create_Weapon(Weapon_Type.LightningRing);
+//        }
+
+//        LightningRing_LAT.Timer += Time.deltaTime;
+//    }
+
+//    if (ShadowPinion_LAT.Level > 0)
+//    {
+//        if (ShadowPinion_LAT.Timer > Current_Weapon_CoolDown(Weapon_Type.ShadowPinion, ShadowPinion_LAT))
+//        {
+//            ShadowPinion_LAT.Timer = 0;
+
+//            for (int i = 0; i < Current_Weapon_Count(Weapon_Type.ShadowPinion, ShadowPinion_LAT); i++)
+//            {
+//                Create_Weapon(Weapon_Type.ShadowPinion);
+//            }
+//        }
+
+//        ShadowPinion_LAT.Timer += Time.deltaTime;
+//    }
+
+//    if (RuneTracer_LAT.Level > 0)
+//    {
+//        if (RuneTracer_LAT.Timer > Current_Weapon_CoolDown(Weapon_Type.RuneTracer, RuneTracer_LAT))
+//        {
+//            RuneTracer_LAT.Timer = 0;
+
+//            for (int i = 0; i < Current_Weapon_Count(Weapon_Type.RuneTracer, RuneTracer_LAT); i++)
+//            {
+//                Create_Weapon(Weapon_Type.RuneTracer);
+//            }
+//        }
+
+//        RuneTracer_LAT.Timer += Time.deltaTime;
+//    }
+
+//    if (Whip_LAT.Level > 0)
+//    {
+//        if (Whip_LAT.Timer > Current_Weapon_CoolDown(Weapon_Type.Whip, Whip_LAT))
+//        {
+//            Whip_LAT.Timer = 0;
+
+//            for (int i = 0; i < Current_Weapon_Count(Weapon_Type.Whip, Whip_LAT); i++)
+//            {
+//                Create_Weapon(Weapon_Type.Whip);
+//            }
+//        }
+
+//        Whip_LAT.Timer += Time.deltaTime;
+//    }
+
+//    //Debug.Log("Weapon_Spawn!");
+//}
+
+//public void Update_Get_Equipment(Equipment_Type p_ET)
+//{
+//    var Temp = All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(p_ET);
+
+//    if (p_ET == Equipment_Type.HollowHeart)
+//    {
+
+//        if (Temp == All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.HollowHeart))
+//        {
+//            Get_Equipment_Player_Percentage_Stat(this, Temp);
+//        }
+
+//        //Get_Equipment_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Equipment_HollowHeart);
+//    }
+
+//    else if (p_ET == Equipment_Type.Wings)
+//    {
+
+//        if (Temp == All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.Wings))
+//        {
+//            Get_Equipment_Player_Percentage_Stat(this, Temp);
+//        }
+
+//        //Get_Equipment_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Equipment_HollowHeart);
+//    }
+
+//    else if (p_ET == Equipment_Type.Armour)
+//    {
+
+//        if (Temp == All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.Armour))
+//        {
+//            Get_Equipment_Player_Percentage_Stat(this, Temp);
+//        }
+
+//        //Get_Equipment_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Equipment_HollowHeart);
+//    }
+
+//    else if (p_ET == Equipment_Type.Spinach)
+//    {
+
+//        if (Temp == All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.Spinach))
+//        {
+//            Get_Equipment_Player_Percentage_Stat(this, Temp);
+//        }
+
+//        //Get_Equipment_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Equipment_HollowHeart);
+//    }
+
+//    else if (p_ET == Equipment_Type.Bracer)
+//    {
+
+//        if (Temp == All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.Bracer))
+//        {
+//            Get_Equipment_Player_Percentage_Stat(this, Temp);
+//        }
+
+//        //Get_Equipment_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Equipment_HollowHeart);
+//    }
+
+//    else if (p_ET == Equipment_Type.SpellBinder)
+//    {
+
+//        if (Temp == All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.SpellBinder))
+//        {
+//            Get_Equipment_Player_Percentage_Stat(this, Temp);
+//        }
+
+//        //Get_Equipment_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Equipment_HollowHeart);
+//    }
+
+//    else if (p_ET == Equipment_Type.Candelabrador)
+//    {
+
+//        if (Temp == All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.Candelabrador))
+//        {
+//            Get_Equipment_Player_Percentage_Stat(this, Temp);
+//        }
+
+//        //Get_Equipment_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Equipment_HollowHeart);
+//    }
+
+//    else if (p_ET == Equipment_Type.EmptyTome)
+//    {
+
+//        if (Temp == All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.EmptyTome))
+//        {
+//            Get_Equipment_Player_Percentage_Stat(this, Temp);
+//        }
+
+//        //Get_Equipment_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Equipment_HollowHeart);
+//    }
+
+//    else if (p_ET == Equipment_Type.Duplicator)
+//    {
+
+//        if (Temp == All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.Duplicator))
+//        {
+//            Get_Equipment_Player_Percentage_Stat(this, Temp);
+//        }
+
+//        //Get_Equipment_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Equipment_HollowHeart);
+//    }
+
+//    else if (p_ET == Equipment_Type.Attractorb)
+//    {
+
+//        if (Temp == All_Manager.instance.Resource_M.Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type.Attractorb))
+//        {
+//            Get_Equipment_Player_Percentage_Stat(this, Temp);
+//        }
+
+//        //Get_Equipment_Player_Percentage_Stat(this, All_Manager.instance.Resource_M.STO_Equipment_HollowHeart);
+//    }
+
+//    //Debug.Log("��ű� ����");
+
+//    if (Temp != null)
+//    {
+//        All_Equipment.Add(Temp);
+//    }
+//}
+
+//public void Upgrade_Equipment(Equipment_Type p_ET)
+//{
+//    if (p_ET == Equipment_Type.HollowHeart)
+//    {
+//        HollowHeart_Level += 1;
+
+//        Update_Get_Equipment(Equipment_Type.HollowHeart);
+//    }
+
+//    else if (p_ET == Equipment_Type.Wings)
+//    {
+//        Wings_Level += 1;
+
+//        Update_Get_Equipment(Equipment_Type.Wings);
+//    }
+
+//    else if (p_ET == Equipment_Type.Armour)
+//    {
+//        Armour_Level += 1;
+
+//        Update_Get_Equipment(Equipment_Type.Armour);
+//    }
+
+//    else if (p_ET == Equipment_Type.Spinach)
+//    {
+//        Spinach_Level += 1;
+
+//        Update_Get_Equipment(Equipment_Type.Spinach);
+//    }
+
+//    else if (p_ET == Equipment_Type.Bracer)
+//    {
+//        Bracer_Level += 1;
+
+//        Update_Get_Equipment(Equipment_Type.Bracer);
+//    }
+
+//    else if (p_ET == Equipment_Type.SpellBinder)
+//    {
+//        SpellBinder_Level += 1;
+
+//        Update_Get_Equipment(Equipment_Type.SpellBinder);
+//    }
+
+//    else if (p_ET == Equipment_Type.Candelabrador)
+//    {
+//        Candelabrador_Level += 1;
+
+//        Update_Get_Equipment(Equipment_Type.Candelabrador);
+//    }
+
+//    else if (p_ET == Equipment_Type.EmptyTome)
+//    {
+//        EmptyTome_Level += 1;
+
+//        Update_Get_Equipment(Equipment_Type.EmptyTome);
+//    }
+
+//    else if (p_ET == Equipment_Type.Duplicator)
+//    {
+//        Duplicator_Level += 1;
+
+//        Update_Get_Equipment(Equipment_Type.Duplicator);
+//    }
+
+//    else if (p_ET == Equipment_Type.Attractorb)
+//    {
+//        Attractorb_Level += 1;
+
+//        Update_Get_Equipment(Equipment_Type.Attractorb);
+//    }
+//}
+
+//public void Origin_Stat_Application_Player(Equipment_Type p_ET)
+//{
+//    if (p_ET == Equipment_Type.Spinach)
+//    {
+//        if (Spinach_Level > 0)
+//        {
+//            float Unit_Player_Damage = 0;
+//            Unit_Player_Damage = this.Percent_Stat.Unit_Weapon_Damage;
+
+//            this.Origin_Stat.Unit_Weapon_Damage += Unit_Player_Damage;
+//        }
+//    }
+
+//    else if (p_ET == Equipment_Type.Bracer)
+//    {
+//        if (Bracer_Level > 0)
+//        {
+//            float Unit_Player_Proj_Spd = 0;
+//            Unit_Player_Proj_Spd = this.Percent_Stat.Unit_Weapon_Proj_Speed;
+
+//            this.Origin_Stat.Unit_Weapon_Proj_Speed += Unit_Player_Proj_Spd;
+//        }
+//    }
+
+//    else if (p_ET == Equipment_Type.Duplicator)
+//    {
+//        if (Duplicator_Level > 0)
+//        {
+//            int Unit_Player_Proj_Count = 0;
+//            Unit_Player_Proj_Count = this.Percent_Stat.Unit_Weapon_Proj_Count;
+
+//            this.Origin_Stat.Unit_Weapon_Proj_Count += Unit_Player_Proj_Count;
+//        }
+//    }
+
+//    else if (p_ET == Equipment_Type.EmptyTome)
+//    {
+//        if (EmptyTome_Level > 0)
+//        {
+//            float Unit_Player_Range = 0;
+//            Unit_Player_Range = this.Percent_Stat.Unit_Weapon_Range;
+
+//            this.Origin_Stat.Unit_Weapon_Range += Unit_Player_Range;
+//        }
+//    }
+
+//    else if (p_ET == Equipment_Type.Wings)
+//    {
+//        if (Wings_Level > 0)
+//        {
+//            float Unit_Player_Speed = 0;
+//            Unit_Player_Speed = (this.Origin_Stat.Unit_Speed * this.Percent_Stat.Unit_Speed * 0.01f);
+
+//            this.Origin_Stat.Unit_Speed += Unit_Player_Speed;
+//        }
+//    }
+
+//    else if (p_ET == Equipment_Type.Candelabrador)
+//    {
+//        if (Candelabrador_Level > 0)
+//        {
+//            float Unit_Player_Range = 0;
+//            float Unit_Player_Size = 0;
+//            Unit_Player_Range = this.Percent_Stat.Unit_Weapon_Range;
+//            Unit_Player_Size = this.Percent_Stat.Unit_Weapon_Size;
+
+//            this.Origin_Stat.Unit_Weapon_Range += Unit_Player_Range;
+//            this.Origin_Stat.Unit_Weapon_Size += Unit_Player_Size;
+//        }
+//    }
+
+//    else if (p_ET == Equipment_Type.Armour)
+//    {
+//        if (Armour_Level > 0)
+//        {
+//            float Unit_Player_Defense = 0;
+//            Unit_Player_Defense = this.Percent_Stat.Unit_Defense;
+
+//            this.Origin_Stat.Unit_Defense += Unit_Player_Defense;
+//        }
+//    }
+
+//    else if (p_ET == Equipment_Type.HollowHeart)
+//    {
+//        if (HollowHeart_Level > 0)
+//        {
+//            float Unit_Player_HP = 0;
+//            Unit_Player_HP = (this.Origin_Stat.Unit_HP * this.Percent_Stat.Unit_HP * 0.01f); // (this.Origin_Stat.Unit_HP * this.Percent_Stat.Unit_HP * 0.01f);
+
+//            var Temp_HP = this.Origin_Stat.Unit_HP + Unit_Player_HP;
+
+//            this.Origin_Stat.Unit_HP = Temp_HP;
+
+//            this.Max_HP = this.Origin_Stat.Unit_HP;
+//        }
+//    }
+
+//    else if (p_ET == Equipment_Type.SpellBinder)
+//    {
+//        if (SpellBinder_Level > 0)
+//        {
+//            float Unit_Player_Duration = 0;
+//            Unit_Player_Duration = this.Percent_Stat.Unit_Weapon_Duration;
+
+//            this.Origin_Stat.Unit_Weapon_Duration += Unit_Player_Duration;
+//        }
+//    }
+
+//    else if (p_ET == Equipment_Type.Attractorb)
+//    {
+//        if (Attractorb_Level > 0)
+//        {
+//            float Unit_Player_Get_Gem_Range = 0;
+//            Unit_Player_Get_Gem_Range = (this.Origin_Stat.Unit_Get_Gem_Range * this.Percent_Stat.Unit_Get_Gem_Range * 0.01f);
+
+//            this.Origin_Stat.Unit_Get_Gem_Range += Unit_Player_Get_Gem_Range;
+//        }
+//    }
+
+//}
+
+/*
+     // ���� ���׷��̵�
+    public void Upgrade_Weapon(Weapon_Type p_WT)
+    {
+        if (p_WT == Weapon_Type.Axe)
+        {
+            Axe_LAT.Level++;
+
+            for (int i = 0; i < All_Weapon.Count; i++)
+            {
+                if (All_Weapon[i].GetComponent<Weapon_Axe>())
+                {
+                    All_Weapon[i].Upgrade(Axe_LAT.Level);
+                }
+            }
+
+            //Debug.Log(Axe_LAT.Level);
+        }
+
+        else if (p_WT == Weapon_Type.KingBible)
+        {
+            KingBible_LAT.Level++;
+
+            for (int i = 0; i < All_Weapon.Count; i++)
+            {
+                if (All_Weapon[i].GetComponent<Weapon_KingBible>())
+                {
+                    All_Weapon[i].Upgrade(KingBible_LAT.Level);
+                }
+            }
+
+            Create_Weapon(Weapon_Type.KingBible);
+        }
+
+        else if (p_WT == Weapon_Type.Peachone)
+        {
+            Peachone_LAT.Level++;
+
+            for (int i = 0; i < All_Weapon.Count; i++)
+            {
+                if (All_Weapon[i].GetComponent<Weapon_Peachone>())
+                {
+                    All_Weapon[i].Upgrade(Peachone_LAT.Level);
+                }
+            }
+        }
+
+        else if (p_WT == Weapon_Type.FireWand)
+        {
+            FireWand_LAT.Level++;
+
+            for (int i = 0; i < All_Weapon.Count; i++)
+            {
+                if (All_Weapon[i].GetComponent<Weapon_FireWand>())
+                {
+                    All_Weapon[i].Upgrade(FireWand_LAT.Level);
+                }
+            }
+
+        }
+
+        else if (p_WT == Weapon_Type.Cross)
+        {
+            Cross_LAT.Level++;
+
+            for (int i = 0; i < All_Weapon.Count; i++)
+            {
+                if (All_Weapon[i].GetComponent<Weapon_Cross>())
+                {
+                    All_Weapon[i].Upgrade(Cross_LAT.Level);
+                }
+            }
+
+        }
+
+        else if (p_WT == Weapon_Type.Garlic)
+        {
+            Garlic_LAT.Level++;
+
+            for (int i = 0; i < All_Weapon.Count; i++)
+            {
+                if (All_Weapon[i].GetComponent<Weapon_Garlic>())
+                {
+                    All_Weapon[i].Upgrade(Garlic_LAT.Level);
+                }
+            }
+
+
+        }
+
+        else if (p_WT == Weapon_Type.LightningRing)
+        {
+            LightningRing_LAT.Level++;
+
+            for (int i = 0; i < All_Weapon.Count; i++)
+            {
+                if (All_Weapon[i].GetComponent<Weapon_LightningRing>())
+                {
+                    All_Weapon[i].Upgrade(LightningRing_LAT.Level);
+                }
+            }
+
+        }
+
+        else if (p_WT == Weapon_Type.ShadowPinion)
+        {
+            ShadowPinion_LAT.Level++;
+
+            for (int i = 0; i < All_Weapon.Count; i++)
+            {
+                if (All_Weapon[i].GetComponent<Weapon_ShadowPinion>())
+                {
+                    All_Weapon[i].Upgrade(ShadowPinion_LAT.Level);
+                }
+            }
+
+        }
+
+        else if (p_WT == Weapon_Type.RuneTracer)
+        {
+            RuneTracer_LAT.Level++;
+
+            for (int i = 0; i < All_Weapon.Count; i++)
+            {
+                if (All_Weapon[i].GetComponent<Weapon_RuneTracer>())
+                {
+                    All_Weapon[i].Upgrade(RuneTracer_LAT.Level);
+                }
+            }
+
+        }
+
+        else if (p_WT == Weapon_Type.Whip)
+        {
+            Whip_LAT.Level++;
+
+            for (int i = 0; i < All_Weapon.Count; i++)
+            {
+                if (All_Weapon[i].GetComponent<Weapon_Whip>())
+                {
+                    All_Weapon[i].Upgrade(Whip_LAT.Level);
+                }
+            }
+
+        }
+
+
+    }
+
+ */
