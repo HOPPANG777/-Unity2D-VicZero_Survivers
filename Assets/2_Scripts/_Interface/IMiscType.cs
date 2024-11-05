@@ -2,17 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IMiscType : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+//public interface IMiscType
+//{
+//    MISC_Type MISC_Type { get; set; }
+//}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-}
+//public enum MISC_Type
+//{
+//    Gem,
+//    Chest,
+//    Food
+//}
