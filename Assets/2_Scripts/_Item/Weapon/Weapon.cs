@@ -238,7 +238,7 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
         weapon.BC.size = new Vector2((SR.size.x * 0.5f), (SR.size.y * 0.5f));
 
         // 설정된 키워드를 Synergy_Manager에 등록한다.
-        Synergy_Manager.instance.RegisterWeaponKeyword(weapon.WeaponKeyword, weapon);
+        All_Manager.instance.Synergy_M.RegisterWeaponKeyword(weapon.WeaponKeyword, weapon);
     }
 
 
@@ -313,7 +313,7 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
             //Destroy(this.gameObject);
 
             All_Manager.instance.Pool_M.Weapon_Pool_In(this.gameObject.GetComponent<Weapon>());
-            Synergy_Manager.instance.UnregisterWeaponKeyword(WeaponKeyword, this);
+            All_Manager.instance.Synergy_M.UnregisterWeaponKeyword(WeaponKeyword, this);
         }
 
         // Mine이 null이 아니라면
@@ -322,7 +322,7 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
             if (All_Manager.instance.GameMode_M.Current_Player.All_Weapon.Contains(this))
             {
                 All_Manager.instance.GameMode_M.Current_Player.All_Weapon.Remove(this);
-                Synergy_Manager.instance.UnregisterWeaponKeyword(WeaponKeyword, this);
+                All_Manager.instance.Synergy_M.UnregisterWeaponKeyword(WeaponKeyword, this);
                 //Debug.Log("Weapon Destroy");
             }
         }

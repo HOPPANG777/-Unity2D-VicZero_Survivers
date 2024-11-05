@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Synergy_Manager : Singleton<Synergy_Manager>
+public class Synergy_Manager : MonoBehaviour
 {
-    // ¹«±â Å°¿öµå µî·Ï
+    // ë¬´ê¸° í‚¤ì›Œë“œ ë“±ë¡
     public void RegisterWeaponKeyword(WeaponKeyword keyword, Weapon weapon)
     {
         if (keyword == WeaponKeyword.NONE) return;
@@ -16,7 +16,7 @@ public class Synergy_Manager : Singleton<Synergy_Manager>
         }
     }
 
-    // ¹«±â Å°¿öµå µî·Ï ÇØÁ¦
+    // ë¬´ê¸° í‚¤ì›Œë“œ ë“±ë¡ í•´ì œ
     public void UnregisterWeaponKeyword(WeaponKeyword keyword, Weapon weapon)
     {
         if (keyword == WeaponKeyword.NONE) return;
@@ -37,11 +37,11 @@ public class Synergy_Manager : Singleton<Synergy_Manager>
     }
 
 
-    //// ¹«±â Å°¿öµå¸¦ Ä«¿îÆ®ÇÏ´Â µñ¼Å³Ê¸®
+    //// ë¬´ê¸° í‚¤ì›Œë“œë¥¼ ì¹´ìš´íŠ¸í•˜ëŠ” ë”•ì…”ë„ˆë¦¬
     //private Dictionary<WeaponKeyword, List<Weapon>> keywordWeapons = new Dictionary<WeaponKeyword, List<Weapon>>();
     //private HashSet<WeaponKeyword> appliedSynergies = new HashSet<WeaponKeyword>();
 
-    //// Å°¿öµå µî·Ï ÇÔ¼ö
+    //// í‚¤ì›Œë“œ ë“±ë¡ í•¨ìˆ˜
     //public void RegisterWeaponKeyword(WeaponKeyword keyword, Weapon weapon)
     //{
     //    if (keyword == WeaponKeyword.NONE)
@@ -54,11 +54,11 @@ public class Synergy_Manager : Singleton<Synergy_Manager>
 
     //    keywordWeapons[keyword].Add(weapon);
 
-    //    // Å°¿öµå µî·Ï ÈÄ ½Ã³ÊÁö Ã¼Å©
+    //    // í‚¤ì›Œë“œ ë“±ë¡ í›„ ì‹œë„ˆì§€ ì²´í¬
     //    CheckForSynergy(keyword);
     //}
 
-    //// Å°¿öµå Á¦°Å ÇÔ¼ö (¹«±â°¡ ÆÄ±«µÉ ¶§ È£Ãâ)
+    //// í‚¤ì›Œë“œ ì œê±° í•¨ìˆ˜ (ë¬´ê¸°ê°€ íŒŒê´´ë  ë•Œ í˜¸ì¶œ)
     //public void UnregisterWeaponKeyword(WeaponKeyword keyword, Weapon weapon)
     //{
     //    if (keyword == WeaponKeyword.NONE || !keywordWeapons.ContainsKey(keyword))
@@ -69,11 +69,11 @@ public class Synergy_Manager : Singleton<Synergy_Manager>
     //    if (keywordWeapons[keyword].Count == 0)
     //    {
     //        keywordWeapons.Remove(keyword);
-    //        appliedSynergies.Remove(keyword); // ½Ã³ÊÁö ÇØÁ¦
+    //        appliedSynergies.Remove(keyword); // ì‹œë„ˆì§€ í•´ì œ
     //    }
     //}
 
-    //// ½Ã³ÊÁö È¿°ú Ã¼Å© ÇÔ¼ö
+    //// ì‹œë„ˆì§€ íš¨ê³¼ ì²´í¬ í•¨ìˆ˜
     //private void CheckForSynergy(WeaponKeyword keyword)
     //{
     //    if (keywordWeapons.ContainsKey(keyword) && keywordWeapons[keyword].Count >= 2 && !appliedSynergies.Contains(keyword))
@@ -82,41 +82,41 @@ public class Synergy_Manager : Singleton<Synergy_Manager>
     //    }
     //}
 
-    //// ½Ã³ÊÁö Àû¿ë ÇÔ¼ö
+    //// ì‹œë„ˆì§€ ì ìš© í•¨ìˆ˜
     //private void ApplySynergy(WeaponKeyword keyword)
     //{
     //    switch (keyword)
     //    {
     //        case WeaponKeyword.Bound:
-    //            // µµ³¢¿Í RuneTracer Á¶ÇÕ ½Ã³ÊÁö: Bound Axe ½ºÅÈ Áõ°¡
+    //            // ë„ë¼ì™€ RuneTracer ì¡°í•© ì‹œë„ˆì§€: Bound Axe ìŠ¤íƒ¯ ì¦ê°€
     //            foreach (var weapon in keywordWeapons[keyword])
     //            {
     //                weapon.Weapon_Damage *= 1.5f;
     //            }
     //            break;
     //        case WeaponKeyword.Phoenix:
-    //            // FireWand¿Í Peachone Á¶ÇÕ ½Ã³ÊÁö: °ø°İ ¼Óµµ Áõ°¡
+    //            // FireWandì™€ Peachone ì¡°í•© ì‹œë„ˆì§€: ê³µê²© ì†ë„ ì¦ê°€
     //            foreach (var weapon in keywordWeapons[keyword])
     //            {
     //                weapon.Weapon_Speed *= 1.5f;
     //            }
     //            break;
     //        case WeaponKeyword.Paladin:
-    //            // ShadowPinion°ú Cross Á¶ÇÕ ½Ã³ÊÁö: »ç°Å¸® Áõ°¡
+    //            // ShadowPinionê³¼ Cross ì¡°í•© ì‹œë„ˆì§€: ì‚¬ê±°ë¦¬ ì¦ê°€
     //            foreach (var weapon in keywordWeapons[keyword])
     //            {
     //                weapon.Weapon_Range *= 1.5f;
     //            }
     //            break;
     //        case WeaponKeyword.Sonic:
-    //            // LightningRing°ú Whip Á¶ÇÕ ½Ã³ÊÁö: °ø°İ ¼Óµµ Áõ°¡
+    //            // LightningRingê³¼ Whip ì¡°í•© ì‹œë„ˆì§€: ê³µê²© ì†ë„ ì¦ê°€
     //            foreach (var weapon in keywordWeapons[keyword])
     //            {
     //                weapon.Weapon_CoolDown *= 0.5f;
     //            }
     //            break;
     //        case WeaponKeyword.Holy:
-    //            // Garlic°ú KingBible Á¶ÇÕ ½Ã³ÊÁö: Å©±â Áõ°¡
+    //            // Garlicê³¼ KingBible ì¡°í•© ì‹œë„ˆì§€: í¬ê¸° ì¦ê°€
     //            foreach (var weapon in keywordWeapons[keyword])
     //            {
     //                weapon.Weapon_Size *= 1.5f;
