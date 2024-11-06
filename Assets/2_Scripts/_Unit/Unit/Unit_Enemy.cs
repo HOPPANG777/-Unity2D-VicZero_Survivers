@@ -231,7 +231,7 @@ public class Unit_Enemy : Unit
         //}
 
         // 그리드 크기 설정 (예: 5x5 유닛 영역)
-        float Grid_Size = 3f;
+        float Grid_Size = 4f;
         Dictionary<Vector2Int, List<Unit>> Grid = new Dictionary<Vector2Int, List<Unit>>();
 
         // 각 유닛을 그리드에 할당

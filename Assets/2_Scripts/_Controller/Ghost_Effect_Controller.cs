@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class Ghost_Effect_Controller : MonoBehaviour
 {
-    // Æ®·¹ÀÏÀ» »ı¼ºÇÒ ´ë»ó ¸®½ºÆ®
+    // íŠ¸ë ˆì¼ì„ ìƒì„±í•  ëŒ€ìƒ ë¦¬ìŠ¤íŠ¸
     private List<Transform> Ghost_Target = new List<Transform>();
 
-    // Æ®·¹ÀÏ Áö¼Ó ½Ã°£°ú »ı¼º °£°İ Á¶Á¤ °¡´É
+    // íŠ¸ë ˆì¼ ì§€ì† ì‹œê°„ê³¼ ìƒì„± ê°„ê²© ì¡°ì • ê°€ëŠ¥
     public float Ghost_Duration = 0.1f;
     public float Spawn_Interval = 2.0f;
 
     private float Time_Since_Last_Spawn = 0f;
 
-    // Æ®·¹ÀÏ »ö»ó Á¶Á¤ °¡´É
+    // íŠ¸ë ˆì¼ ìƒ‰ìƒ ì¡°ì • ê°€ëŠ¥
     public Color Ghost_Color;
 
     private void Start()
@@ -34,7 +34,7 @@ public class Ghost_Effect_Controller : MonoBehaviour
 
     public void Add_Ghost_Target(Transform target)
     {
-        // Æ®·¹ÀÏ Å¸°Ù Ãß°¡
+        // íŠ¸ë ˆì¼ íƒ€ê²Ÿ ì¶”ê°€
         if (!Ghost_Target.Contains(target))
         {
             Ghost_Target.Add(target);
@@ -43,7 +43,7 @@ public class Ghost_Effect_Controller : MonoBehaviour
 
     private void Spawn_Ghost()
     {
-        // trailTargets ¸®½ºÆ®¸¦ ¼øÈ¸ÇÏ¸ç Æ®·¹ÀÏ »ı¼º
+        // trailTargets ë¦¬ìŠ¤íŠ¸ë¥¼ ìˆœíšŒí•˜ë©° íŠ¸ë ˆì¼ ìƒì„±
         int Target_Count = Ghost_Target.Count;
         for (int i = 0; i < Target_Count; i++)
         {
@@ -53,6 +53,7 @@ public class Ghost_Effect_Controller : MonoBehaviour
                 GameObject Ghost = new GameObject("Trail");
                 Ghost.transform.position = Target.position;
                 Ghost.transform.rotation = Target.rotation;
+                Ghost.transform.parent = Target.transform;
 
                 SpriteRenderer SR = Ghost.AddComponent<SpriteRenderer>();
                 SR.sprite = Target.GetComponent<SpriteRenderer>().sprite;
@@ -62,7 +63,7 @@ public class Ghost_Effect_Controller : MonoBehaviour
                 SR.size = new Vector2(Target.GetComponent<SpriteRenderer>().size.x, Target.GetComponent<SpriteRenderer>().size.y);
                 SR.sortingOrder = -1;
 
-                // Æ®·¹ÀÏÀ» ÀÏÁ¤ ½Ã°£ ÈÄ¿¡ Á¦°Å
+                // íŠ¸ë ˆì¼ì„ ì¼ì • ì‹œê°„ í›„ì— ì œê±°
                 Destroy(Ghost, Ghost_Duration);
             }
         }
