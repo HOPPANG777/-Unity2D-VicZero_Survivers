@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using Mono.Cecil;
+//using Mono.Cecil;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -342,17 +342,16 @@ public class GameMode_Manager : MonoBehaviour
     // ������ ȣ�� �� ����ġ ��Ȳ
     public void Update_Gem_Count_Bar_Fill(float Gem_Prev)
     {
-
         Gem_Prev = Current_Gem;
         All_Manager.instance.UI_M.Update_Gem_Count_Image(Gem_Prev / Max_Gem);
 
-        if (Gem_Prev / Max_Gem >= 1f)
+        if (Gem_Prev / Max_Gem >= 1.0f)
         {
             Player_Level_Count++;
 
             Gem_Prev = 0f;
             Current_Gem = 0f;
-            Max_Gem *= 1.2f;
+            Max_Gem *= 1.3f;
 
             if (Current_Gem < 0)
             {

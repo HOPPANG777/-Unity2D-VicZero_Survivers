@@ -8634,6 +8634,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: All_Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 4804284174803483581, guid: a0cbd2013a96de142a005d31bd723d2d,
+        type: 3}
+      propertyPath: STO_Weapons.Array.size
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
