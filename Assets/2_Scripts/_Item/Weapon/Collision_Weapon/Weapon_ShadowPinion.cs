@@ -14,6 +14,7 @@ public class Weapon_ShadowPinion : Weapon
     public Vector2 BoxSize;
 
     private bool initialLaunch = true; // 초기 발사 여부 확인용 변수
+    public override Vector3 StartPos { get { return Mine.transform.position; } }
 
     public override void Awake()
     {
@@ -41,7 +42,7 @@ public class Weapon_ShadowPinion : Weapon
     {
 
     }
-    protected override void Use()
+    public override void Use()
     {
 
     }

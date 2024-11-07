@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 using static UnityEngine.GraphicsBuffer;
 
 
-public class Weapon_Cross : Weapon
+public class Weapon_Cross : Weapon, IAccumulateable
 {
     public Vector3[] W_Cross_Point = new Vector3[4];
 
@@ -16,6 +16,8 @@ public class Weapon_Cross : Weapon
     public Unit_Player Cross_Point;
 
     public float Rotation_Speed = 360f;
+    public override Vector3 StartPos { get { return Mine.transform.position; } }
+    public float W_Accumulate { get; set; }
 
     public override void Awake()
     {
@@ -46,7 +48,7 @@ public class Weapon_Cross : Weapon
     {
 
     }
-    protected override void Use()
+    public override void Use()
     {
 
     }
@@ -63,9 +65,21 @@ public class Weapon_Cross : Weapon
     // 부메랑 작동 로직
     public void Cross_Attack()
     {
-        this.Weapon_Accumulate();
+        this.Accumulate();
 
         this.transform.position = Cross_Bezier(W_Cross_Point[0], W_Cross_Point[1], W_Cross_Point[2], W_Cross_Point[3], W_Accumulate);
+    }
+    // 베지어 곡선을 쓰는 무기들을 위한 타이머
+    public virtual void Accumulate()
+    {
+        if (W_Accumulate < 1.0f)
+        {
+            W_Accumulate += Weapon_Speed * Time.deltaTime;
+        }
+        else if (W_Accumulate > 1.0f)
+        {
+            ReturnObject();
+        }
     }
 
     public Vector3 Cross_Bezier(Vector3 P_1, Vector3 P_2, Vector3 P_3, Vector3 P_4, float Value)

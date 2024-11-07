@@ -18,7 +18,7 @@ public class Pool_Manager : MonoBehaviour
     {
         Ready = false;
 
-        // i °¡ 2ÀÎ ÀÌÀ¯´Â ÇÃ·¹ÀÌ¾î°¡ 0, º¸½º°¡ 1 ÀÌ±â ¶§¹®¿¡
+        // i ï¿½ï¿½ 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î°¡ 0, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1 ï¿½Ì±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         for (int i = 2; i < System.Enum.GetValues(typeof(Unit_Type)).Length; i++)
         {
             var Temp_UT = (Unit_Type)i;
@@ -28,12 +28,12 @@ public class Pool_Manager : MonoBehaviour
 
             yield return new WaitWhile(() => Enemy_Pool == null);
 
-            //50 Àº Á» ¾Æ½½¾Æ½½
+            //50 ï¿½ï¿½ ï¿½ï¿½ ï¿½Æ½ï¿½ï¿½Æ½ï¿½
             int Enemy_Number = 300;
 
             for (int k = 0; k < Enemy_Number; k++)
             {
-                All_Manager.instance.Unit_M.Unit_F.Create_Enemy(All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr(Temp_UT), 
+                All_Manager.instance.Unit_M.Unit_F.Create_Enemy(All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr(Temp_UT),
                     Vector3.zero, (k + 1), Enemy_Pool.transform);
             }
 
@@ -85,7 +85,7 @@ public class Pool_Manager : MonoBehaviour
         Ready = true;
     }
 
-    // ¿ÀºêÁ§Æ® Ç®¿¡ ´Ù½Ã Áý¾î³Ö±â
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® Ç®ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
     public void Enemy_Pool_In(Unit_Enemy p_UE)
     {
         var Target_Pool = this.transform.Find(p_UE.UT.ToString() + "-Pool");
@@ -123,7 +123,7 @@ public class Pool_Manager : MonoBehaviour
         p_UE.Unit_Stat_Setting(p_UE, All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr(p_UE.UT));
     }
 
-    // ¿ÀºêÁ§Æ® Ç®¿¡¼­ ²¨³»±â
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® Ç®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public void Enemy_Pool_Out(Unit_Type p_UT, Vector3 p_Position, bool p_Elite = false)
     {
         var Target_Pool = this.transform.Find(p_UT.ToString() + "-Pool");
@@ -143,7 +143,7 @@ public class Pool_Manager : MonoBehaviour
         Unit_Go.GetComponent<Unit_Enemy>().SR.size = new Vector2((Unit_Go.GetComponent<Unit_Enemy>().SR.size.x * 4), (Unit_Go.GetComponent<Unit_Enemy>().SR.size.y * 4));
 
         Unit_Go.GetComponent<Unit_Enemy>().Elite_Outline_Set(p_UT);
-        
+
         Unit_Go.layer = 7;
 
         All_Manager.instance.GameMode_M.Enemy_List.Add(Unit_Go.GetComponent<Unit_Enemy>());
@@ -195,7 +195,7 @@ public class Pool_Manager : MonoBehaviour
 
         p_Weapon.Closet_Distance = 0;
 
-        p_Weapon.W_Accumulate = 0;
+        //p_Weapon.W_Accumulate = 0;
 
         p_Weapon.Weapon_Time = 0;
 
@@ -228,7 +228,7 @@ public class Pool_Manager : MonoBehaviour
 }
 
 #region
-// ÇÊ¿ä½Ã »õ·Î¿î ¸ó½ºÅÍ »ý¼º (Optional)
+// ï¿½Ê¿ï¿½ï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (Optional)
 //GameObject New_Enemy = Instantiate(Pools[i][0]);
 //New_Enemy.SetActive(true);
 //Pools[i].Add(New_Enemy);

@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Weapon_Peachone : Weapon
+public class Weapon_Peachone : Weapon, IAccumulateable
 {
     Vector3[] W_Peachone_Point = new Vector3[4];
 
     [SerializeField] public float Pos_A = 3f;
     [SerializeField] public float Pos_B = 2f;
+    public override Vector3 StartPos { get { return All_Manager.instance.UI_M.Peachone_Image.rectTransform.position; } }
+    public float W_Accumulate { get; set; }
 
     public override void Awake()
     {
@@ -34,7 +36,7 @@ public class Weapon_Peachone : Weapon
 
             if (W_Accumulate > 1)
             {
-                this.Destroy_Weapon();
+                this.ReturnObject();
             }
         }
     }
@@ -42,10 +44,22 @@ public class Weapon_Peachone : Weapon
     {
 
     }
-    protected override void Use()
+    public override void Use()
     {
 
     }
+    public void Accumulate()
+    {
+        if (W_Accumulate < 1.0f)
+        {
+            W_Accumulate += Weapon_Speed * Time.deltaTime;
+        }
+        else if (W_Accumulate > 1.0f)
+        {
+            ReturnObject();
+        }
+    }
+
     public void Peachone_Init(Vector3 One, Vector3 Two, Vector3 Three, Vector3 Four)
     {
         W_Peachone_Point[0] = One; // P0
@@ -67,7 +81,7 @@ public class Weapon_Peachone : Weapon
 
     public void Peachone_Draw_Trajectory()
     {
-        this.Weapon_Accumulate();
+        this.Accumulate();
 
         this.transform.position = new Vector3(Peachone_Bezier(W_Peachone_Point[0].x, W_Peachone_Point[1].x, W_Peachone_Point[2].x, W_Peachone_Point[3].x, W_Accumulate),
            Peachone_Bezier(W_Peachone_Point[0].y, W_Peachone_Point[1].y, W_Peachone_Point[2].y, W_Peachone_Point[3].y, W_Accumulate));

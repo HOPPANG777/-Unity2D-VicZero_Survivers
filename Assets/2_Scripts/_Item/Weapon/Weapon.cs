@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -6,7 +7,7 @@ using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 using static UnityEngine.UI.CanvasScaler;
 
-public abstract class Weapon : MonoBehaviour, IWeaponKeywords
+public abstract class Weapon : MonoBehaviour, IWeaponKeywords, IPoolable
 {
     public Weapon_Type WT;
     public WeaponKeyword WeaponKeyword { get; set; }
@@ -18,7 +19,7 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
 
     public Unit Mine;
     public Unit_Enemy Weapon_Target_Weapon;
-
+    public abstract Vector3 StartPos { get; }
     public float Weapon_Damage = 0;
     public float Weapon_Speed = 0;
     public float Weapon_Range = 0;
@@ -26,7 +27,6 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
     public float Weapon_Pen = 0;
     public float Weapon_CoolDown = 0;
     public float Weapon_Duration = 0;
-    public float W_Accumulate = 0;
     public float Weapon_Knock = 0;
     public float Weapon_Size = 0;
     public int Weapon_Level = 0;
@@ -37,7 +37,8 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
     public bool Forever = false;
 
     public bool IsKeywordCounted { get; set; } = false;
-    public Weapon_Level_And_Timer levelTimer = new Weapon_Level_And_Timer();
+    [SerializeField] protected Weapon_Level_And_Timer _levelTimer = new Weapon_Level_And_Timer();
+    public Weapon_Level_And_Timer LevelTimer { get { return _levelTimer; } }
 
     public virtual void Awake()
     {
@@ -60,20 +61,20 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
 
     }
 
-    public void Weapon_Init(Unit p_User, STO_Weapon p_WP, int p_Level)
+    public void Weapon_Init(Unit p_User, STO_Weapon weaponSTO, int p_Level)
     {
         Mine = p_User;
 
         Weapon_Level = p_Level;
 
-        Weapon_Stat(Weapon_Level, this, p_WP);
+        Weapon_Stat(Weapon_Level, this, weaponSTO);
     }
 
     public virtual void Update()
     {
         if (All_Manager.instance.GameMode_M.Current_Player == null)
         {
-            Destroy_Weapon();
+            ReturnObject();
         }
         else
         {
@@ -86,18 +87,21 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
     }
     public void MeasureTime()
     {
+        Debug.Log("MeasureTime is called");
         // 레벨이 0보다 큰 경우에만 처리
-        if (levelTimer.Level <= 0)
+        if (_levelTimer.Level <= 0)
             return;
 
+        Debug.Log("무기 쿨다운 체크");
         // 무기 쿨다운 체크
-        if (levelTimer.Timer > Current_Weapon_CoolDown(WT, levelTimer))
+        if (_levelTimer.Timer > Current_Weapon_CoolDown(WT, _levelTimer))
         {
-            levelTimer.Timer = 0; // 타이머 초기화
+            _levelTimer.Timer = 0; // 타이머 초기화
+            Debug.Log("무기 타이머 초기화");
             Use();
         }
         // 타이머 증가
-        levelTimer.Timer += Time.deltaTime;
+        _levelTimer.Timer += Time.deltaTime;
     }
     public float Current_Weapon_CoolDown(Weapon_Type weaponType, Weapon_Level_And_Timer levelTimer)
     {
@@ -121,10 +125,27 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
         return p_Weapon_Count;
     }
     protected abstract void AutoUse();
-    protected abstract void Use();
+    public virtual void Use()
+    {
+        Debug.Log("Weapon Use is called");
+        GameObject weaponGo = All_Manager.instance.Pool_M.Weapon_Pool_Out(WT);
+        if (weaponGo == this)
+        {
+            Debug.Log("weaponGo and this is same");
+        }
+
+        weaponGo.transform.position = StartPos;
+        weaponGo.transform.rotation = Quaternion.identity;
+        weaponGo.transform.localScale = Vector3.one;
+
+    }
 
     // 업그레이드
-    public abstract void Upgrade(int p_Level);
+    public virtual void Upgrade(int p_Level)
+    {
+        Debug.Log("Upgrade is called");
+        _levelTimer.Level++;
+    }
 
     // 무기 파괴 타이머
     public void Weapon_Timer()
@@ -133,22 +154,9 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
         {
             Weapon_Time = 0;
 
-            Destroy_Weapon();
+            ReturnObject();
         }
         Weapon_Time += Time.deltaTime;
-    }
-
-    // 베지어 곡선을 쓰는 무기들을 위한 타이머
-    public void Weapon_Accumulate()
-    {
-        if (W_Accumulate < 1.0f)
-        {
-            W_Accumulate += (Weapon_Speed * Time.deltaTime);
-        }
-        else if (W_Accumulate > 1.0f)
-        {
-            Destroy_Weapon();
-        }
     }
 
     public virtual void Weapon_To_Enemy_Collision()
@@ -194,7 +202,7 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
                     {
                         if (Collision_Count >= Weapon_Pen)
                         {
-                            Destroy_Weapon();
+                            ReturnObject();
                             return; // 무기를 파괴하고 함수 종료
                         }
                     }
@@ -208,7 +216,6 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
     {
         // 모든 적 유닛을 가져와 충돌 검사
         var Enemy_List = All_Manager.instance.GameMode_M.Enemy_List;
-        var Temp_Player = All_Manager.instance.GameMode_M.Current_Player;
         var Temp_WTO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(WT);
         var Temp_WLAT = All_Manager.instance.GameMode_M.Current_Player.Convert_WLAT_Player(Temp_WTO);
 
@@ -334,8 +341,8 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
 
     }
 
-    // 무기 파괴 함수
-    public void Destroy_Weapon()
+    // 무기 파괴(풀에 반환) 함수
+    public bool ReturnObject()
     {
         // 만약 이 Mine으로 안된다면 다 Current_Player로 통합해야 한다.
         //if (All_Manager.instance.GameMode_M.Current_Player == null)
@@ -359,20 +366,89 @@ public abstract class Weapon : MonoBehaviour, IWeaponKeywords
         {
             if (All_Manager.instance.GameMode_M.Current_Player.All_Weapon.Contains(this))
             {
+                Debug.Log("All_Weapon Removed");
                 All_Manager.instance.GameMode_M.Current_Player.All_Weapon.Remove(this);
                 All_Manager.instance.Synergy_M.UnregisterWeaponKeyword(WeaponKeyword, this);
-                //Debug.Log("Weapon Destroy");
             }
         }
 
         //Destroy(this.gameObject);
 
         All_Manager.instance.Pool_M.Weapon_Pool_In(this.gameObject.GetComponent<Weapon>());
+        return true;
     }
+    // public void CheckSynergyEffects(WeaponKeyword keyword)
+    // {
+    //     if (keyword == WeaponKeyword.NONE) return;
 
+    //     int keywordCount = 0;
+    //     foreach (Weapon weapon in All_Weapon)
+    //     {
+    //         if (weapon.WeaponKeyword == keyword)
+    //         {
+    //             keywordCount++;
+    //         }
+    //     }
 
-
+    //     if (keywordCount >= 2)
+    //     {
+    //         ApplySynergyEffect(keyword);
+    //     }
+    // }
+    // public void ApplySynergyEffect(WeaponKeyword keyword)
+    // {
+    //     switch (keyword)
+    //     {
+    //         case WeaponKeyword.Bound:
+    //             foreach (Weapon weapon in All_Weapon)
+    //             {
+    //                 if (weapon.WeaponKeyword == keyword)
+    //                 {
+    //                     weapon.Weapon_Damage *= 1.5f;
+    //                     Debug.Log("바운드");
+    //                 }
+    //             }
+    //             break;
+    //         case WeaponKeyword.Phoenix:
+    //             foreach (Weapon weapon in All_Weapon)
+    //             {
+    //                 if (weapon.WeaponKeyword == keyword)
+    //                 {
+    //                     weapon.Weapon_Speed *= 1.5f;
+    //                 }
+    //             }
+    //             break;
+    //         case WeaponKeyword.Paladin:
+    //             foreach (Weapon weapon in All_Weapon)
+    //             {
+    //                 if (weapon.WeaponKeyword == keyword)
+    //                 {
+    //                     weapon.Weapon_Range *= 1.5f;
+    //                 }
+    //             }
+    //             break;
+    //         case WeaponKeyword.Sonic:
+    //             foreach (Weapon weapon in All_Weapon)
+    //             {
+    //                 if (weapon.WeaponKeyword == keyword)
+    //                 {
+    //                     weapon.Weapon_CoolDown *= 0.5f;
+    //                 }
+    //             }
+    //             break;
+    //         case WeaponKeyword.Holy:
+    //             foreach (Weapon weapon in All_Weapon)
+    //             {
+    //                 if (weapon.WeaponKeyword == keyword)
+    //                 {
+    //                     weapon.Weapon_Size *= 1.5f;
+    //                 }
+    //             }
+    //             break;
+    //     }
+    // }
 }
+
 
 
 #region

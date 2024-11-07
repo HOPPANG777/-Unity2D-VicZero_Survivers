@@ -101,7 +101,7 @@ public class Unit_Player : Unit
     { Equipment_Type.Attractorb, 0 }
 };
 
-    public bool Creating_Weapon = false;
+    //public bool Creating_Weapon = false;
     public bool Creating_Equipment = false;
     public bool Weapon_Trigger = false;
 
@@ -187,7 +187,7 @@ public class Unit_Player : Unit
     {
         for (int i = 0; i < All_Weapon.Count; i++)
         {
-            All_Weapon[i].Destroy_Weapon();
+            All_Weapon[i].ReturnObject();
         }
 
         if (this.gameObject != null)
@@ -241,13 +241,8 @@ public class Unit_Player : Unit
     #region
     public IEnumerator CoUseWeapon(Weapon_Type weaponType)
     {
-        yield return new WaitWhile(() => Creating_Weapon == true);
 
         STO_Weapon Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(weaponType);
-
-        Weapon_Level_And_Timer Weapon_WLAT = Convert_WLAT_Player(Weapon_STO);
-
-        Creating_Weapon = true;
 
         GameObject weaponGo = All_Manager.instance.Pool_M.Weapon_Pool_Out(weaponType);
 
@@ -270,31 +265,12 @@ public class Unit_Player : Unit
         {
             case Weapon_Type.Axe:
                 {
-                    Vector3 One = this.transform.position;
-                    Vector3 Two, Three, Four;
+                    Weapon_Axe weaponAxe = weaponGo.GetComponent<Weapon_Axe>();
+                    weaponAxe.Weapon_Init(this, Weapon_STO, weaponAxe.LevelTimer.Level);
 
-                    if (Weapon_Trigger)
-                    {
-                        Two = One + new Vector3(0, 5, 0);
-                        Three = Two + new Vector3(UnityEngine.Random.Range(1, 5), 0, 0);
-                        Four = One + new Vector3(UnityEngine.Random.Range(1, 5), -10, 0);
-                    }
-                    else
-                    {
-                        Two = One + new Vector3(0, 5, 0);
-                        Three = Two + new Vector3(UnityEngine.Random.Range(-5, -1), 0, 0);
-                        Four = One + new Vector3(UnityEngine.Random.Range(-5, -1), -10, 0);
-                    }
-                    Weapon_Axe waeponAxe = weaponGo.GetComponent<Weapon_Axe>();
+                    //weaponAxe.Use();
 
-                    waeponAxe.Weapon_Init(this, Weapon_STO, Axe_LAT.Level);
-                    waeponAxe.Axe_Init(One, Two, Three, Four);
-
-                    CheckSynergyEffects(waeponAxe.WeaponKeyword);
-
-                    Weapon_Trigger = !Weapon_Trigger;
-
-                    All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.Axe);
+                    CheckSynergyEffects(weaponAxe.WeaponKeyword);
                 }
                 break;
             case Weapon_Type.KingBible:
@@ -482,53 +458,53 @@ public class Unit_Player : Unit
                 }
                 break;
 
-            //case Weapon_Type.BoundAxe:
-            //    {
-            //        Vector3 One = this.transform.position;
-            //        Vector3 Two, Three, Four;
+                //case Weapon_Type.BoundAxe:
+                //    {
+                //        Vector3 One = this.transform.position;
+                //        Vector3 Two, Three, Four;
 
-            //        if (Weapon_Trigger)
-            //        {
-            //            Two = One + new Vector3(0, 5, 0);
-            //            Three = Two + new Vector3(UnityEngine.Random.Range(1, 5), 0, 0);
-            //            Four = One + new Vector3(UnityEngine.Random.Range(1, 5), -10, 0);
-            //        }
-            //        else
-            //        {
-            //            Two = One + new Vector3(0, 5, 0);
-            //            Three = Two + new Vector3(UnityEngine.Random.Range(-5, -1), 0, 0);
-            //            Four = One + new Vector3(UnityEngine.Random.Range(-5, -1), -10, 0);
-            //        }
-            //        Weapon_Axe waeponAxe = weaponGo.GetComponent<Weapon_Axe>();
+                //        if (Weapon_Trigger)
+                //        {
+                //            Two = One + new Vector3(0, 5, 0);
+                //            Three = Two + new Vector3(UnityEngine.Random.Range(1, 5), 0, 0);
+                //            Four = One + new Vector3(UnityEngine.Random.Range(1, 5), -10, 0);
+                //        }
+                //        else
+                //        {
+                //            Two = One + new Vector3(0, 5, 0);
+                //            Three = Two + new Vector3(UnityEngine.Random.Range(-5, -1), 0, 0);
+                //            Four = One + new Vector3(UnityEngine.Random.Range(-5, -1), -10, 0);
+                //        }
+                //        Weapon_Axe waeponAxe = weaponGo.GetComponent<Weapon_Axe>();
 
-            //        waeponAxe.Weapon_Init(this, Weapon_STO, Axe_LAT.Level);
-            //        waeponAxe.Axe_Init(One, Two, Three, Four);
+                //        waeponAxe.Weapon_Init(this, Weapon_STO, Axe_LAT.Level);
+                //        waeponAxe.Axe_Init(One, Two, Three, Four);
 
-            //        CheckSynergyEffects(waeponAxe.WeaponKeyword);
+                //        CheckSynergyEffects(waeponAxe.WeaponKeyword);
 
-            //        Weapon_Trigger = !Weapon_Trigger;
+                //        Weapon_Trigger = !Weapon_Trigger;
 
-            //        All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.Axe);
-            //    }
-            //    break;
-            //case Weapon_Type.Phoenix:
-            //    {
+                //        All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.Axe);
+                //    }
+                //    break;
+                //case Weapon_Type.Phoenix:
+                //    {
 
-            //    }
-            //    break;
+                //    }
+                //    break;
         }
 
         if (weaponGo != null)
         {
+            Debug.Log("웨폰을 추가함.");
             All_Weapon.Add(weapon);
         }
-        Creating_Weapon = false;
     }
 
     public void Upgrade_Weapon(Weapon_Type weaponType)
     {
         // 무기 유형별로 WLAT과 컴포넌트 타입을 Dictionary에 저장
-        var weaponLevels = new Dictionary<Weapon_Type, (Weapon_Level_And_Timer WLAT, System.Type Type)>
+        var weaponLevels = new Dictionary<Weapon_Type, (Weapon_Level_And_Timer WLAT, Type Type)>
     {
         { Weapon_Type.Axe, (Axe_LAT, typeof(Weapon_Axe)) },
         { Weapon_Type.KingBible, (KingBible_LAT, typeof(Weapon_KingBible)) },
@@ -541,21 +517,23 @@ public class Unit_Player : Unit
         { Weapon_Type.RuneTracer, (RuneTracer_LAT, typeof(Weapon_RuneTracer)) },
         { Weapon_Type.Whip, (Whip_LAT, typeof(Weapon_Whip)) },
     };
+        Debug.Log("Upgrade_Weapon is called, all weapon count is " + All_Weapon.Count);
+        foreach (Weapon weapon in All_Weapon)
+        {
+            Debug.Log("foreach 도는중");
+            if (weapon.WT == weaponType)
+            {
+                Debug.Log("유형 찾기 성공");
+                weapon.Upgrade(1);
+            }
+        }
 
         // 무기 유형이 Dictionary에 있는지 확인
         if (weaponLevels.TryGetValue(weaponType, out var weaponInfo))
         {
             // 해당 무기의 레벨 증가
             weaponInfo.WLAT.Level++;
-
-            // 모든 무기 리스트에서 해당 무기 유형 찾기 및 업그레이드 호출
-            foreach (var weapon in All_Weapon)
-            {
-                if (weapon.GetComponent(weaponInfo.Type) is Weapon matchedWeapon)
-                {
-                    matchedWeapon.Upgrade(weaponInfo.WLAT.Level);
-                }
-            }
+            Debug.Log("WeaponInfoType is " + weaponInfo.Type.ToString());
 
             // 추가 로직이 필요한 경우 처리
             if (weaponType == Weapon_Type.KingBible)

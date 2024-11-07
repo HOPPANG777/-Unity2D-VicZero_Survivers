@@ -6,6 +6,7 @@ using UnityEngine;
 public class Weapon_FireWand : Weapon
 {
     private Camera mainCamera;
+    public override Vector3 StartPos { get { return Mine.transform.position + new Vector3(0, -0.3f, 0); } }
 
     public override void Awake()
     {
@@ -32,7 +33,7 @@ public class Weapon_FireWand : Weapon
 
             if (viewPos.x < 0 || viewPos.x > 1 || viewPos.y < 0 || viewPos.y > 1)
             {
-                this.Destroy_Weapon();
+                this.ReturnObject();
             }
         }
     }
@@ -40,7 +41,7 @@ public class Weapon_FireWand : Weapon
     {
 
     }
-    protected override void Use()
+    public override void Use()
     {
 
     }

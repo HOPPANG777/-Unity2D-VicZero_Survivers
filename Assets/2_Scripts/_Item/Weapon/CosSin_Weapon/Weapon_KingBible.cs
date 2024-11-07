@@ -7,8 +7,8 @@ public class Weapon_KingBible : Weapon
     public int Weapon_KingBible_Count = 0;
     public int Weapon_Mine_KingBible_Count = 0;
     public int Weapon_Max_KingBible_Count = 0;
-
     public float b_Deg = 0.0f;
+    public override Vector3 StartPos { get { return Mine.transform.position; } }
 
     public override void Awake()
     {
@@ -36,7 +36,7 @@ public class Weapon_KingBible : Weapon
     {
 
     }
-    protected override void Use()
+    public override void Use()
     {
 
     }
