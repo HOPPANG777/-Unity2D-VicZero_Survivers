@@ -25,7 +25,7 @@ public class GameMode_Manager : MonoBehaviour
     public List<MISC> MISC_List = new List<MISC>();
     public Camera Current_Camera = null;
     public List<GameObject> Tilemap_List = new List<GameObject>();
-    private List<float> missionSpawnTimes = new List<float> { 120f, 180f, 240f }; // 2��, 3��, 4��(�� ����)
+    private List<float> missionSpawnTimes = new List<float> { 1f, 180f, 240f }; // 2��, 3��, 4��(�� ����)
     private HashSet<float> spawnedMissions = new HashSet<float>();
 
     // ų ī��Ʈ
@@ -372,12 +372,12 @@ public class GameMode_Manager : MonoBehaviour
 
     public void Start_Wave(STO_Wave p_STO_Wave)
     {
-        C_Wave_Temp = Start_Wave_Coroutine(p_STO_Wave);
+        C_Wave_Temp = StartWaveCoroutine(p_STO_Wave);
 
         StartCoroutine(C_Wave_Temp);
     }
 
-    private IEnumerator Start_Wave_Coroutine(STO_Wave p_STO_Wave)
+    private IEnumerator StartWaveCoroutine(STO_Wave p_STO_Wave)
     {
         // 즉시 생성할 경우
         if (p_STO_Wave.Spawn_Time == 0)
@@ -429,6 +429,16 @@ public class GameMode_Manager : MonoBehaviour
         }
     }
 
+    private Vector3 GetRandomSpawnPosition()
+    {
+        // 랜덤 위치 계산
+        int tempX = Random.Range(5, 10);
+        tempX = (tempX % 2 == 1) ? -tempX : tempX;
+        int tempY = Random.Range(5, 10);
+        tempY = (tempY % 2 == 1) ? -tempY : tempY;
+        return Current_Player.transform.position + new Vector3(tempX, tempY, 0);
+    }
+
     private void SpawnSurround(STO_Wave p_STO_Wave)
     {
         // 플레이어를 둘러싸는 형태로 적 생성
@@ -472,16 +482,6 @@ public class GameMode_Manager : MonoBehaviour
                     spawnPosition);
             }
         }
-    }
-
-    private Vector3 GetRandomSpawnPosition()
-    {
-        // 랜덤 위치 계산
-        int tempX = Random.Range(5, 10);
-        tempX = (tempX % 2 == 1) ? -tempX : tempX;
-        int tempY = Random.Range(5, 10);
-        tempY = (tempY % 2 == 1) ? -tempY : tempY;
-        return Current_Player.transform.position + new Vector3(tempX, tempY, 0);
     }
 
     private void SpawnEnemy(STO_Wave p_STO_Wave, Vector3 spawnPosition)
