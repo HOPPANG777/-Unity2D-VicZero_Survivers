@@ -223,15 +223,10 @@ public class Unit_Enemy : Unit
             }
         }
 
-        // 플레이어 추가 (플레이어가 화면 내에 있는 경우)
-        //Vector3 Player_View_Pos = Temp_Camera.WorldToViewportPoint(Temp_Player.transform.position);
-        //if (Player_View_Pos.x >= 0 && Player_View_Pos.x <= 1 && Player_View_Pos.y >= 0 && Player_View_Pos.y <= 1 && Player_View_Pos.z >= 0)
-        //{
-        //    InView_Unit_List.Add(Temp_Player);
-        //}
+
 
         // 그리드 크기 설정 (예: 5x5 유닛 영역)
-        float Grid_Size = 4f;
+        float Grid_Size = 5f;
         Dictionary<Vector2Int, List<Unit>> Grid = new Dictionary<Vector2Int, List<Unit>>();
 
         // 각 유닛을 그리드에 할당
@@ -282,6 +277,12 @@ public class Unit_Enemy : Unit
         }
     }
 
+    // 플레이어 추가 (플레이어가 화면 내에 있는 경우)
+    //Vector3 Player_View_Pos = Temp_Camera.WorldToViewportPoint(Temp_Player.transform.position);
+    //if (Player_View_Pos.x >= 0 && Player_View_Pos.x <= 1 && Player_View_Pos.y >= 0 && Player_View_Pos.y <= 1 && Player_View_Pos.z >= 0)
+    //{
+    //    InView_Unit_List.Add(Temp_Player);
+    //}
 
     public void Elite_Outline_Set(Unit_Type p_UT)
     {
