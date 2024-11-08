@@ -10,19 +10,19 @@ public abstract class Mission : MonoBehaviour, IMissionType
     [SerializeField] protected SpriteRenderer _spriteRenderer;
     public SpriteRenderer SpriteRenderer { get { return _spriteRenderer; } set { _spriteRenderer = value; } }
 
-    // ¹Ì¼Ç ½ÃÀÛ
+    // ë¯¸ì…˜ ì‹œì‘
     [SerializeField] protected bool _isMissionPrograce = false;
     public bool IsMissionPrograce { get { return _isMissionPrograce; } }
 
-    // ¹Ì¼Ç Å¬¸®¾î
+    // ë¯¸ì…˜ í´ë¦¬ì–´
     [SerializeField] protected bool _isMissionClear = false;
     public bool IsMissionCleare { get { return _isMissionClear; } }
 
-    // 1ÃÊ´ç 4¹ø Ãæµ¹ Ã³¸®
+    // 1ì´ˆë‹¹ 4ë²ˆ ì¶©ëŒ ì²˜ë¦¬
     [SerializeField] protected float _checkInterval = 0.25f;
     [SerializeField] protected float _lastCheckTime = 0.0f;
 
-    // ¹Ì¼Ç Å¸ÀÔ
+    // ë¯¸ì…˜ íƒ€ì…
     [SerializeField] protected MissionType _missionType;
     public MissionType MissionType { get { return _missionType; } set { _missionType = value; } }
 
@@ -38,28 +38,28 @@ public abstract class Mission : MonoBehaviour, IMissionType
     {
         if (Time.time >= _lastCheckTime + _checkInterval)
         {
-            // 0.25ÃÊ°¡ °æ°úÇÑ °æ¿ì Ãæµ¹ °Ë»ç ¼öÇà
+            // 0.25ì´ˆê°€ ê²½ê³¼í•œ ê²½ìš° ì¶©ëŒ ê²€ì‚¬ ìˆ˜í–‰
             CheckPlayerCollision();
 
-            // ÇöÀç ½Ã°£À» ±âÁØÀ¸·Î ¸¶Áö¸· Ã¼Å© ½Ã°£À» ¾÷µ¥ÀÌÆ®
+            // í˜„ì¬ ì‹œê°„ì„ ê¸°ì¤€ìœ¼ë¡œ ë§ˆì§€ë§‰ ì²´í¬ ì‹œê°„ì„ ì—…ë°ì´íŠ¸
             _lastCheckTime = Time.time;
         }
     }
 
-    // ÇÃ·¹ÀÌ¾î°¡ ¹ßÆÇ¿¡ ¿Ã¶ó¿ÔÀ»¶§ Ãæµ¹Ã³¸®
+    // í”Œë ˆì´ì–´ê°€ ë°œíŒì— ì˜¬ë¼ì™”ì„ë•Œ ì¶©ëŒì²˜ë¦¬
     protected virtual void CheckPlayerCollision()
     {
         var player = All_Manager.instance.GameMode_M.Current_Player;
         var mission = this.gameObject;
 
-        // ÇÃ·¹ÀÌ¾î À§Ä¡¿Í ÃÖ¼Ò °Å¸® ¼³Á¤
+        // í”Œë ˆì´ì–´ ìœ„ì¹˜ì™€ ìµœì†Œ ê±°ë¦¬ ì„¤ì •
         Vector2 playerPosition = player.transform.position;
         float minDistance = 1.0f;
 
-        // ÇÃ·¹ÀÌ¾î¿Í ¹Ì¼Ç°£ÀÇ À§Ä¡ Â÷ÀÌ °è»ê
+        // í”Œë ˆì´ì–´ì™€ ë¯¸ì…˜ê°„ì˜ ìœ„ì¹˜ ì°¨ì´ ê³„ì‚°
         Vector2 direction = playerPosition - (Vector2)mission.transform.position;
 
-        // °Å¸® °è»êÀ» Á¦°öµÈ ÇüÅÂ·Î À¯ÁöÇÏ¿© ¼º´É ÃÖÀûÈ­ (·çÆ® °è»ê ¹æÁö)
+        // ê±°ë¦¬ ê³„ì‚°ì„ ì œê³±ëœ í˜•íƒœë¡œ ìœ ì§€í•˜ì—¬ ì„±ëŠ¥ ìµœì í™” (ë£¨íŠ¸ ê³„ì‚° ë°©ì§€)
         float directionSqr = direction.sqrMagnitude;
         float minDistanceSqr = minDistance * minDistance;
 
@@ -73,13 +73,13 @@ public abstract class Mission : MonoBehaviour, IMissionType
         }
     }
 
-    // ¹Ì¼Ç Å¬¸®¾îÈÄ º¸»ó
+    // ë¯¸ì…˜ í´ë¦¬ì–´í›„ ë³´ìƒ
     protected abstract void MissionReward();
 
-    // ¹Ì¼Ç º¸»óÀ» ¶³±ºÈÄ ¹Ì¼Ç ¿ÀºêÁ§Æ® Ç® or »èÁ¦
+    // ë¯¸ì…˜ ë³´ìƒì„ ë–¨êµ°í›„ ë¯¸ì…˜ ì˜¤ë¸Œì íŠ¸ í’€ or ì‚­ì œ
     protected abstract void RemoveMission();
 
-    // ¹Ì¼Ç »ı¼º½Ã Scriptable Object·Î ÃÊ±âÈ­
+    // ë¯¸ì…˜ ìƒì„±ì‹œ Scriptable Objectë¡œ ì´ˆê¸°í™”
     public abstract void MissionSetting(Mission p_Mission, STO_Mission p_MTO);
 
 }

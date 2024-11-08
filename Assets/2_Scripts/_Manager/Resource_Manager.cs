@@ -4,30 +4,31 @@ using UnityEngine;
 
 public class Resource_Manager : MonoBehaviour
 {
-    // À¯´Ö
+    // ìœ ë‹›
     public STO_Unit[] STO_Units;
 
-    // ¹«±â
+    // ë¬´ê¸°
     public STO_Weapon[] STO_Weapons;
 
-    // ¿şÀÌºê
+    // ì›¨ì´ë¸Œ
     public STO_Wave[] STO_Waves;
 
-    // ±âÅ¸(°æÇèÄ¡, »óÀÚ, ¹è·², Çªµå)
+    // ê¸°íƒ€(ê²½í—˜ì¹˜, ìƒì, ë°°ëŸ´, í‘¸ë“œ)
     public STO_MISC[] STO_MISC_s;
 
-    // VFX(ºñÁÖ¾ó ÀÌÆåÆ®)
+    // VFX(ë¹„ì£¼ì–¼ ì´í™íŠ¸)
     public STO_VFX[] STO_VFXs;
 
-    // Àå½Å±¸(ÆĞ½Ãºê ½ºÅÈ Áõ°¡)
-    public STO_Equipment[] STO_Equipments;            // STO ³Ö¾î³õ´Â°÷
+    // ì¥ì‹ êµ¬(íŒ¨ì‹œë¸Œ ìŠ¤íƒ¯ ì¦ê°€)
+    public STO_Equipment[] STO_Equipments;            // STO ë„£ì–´ë†“ëŠ”ê³³
 
-    // ¹Ì¼Ç
+    // ë¯¸ì…˜
     public STO_Mission[] STO_Missions;
 
     public Ghost_Effect_Controller Ghost_Effect;
+    public Gizmo SYGizmo;
 
-    // ¿ÜºÎ¿¡¼­ À¯´Ö STOºÒ·¯¿Ã¶§ ¾²´Â°Å
+    // ì™¸ë¶€ì—ì„œ ìœ ë‹› STOë¶ˆëŸ¬ì˜¬ë•Œ ì“°ëŠ”ê±°
     public STO_Unit Convert_Unit_Type_To_STO_Unit_Arr(Unit_Type p_UT)
     {
         STO_Unit Temp_UT_STO = null;
@@ -40,7 +41,7 @@ public class Resource_Manager : MonoBehaviour
         return Temp_UT_STO;
     }
 
-    // ¿ÜºÎ¿¡¼­ MISC STOºÒ·¯¿Ã¶§ ¾²´Â°Å
+    // ì™¸ë¶€ì—ì„œ MISC STOë¶ˆëŸ¬ì˜¬ë•Œ ì“°ëŠ”ê±°
     public STO_MISC Convert_MISC_Type_To_STO_MISC_Arr(MISC_Type p_MT)
     {
         STO_MISC Temp_MT_STO = null;
@@ -53,7 +54,7 @@ public class Resource_Manager : MonoBehaviour
         return Temp_MT_STO;
     }
 
-    // ¿ÜºÎ¿¡¼­ VFXºÒ·¯¿Ã¶§ ¾²´Â°Å
+    // ì™¸ë¶€ì—ì„œ VFXë¶ˆëŸ¬ì˜¬ë•Œ ì“°ëŠ”ê±°
     public STO_VFX Convert_VFX_Type_To_STO_VFX_Arr(VFX_Type p_VT)
     {
         STO_VFX Temp_VT_STO = null;
@@ -66,7 +67,7 @@ public class Resource_Manager : MonoBehaviour
         return Temp_VT_STO;
     }
 
-    // ¿ÜºÎ¿¡¼­ ¹«±â STOºÒ·¯¿Ã¶§ ¾²´Â°Å
+    // ì™¸ë¶€ì—ì„œ ë¬´ê¸° STOë¶ˆëŸ¬ì˜¬ë•Œ ì“°ëŠ”ê±°
     public STO_Weapon Convert_Weapon_Type_To_STO_Weapon_Arr(Weapon_Type p_WT)
     {
         STO_Weapon Temp_WT_STO = null;
@@ -79,7 +80,7 @@ public class Resource_Manager : MonoBehaviour
         return Temp_WT_STO;
     }
 
-    // ¿ÜºÎ¿¡¼­ Àå½Å±¸ STOºÒ·¯¿Ã¶§ ¾²´Â°Å
+    // ì™¸ë¶€ì—ì„œ ì¥ì‹ êµ¬ STOë¶ˆëŸ¬ì˜¬ë•Œ ì“°ëŠ”ê±°
     public STO_Equipment Convert_Equipment_Type_To_STO_Equipment_Arr(Equipment_Type p_EQ)
     {
         STO_Equipment Temp_EQ_STO = null;
@@ -92,7 +93,7 @@ public class Resource_Manager : MonoBehaviour
         return Temp_EQ_STO;
     }
 
-    // ¿ÜºÎ¿¡¼­ ¹Ì¼Ç STOºÒ·¯¿Ã¶§ ¾²´Â°Å
+    // ì™¸ë¶€ì—ì„œ ë¯¸ì…˜ STOë¶ˆëŸ¬ì˜¬ë•Œ ì“°ëŠ”ê±°
     public STO_Mission Convert_Mission_Type_To_STO_Mission_Arr(MissionType p_Mission)
     {
         STO_Mission Temp_Mission_STO = null;

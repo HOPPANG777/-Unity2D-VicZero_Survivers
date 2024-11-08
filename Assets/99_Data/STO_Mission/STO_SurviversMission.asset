@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: STO_SurviversMission
   m_EditorClassIdentifier: 
   _missionType: 0
-  _sprite: {fileID: 21300000, guid: 6347eafdcfd33184d9956de8dfef3f7a, type: 3}
+  _sprite: {fileID: 4117246192524285975, guid: 3ac27276e7b53dc479f0a591202e8062, type: 3}
   _material: {fileID: 2100000, guid: 562cb0ad3f0f2a44b8fa57aa7e02b64a, type: 2}
   Mission_Time: 0

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SurviversMission : Mission
 {
-    // ¹ßÆÇ¿¡¼­ »ıÁ¸ÇØ¾ßÇÏ´Â ½Ã°£
+    // ë°œíŒì—ì„œ ìƒì¡´í•´ì•¼í•˜ëŠ” ì‹œê°„
     [SerializeField] private float _missionClearTime = 30.0f;
     public float MissionClearTime { get { return _missionClearTime; } }
 
@@ -35,33 +35,35 @@ public class SurviversMission : Mission
 
     private void SurviveOnMission()
     {
-        // ¹ßÆÇÀ» ¹â°í
+        // ë°œíŒì„ ë°Ÿê³ 
         if (_isMissionPrograce != true) return;
 
-        
-
-        // °ÔÀÓ½Ã°£ÀÌ ¹Ì¼ÇÅ¬¸®¾î½Ã°£º¸´Ù ´õ Èå¸£¸é
+        // ê²Œì„ì‹œê°„ì´ ë¯¸ì…˜í´ë¦¬ì–´ ì¡°ê±´ì´ ì¶©ì¡±ë˜ë©´
+        // Defend - ëª¬ìŠ¤í„° 100ë§ˆë¦¬ í† ë²Œ
+        // Survive - 30ì´ˆ ìƒì¡´
+        // Follow - ì›€ì§ì´ëŠ” ë°œíŒ 15ì´ˆ ë™ì•ˆ ì¶”ì 
         if (All_Manager.instance.GameMode_M.Game_Time > _timer)
         {
-            // ¹Ì¼ÇÀ» Å¬¸®¾î ÇÏ°í ¹ßÆÇÀ» ¾ø¾ØÈÄ º¸¹°»óÀÚ µå¶ø
+            // ë¯¸ì…˜ì„ í´ë¦¬ì–´ í•˜ê³  ë°œíŒì„ ì—†ì•¤í›„ ë³´ë¬¼ìƒì ë“œë
             _isMissionClear = true;
         }
     }
 
     protected override void MissionReward()
     {
-        // ¹Ì¼ÇÀÌ Å¬¸®¾î µÇ¸é
+        // ë¯¸ì…˜ì´ í´ë¦¬ì–´ ë˜ë©´
         if (_isMissionClear == true)
         {
-            // Reward(º¸¹°»óÀÚ)¸¦ ¶³±º ÈÄ ¹Ì¼Ç(¹ßÆÇ) »èÁ¦ 
-            All_Manager.instance.Pool_M.MISC_Pool_Out(MISC_Type.Chest, this.gameObject.transform);  // º¸¹°»óÀÚ µå¶ø
-            RemoveMission();  // ¹ßÆÇ »èÁ¦
+            // Reward(ë³´ë¬¼ìƒì)ë¥¼ ë–¨êµ° í›„ ë¯¸ì…˜(ë°œíŒ) ì‚­ì œ 
+            All_Manager.instance.Pool_M.MISC_Pool_Out(MISC_Type.Chest, this.gameObject.transform);  // ë³´ë¬¼ìƒì ë“œë
+            RemoveMission();  // ë°œíŒ ì‚­ì œ
         }
     }
 
     protected override void RemoveMission()
     {
         Destroy(this.gameObject);
+        All_Manager.instance.Resource_M.SYGizmo.GizmoTargets.Remove(this.gameObject);
     }
 
     public override void MissionSetting(Mission p_Mission, STO_Mission p_MTO)

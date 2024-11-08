@@ -25,7 +25,7 @@ public class GameMode_Manager : MonoBehaviour
     public List<MISC> MISC_List = new List<MISC>();
     public Camera Current_Camera = null;
     public List<GameObject> Tilemap_List = new List<GameObject>();
-    private List<float> missionSpawnTimes = new List<float> { 1f, 180f, 240f }; // 2��, 3��, 4��(�� ����)
+    private List<float> missionSpawnTimes = new List<float> { 120f, 180f, 240f }; // 2��, 3��, 4��(�� ����)
     private HashSet<float> spawnedMissions = new HashSet<float>();
 
     // ų ī��Ʈ
