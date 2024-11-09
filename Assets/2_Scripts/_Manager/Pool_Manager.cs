@@ -203,9 +203,9 @@ public class Pool_Manager : MonoBehaviour
 
         p_Weapon.Weapon_Time = 0;
 
-        //p_Weapon.GetComponent<Weapon>().SR.drawMode = SpriteDrawMode.Sliced;
+        p_Weapon.GetComponent<Weapon>().SR.drawMode = SpriteDrawMode.Sliced;
 
-        //p_Weapon.GetComponent<Weapon>().SR.size = new Vector2(1, 1);
+        p_Weapon.GetComponent<Weapon>().SR.size = new Vector2(1, 1);
 
         //Debug.Log("Weapon Pool");
 

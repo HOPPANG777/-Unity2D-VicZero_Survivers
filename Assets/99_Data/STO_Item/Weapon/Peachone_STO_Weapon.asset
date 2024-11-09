@@ -37,7 +37,7 @@ MonoBehaviour:
     Weapon_Duration: 4
     Weapon_Knock: 0.5
     Weapon_Count: 6
-    Weapon_Size: 0.5
+    Weapon_Size: 1
   - Weapon_Damage: 35
     Weapon_Speed: 1
     Weapon_Range: 5
@@ -47,7 +47,7 @@ MonoBehaviour:
     Weapon_Duration: 4
     Weapon_Knock: 0.5
     Weapon_Count: 7
-    Weapon_Size: 0.5
+    Weapon_Size: 1
   - Weapon_Damage: 45
     Weapon_Speed: 1.1
     Weapon_Range: 6
@@ -57,7 +57,7 @@ MonoBehaviour:
     Weapon_Duration: 4
     Weapon_Knock: 0.5
     Weapon_Count: 7
-    Weapon_Size: 0.5
+    Weapon_Size: 1
   - Weapon_Damage: 45
     Weapon_Speed: 1.1
     Weapon_Range: 6
@@ -67,7 +67,7 @@ MonoBehaviour:
     Weapon_Duration: 4
     Weapon_Knock: 0.5
     Weapon_Count: 8
-    Weapon_Size: 0.5
+    Weapon_Size: 1
   - Weapon_Damage: 45
     Weapon_Speed: 1.1
     Weapon_Range: 6
@@ -77,7 +77,7 @@ MonoBehaviour:
     Weapon_Duration: 4
     Weapon_Knock: 0.5
     Weapon_Count: 8
-    Weapon_Size: 0.5
+    Weapon_Size: 1
   - Weapon_Damage: 55
     Weapon_Speed: 1.2
     Weapon_Range: 6
@@ -87,7 +87,7 @@ MonoBehaviour:
     Weapon_Duration: 4
     Weapon_Knock: 0.5
     Weapon_Count: 9
-    Weapon_Size: 0.5
+    Weapon_Size: 1
   - Weapon_Damage: 55
     Weapon_Speed: 1.2
     Weapon_Range: 6
@@ -97,7 +97,7 @@ MonoBehaviour:
     Weapon_Duration: 4
     Weapon_Knock: 0.5
     Weapon_Count: 12
-    Weapon_Size: 0.5
+    Weapon_Size: 1
   - Weapon_Damage: 55
     Weapon_Speed: 1.2
     Weapon_Range: 8
@@ -107,7 +107,7 @@ MonoBehaviour:
     Weapon_Duration: 4
     Weapon_Knock: 0.5
     Weapon_Count: 16
-    Weapon_Size: 0.5
+    Weapon_Size: 1
   Size_X: 1
   Size_Y: 1
   Offset_X: 0

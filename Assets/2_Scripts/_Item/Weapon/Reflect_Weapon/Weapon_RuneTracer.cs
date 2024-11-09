@@ -19,8 +19,6 @@ public class Weapon_RuneTracer : Weapon
         base.Start();
         Dir = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0);
         mainCamera = Camera.main;
-        TR.enabled = true;
-
     }
 
     public override void Update()

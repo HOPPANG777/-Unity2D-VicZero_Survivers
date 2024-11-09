@@ -32,6 +32,8 @@ public class Weapon_Peachone : Weapon
 
             this.Weapon_KnockBack_Weapon();
 
+            this.Weapon_Trail();
+
             if (W_Accumulate > 1)
             {
                 this.Destroy_Weapon();
