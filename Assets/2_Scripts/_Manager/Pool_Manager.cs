@@ -121,6 +121,8 @@ public class Pool_Manager : MonoBehaviour
         p_UE.Temp_Time = 1.0f;
 
         p_UE.Unit_Stat_Setting(p_UE, All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr(p_UE.UT));
+
+        All_Manager.instance.Resource_M.SYGizmo.GizmoTargets.Remove(p_UE.gameObject);
     }
 
     // 오브젝트 풀에서 꺼내기
@@ -144,7 +146,7 @@ public class Pool_Manager : MonoBehaviour
 
         Unit_Go.GetComponent<Unit_Enemy>().Elite_Outline_Set(p_UT);
 
-        All_Manager.instance.Resource_M.SYGizmo.GizmoTargets.Add(Unit_Go.gameObject);
+        All_Manager.instance.Resource_M.SYGizmo.GizmoTargets.Add(Unit_Go.gameObject, 0.5f);
 
         Unit_Go.layer = 7;
 

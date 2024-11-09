@@ -3,11 +3,9 @@ using UnityEngine;
 
 public class Gizmo : MonoBehaviour
 {
-    [SerializeField] float collisionRadius; // 충돌 반지름
-    [SerializeField] List<GameObject> gizmoTargets; // 기즈모를 그릴 타겟 리스트
-
+    [SerializeField] Dictionary<GameObject, float> gizmoTargets = new Dictionary<GameObject, float>(); // 객체와 충돌 반경을 저장하는 딕셔너리
     // 프로퍼티를 통해 외부에서 타겟을 추가/삭제 가능하게 함
-    public List<GameObject> GizmoTargets { get { return gizmoTargets; } set { gizmoTargets = value; } }
+    public Dictionary<GameObject, float> GizmoTargets { get { return gizmoTargets; } set { gizmoTargets = value; } }
 
     void OnDrawGizmos()
     {
@@ -16,12 +14,15 @@ public class Gizmo : MonoBehaviour
         {
             Gizmos.color = Color.red; // 충돌 영역을 빨간색으로 표시
 
-            foreach (GameObject target in gizmoTargets)
+            foreach (var target in gizmoTargets)
             {
-                if (target != null)
+                GameObject targetObject = target.Key;
+                float radius = target.Value;
+
+                if (targetObject != null)
                 {
                     // 각 타겟의 위치에 기즈모 그리기
-                    Gizmos.DrawWireSphere(target.transform.position, collisionRadius);
+                    Gizmos.DrawWireSphere(targetObject.transform.position, radius);
                 }
             }
         }

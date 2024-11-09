@@ -33,6 +33,7 @@ public class Unit_Factory : MonoBehaviour
         player.SR.size = new Vector2(player.SR.size.x * 0.2f, player.SR.size.y * 0.2f);
 
         All_Manager.instance.GameMode_M.Current_Player = Player_Go.GetComponent<Unit_Player>();
+        All_Manager.instance.Resource_M.SYGizmo.GizmoTargets.Add(Player_Go.GetComponent<Unit_Player>().gameObject, 0.5f);
 
         Player_Go.layer = 6;
 
