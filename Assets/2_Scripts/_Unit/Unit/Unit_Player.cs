@@ -820,7 +820,6 @@ public class Unit_Player : Unit
                     if (weapon.WeaponKeyword == keyword)
                     {
                         weapon.Weapon_Damage *= 1.5f;
-                        Debug.Log("바운드");
                     }
                 }
                 break;
@@ -872,11 +871,11 @@ public class Unit_Player : Unit
 
         if (InputVec.x != 0 || InputVec.y != 0)
         {
-            AM.SetBool("Move", true);
+            Unit_Animation(Unit_Anim_State.Walk);
         }
         else
         {
-            AM.SetBool("Move", false);
+            Unit_Animation(Unit_Anim_State.Idle);
         }
 
         Vector3 Next_Vec = InputVec.normalized * (this.Origin_Stat.Unit_Speed * Time.deltaTime);

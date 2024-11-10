@@ -95,15 +95,16 @@ public class Unit_Enemy : Unit
     public override void Die()
     {
         base.Die();
-        if (this.UT != Unit_Type.Boss || this.UT != Unit_Type.Barrel)
-        {
-            All_Manager.instance.GameMode_M.Enemy_Down(this);
-        }
+
     }
 
     protected override void Death_Animation_End()
     {
         base.Death_Animation_End();
+        if (this.UT != Unit_Type.Boss || this.UT != Unit_Type.Barrel)
+        {
+            All_Manager.instance.GameMode_M.Enemy_Down(this);
+        }
     }
 
     protected override IEnumerator C_Death_Animation_End()
@@ -135,7 +136,7 @@ public class Unit_Enemy : Unit
 
     public void Update_Enemy_Move()
     {
-        if (isDead == true) return;
+        if (isDead == true && All_Manager.instance.GameMode_M.Game_Stop == true) return;
 
         Vector3 dir = All_Manager.instance.GameMode_M.Current_Player.transform.position - this.transform.position;
 
@@ -145,11 +146,11 @@ public class Unit_Enemy : Unit
 
         if (All_Manager.instance.GameMode_M.Enemy_List.Contains(this) || gameObject.GetComponent<Animator>())
         {
-            AM.SetBool("Move", true);
+            Unit_Animation(Unit_Anim_State.Walk);
         }
         else
         {
-            AM.SetBool("Move", false);
+            Unit_Animation(Unit_Anim_State.Idle);
         }
 
         if (All_Manager.instance.GameMode_M.Current_Player.transform.position.x < this.transform.position.x && isDead == false)
@@ -201,6 +202,8 @@ public class Unit_Enemy : Unit
 
     public virtual void Enemy_To_Enemy_Push()
     {
+        if (All_Manager.instance.GameMode_M.Game_Stop == true) return;
+
         var Enemy_List = All_Manager.instance.GameMode_M.Enemy_List;
         var Temp_Player = All_Manager.instance.GameMode_M.Current_Player;
         Camera Temp_Camera = All_Manager.instance.GameMode_M.Current_Camera;
@@ -222,8 +225,6 @@ public class Unit_Enemy : Unit
                 InView_Unit_List.Add(Enemy_List[i]);
             }
         }
-
-
 
         // 그리드 크기 설정 (예: 5x5 유닛 영역)
         float Grid_Size = 5f;

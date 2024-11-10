@@ -100,8 +100,6 @@ public class Pool_Manager : MonoBehaviour
 
         p_UE.isDeathAnim = false;
 
-        p_UE.AM.SetBool("Death", false);
-
         p_UE.SR.material.SetFloat("_Outline", 0.0f);
 
         p_UE.SR.material.SetFloat("_Red_Value", 1.0f);
