@@ -238,7 +238,6 @@ public class Unit_Player : Unit
         StartCoroutine(CoUseWeapon(p_WT));
     }
 
-    #region
     public IEnumerator CoUseWeapon(Weapon_Type weaponType)
     {
         yield return new WaitWhile(() => Creating_Weapon == true);
@@ -423,7 +422,6 @@ public class Unit_Player : Unit
                             }
 
                             weaponGo = All_Manager.instance.Pool_M.Weapon_Pool_Out(weaponType);
-
 
                             if (weaponGo.GetComponent<Weapon_LightningRing>() != null)
                             {
@@ -792,7 +790,6 @@ public class Unit_Player : Unit
     {
         return GetCurrentWeaponStat(p_WT, p_WLAT, weaponInfo => weaponInfo.Weapon_Duration);
     }
-    #endregion
 
     public void CheckSynergyEffects(WeaponKeyword keyword)
     {
