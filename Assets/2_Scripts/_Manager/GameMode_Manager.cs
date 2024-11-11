@@ -118,15 +118,13 @@ public class GameMode_Manager : MonoBehaviour
 
             for (int i = 0; i < resourceManager.STO_Waves.Length; i++)
             {
-                //ų ������ �´ٸ�
+                //킬 카운트가 조건이 충족되면
                 if (resourceManager.STO_Waves[i].Kill_Count <= Kill_Count)
                 {
-                    //�ð� ������ �´ٸ�
+                    //시간 조건이 충족되면
                     if (resourceManager.STO_Waves[i].Wave_Time <= Game_Time)
                     {
                         // 특정 시간과 킬 개수를 만족하면 해당 코드를 실행
-                        //������� ���̺� ����Ʈ�� ���ٸ�
-                        // Contains �� ����Ʈ�� ���� �մϱ�?
                         if (Use_STO_Wave_List.Contains(resourceManager.STO_Waves[i]) == false)
                         {
                             Use_STO_Wave_List.Add(resourceManager.STO_Waves[i]);
@@ -221,55 +219,59 @@ public class GameMode_Manager : MonoBehaviour
         All_Manager.instance.UI_M.Off_Panel();
     }
 
-    // Ÿ�ϸ� �̵�
     public void Tilemap_Move()
     {
+        // 현재 플레이어의 위치 가져오기
         Vector3 Player_Pos = Current_Player.transform.position;
 
+        // 모든 타일맵에 대해 반복
         for (int i = 0; i < Tilemap_List.Count; i++)
         {
             GameObject tilemap = Tilemap_List[i];
             Vector3 Map_Pos = tilemap.transform.position;
 
-            // Ÿ�ϸ� ��� ���
-            float Left_Boundary = Map_Pos.x - (Tilemap_Size * 0.5f);
-            float Right_Boundary = Map_Pos.x + (Tilemap_Size * 0.5f);
-            float Bottom_Boundary = Map_Pos.y - (Tilemap_Size * 0.5f);
-            float Top_Boundary = Map_Pos.y + (Tilemap_Size * 0.5f);
+            // 타일맵의 경계 설정
+            float Left_Boundary = Map_Pos.x - (Tilemap_Size * 0.5f);  // 왼쪽 경계
+            float Right_Boundary = Map_Pos.x + (Tilemap_Size * 0.5f); // 오른쪽 경계
+            float Bottom_Boundary = Map_Pos.y - (Tilemap_Size * 0.5f); // 아래쪽 경계
+            float Top_Boundary = Map_Pos.y + (Tilemap_Size * 0.5f);   // 위쪽 경계
 
-            // �÷��̾ ��踦 �Ѿ����� Ȯ��
+            // 플레이어가 경계를 벗어났을 때 타일맵을 이동시키기 위한 오프셋 초기화
             var Move_Offset = Vector3.zero;
 
+            // 플레이어가 왼쪽 경계를 벗어났을 경우
             if (Player_Pos.x < Left_Boundary)
             {
-                // ���� ��踦 ���� ���
+                // 타일맵을 왼쪽으로 이동
                 Move_Offset.x = -Tilemap_Size + Tilemap_Overlap_Offset;
             }
+            // 플레이어가 오른쪽 경계를 벗어났을 경우
             else if (Player_Pos.x > Right_Boundary)
             {
-                // ������ ��踦 ���� ���
+                // 타일맵을 오른쪽으로 이동
                 Move_Offset.x = Tilemap_Size - Tilemap_Overlap_Offset;
             }
 
+            // 플레이어가 아래쪽 경계를 벗어났을 경우
             if (Player_Pos.y < Bottom_Boundary)
             {
-                // �Ʒ� ��踦 ���� ���
+                // 타일맵을 아래쪽으로 이동
                 Move_Offset.y = -Tilemap_Size + Tilemap_Overlap_Offset;
             }
+            // 플레이어가 위쪽 경계를 벗어났을 경우
             else if (Player_Pos.y > Top_Boundary)
             {
-                // ���� ��踦 ���� ���
+                // 타일맵을 위쪽으로 이동
                 Move_Offset.y = Tilemap_Size - Tilemap_Overlap_Offset;
             }
 
-            // Ÿ�ϸ� �̵�(�밢�� ����)
+            // 플레이어가 경계를 벗어나 타일맵 이동이 필요한 경우
             if (Move_Offset != Vector3.zero)
             {
-                // Ÿ�ϸ� �̵�
+                // 타일맵의 위치를 오프셋만큼 이동
                 tilemap.transform.position += Move_Offset;
             }
         }
-
     }
 
     // �� ����Ʈ �ʱ�ȭ
@@ -370,301 +372,135 @@ public class GameMode_Manager : MonoBehaviour
 
     public void Start_Wave(STO_Wave p_STO_Wave)
     {
-        C_Wave_Temp = C_Start_Wave(p_STO_Wave);
+        C_Wave_Temp = StartWaveCoroutine(p_STO_Wave);
 
         StartCoroutine(C_Wave_Temp);
     }
 
-    public IEnumerator C_Start_Wave(STO_Wave p_STO_Wave)
+    private IEnumerator StartWaveCoroutine(STO_Wave p_STO_Wave)
     {
+        // 즉시 생성할 경우
         if (p_STO_Wave.Spawn_Time == 0)
         {
             while (true)
             {
-                if (p_STO_Wave.WST == Wave_Spawn_Type.Random)
-                {
-                    for (int i = 0; i < p_STO_Wave.Spawn_Count; i++)
-                    {
-                        int Temp_X = Random.Range(5, 10);
-                        Temp_X = ((Temp_X % 2) == 1) ? -Temp_X : Temp_X;
-
-                        int Temp_Y = Random.Range(5, 10);
-                        Temp_Y = ((Temp_Y % 2) == 1) ? -Temp_Y : Temp_Y;
-
-                        Vector3 Player_Pos = Current_Player.transform.position;
-                        Player_Pos += new Vector3(Temp_X, Temp_Y, 0);
-
-                        // STO �� Position �� �Ű������� ������ �ְ�
-                        // All_Manager.instance.Unit_M.Create_Unit(STO , Position);
-                        // All_Manager.instance.Unit_M.Create_Unit(Unit_Name.Enemy);
-
-                        if (Game_Stop == false)
-                        {
-                            if (p_STO_Wave.Elite == false)
-                            {
-                                All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UT, Player_Pos);
-                            }
-
-                            else
-                            {
-                                All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UT, Player_Pos, true);
-                            }
-                        }
-
-                        else { }
-                    }
-                }
-
-                else if (p_STO_Wave.WST == Wave_Spawn_Type.Surround)
-                {
-
-                    float Rad = 6.0f;   // �÷��̾� �߽� ���� �������� 6�� ���� ���Ѵ�. 
-
-                    Vector3 Player_Pos = Current_Player.transform.position;
-
-                    float Angle_Step = 360.0f / p_STO_Wave.Spawn_Count;
-                    float Angle = 0.0f;
-
-                    for (int i = 0; i < p_STO_Wave.Spawn_Count; i++)
-                    {
-                        if (Game_Stop == false)
-                        {
-                            float Enemy_PosX = Player_Pos.x + Mathf.Sin(Angle * Mathf.Deg2Rad) * Rad;
-                            float Enemy_PosY = Player_Pos.y + Mathf.Cos(Angle * Mathf.Deg2Rad) * Rad;
-
-                            Vector3 Enemy_Pos = new Vector3(Enemy_PosX, Enemy_PosY, Player_Pos.z);
-
-
-                            if (p_STO_Wave.Elite == false)
-                            {
-                                All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UT, Enemy_Pos);
-                            }
-
-                            else
-                            {
-
-                                All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UT, Enemy_Pos, true);
-
-                            }
-
-                            Angle += Angle_Step;
-                        }
-
-                        else
-                        {
-
-                        }
-                    }
-                }
-
-
-
-                else if (p_STO_Wave.WST == Wave_Spawn_Type.Dot)
-                {
-                    int Temp_X = Random.Range(5, 10);
-                    Temp_X = ((Temp_X % 2) == 1) ? -Temp_X : Temp_X;
-
-                    int Temp_Y = Random.Range(5, 10);
-                    Temp_Y = ((Temp_Y % 2) == 1) ? -Temp_Y : Temp_Y;
-
-                    Vector3 Player_Pos = Current_Player.transform.position;
-                    Player_Pos += new Vector3(Temp_X, Temp_Y, 0);
-
-                    // �÷��̾� �ֺ��� ������ ���� ���
-                    //Vector3 Dot_Spawn = Player_Pos + (Vector3)(Random.insideUnitCircle * spawnRadius);
-
-                    if (Game_Stop == false)
-                    {
-                        for (int i = 0; i < p_STO_Wave.Spawn_Count; i++)
-                        {
-                            if (p_STO_Wave.Elite == false)
-                            {
-                                All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UT, (Player_Pos + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0)));
-                            }
-
-                            else
-                            {
-                                All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UT, (Player_Pos + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0)), true);
-                            }
-                        }
-                    }
-
-                    else { }
-                }
-
-                else if (p_STO_Wave.WST == Wave_Spawn_Type.BossWave)
-                {
-                    for (int i = 0; i < p_STO_Wave.Spawn_Count; i++)
-                    {
-                        int Temp_X = Random.Range(5, 10);
-                        Temp_X = ((Temp_X % 2) == 1) ? -Temp_X : Temp_X;
-
-                        int Temp_Y = Random.Range(5, 10);
-                        Temp_Y = ((Temp_Y % 2) == 1) ? -Temp_Y : Temp_Y;
-
-                        Vector3 Player_Pos = Current_Player.transform.position;
-                        Player_Pos += new Vector3(Temp_X, Temp_Y, 0);
-
-                        // STO �� Position �� �Ű������� ������ �ְ�
-                        // All_Manager.instance.Unit_M.Create_Unit(STO , Position);
-                        // All_Manager.instance.Unit_M.Create_Unit(Unit_Name.Enemy);
-
-                        if (Game_Stop == false)
-                        {
-                            if (p_STO_Wave.Elite == false)
-                            {
-                                All_Manager.instance.Unit_M.Unit_F.Create_Boss(All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr(Unit_Type.Boss), Player_Pos);
-                            }
-                        }
-
-                        else { }
-                    }
-                }
-
+                SpawnEnemies(p_STO_Wave);
                 yield return new WaitForSeconds(1f);
-                //UnityEngine.Debug.Log(111);
             }
         }
-
         else
         {
+            // 일정 시간 동안 생성할 경우
             for (int i = 0; i < p_STO_Wave.Spawn_Time; i++)
             {
-                if (p_STO_Wave.WST == Wave_Spawn_Type.Random)
-                {
-                    for (int j = 0; j < p_STO_Wave.Spawn_Count; j++)
-                    {
-                        int Temp_X = Random.Range(5, 10);
-                        Temp_X = ((Temp_X % 2) == 1) ? -Temp_X : Temp_X;
-
-                        int Temp_Y = Random.Range(5, 10);
-                        Temp_Y = ((Temp_Y % 2) == 1) ? -Temp_Y : Temp_Y;
-
-                        Vector3 Player_Pos = Current_Player.transform.position;
-                        Player_Pos += new Vector3(Temp_X, Temp_Y, 0);
-
-                        // STO �� Position �� �Ű������� ������ �ְ�
-                        //All_Manager.instance.Unit_M.Create_Unit(STO , Position);
-
-                        if (Game_Stop == false)
-                        {
-                            if (p_STO_Wave.Elite == false)
-                            {
-                                All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UT, Player_Pos);
-                            }
-
-                            else
-                            {
-                                All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UT, Player_Pos, true);
-                            }
-                        }
-
-                        else { }
-                    }
-                }
-
-                else if (p_STO_Wave.WST == Wave_Spawn_Type.Surround)
-                {
-
-                    float Rad = 6.0f;   // �÷��̾� �߽� ���� �������� 6�� ���� ���Ѵ�. 
-
-                    Vector3 Player_Pos = Current_Player.transform.position;
-
-                    float Angle_Step = 360.0f / p_STO_Wave.Spawn_Count;
-                    float Angle = 0.0f;
-
-                    for (int j = 0; j < p_STO_Wave.Spawn_Count; j++)
-                    {
-                        if (Game_Stop == false)
-                        {
-                            float Enemy_PosX = Player_Pos.x + Mathf.Sin(Angle * Mathf.Deg2Rad) * Rad;
-                            float Enemy_PosY = Player_Pos.y + Mathf.Cos(Angle * Mathf.Deg2Rad) * Rad;
-
-                            Vector3 Enemy_Pos = new Vector3(Enemy_PosX, Enemy_PosY, Player_Pos.z);
-
-                            if (p_STO_Wave.Elite == false)
-                            {
-                                All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UT, Enemy_Pos);
-                            }
-
-                            else
-                            {
-                                All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UT, Enemy_Pos, true);
-                            }
-
-                            Angle += Angle_Step;
-                        }
-
-                        else
-                        {
-
-                        }
-                    }
-                }
-
-
-
-                else if (p_STO_Wave.WST == Wave_Spawn_Type.Dot)
-                {
-                    int Temp_X = Random.Range(5, 10);
-                    Temp_X = ((Temp_X % 2) == 1) ? -Temp_X : Temp_X;
-
-                    int Temp_Y = Random.Range(5, 10);
-                    Temp_Y = ((Temp_Y % 2) == 1) ? -Temp_Y : Temp_Y;
-
-                    Vector3 Player_Pos = Current_Player.transform.position;
-                    Player_Pos += new Vector3(Temp_X, Temp_Y, 0);
-
-                    if (Game_Stop == false)
-                    {
-                        for (int j = 0; j < p_STO_Wave.Spawn_Count; j++)
-                        {
-
-                            if (p_STO_Wave.Elite == false)
-                            {
-                                All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UT, (Player_Pos + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0)));
-                            }
-
-                            else
-                            {
-                                All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UT, (Player_Pos + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0)), true);
-                            }
-
-                        }
-                    }
-
-                    else { }
-                }
-
-                else if (p_STO_Wave.WST == Wave_Spawn_Type.BossWave)
-                {
-                    for (int j = 0; j < p_STO_Wave.Spawn_Count; j++)
-                    {
-                        int Temp_X = Random.Range(5, 10);
-                        Temp_X = ((Temp_X % 2) == 1) ? -Temp_X : Temp_X;
-
-                        int Temp_Y = Random.Range(5, 10);
-                        Temp_Y = ((Temp_Y % 2) == 1) ? -Temp_Y : Temp_Y;
-
-                        Vector3 Player_Pos = Current_Player.transform.position;
-                        Player_Pos += new Vector3(Temp_X, Temp_Y, 0);
-
-                        if (Game_Stop == false)
-                        {
-                            if (p_STO_Wave.Elite == false)
-                            {
-                                All_Manager.instance.Unit_M.Unit_F.Create_Boss(All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr(Unit_Type.Boss), Player_Pos);
-                            }
-                        }
-
-                        else { }
-                    }
-                }
-
-                yield return new WaitForSeconds(1.0f);
+                SpawnEnemies(p_STO_Wave);
+                yield return new WaitForSeconds(1f);
             }
         }
     }
+
+    private void SpawnEnemies(STO_Wave p_STO_Wave)
+    {
+        // 웨이브 스폰 타입에 따라 적 생성 방식 결정
+        switch (p_STO_Wave.WST)
+        {
+            case Wave_Spawn_Type.Random:
+                SpawnRandom(p_STO_Wave);
+                break;
+            case Wave_Spawn_Type.Surround:
+                SpawnSurround(p_STO_Wave);
+                break;
+            case Wave_Spawn_Type.Dot:
+                SpawnDot(p_STO_Wave);
+                break;
+            case Wave_Spawn_Type.BossWave:
+                SpawnBossWave(p_STO_Wave);
+                break;
+        }
+    }
+
+    private void SpawnRandom(STO_Wave p_STO_Wave)
+    {
+        // 랜덤 위치에 적 생성
+        for (int i = 0; i < p_STO_Wave.Spawn_Count; i++)
+        {
+            Vector3 spawnPosition = GetRandomSpawnPosition();
+            SpawnEnemy(p_STO_Wave, spawnPosition);
+        }
+    }
+
+    private Vector3 GetRandomSpawnPosition()
+    {
+        // 랜덤 위치 계산
+        int tempX = Random.Range(5, 10);
+        tempX = (tempX % 2 == 1) ? -tempX : tempX;
+        int tempY = Random.Range(5, 10);
+        tempY = (tempY % 2 == 1) ? -tempY : tempY;
+        return Current_Player.transform.position + new Vector3(tempX, tempY, 0);
+    }
+
+    private void SpawnSurround(STO_Wave p_STO_Wave)
+    {
+        // 플레이어를 둘러싸는 형태로 적 생성
+        Vector3 playerPos = Current_Player.transform.position;
+        float angleStep = 360.0f / p_STO_Wave.Spawn_Count;
+        float angle = 0.0f;
+        float radius = 6.0f;
+
+        for (int i = 0; i < p_STO_Wave.Spawn_Count; i++)
+        {
+            float enemyPosX = playerPos.x + Mathf.Sin(angle * Mathf.Deg2Rad) * radius;
+            float enemyPosY = playerPos.y + Mathf.Cos(angle * Mathf.Deg2Rad) * radius;
+            Vector3 spawnPosition = new Vector3(enemyPosX, enemyPosY, playerPos.z);
+            SpawnEnemy(p_STO_Wave, spawnPosition);
+            angle += angleStep;
+        }
+    }
+
+    private void SpawnDot(STO_Wave p_STO_Wave)
+    {
+        // 일정 범위 내에 점 형태로 적 생성
+        Vector3 basePosition = GetRandomSpawnPosition();
+        for (int i = 0; i < p_STO_Wave.Spawn_Count; i++)
+        {
+            Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0);
+            Vector3 spawnPosition = basePosition + offset;
+            SpawnEnemy(p_STO_Wave, spawnPosition);
+        }
+    }
+
+    private void SpawnBossWave(STO_Wave p_STO_Wave)
+    {
+        // 보스 웨이브 생성
+        for (int i = 0; i < p_STO_Wave.Spawn_Count; i++)
+        {
+            Vector3 spawnPosition = GetRandomSpawnPosition();
+            if (!p_STO_Wave.Elite && !Game_Stop)
+            {
+                All_Manager.instance.Unit_M.Unit_F.Create_Boss(
+                    All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr(Unit_Type.Boss),
+                    spawnPosition);
+            }
+        }
+    }
+
+    private void SpawnEnemy(STO_Wave p_STO_Wave, Vector3 spawnPosition)
+    {
+        // 적 생성
+        if (!Game_Stop)
+        {
+            if (p_STO_Wave.Elite)
+            {
+                All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UT, spawnPosition, true);
+            }
+            else
+            {
+                All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UT, spawnPosition);
+            }
+        }
+    }
+
+
 
     private void CheckMissionSpawn()
     {
@@ -680,18 +516,14 @@ public class GameMode_Manager : MonoBehaviour
 
     private void SpawnRandomMission()
     {
-        // ���� �̼� Ÿ�� ����
         MissionType randomMissionType = (MissionType)Random.Range(0, System.Enum.GetValues(typeof(MissionType)).Length);
 
-        // Convert_Mission_Type_To_STO_Mission_Arr�� ����� STO_Mission ��������
         STO_Mission newMission = All_Manager.instance.Resource_M.Convert_Mission_Type_To_STO_Mission_Arr(randomMissionType);
 
         if (newMission != null)
         {
-            // �÷��̾� �ֺ��� ������ ��ġ ����
             Vector3 randomPosition = Current_Player.transform.position + new Vector3(Random.Range(-10f, 10f), Random.Range(-10f, 10f), 0f);
 
-            // ������ �̼��� ����Ͽ� �̼� ����
             All_Manager.instance.Unit_M.Mission_F.Create_Mission(newMission, randomPosition);
             All_Manager.instance.UI_M.Update_Mission_Check_Text(randomMissionType.ToString());
         }
@@ -704,6 +536,292 @@ public class GameMode_Manager : MonoBehaviour
 }
 
 #region
+//public IEnumerator C_Start_Wave(STO_Wave p_STO_Wave)
+//{
+//    if (p_STO_Wave.Spawn_Time == 0)
+//    {
+//        while (true)
+//        {
+//            if (p_STO_Wave.WST == Wave_Spawn_Type.Random)
+//            {
+//                for (int i = 0; i < p_STO_Wave.Spawn_Count; i++)
+//                {
+//                    int Temp_X = Random.Range(5, 10);
+//                    Temp_X = ((Temp_X % 2) == 1) ? -Temp_X : Temp_X;
+
+//                    int Temp_Y = Random.Range(5, 10);
+//                    Temp_Y = ((Temp_Y % 2) == 1) ? -Temp_Y : Temp_Y;
+
+//                    Vector3 Player_Pos = Current_Player.transform.position;
+//                    Player_Pos += new Vector3(Temp_X, Temp_Y, 0);
+
+//                    if (Game_Stop == false)
+//                    {
+//                        if (p_STO_Wave.Elite == false)
+//                        {
+//                            All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UT, Player_Pos);
+//                        }
+
+//                        else
+//                        {
+//                            All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UT, Player_Pos, true);
+//                        }
+//                    }
+
+//                    else { }
+//                }
+//            }
+
+//            else if (p_STO_Wave.WST == Wave_Spawn_Type.Surround)
+//            {
+
+//                float Rad = 6.0f;   // �÷��̾� �߽� ���� �������� 6�� ���� ���Ѵ�. 
+
+//                Vector3 Player_Pos = Current_Player.transform.position;
+
+//                float Angle_Step = 360.0f / p_STO_Wave.Spawn_Count;
+//                float Angle = 0.0f;
+
+//                for (int i = 0; i < p_STO_Wave.Spawn_Count; i++)
+//                {
+//                    if (Game_Stop == false)
+//                    {
+//                        float Enemy_PosX = Player_Pos.x + Mathf.Sin(Angle * Mathf.Deg2Rad) * Rad;
+//                        float Enemy_PosY = Player_Pos.y + Mathf.Cos(Angle * Mathf.Deg2Rad) * Rad;
+
+//                        Vector3 Enemy_Pos = new Vector3(Enemy_PosX, Enemy_PosY, Player_Pos.z);
+
+
+//                        if (p_STO_Wave.Elite == false)
+//                        {
+//                            All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UT, Enemy_Pos);
+//                        }
+
+//                        else
+//                        {
+
+//                            All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UT, Enemy_Pos, true);
+
+//                        }
+
+//                        Angle += Angle_Step;
+//                    }
+
+//                    else
+//                    {
+
+//                    }
+//                }
+//            }
+
+
+
+//            else if (p_STO_Wave.WST == Wave_Spawn_Type.Dot)
+//            {
+//                int Temp_X = Random.Range(5, 10);
+//                Temp_X = ((Temp_X % 2) == 1) ? -Temp_X : Temp_X;
+
+//                int Temp_Y = Random.Range(5, 10);
+//                Temp_Y = ((Temp_Y % 2) == 1) ? -Temp_Y : Temp_Y;
+
+//                Vector3 Player_Pos = Current_Player.transform.position;
+//                Player_Pos += new Vector3(Temp_X, Temp_Y, 0);
+
+//                // �÷��̾� �ֺ��� ������ ���� ���
+//                //Vector3 Dot_Spawn = Player_Pos + (Vector3)(Random.insideUnitCircle * spawnRadius);
+
+//                if (Game_Stop == false)
+//                {
+//                    for (int i = 0; i < p_STO_Wave.Spawn_Count; i++)
+//                    {
+//                        if (p_STO_Wave.Elite == false)
+//                        {
+//                            All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UT, (Player_Pos + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0)));
+//                        }
+
+//                        else
+//                        {
+//                            All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UT, (Player_Pos + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0)), true);
+//                        }
+//                    }
+//                }
+
+//                else { }
+//            }
+
+//            else if (p_STO_Wave.WST == Wave_Spawn_Type.BossWave)
+//            {
+//                for (int i = 0; i < p_STO_Wave.Spawn_Count; i++)
+//                {
+//                    int Temp_X = Random.Range(5, 10);
+//                    Temp_X = ((Temp_X % 2) == 1) ? -Temp_X : Temp_X;
+
+//                    int Temp_Y = Random.Range(5, 10);
+//                    Temp_Y = ((Temp_Y % 2) == 1) ? -Temp_Y : Temp_Y;
+
+//                    Vector3 Player_Pos = Current_Player.transform.position;
+//                    Player_Pos += new Vector3(Temp_X, Temp_Y, 0);
+
+//                    // STO �� Position �� �Ű������� ������ �ְ�
+//                    // All_Manager.instance.Unit_M.Create_Unit(STO , Position);
+//                    // All_Manager.instance.Unit_M.Create_Unit(Unit_Name.Enemy);
+
+//                    if (Game_Stop == false)
+//                    {
+//                        if (p_STO_Wave.Elite == false)
+//                        {
+//                            All_Manager.instance.Unit_M.Unit_F.Create_Boss(All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr(Unit_Type.Boss), Player_Pos);
+//                        }
+//                    }
+
+//                    else { }
+//                }
+//            }
+
+//            yield return new WaitForSeconds(1f);
+//            //UnityEngine.Debug.Log(111);
+//        }
+//    }
+
+//    else
+//    {
+//        for (int i = 0; i < p_STO_Wave.Spawn_Time; i++)
+//        {
+//            if (p_STO_Wave.WST == Wave_Spawn_Type.Random)
+//            {
+//                for (int j = 0; j < p_STO_Wave.Spawn_Count; j++)
+//                {
+//                    int Temp_X = Random.Range(5, 10);
+//                    Temp_X = ((Temp_X % 2) == 1) ? -Temp_X : Temp_X;
+
+//                    int Temp_Y = Random.Range(5, 10);
+//                    Temp_Y = ((Temp_Y % 2) == 1) ? -Temp_Y : Temp_Y;
+
+//                    Vector3 Player_Pos = Current_Player.transform.position;
+//                    Player_Pos += new Vector3(Temp_X, Temp_Y, 0);
+
+//                    // STO �� Position �� �Ű������� ������ �ְ�
+//                    //All_Manager.instance.Unit_M.Create_Unit(STO , Position);
+
+//                    if (Game_Stop == false)
+//                    {
+//                        if (p_STO_Wave.Elite == false)
+//                        {
+//                            All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UT, Player_Pos);
+//                        }
+
+//                        else
+//                        {
+//                            All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UT, Player_Pos, true);
+//                        }
+//                    }
+
+//                    else { }
+//                }
+//            }
+
+//            else if (p_STO_Wave.WST == Wave_Spawn_Type.Surround)
+//            {
+
+//                float Rad = 6.0f;   // �÷��̾� �߽� ���� �������� 6�� ���� ���Ѵ�. 
+
+//                Vector3 Player_Pos = Current_Player.transform.position;
+
+//                float Angle_Step = 360.0f / p_STO_Wave.Spawn_Count;
+//                float Angle = 0.0f;
+
+//                for (int j = 0; j < p_STO_Wave.Spawn_Count; j++)
+//                {
+//                    if (Game_Stop == false)
+//                    {
+//                        float Enemy_PosX = Player_Pos.x + Mathf.Sin(Angle * Mathf.Deg2Rad) * Rad;
+//                        float Enemy_PosY = Player_Pos.y + Mathf.Cos(Angle * Mathf.Deg2Rad) * Rad;
+
+//                        Vector3 Enemy_Pos = new Vector3(Enemy_PosX, Enemy_PosY, Player_Pos.z);
+
+//                        if (p_STO_Wave.Elite == false)
+//                        {
+//                            All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UT, Enemy_Pos);
+//                        }
+
+//                        else
+//                        {
+//                            All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UT, Enemy_Pos, true);
+//                        }
+
+//                        Angle += Angle_Step;
+//                    }
+
+//                    else
+//                    {
+
+//                    }
+//                }
+//            }
+
+
+
+//            else if (p_STO_Wave.WST == Wave_Spawn_Type.Dot)
+//            {
+//                int Temp_X = Random.Range(5, 10);
+//                Temp_X = ((Temp_X % 2) == 1) ? -Temp_X : Temp_X;
+
+//                int Temp_Y = Random.Range(5, 10);
+//                Temp_Y = ((Temp_Y % 2) == 1) ? -Temp_Y : Temp_Y;
+
+//                Vector3 Player_Pos = Current_Player.transform.position;
+//                Player_Pos += new Vector3(Temp_X, Temp_Y, 0);
+
+//                if (Game_Stop == false)
+//                {
+//                    for (int j = 0; j < p_STO_Wave.Spawn_Count; j++)
+//                    {
+
+//                        if (p_STO_Wave.Elite == false)
+//                        {
+//                            All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UT, (Player_Pos + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0)));
+//                        }
+
+//                        else
+//                        {
+//                            All_Manager.instance.Pool_M.Enemy_Pool_Out(p_STO_Wave.STO_Enemy.UT, (Player_Pos + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0)), true);
+//                        }
+
+//                    }
+//                }
+
+//                else { }
+//            }
+
+//            else if (p_STO_Wave.WST == Wave_Spawn_Type.BossWave)
+//            {
+//                for (int j = 0; j < p_STO_Wave.Spawn_Count; j++)
+//                {
+//                    int Temp_X = Random.Range(5, 10);
+//                    Temp_X = ((Temp_X % 2) == 1) ? -Temp_X : Temp_X;
+
+//                    int Temp_Y = Random.Range(5, 10);
+//                    Temp_Y = ((Temp_Y % 2) == 1) ? -Temp_Y : Temp_Y;
+
+//                    Vector3 Player_Pos = Current_Player.transform.position;
+//                    Player_Pos += new Vector3(Temp_X, Temp_Y, 0);
+
+//                    if (Game_Stop == false)
+//                    {
+//                        if (p_STO_Wave.Elite == false)
+//                        {
+//                            All_Manager.instance.Unit_M.Unit_F.Create_Boss(All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr(Unit_Type.Boss), Player_Pos);
+//                        }
+//                    }
+
+//                    else { }
+//                }
+//            }
+
+//            yield return new WaitForSeconds(1.0f);
+//        }
+//    }
+//}
 //public void Stop_Gem_Count_Bar_Fill(float Gem_Prev)
 //{
 //    StopCoroutine(C_Update_Gem_Count_Bar_Fill(Gem_Prev));

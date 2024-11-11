@@ -53,7 +53,6 @@ public class Ghost_Effect_Controller : MonoBehaviour
                 GameObject Ghost = new GameObject("Trail");
                 Ghost.transform.position = Target.position;
                 Ghost.transform.rotation = Target.rotation;
-                Ghost.transform.parent = Target.transform;
 
                 SpriteRenderer SR = Ghost.AddComponent<SpriteRenderer>();
                 SR.sprite = Target.GetComponent<SpriteRenderer>().sprite;

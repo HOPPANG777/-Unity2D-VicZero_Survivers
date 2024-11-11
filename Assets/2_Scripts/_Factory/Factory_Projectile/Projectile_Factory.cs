@@ -45,15 +45,9 @@ public class Projectile_Factory : MonoBehaviour
             case Weapon_Type.Whip:
                 Weapon_Go.AddComponent<Weapon_Whip>();
                 break;
-            //case Weapon_Type.BoundAxe:
-            //    Weapon_Go.AddComponent<BoundAxe>();
-            //    break;
-            //case Weapon_Type.Phoenix:
-            //    Weapon_Go.AddComponent<Phoenix>();
-            //    break;
         }
 
-        //Weapon_Go.AddComponent<Weapon>();
+        Weapon_Go.GetComponent<Weapon>().WT = p_WTO.WT;
 
         Weapon_Go.transform.position = p_TF.transform.position;
         Weapon_Go.transform.rotation = Quaternion.identity;

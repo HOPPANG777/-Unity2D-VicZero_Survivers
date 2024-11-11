@@ -19,8 +19,6 @@ public class Weapon_RuneTracer : Weapon
         base.Start();
         Dir = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0);
         mainCamera = Camera.main;
-        TR.enabled = true;
-
     }
 
     public override void Update()
@@ -48,40 +46,40 @@ public class Weapon_RuneTracer : Weapon
     }
     public void Rune_Attack()
     {
-        // Normalize the direction
+        // 방향을 정규화합니다.
         Dir = Dir.normalized;
 
-        // Move the object
+        // 객체를 이동시킵니다.
         this.transform.position += Dir * Weapon_Speed * Time.deltaTime;
 
-        // Check for collisions with screen edges and reflect
+        // 화면 가장자리와 충돌을 확인하고 반사 처리합니다.
         Vector3 viewPos = mainCamera.WorldToViewportPoint(transform.position);
 
-        // Reflect on x-axis
+        // x축에서 반사 처리
         if (viewPos.x <= 0.0f)
         {
-            viewPos.x = 0.0f; // Prevent going beyond the left boundary
+            viewPos.x = 0.0f; // 왼쪽 경계를 넘어가지 않도록 처리
             Dir = Vector3.Reflect(Dir, Vector3.right);
         }
         else if (viewPos.x >= 1.0f)
         {
-            viewPos.x = 1.0f; // Prevent going beyond the right boundary
+            viewPos.x = 1.0f; // 오른쪽 경계를 넘어가지 않도록 처리
             Dir = Vector3.Reflect(Dir, Vector3.right);
         }
 
-        // Reflect on y-axis
+        // y축에서 반사 처리
         if (viewPos.y <= 0.0f)
         {
-            viewPos.y = 0.0f; // Prevent going beyond the bottom boundary
+            viewPos.y = 0.0f; // 아래쪽 경계를 넘어가지 않도록 처리
             Dir = Vector3.Reflect(Dir, Vector3.up);
         }
         else if (viewPos.y >= 1.0f)
         {
-            viewPos.y = 1.0f; // Prevent going beyond the top boundary
+            viewPos.y = 1.0f; // 위쪽 경계를 넘어가지 않도록 처리
             Dir = Vector3.Reflect(Dir, Vector3.up);
         }
 
-        // Update position after reflection
+        // 반사 후 위치를 갱신합니다.
         transform.position = mainCamera.ViewportToWorldPoint(viewPos);
     }
 

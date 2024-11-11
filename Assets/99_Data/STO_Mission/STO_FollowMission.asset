@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: STO_FollowMission
   m_EditorClassIdentifier: 
   _missionType: 2
-  _sprite: {fileID: 21300000, guid: 6347eafdcfd33184d9956de8dfef3f7a, type: 3}
+  _sprite: {fileID: 6938797767448859203, guid: 6cf78f750a5649140a337c33e77e16d3, type: 3}
   _material: {fileID: 2100000, guid: 562cb0ad3f0f2a44b8fa57aa7e02b64a, type: 2}
   Mission_Time: 0

@@ -18,7 +18,7 @@ public class Pool_Manager : MonoBehaviour
     {
         Ready = false;
 
-        // i °¡ 2ÀÎ ÀÌÀ¯´Â ÇÃ·¹ÀÌ¾î°¡ 0, º¸½º°¡ 1 ÀÌ±â ¶§¹®¿¡
+        // i ê°€ 2ì¸ ì´ìœ ëŠ” í”Œë ˆì´ì–´ê°€ 0, ë³´ìŠ¤ê°€ 1 ì´ê¸° ë•Œë¬¸ì—
         for (int i = 2; i < System.Enum.GetValues(typeof(Unit_Type)).Length; i++)
         {
             var Temp_UT = (Unit_Type)i;
@@ -28,7 +28,7 @@ public class Pool_Manager : MonoBehaviour
 
             yield return new WaitWhile(() => Enemy_Pool == null);
 
-            //50 Àº Á» ¾Æ½½¾Æ½½
+            //50 ì€ ì¢€ ì•„ìŠ¬ì•„ìŠ¬
             int Enemy_Number = 300;
 
             for (int k = 0; k < Enemy_Number; k++)
@@ -85,7 +85,7 @@ public class Pool_Manager : MonoBehaviour
         Ready = true;
     }
 
-    // ¿ÀºêÁ§Æ® Ç®¿¡ ´Ù½Ã Áı¾î³Ö±â
+    // ì˜¤ë¸Œì íŠ¸ í’€ì— ë‹¤ì‹œ ì§‘ì–´ë„£ê¸°
     public void Enemy_Pool_In(Unit_Enemy p_UE)
     {
         var Target_Pool = this.transform.Find(p_UE.UT.ToString() + "-Pool");
@@ -99,8 +99,6 @@ public class Pool_Manager : MonoBehaviour
         p_UE.isEffect = false;
 
         p_UE.isDeathAnim = false;
-
-        p_UE.AM.SetBool("Death", false);
 
         p_UE.SR.material.SetFloat("_Outline", 0.0f);
 
@@ -121,9 +119,11 @@ public class Pool_Manager : MonoBehaviour
         p_UE.Temp_Time = 1.0f;
 
         p_UE.Unit_Stat_Setting(p_UE, All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr(p_UE.UT));
+
+        All_Manager.instance.Resource_M.SYGizmo.GizmoTargets.Remove(p_UE.gameObject);
     }
 
-    // ¿ÀºêÁ§Æ® Ç®¿¡¼­ ²¨³»±â
+    // ì˜¤ë¸Œì íŠ¸ í’€ì—ì„œ êº¼ë‚´ê¸°
     public void Enemy_Pool_Out(Unit_Type p_UT, Vector3 p_Position, bool p_Elite = false)
     {
         var Target_Pool = this.transform.Find(p_UT.ToString() + "-Pool");
@@ -143,7 +143,9 @@ public class Pool_Manager : MonoBehaviour
         Unit_Go.GetComponent<Unit_Enemy>().SR.size = new Vector2((Unit_Go.GetComponent<Unit_Enemy>().SR.size.x * 4), (Unit_Go.GetComponent<Unit_Enemy>().SR.size.y * 4));
 
         Unit_Go.GetComponent<Unit_Enemy>().Elite_Outline_Set(p_UT);
-        
+
+        All_Manager.instance.Resource_M.SYGizmo.GizmoTargets.Add(Unit_Go.gameObject, 0.5f);
+
         Unit_Go.layer = 7;
 
         All_Manager.instance.GameMode_M.Enemy_List.Add(Unit_Go.GetComponent<Unit_Enemy>());
@@ -199,9 +201,9 @@ public class Pool_Manager : MonoBehaviour
 
         p_Weapon.Weapon_Time = 0;
 
-        //p_Weapon.GetComponent<Weapon>().SR.drawMode = SpriteDrawMode.Sliced;
+        p_Weapon.GetComponent<Weapon>().SR.drawMode = SpriteDrawMode.Sliced;
 
-        //p_Weapon.GetComponent<Weapon>().SR.size = new Vector2(1, 1);
+        p_Weapon.GetComponent<Weapon>().SR.size = new Vector2(1, 1);
 
         //Debug.Log("Weapon Pool");
 
@@ -228,7 +230,7 @@ public class Pool_Manager : MonoBehaviour
 }
 
 #region
-// ÇÊ¿ä½Ã »õ·Î¿î ¸ó½ºÅÍ »ı¼º (Optional)
+// í•„ìš”ì‹œ ìƒˆë¡œìš´ ëª¬ìŠ¤í„° ìƒì„± (Optional)
 //GameObject New_Enemy = Instantiate(Pools[i][0]);
 //New_Enemy.SetActive(true);
 //Pools[i].Add(New_Enemy);

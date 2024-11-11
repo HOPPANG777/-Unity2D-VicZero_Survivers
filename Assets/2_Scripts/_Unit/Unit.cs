@@ -103,7 +103,7 @@ public abstract class Unit : MonoBehaviour
 
     public virtual void Update()
     {
-        if (All_Manager.instance.GameMode_M.Game_Stop) return;
+        if (All_Manager.instance.GameMode_M.Game_Stop == true) return;
 
         Update_Sprite_Renderer();
 
@@ -207,9 +207,9 @@ public abstract class Unit : MonoBehaviour
         if (isDead) return;
 
         isDead = true;
-        AM.SetBool("Move", false);
-        AM.SetBool("Death", true);
 
+        Unit_Animation(Unit_Anim_State.Death);
+        
         //SR_GB = 0f;
         Hit_Time = 0.0f;
 
@@ -241,14 +241,6 @@ public abstract class Unit : MonoBehaviour
     {
         if (!isKnock)
         {
-            //for (int i = 0; i < 100; i++)
-            //{
-            //    this.transform.position = this.transform.position + ((Knock_Dir.normalized * Knock_Power) * (100 - i) * 0.01f * Time.deltaTime);
-            //}
-
-            //isKnock = true;
-            //Knock_Timer = Knock_Duration;
-
             this.knockDirection = Knock_Dir.normalized;
             this.knockStrength = Knock_Power;
             this.knockTimer = 0.0f;
@@ -261,28 +253,28 @@ public abstract class Unit : MonoBehaviour
 
     public virtual void Unit_Animation(Unit_Anim_State State)
     {
+        if (UT == Unit_Type.Barrel) return;
 
         switch (State)
         {
             case Unit_Anim_State.Idle:
                 {
-                    Debug.Log("Idle �ٲ�");
-                    AM.SetBool("Idle", true);
-                    AM.SetBool("Move", false);
                     AM.SetBool("Death", false);
+                    AM.SetBool("Move", false);
+                    AM.SetBool("Idle", true);
                 }
                 break;
             case Unit_Anim_State.Walk:
                 {
-                    Debug.Log("Walk �ٲ�");
+                    AM.SetBool("Death", false);
                     AM.SetBool("Idle", false);
                     AM.SetBool("Move", true);
                 }
                 break;
             case Unit_Anim_State.Death:
                 {
-                    Debug.Log("Death �ٲ�");
                     AM.SetBool("Idle", false);
+                    AM.SetBool("Move", false);
                     AM.SetBool("Death", true);
                 }
                 break;

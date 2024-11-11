@@ -95,15 +95,16 @@ public class Unit_Enemy : Unit
     public override void Die()
     {
         base.Die();
-        if (this.UT != Unit_Type.Boss || this.UT != Unit_Type.Barrel)
-        {
-            All_Manager.instance.GameMode_M.Enemy_Down(this);
-        }
+
     }
 
     protected override void Death_Animation_End()
     {
         base.Death_Animation_End();
+        if (this.UT != Unit_Type.Boss || this.UT != Unit_Type.Barrel)
+        {
+            All_Manager.instance.GameMode_M.Enemy_Down(this);
+        }
     }
 
     protected override IEnumerator C_Death_Animation_End()
@@ -135,7 +136,7 @@ public class Unit_Enemy : Unit
 
     public void Update_Enemy_Move()
     {
-        if (isDead == true) return;
+        if (isDead == true && All_Manager.instance.GameMode_M.Game_Stop == true) return;
 
         Vector3 dir = All_Manager.instance.GameMode_M.Current_Player.transform.position - this.transform.position;
 
@@ -145,11 +146,11 @@ public class Unit_Enemy : Unit
 
         if (All_Manager.instance.GameMode_M.Enemy_List.Contains(this) || gameObject.GetComponent<Animator>())
         {
-            AM.SetBool("Move", true);
+            Unit_Animation(Unit_Anim_State.Walk);
         }
         else
         {
-            AM.SetBool("Move", false);
+            Unit_Animation(Unit_Anim_State.Idle);
         }
 
         if (All_Manager.instance.GameMode_M.Current_Player.transform.position.x < this.transform.position.x && isDead == false)
@@ -201,6 +202,8 @@ public class Unit_Enemy : Unit
 
     public virtual void Enemy_To_Enemy_Push()
     {
+        if (All_Manager.instance.GameMode_M.Game_Stop == true) return;
+
         var Enemy_List = All_Manager.instance.GameMode_M.Enemy_List;
         var Temp_Player = All_Manager.instance.GameMode_M.Current_Player;
         Camera Temp_Camera = All_Manager.instance.GameMode_M.Current_Camera;
@@ -223,15 +226,8 @@ public class Unit_Enemy : Unit
             }
         }
 
-        // 플레이어 추가 (플레이어가 화면 내에 있는 경우)
-        //Vector3 Player_View_Pos = Temp_Camera.WorldToViewportPoint(Temp_Player.transform.position);
-        //if (Player_View_Pos.x >= 0 && Player_View_Pos.x <= 1 && Player_View_Pos.y >= 0 && Player_View_Pos.y <= 1 && Player_View_Pos.z >= 0)
-        //{
-        //    InView_Unit_List.Add(Temp_Player);
-        //}
-
         // 그리드 크기 설정 (예: 5x5 유닛 영역)
-        float Grid_Size = 4f;
+        float Grid_Size = 5f;
         Dictionary<Vector2Int, List<Unit>> Grid = new Dictionary<Vector2Int, List<Unit>>();
 
         // 각 유닛을 그리드에 할당
@@ -282,6 +278,12 @@ public class Unit_Enemy : Unit
         }
     }
 
+    // 플레이어 추가 (플레이어가 화면 내에 있는 경우)
+    //Vector3 Player_View_Pos = Temp_Camera.WorldToViewportPoint(Temp_Player.transform.position);
+    //if (Player_View_Pos.x >= 0 && Player_View_Pos.x <= 1 && Player_View_Pos.y >= 0 && Player_View_Pos.y <= 1 && Player_View_Pos.z >= 0)
+    //{
+    //    InView_Unit_List.Add(Temp_Player);
+    //}
 
     public void Elite_Outline_Set(Unit_Type p_UT)
     {

@@ -238,7 +238,6 @@ public class Unit_Player : Unit
         StartCoroutine(CoUseWeapon(p_WT));
     }
 
-    #region
     public IEnumerator CoUseWeapon(Weapon_Type weaponType)
     {
         yield return new WaitWhile(() => Creating_Weapon == true);
@@ -349,6 +348,12 @@ public class Unit_Player : Unit
 
                     for (int i = 0; i < Current_Weapon_Count(Weapon_Type.FireWand, FireWand_LAT); i++)
                     {
+                        weaponGo = All_Manager.instance.Pool_M.Weapon_Pool_Out(weaponType);
+
+                        weaponGo.transform.position = GetWeaponStartPosition(weaponType);
+                        weaponGo.transform.rotation = Quaternion.identity;
+                        weaponGo.transform.localScale = Vector3.one;
+
                         weaponGo.GetComponent<Weapon>().Weapon_Init(this, Weapon_STO, FireWand_LAT.Level);
                         CheckSynergyEffects(weaponGo.GetComponent<Weapon_FireWand>().WeaponKeyword);
 
@@ -361,7 +366,6 @@ public class Unit_Player : Unit
 
                         weaponGo.transform.rotation = Quaternion.Euler(0, 0, (360 * i / (Current_Weapon_Count(Weapon_Type.FireWand, FireWand_LAT))) + 180);
                         All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.FireWand);
-
                     }
                 }
                 break;
@@ -418,7 +422,6 @@ public class Unit_Player : Unit
                             }
 
                             weaponGo = All_Manager.instance.Pool_M.Weapon_Pool_Out(weaponType);
-
 
                             if (weaponGo.GetComponent<Weapon_LightningRing>() != null)
                             {
@@ -481,41 +484,6 @@ public class Unit_Player : Unit
 
                 }
                 break;
-
-            //case Weapon_Type.BoundAxe:
-            //    {
-            //        Vector3 One = this.transform.position;
-            //        Vector3 Two, Three, Four;
-
-            //        if (Weapon_Trigger)
-            //        {
-            //            Two = One + new Vector3(0, 5, 0);
-            //            Three = Two + new Vector3(UnityEngine.Random.Range(1, 5), 0, 0);
-            //            Four = One + new Vector3(UnityEngine.Random.Range(1, 5), -10, 0);
-            //        }
-            //        else
-            //        {
-            //            Two = One + new Vector3(0, 5, 0);
-            //            Three = Two + new Vector3(UnityEngine.Random.Range(-5, -1), 0, 0);
-            //            Four = One + new Vector3(UnityEngine.Random.Range(-5, -1), -10, 0);
-            //        }
-            //        Weapon_Axe waeponAxe = weaponGo.GetComponent<Weapon_Axe>();
-
-            //        waeponAxe.Weapon_Init(this, Weapon_STO, Axe_LAT.Level);
-            //        waeponAxe.Axe_Init(One, Two, Three, Four);
-
-            //        CheckSynergyEffects(waeponAxe.WeaponKeyword);
-
-            //        Weapon_Trigger = !Weapon_Trigger;
-
-            //        All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.Axe);
-            //    }
-            //    break;
-            //case Weapon_Type.Phoenix:
-            //    {
-
-            //    }
-            //    break;
         }
 
         if (weaponGo != null)
@@ -822,7 +790,6 @@ public class Unit_Player : Unit
     {
         return GetCurrentWeaponStat(p_WT, p_WLAT, weaponInfo => weaponInfo.Weapon_Duration);
     }
-    #endregion
 
     public void CheckSynergyEffects(WeaponKeyword keyword)
     {
@@ -853,7 +820,6 @@ public class Unit_Player : Unit
                     if (weapon.WeaponKeyword == keyword)
                     {
                         weapon.Weapon_Damage *= 1.5f;
-                        Debug.Log("바운드");
                     }
                 }
                 break;
@@ -905,11 +871,11 @@ public class Unit_Player : Unit
 
         if (InputVec.x != 0 || InputVec.y != 0)
         {
-            AM.SetBool("Move", true);
+            Unit_Animation(Unit_Anim_State.Walk);
         }
         else
         {
-            AM.SetBool("Move", false);
+            Unit_Animation(Unit_Anim_State.Idle);
         }
 
         Vector3 Next_Vec = InputVec.normalized * (this.Origin_Stat.Unit_Speed * Time.deltaTime);

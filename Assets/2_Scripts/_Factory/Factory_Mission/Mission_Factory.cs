@@ -34,6 +34,7 @@ public class Mission_Factory : MonoBehaviour
                         Mission_Go.GetComponent<SurviversMission>().MissionType = p_Mission.missionType;
 
                         All_Manager.instance.GameMode_M.missionList.Add(Mission_Go.GetComponent<SurviversMission>());
+                        All_Manager.instance.Resource_M.SYGizmo.GizmoTargets.Add(Mission_Go.GetComponent<SurviversMission>().gameObject, 1.0f);
                     }
                 }
                 break;
@@ -58,6 +59,7 @@ public class Mission_Factory : MonoBehaviour
                         Mission_Go.GetComponent<DefendMission>().MissionType = p_Mission.missionType;
 
                         All_Manager.instance.GameMode_M.missionList.Add(Mission_Go.GetComponent<DefendMission>());
+                        All_Manager.instance.Resource_M.SYGizmo.GizmoTargets.Add(Mission_Go.GetComponent<DefendMission>().gameObject, 1.0f);
                     }
                 }
                 break;
@@ -82,6 +84,7 @@ public class Mission_Factory : MonoBehaviour
                         Mission_Go.GetComponent<FollowMission>().MissionType = p_Mission.missionType;
 
                         All_Manager.instance.GameMode_M.missionList.Add(Mission_Go.GetComponent<FollowMission>());
+                        All_Manager.instance.Resource_M.SYGizmo.GizmoTargets.Add(Mission_Go.GetComponent<FollowMission>().gameObject, 1.0f);
                     }
                 }
                 break;
