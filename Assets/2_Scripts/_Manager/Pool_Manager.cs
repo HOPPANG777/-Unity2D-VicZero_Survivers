@@ -208,6 +208,8 @@ public class Pool_Manager : MonoBehaviour
         //Debug.Log("Weapon Pool");
 
         p_Weapon.gameObject.SetActive(false);
+
+        All_Manager.instance.Resource_M.SYGizmo.GizmoTargets.Remove(p_Weapon.gameObject);
     }
 
     public GameObject Weapon_Pool_Out(Weapon_Type p_WT)
@@ -221,6 +223,8 @@ public class Pool_Manager : MonoBehaviour
         Weapon_Go.SetActive(true);
 
         Weapon_Go.layer = 10;
+
+        All_Manager.instance.Resource_M.SYGizmo.GizmoTargets.Add(Weapon_Go.gameObject, 0.5f);
 
         return Weapon_Go;
         //All_Manager.instance.GameMode_M.All_L.Add(Weapon_Go.GetComponent<Weapon>());
