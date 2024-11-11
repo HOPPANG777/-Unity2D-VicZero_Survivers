@@ -71,23 +71,15 @@ public class Weapon_Peachone : Weapon
     {
         this.Weapon_Accumulate();
 
-        this.transform.position = new Vector3(Peachone_Bezier(W_Peachone_Point[0].x, W_Peachone_Point[1].x, W_Peachone_Point[2].x, W_Peachone_Point[3].x, W_Accumulate),
-           Peachone_Bezier(W_Peachone_Point[0].y, W_Peachone_Point[1].y, W_Peachone_Point[2].y, W_Peachone_Point[3].y, W_Accumulate));
+        this.transform.position = new Vector3
+            (
+                Peachone_Bezier(W_Peachone_Point[0].x, W_Peachone_Point[1].x, W_Peachone_Point[2].x, W_Peachone_Point[3].x, W_Accumulate),
+                Peachone_Bezier(W_Peachone_Point[0].y, W_Peachone_Point[1].y, W_Peachone_Point[2].y, W_Peachone_Point[3].y, W_Accumulate)
+            );
     }
 
     public float Peachone_Bezier(float P_1, float P_2, float P_3, float P_4, float Value)
     {
-        //Vector3 A = Vector3.Lerp(P_1, P_2, Value);
-        //Vector3 B = Vector3.Lerp(P_2, P_3, Value);
-        //Vector3 C = Vector3.Lerp(P_3, P_4, Value);
-
-        //Vector3 D = Vector3.Lerp(A, B, Value);
-        //Vector3 E = Vector3.Lerp(B, C, Value);
-
-        //Vector3 F = Vector3.Lerp(D, E, Value);
-
-        //return F;
-
         return Mathf.Pow((1 - Value), 3) * P_1
         + Mathf.Pow((1 - Value), 2) * 3 * Value * P_2
         + Mathf.Pow(Value, 2) * 3 * (1 - Value) * P_3
