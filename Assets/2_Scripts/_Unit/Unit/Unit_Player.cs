@@ -116,18 +116,6 @@ public class Unit_Player : Unit
     public override void Start()
     {
         base.Start();
-        /*
-        Upgrade_Weapon(Weapon_Type.Axe);                // �ϼ�
-        Upgrade_Weapon(Weapon_Type.KingBible);          // �ϼ� 
-        Upgrade_Weapon(Weapon_Type.Peachone);           // �ϼ�
-        Upgrade_Weapon(Weapon_Type.FireWand);           // �ϼ�
-        Upgrade_Weapon(Weapon_Type.Cross);              // �ϼ�
-        Upgrade_Weapon(Weapon_Type.Garlic);             // �ϼ�
-        Upgrade_Weapon(Weapon_Type.LightningRing);      // �ϼ�
-        Upgrade_Weapon(Weapon_Type.ShadowPinion);       // �ϼ�
-        Upgrade_Weapon(Weapon_Type.RuneTracer);         // �ϼ�
-        Upgrade_Weapon(Weapon_Type.Whip);               // �ϼ�
-        */
 
         All_Manager.instance.Resource_M.Ghost_Effect.Add_Ghost_Target(this.transform);
     }
@@ -185,11 +173,6 @@ public class Unit_Player : Unit
 
     public override void Unit_Clear()
     {
-        for (int i = 0; i < All_Weapon.Count; i++)
-        {
-            All_Weapon[i].Destroy_Weapon();
-        }
-
         if (this.gameObject != null)
         {
             Destroy(this.gameObject);

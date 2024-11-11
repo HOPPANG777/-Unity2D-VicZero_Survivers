@@ -163,6 +163,7 @@ public class MISC : MonoBehaviour
         if (this.gameObject != null)
         {
             Destroy(this.gameObject);
+            All_Manager.instance.Pool_M.MISC_Pool_In(this);
         }
         else
         {

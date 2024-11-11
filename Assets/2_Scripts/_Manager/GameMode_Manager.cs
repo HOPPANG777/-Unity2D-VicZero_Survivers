@@ -150,7 +150,15 @@ public class GameMode_Manager : MonoBehaviour
     {
         StopCoroutine(C_Wave_Temp);
 
-        Game_Time = 0;
+        for (int i = 0; i < Current_Player.All_Weapon.Count; i++)
+        {
+            Current_Player.All_Weapon[i].Destroy_Weapon();
+        }
+
+        Enemy_List_Remove();
+        MISC_List_Remove();
+
+        All_Manager.instance.UI_M.Clear_UI();
         Use_STO_Wave_List.Clear();
         All_Manager.instance.GameMode_M.Game_Stop = true;
         StopCoroutine(executeCoroutine);
@@ -182,19 +190,17 @@ public class GameMode_Manager : MonoBehaviour
     // ���� �����
     public void Game_Restart()
     {
-        Enemy_List_Remove();
-        MISC_List_Remove();
         Current_Player.Unit_Clear();
-        All_Manager.instance.UI_M.Clear_UI();
-        All_Manager.instance.UI_M.Off_Panel();
+        
         Game_Time = 0.0f;
         Kill_Count = 0;
+        Gem_Count = 0;
+        Max_Gem = Base_Max_Gem;
+        Player_Level_Count = 0;
 
-        All_Manager.instance.Unit_M.Unit_F.Create_Player(All_Manager.instance.Resource_M.Convert_Unit_Type_To_STO_Unit_Arr(Unit_Type.Player));
+        All_Manager.instance.UI_M.Off_Panel();
 
         GameStart();
-
-        All_Manager.instance.UI_M.On_Panel(Panel_Style.GameStart);
     }
 
     // ���� ������
