@@ -10,7 +10,6 @@ public class Weapon_LightningRing : Weapon
     public Vector2 BoxSize = new Vector2(2, 2);
 
     public int Enemy_Count = 0;
-    public override Vector3 StartPos { get { return GetLightningRingStartPosition(); } }
 
     public override void Awake()
     {
@@ -36,20 +35,9 @@ public class Weapon_LightningRing : Weapon
     {
 
     }
-    public override void Use()
+    protected override void Use()
     {
 
-    }
-    Vector3 GetLightningRingStartPosition()
-    {
-        var enemyList = All_Manager.instance.GameMode_M?.Enemy_List;
-        if (enemyList != null && enemyList.Count > 0)
-        {
-            int randomIndex = UnityEngine.Random.Range(0, enemyList.Count);
-            var targetEnemy = enemyList[randomIndex];
-            return targetEnemy?.transform.position ?? Vector3.zero;
-        }
-        return Vector3.zero;
     }
 
     public override void Upgrade(int p_Level)

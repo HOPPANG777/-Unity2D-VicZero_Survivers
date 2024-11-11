@@ -8,7 +8,6 @@ public class Weapon_Garlic : Weapon
 {
     public Unit_Enemy F_target;
     public CircleCollider2D CC;
-    public override Vector3 StartPos { get { return Mine.transform.position; } }
 
     public override void Awake()
     {
@@ -46,7 +45,7 @@ public class Weapon_Garlic : Weapon
     {
 
     }
-    public override void Use()
+    protected override void Use()
     {
 
     }

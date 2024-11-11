@@ -8,7 +8,6 @@ public class Weapon_Whip : Weapon
     public float Whip_Timer = 0.0f;
     public bool Whip_Right_Attack = false;
     public bool Whip_Left_Attack = false;
-    public override Vector3 StartPos { get { return Mine.transform.position; } }
 
     public override void Awake()
     {
@@ -35,7 +34,7 @@ public class Weapon_Whip : Weapon
     {
 
     }
-    public override void Use()
+    protected override void Use()
     {
 
     }

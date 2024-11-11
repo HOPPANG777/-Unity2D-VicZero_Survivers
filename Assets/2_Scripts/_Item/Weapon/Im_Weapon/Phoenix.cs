@@ -15,7 +15,6 @@ public class Phoenix : Weapon
     int bulletCount;
     float shootGapValue;
     public const float shootGap = 0.1f;
-    public override Vector3 StartPos { get { return Mine.transform.position; } }
 
     public override void Awake()
     {
@@ -44,7 +43,7 @@ public class Phoenix : Weapon
     {
 
     }
-    public override void Use()
+    protected override void Use()
     {
 
     }

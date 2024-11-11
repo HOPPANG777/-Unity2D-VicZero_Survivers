@@ -8,7 +8,6 @@ public class Weapon_RuneTracer : Weapon
     public Vector3 BoxSize = new Vector3(0.5f, 0.5f);
     public Vector3 Dir;
     private Camera mainCamera;
-    public override Vector3 StartPos { get { return Mine.transform.position; } }
 
     public override void Awake()
     {
@@ -43,7 +42,7 @@ public class Weapon_RuneTracer : Weapon
     {
 
     }
-    public override void Use()
+    protected override void Use()
     {
 
     }

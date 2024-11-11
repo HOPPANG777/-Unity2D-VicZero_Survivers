@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon_Axe : Weapon, IAccumulateable
+public class Weapon_Axe : Weapon
 {
+
     public Vector3[] W_Axe_Point = new Vector3[4];
 
     public float Dis;
@@ -15,9 +16,6 @@ public class Weapon_Axe : Weapon, IAccumulateable
     public bool Axe_Throwing = false;
 
     public float Rotation_Speed = 360f;
-    public override Vector3 StartPos { get { return Mine.transform.position; } }
-    public bool _weaponTrigger;
-    public float W_Accumulate { get; set; }
 
     public override void Awake()
     {
@@ -48,38 +46,13 @@ public class Weapon_Axe : Weapon, IAccumulateable
     {
 
     }
-    public override void Use()
+    protected override void Use()
     {
-        base.Use();
-        STO_Weapon Weapon_STO = All_Manager.instance.Resource_M.Convert_Weapon_Type_To_STO_Weapon_Arr(WT);
 
-        Vector3 One = Mine.transform.position;
-        Vector3 Two, Three, Four;
-
-        if (_weaponTrigger)
-        {
-            Two = One + new Vector3(0, 5, 0);
-            Three = Two + new Vector3(Random.Range(1, 5), 0, 0);
-            Four = One + new Vector3(Random.Range(1, 5), -10, 0);
-        }
-        else
-        {
-            Two = One + new Vector3(0, 5, 0);
-            Three = Two + new Vector3(Random.Range(-5, -1), 0, 0);
-            Four = One + new Vector3(Random.Range(-5, -1), -10, 0);
-        }
-
-        Weapon_Init(Mine, Weapon_STO, _levelTimer.Level);
-        Axe_Init(One, Two, Three, Four);
-
-        _weaponTrigger = !_weaponTrigger;
-
-        All_Manager.instance.Audio_M.Weapon_Attacking_Effect_Audio_Play(Weapon_Type.Axe);
     }
 
     public void Axe_Init(Vector3 p_One_Vector, Vector3 p_Two_Vector, Vector3 p_Three_Vector, Vector3 p_Four_Vector)
     {
-        Debug.Log("Axe_Init");
         W_Axe_Point[0] = p_One_Vector;
         W_Axe_Point[1] = p_Two_Vector;
         W_Axe_Point[2] = p_Three_Vector;
@@ -88,25 +61,14 @@ public class Weapon_Axe : Weapon, IAccumulateable
 
     public void Axe_Attack()
     {
-        this.Accumulate();
+        this.Weapon_Accumulate();
 
         this.transform.position = Axe_Bezier(W_Axe_Point[0], W_Axe_Point[1], W_Axe_Point[2], W_Axe_Point[3], W_Accumulate);
-    }
-    public void Accumulate()
-    {
-        if (W_Accumulate < 1.0f)
-        {
-            W_Accumulate += Weapon_Speed * Time.deltaTime;
-        }
-        else if (W_Accumulate > 1.0f)
-        {
-            ReturnObject();
-        }
     }
 
     public override void Upgrade(int p_Level)
     {
-        _levelTimer.Level++;
+
     }
 
     public override void Weapon_Stat_Appliaction()
