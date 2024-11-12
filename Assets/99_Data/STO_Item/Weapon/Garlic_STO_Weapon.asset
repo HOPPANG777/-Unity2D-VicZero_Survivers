@@ -37,7 +37,7 @@ MonoBehaviour:
     Weapon_Duration: 1
     Weapon_Knock: 1
     Weapon_Count: 1
-    Weapon_Size: 1
+    Weapon_Size: 1.2
   - Weapon_Damage: 25
     Weapon_Speed: 1
     Weapon_Range: 1.5

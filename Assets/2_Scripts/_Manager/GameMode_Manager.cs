@@ -30,6 +30,9 @@ public class GameMode_Manager : MonoBehaviour
 
     // ų ī��Ʈ
     public int Kill_Count = 0;
+    
+    [SerializeField] private int _missionkillCount = 0;
+    public int MissionKillCount { get { return _missionkillCount; } set { _missionkillCount = value; } }
 
     // �� ī��Ʈ
     public int Gem_Count = 0;
@@ -306,7 +309,6 @@ public class GameMode_Manager : MonoBehaviour
     // �� óġ�� ų ī��Ʈ & �� ���
     public void Enemy_Down(Unit_Enemy p_UE)
     {
-        Kill_Count++;
 
         if (p_UE.UT == Unit_Type.Barrel)
         {
@@ -315,6 +317,10 @@ public class GameMode_Manager : MonoBehaviour
 
         else
         {
+            Kill_Count++;
+
+            MissionKillCount++;
+
             if (p_UE.Elite == false)
             {
                 All_Manager.instance.Pool_M.MISC_Pool_Out(MISC_Type.Gem, p_UE.transform);
@@ -359,7 +365,7 @@ public class GameMode_Manager : MonoBehaviour
 
             Gem_Prev = 0f;
             Current_Gem = 0f;
-            Max_Gem *= 1.3f;
+            Max_Gem *= 1.2f;
 
             if (Current_Gem < 0)
             {

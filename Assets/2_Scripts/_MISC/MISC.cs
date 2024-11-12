@@ -20,7 +20,7 @@ public class MISC : MonoBehaviour
     public Rigidbody2D RB;
     public BoxCollider2D BC;
 
-    public float Gem_Level = 4.0f;
+    public float Gem_Level = 5.0f;
 
     public virtual void Start()
     {

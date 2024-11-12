@@ -45,7 +45,7 @@ public class Unit_Enemy : Unit
             if (All_Manager.instance.GameMode_M.Current_Player != null)
             {
                 base.Update();
-                
+
                 if (Current_HP > 0)
                 {
                     Update_Enemy_Move();
@@ -208,17 +208,19 @@ public class Unit_Enemy : Unit
         var Temp_Player = All_Manager.instance.GameMode_M.Current_Player;
         Camera Temp_Camera = All_Manager.instance.GameMode_M.Current_Camera;
 
-        if (this.UT == Unit_Type.Barrel)
-        {
-            return;
-        }
+        if (this.UT == Unit_Type.Barrel) return;
 
         // 화면 내에 있는 유닛들만 따로 리스트로 관리 (적 및 플레이어 포함)
         List<Unit> InView_Unit_List = new List<Unit>();
 
-        // 적 추가
+        // 적 추가 (Barrel은 제외)
         for (int i = 0; i < Enemy_List.Count; i++)
         {
+            if (Enemy_List[i].UT == Unit_Type.Barrel)
+            {
+                continue;
+            }
+
             Vector3 View_Pos = Temp_Camera.WorldToViewportPoint(Enemy_List[i].transform.position);
             if (View_Pos.x >= 0 && View_Pos.x <= 1 && View_Pos.y >= 0 && View_Pos.y <= 1 && View_Pos.z >= 0)
             {
@@ -277,6 +279,7 @@ public class Unit_Enemy : Unit
             }
         }
     }
+
 
     // 플레이어 추가 (플레이어가 화면 내에 있는 경우)
     //Vector3 Player_View_Pos = Temp_Camera.WorldToViewportPoint(Temp_Player.transform.position);

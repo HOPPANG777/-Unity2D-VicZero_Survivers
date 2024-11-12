@@ -2,16 +2,17 @@ using UnityEngine;
 
 public class DefendMission : Mission
 {
+    // 발판에 서있는 동안 죽인 몬스터
+    [SerializeField] private int _missionKillCount = 0;
+    public int MissionKillCount { get { return _missionKillCount; } }
+
     // 발판에 서있는 동안 죽여야하는 적 수
     [SerializeField] private int _missionClearKill = 100;
     public int MissionClearKill { get { return _missionClearKill; } }
 
-    [SerializeField] private int _killCount = 0;
-
     protected override void Start()
     {
         base.Start();
-        _killCount = (All_Manager.instance.GameMode_M.Kill_Count + _missionClearKill);
     }
 
     private void Update()
@@ -35,14 +36,22 @@ public class DefendMission : Mission
     // 수비 -> 몬스터 100마리 죽이기
     private void DefendOnMission()
     {
+        int GameMissionKillCount = All_Manager.instance.GameMode_M.MissionKillCount;
+        
         // 발판을 밟고
-        if (_isMissionPrograce != true) return;
-
-        // 죽인 적의 수가 미션 클리어 조건수보다 많으면
-        if (All_Manager.instance.GameMode_M.Kill_Count > _killCount)
+        if (_isMissionPrograce == true)
         {
-            // 미션 클리어
-            _isMissionClear = true;
+            // 죽인 몬스터수가 클리어 몬스터 수보다 많으면
+            if (GameMissionKillCount > _missionClearKill)
+            {
+                // 미션을 클리어 하고 발판을 없앤후 보물상자 드랍
+                _isMissionClear = true;
+            }
+        }
+        else
+        {
+            // 미션 도중 발판에서 벗어나면 미션 초기화
+            GameMissionKillCount = _missionKillCount;
         }
     }
 
