@@ -1,4 +1,4 @@
-using System.Collections;
+    using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 //using Mono.Cecil;
@@ -195,6 +195,7 @@ public class GameMode_Manager : MonoBehaviour
     {
         Current_Player.Unit_Clear();
         
+        spawnedMissions.Clear();
         Game_Time = 0.0f;
         Kill_Count = 0;
         Gem_Count = 0;

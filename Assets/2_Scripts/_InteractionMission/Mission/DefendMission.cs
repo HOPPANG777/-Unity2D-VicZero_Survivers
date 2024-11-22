@@ -71,6 +71,7 @@ public class DefendMission : Mission
     {
         Destroy(this.gameObject);
         All_Manager.instance.Resource_M.SYGizmo.GizmoTargets.Remove(this.gameObject);
+        All_Manager.instance.GameMode_M.missionList.Remove(this);
     }
 
     public override void MissionSetting(Mission p_Mission, STO_Mission p_MTO)

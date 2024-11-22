@@ -95,7 +95,6 @@ public class Unit_Enemy : Unit
     public override void Die()
     {
         base.Die();
-
     }
 
     protected override void Death_Animation_End()
@@ -129,7 +128,8 @@ public class Unit_Enemy : Unit
     {
         if (this.gameObject != null)
         {
-            Destroy(this.gameObject);
+            if (this.UT == Unit_Type.Boss) return;
+            All_Manager.instance.Pool_M.Enemy_Pool_In(this);
         }
     }
 
