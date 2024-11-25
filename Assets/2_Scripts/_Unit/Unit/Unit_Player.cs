@@ -359,8 +359,10 @@ public class Unit_Player : Unit
                     Vector3 One = this.transform.position;
                     Vector3 Target = One + new Vector3(UnityEngine.Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range), UnityEngine.Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range), 0);
 
-                    Vector3 Two = One + (Target - One) / 3 + new Vector3(UnityEngine.Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2, UnityEngine.Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2, 0);
-                    Vector3 Three = Target + (One - Target) / 3 + new Vector3(UnityEngine.Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2, UnityEngine.Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2, 0);
+                    Vector3 Two = One + (Target - One) / 3 + new Vector3(UnityEngine.Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2, 
+                        UnityEngine.Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2, 0);
+                    Vector3 Three = Target + (One - Target) / 3 + new Vector3(UnityEngine.Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2,
+                        UnityEngine.Random.Range(-W_Cross_S.Weapon_Range, W_Cross_S.Weapon_Range) / 2, 0);
                     Vector3 Four = One + ((One - Target) * W_Cross_S.Weapon_Range);
 
                     weaponGo.GetComponent<Weapon_Cross>().Weapon_Init(this, Weapon_STO, Cross_LAT.Level);
