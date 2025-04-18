@@ -13,6 +13,8 @@ using UnityEngine.UIElements;
 public enum GameMode_State
 {
     Idle,
+    Ingame,
+    GameClear
 }
 
 public class GameMode_Manager : MonoBehaviour
@@ -98,7 +100,6 @@ public class GameMode_Manager : MonoBehaviour
             Current_Camera.transform.Translate(0, 0, Fixed_Camera_Z); //ī�޶� ���� z������ �̵�
             Tilemap_Move();
         }
-
     }
 
     IEnumerator CoExecuteGame()
