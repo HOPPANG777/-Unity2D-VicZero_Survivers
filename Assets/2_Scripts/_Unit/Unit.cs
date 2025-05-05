@@ -176,7 +176,6 @@ public abstract class Unit : MonoBehaviour
             //CheckDead();
             StartCoroutine(CheckDeadWithDelay());
         }
-
     }
 
     protected virtual IEnumerator CheckDeadWithDelay()
